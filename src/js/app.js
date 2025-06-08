@@ -1,11 +1,71 @@
 // Main JavaScript for Agentic Design Patterns
 
+// Pattern Details Data
+const patternDetails = {
+    "prompt-chaining": {
+        description: "Sequential execution of prompts where each output feeds into the next prompt.",
+        characteristics: [
+            "Modular prompt design",
+            "Data flow management",
+            "Error handling between steps"
+        ],
+        implementation: "Use a pipeline architecture with clear input/output contracts between steps.",
+        enterpriseImpact: "Enables complex workflows while maintaining maintainability and testability."
+    },
+    "routing": {
+        description: "Directing inputs to appropriate handlers based on content or context.",
+        characteristics: [
+            "Content analysis",
+            "Dynamic routing rules",
+            "Fallback handling"
+        ],
+        implementation: "Implement a router component that evaluates input and directs to specialized handlers.",
+        enterpriseImpact: "Improves system efficiency by directing tasks to optimal handlers."
+    }
+};
+
+// Utility Functions
+const utils = {
+    // DOM element selectors
+    getElements: {
+        patternCards: () => document.querySelectorAll('.pattern-card'),
+        patternLinks: () => document.querySelectorAll('a[href^="#"]'),
+        closeButtons: () => document.querySelectorAll('.close-button'),
+        overlay: () => document.querySelector('.overlay'),
+        fadeElements: () => document.querySelectorAll('.fade-in'),
+        tables: () => document.querySelectorAll('table'),
+        images: () => document.querySelectorAll('.pattern-image'),
+        interactiveHeaders: () => document.querySelectorAll('.interactive-header'),
+        patternDetails: () => document.querySelectorAll('.pattern-details')
+    },
+
+    // Animation helpers
+    fadeIn: (element) => {
+        element.style.opacity = '0';
+        setTimeout(() => {
+            element.style.opacity = '1';
+        }, 100);
+    },
+
+    // Scroll helpers
+    smoothScroll: (element) => {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    },
+
+    // Page state helpers
+    isPatternPage: () => document.body.classList.contains('pattern-page'),
+    isMainPage: () => !document.body.classList.contains('pattern-page')
+};
+
 // Pattern Manager Class
 class PatternManager {
     constructor() {
         this.currentPattern = null;
-        this.patternCards = document.querySelectorAll('.pattern-card');
-        this.patternDetails = document.querySelectorAll('.pattern-details');
+        this.patternCards = utils.getElements.patternCards();
+        this.patternDetails = utils.getElements.patternDetails();
         this.isDetailsVisible = false;
     }
 
@@ -27,6 +87,13 @@ class PatternManager {
         if (this.patternDetails.length > 0) {
             this.hideAllPatterns();
         }
+
+        // Initialize page-specific functionality
+        if (utils.isPatternPage()) {
+            this.initPatternPage();
+        } else {
+            this.initMainPage();
+        }
     }
 
     hideAllPatterns() {
@@ -43,23 +110,20 @@ class PatternManager {
         this.patternCards.forEach(card => {
             card.addEventListener('click', (e) => {
                 const href = card.getAttribute('href');
-                // Only prevent default for hash links
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
                     const patternId = href.substring(1);
                     if (patternId) {
                         this.showPattern(patternId);
-                        // Add loading state
                         card.classList.add('loading');
                         setTimeout(() => card.classList.remove('loading'), 300);
                     }
                 }
-                // For actual page links, let the default behavior happen
             });
         });
 
         // Close button events
-        document.querySelectorAll('.close-button').forEach(button => {
+        utils.getElements.closeButtons().forEach(button => {
             button.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -82,19 +146,26 @@ class PatternManager {
                 }
             });
         });
+
+        // Hash change handling
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                this.showPattern(hash);
+            } else {
+                this.hidePattern();
+            }
+        });
     }
 
     showPattern(patternId) {
-        // Hide current pattern if any
         this.hidePattern();
 
-        // Show selected pattern
         const selectedPattern = document.getElementById(patternId);
         if (selectedPattern) {
             selectedPattern.style.display = 'block';
             this.currentPattern = selectedPattern;
 
-            // Update active state of pattern cards
             this.patternCards.forEach(card => {
                 card.classList.remove('active');
                 if (card.getAttribute('href') === `#${patternId}`) {
@@ -102,15 +173,13 @@ class PatternManager {
                 }
             });
 
-            // Add animation class after a small delay
             setTimeout(() => {
                 selectedPattern.classList.add('fade-in');
             }, 50);
 
             this.isDetailsVisible = true;
-
-            // Prevent body scrolling
             document.body.style.overflow = 'hidden';
+            window.location.hash = patternId;
         }
     }
 
@@ -120,43 +189,36 @@ class PatternManager {
             setTimeout(() => {
                 this.currentPattern.style.display = 'none';
                 this.currentPattern = null;
-            }, 300); // Match the animation duration
+            }, 300);
         }
 
-        // Remove active class from pattern cards
         this.patternCards.forEach(card => {
             card.classList.remove('active');
         });
 
-        // Restore body scrolling
         document.body.style.overflow = 'auto';
         this.isDetailsVisible = false;
+        window.history.pushState("", document.title, window.location.pathname);
     }
 
     setupSmoothScrolling() {
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        utils.getElements.patternLinks().forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
                 const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    utils.smoothScroll(target);
                 }
             });
         });
     }
 
     initializeGoToTop() {
-        // Create and append the go-to-top button
         const goToTopButton = document.createElement('div');
         goToTopButton.className = 'go-to-top';
-        goToTopButton.innerHTML = '↑'; // Using Unicode arrow instead of Font Awesome
+        goToTopButton.innerHTML = '↑';
         document.body.appendChild(goToTopButton);
 
-        // Add scroll event listener
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
                 goToTopButton.classList.add('visible');
@@ -165,7 +227,6 @@ class PatternManager {
             }
         });
 
-        // Add click event listener
         goToTopButton.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
@@ -175,19 +236,13 @@ class PatternManager {
     }
 
     initializeFadeAnimations() {
-        const fadeElements = document.querySelectorAll('.fade-in');
-        fadeElements.forEach(element => {
-            element.style.opacity = '0';
-            setTimeout(() => {
-                element.style.opacity = '1';
-            }, 100);
+        utils.getElements.fadeElements().forEach(element => {
+            utils.fadeIn(element);
         });
     }
 
     setupResponsiveTables() {
-        const tables = document.querySelectorAll('table');
-        tables.forEach(table => {
-            // Only wrap if not already wrapped
+        utils.getElements.tables().forEach(table => {
             if (!table.parentElement.classList.contains('table-responsive')) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'table-responsive';
@@ -199,8 +254,7 @@ class PatternManager {
 
     setupResponsiveImages() {
         const handleResponsiveImages = () => {
-            const images = document.querySelectorAll('.pattern-image');
-            images.forEach(img => {
+            utils.getElements.images().forEach(img => {
                 if (img.naturalWidth > img.parentElement.offsetWidth) {
                     img.style.width = '100%';
                     img.style.height = 'auto';
@@ -208,11 +262,26 @@ class PatternManager {
             });
         };
 
-        // Initial setup
         handleResponsiveImages();
-
-        // Handle window resize
         window.addEventListener('resize', handleResponsiveImages);
+    }
+
+    initMainPage() {
+        utils.getElements.interactiveHeaders().forEach(header => {
+            header.addEventListener('click', () => {
+                const targetId = header.getAttribute('data-target');
+                if (targetId) {
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        utils.smoothScroll(target);
+                    }
+                }
+            });
+        });
+    }
+
+    initPatternPage() {
+        // Pattern page specific initialization if needed
     }
 }
 
@@ -220,4 +289,10 @@ class PatternManager {
 document.addEventListener('DOMContentLoaded', () => {
     window.patternManager = new PatternManager();
     window.patternManager.init();
+
+    // Handle initial hash
+    if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        window.patternManager.showPattern(hash);
+    }
 }); 
