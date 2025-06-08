@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Decision Patterns</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body class="pattern-page">
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Agentic Decision Patterns</h1>
+                <p class="subtitle">Patterns for intelligent decision-making in agentic systems</p>
+                <div class="header-actions">
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="patterns-grid">
+            <!-- Decision Tree Pattern -->
+            <a href="#decision-tree" class="pattern-card" role="button" tabindex="0" aria-label="View Decision Tree details">
+                <div class="pattern-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <h3>Decision Tree</h3>
+                <p>Hierarchical decision-making structure</p>
+                <ul>
+                    <li>Branching</li>
+                    <li>Classification</li>
+                    <li>Prediction</li>
+                </ul>
+            </a>
+
+            <!-- Rule Engine Pattern -->
+            <a href="#rule-engine" class="pattern-card" role="button" tabindex="0" aria-label="View Rule Engine details">
+                <div class="pattern-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Rule Engine</h3>
+                <p>Rule-based decision making</p>
+                <ul>
+                    <li>Rules</li>
+                    <li>Conditions</li>
+                    <li>Actions</li>
+                </ul>
+            </a>
+
+            <!-- Bayesian Pattern -->
+            <a href="#bayesian" class="pattern-card" role="button" tabindex="0" aria-label="View Bayesian details">
+                <div class="pattern-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Bayesian</h3>
+                <p>Probabilistic decision making</p>
+                <ul>
+                    <li>Probability</li>
+                    <li>Inference</li>
+                    <li>Learning</li>
+                </ul>
+            </a>
+
+            <!-- Reinforcement Pattern -->
+            <a href="#reinforcement" class="pattern-card" role="button" tabindex="0" aria-label="View Reinforcement details">
+                <div class="pattern-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Reinforcement</h3>
+                <p>Learning from feedback</p>
+                <ul>
+                    <li>Reward</li>
+                    <li>Policy</li>
+                    <li>Value</li>
+                </ul>
+            </a>
+
+            <!-- Fuzzy Logic Pattern -->
+            <a href="#fuzzy-logic" class="pattern-card" role="button" tabindex="0" aria-label="View Fuzzy Logic details">
+                <div class="pattern-icon">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h3>Fuzzy Logic</h3>
+                <p>Handling imprecise information</p>
+                <ul>
+                    <li>Membership</li>
+                    <li>Inference</li>
+                    <li>Defuzzification</li>
+                </ul>
+            </a>
+
+            <!-- Expert System Pattern -->
+            <a href="#expert-system" class="pattern-card" role="button" tabindex="0" aria-label="View Expert System details">
+                <div class="pattern-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Expert System</h3>
+                <p>Knowledge-based decision making</p>
+                <ul>
+                    <li>Knowledge</li>
+                    <li>Inference</li>
+                    <li>Explanation</li>
+                </ul>
+            </a>
+        </div>
+
+        <!-- Pattern details sections -->
+        <div id="decision-tree" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Decision Tree</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A hierarchical decision-making structure that breaks down complex decisions into a series of simpler choices.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Nodes: Decision points</li>
+                        <li>Branches: Possible outcomes</li>
+                        <li>Leaves: Final decisions</li>
+                        <li>Criteria: Decision rules</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class DecisionTree {
+    constructor() {
+        this.root = null;
+    }
+
+    addNode(data, criteria) {
+        const node = {
+            data,
+            criteria,
+            children: [],
+            isLeaf: false
+        };
+
+        if (!this.root) {
+            this.root = node;
+        } else {
+            this.insertNode(this.root, node);
+        }
+    }
+
+    insertNode(parent, node) {
+        if (this.evaluateCriteria(parent.criteria, node.data)) {
+            if (parent.children.length === 0) {
+                parent.children.push(node);
+            } else {
+                this.insertNode(parent.children[0], node);
+            }
+        } else {
+            if (parent.children.length < 2) {
+                parent.children.push(node);
+            } else {
+                this.insertNode(parent.children[1], node);
+            }
+        }
+    }
+
+    evaluateCriteria(criteria, data) {
+        // Implement criteria evaluation logic
+        return true;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Classification tasks</li>
+                        <li>Risk assessment</li>
+                        <li>Diagnostic systems</li>
+                        <li>Decision support</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Rule Engine - For rule-based decisions</li>
+                        <li>Bayesian - For probabilistic decisions</li>
+                        <li>Reinforcement - For learning decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="rule-engine" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Rule Engine</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that implements decision-making through a collection of rules, where each rule consists of conditions and corresponding actions.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Rules: Condition-action pairs</li>
+                        <li>Facts: Current state</li>
+                        <li>Engine: Rule processor</li>
+                        <li>Conflict Resolution: Rule priority</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class RuleEngine {
+    constructor() {
+        this.rules = [];
+        this.facts = new Map();
+    }
+
+    addRule(condition, action, priority = 0) {
+        this.rules.push({ condition, action, priority });
+        this.rules.sort((a, b) => b.priority - a.priority);
+    }
+
+    addFact(name, value) {
+        this.facts.set(name, value);
+    }
+
+    async execute() {
+        for (const rule of this.rules) {
+            if (await this.evaluateCondition(rule.condition)) {
+                await rule.action(this.facts);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    async evaluateCondition(condition) {
+        // Implement condition evaluation logic
+        return true;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Business rules</li>
+                        <li>Validation logic</li>
+                        <li>Policy enforcement</li>
+                        <li>Decision automation</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Decision Tree - For hierarchical decisions</li>
+                        <li>Bayesian - For probabilistic decisions</li>
+                        <li>Reinforcement - For learning decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="bayesian" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Bayesian</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that uses probability theory to make decisions based on prior knowledge and new evidence, updating beliefs as new information becomes available.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Prior: Initial beliefs</li>
+                        <li>Evidence: New information</li>
+                        <li>Posterior: Updated beliefs</li>
+                        <li>Model: Probability structure</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Bayesian {
+    constructor() {
+        this.priors = new Map();
+        this.evidence = new Map();
+        this.model = new Map();
+    }
+
+    setPrior(hypothesis, probability) {
+        this.priors.set(hypothesis, probability);
+    }
+
+    addEvidence(evidence, likelihood) {
+        this.evidence.set(evidence, likelihood);
+    }
+
+    updateBeliefs() {
+        for (const [hypothesis, prior] of this.priors) {
+            let posterior = prior;
+            for (const [evidence, likelihood] of this.evidence) {
+                posterior = this.calculatePosterior(posterior, likelihood);
+            }
+            this.priors.set(hypothesis, posterior);
+        }
+    }
+
+    calculatePosterior(prior, likelihood) {
+        // Implement Bayesian update formula
+        return prior * likelihood;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Probabilistic reasoning</li>
+                        <li>Uncertainty handling</li>
+                        <li>Learning from data</li>
+                        <li>Risk assessment</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Decision Tree - For hierarchical decisions</li>
+                        <li>Rule Engine - For rule-based decisions</li>
+                        <li>Reinforcement - For learning decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="reinforcement" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Reinforcement</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables agents to learn optimal decision-making through trial and error, using rewards and penalties to guide behavior.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Agent: Decision maker</li>
+                        <li>Environment: Decision context</li>
+                        <li>Policy: Decision strategy</li>
+                        <li>Reward: Feedback signal</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Reinforcement {
+    constructor() {
+        this.state = null;
+        this.policy = new Map();
+        this.rewards = new Map();
+        this.learningRate = 0.1;
+    }
+
+    setState(state) {
+        this.state = state;
+    }
+
+    getAction() {
+        return this.policy.get(this.state) || this.explore();
+    }
+
+    updatePolicy(reward) {
+        const currentValue = this.rewards.get(this.state) || 0;
+        const newValue = currentValue + this.learningRate * (reward - currentValue);
+        this.rewards.set(this.state, newValue);
+        this.updatePolicy();
+    }
+
+    explore() {
+        // Implement exploration strategy
+        return Math.random();
+    }
+
+    updatePolicy() {
+        // Implement policy update logic
+        this.policy.set(this.state, this.getBestAction());
+    }
+
+    getBestAction() {
+        // Implement best action selection
+        return 0;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Game playing</li>
+                        <li>Robotics control</li>
+                        <li>Resource optimization</li>
+                        <li>Adaptive systems</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Decision Tree - For hierarchical decisions</li>
+                        <li>Rule Engine - For rule-based decisions</li>
+                        <li>Bayesian - For probabilistic decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="fuzzy-logic" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Fuzzy Logic</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that handles imprecise or vague information by using degrees of truth rather than strict boolean logic.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Fuzzy Sets: Membership functions</li>
+                        <li>Fuzzy Rules: Inference rules</li>
+                        <li>Fuzzification: Input conversion</li>
+                        <li>Defuzzification: Output conversion</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class FuzzyLogic {
+    constructor() {
+        this.fuzzySets = new Map();
+        this.rules = [];
+    }
+
+    addFuzzySet(name, membershipFunction) {
+        this.fuzzySets.set(name, membershipFunction);
+    }
+
+    addRule(antecedents, consequent) {
+        this.rules.push({ antecedents, consequent });
+    }
+
+    fuzzify(input) {
+        const fuzzyValues = new Map();
+        for (const [name, membershipFn] of this.fuzzySets) {
+            fuzzyValues.set(name, membershipFn(input));
+        }
+        return fuzzyValues;
+    }
+
+    infer(fuzzyValues) {
+        const ruleResults = [];
+        for (const rule of this.rules) {
+            const strength = this.evaluateAntecedents(rule.antecedents, fuzzyValues);
+            ruleResults.push({
+                consequent: rule.consequent,
+                strength
+            });
+        }
+        return ruleResults;
+    }
+
+    defuzzify(ruleResults) {
+        // Implement centroid or other defuzzification method
+        return this.calculateCentroid(ruleResults);
+    }
+
+    evaluateAntecedents(antecedents, fuzzyValues) {
+        // Implement min-max or other evaluation method
+        return Math.min(...antecedents.map(a => fuzzyValues.get(a)));
+    }
+
+    calculateCentroid(ruleResults) {
+        // Implement centroid calculation
+        return 0;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Control systems</li>
+                        <li>Natural language processing</li>
+                        <li>Pattern recognition</li>
+                        <li>Decision support</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Rule Engine - For rule-based decisions</li>
+                        <li>Expert System - For knowledge-based decisions</li>
+                        <li>Bayesian - For probabilistic decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="expert-system" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Expert System</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that emulates the decision-making ability of a human expert by using a knowledge base and inference engine.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Knowledge Base: Expert knowledge</li>
+                        <li>Inference Engine: Reasoning system</li>
+                        <li>Working Memory: Current state</li>
+                        <li>Explanation System: Decision rationale</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class ExpertSystem {
+    constructor() {
+        this.knowledgeBase = new KnowledgeBase();
+        this.workingMemory = new WorkingMemory();
+        this.inferenceEngine = new InferenceEngine();
+        this.explanationSystem = new ExplanationSystem();
+    }
+
+    addRule(rule) {
+        this.knowledgeBase.addRule(rule);
+    }
+
+    addFact(fact) {
+        this.workingMemory.addFact(fact);
+    }
+
+    async solve(goal) {
+        const solution = await this.inferenceEngine.solve(
+            this.knowledgeBase,
+            this.workingMemory,
+            goal
+        );
+
+        if (solution) {
+            const explanation = this.explanationSystem.generateExplanation(
+                solution,
+                this.knowledgeBase
+            );
+            return { solution, explanation };
+        }
+
+        return null;
+    }
+}
+
+class KnowledgeBase {
+    constructor() {
+        this.rules = [];
+    }
+
+    addRule(rule) {
+        this.rules.push(rule);
+    }
+
+    getMatchingRules(facts) {
+        return this.rules.filter(rule => rule.matches(facts));
+    }
+}
+
+class WorkingMemory {
+    constructor() {
+        this.facts = new Set();
+    }
+
+    addFact(fact) {
+        this.facts.add(fact);
+    }
+
+    hasFact(fact) {
+        return this.facts.has(fact);
+    }
+}
+
+class InferenceEngine {
+    async solve(knowledgeBase, workingMemory, goal) {
+        // Implement forward or backward chaining
+        return this.backwardChain(knowledgeBase, workingMemory, goal);
+    }
+
+    backwardChain(knowledgeBase, workingMemory, goal) {
+        // Implement backward chaining logic
+        return null;
+    }
+}
+
+class ExplanationSystem {
+    generateExplanation(solution, knowledgeBase) {
+        // Implement explanation generation
+        return {
+            steps: solution.steps,
+            rules: solution.rules,
+            facts: solution.facts
+        };
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Diagnostic systems</li>
+                        <li>Medical diagnosis</li>
+                        <li>Technical support</li>
+                        <li>Decision support</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Rule Engine - For rule-based decisions</li>
+                        <li>Fuzzy Logic - For imprecise reasoning</li>
+                        <li>Decision Tree - For hierarchical decisions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

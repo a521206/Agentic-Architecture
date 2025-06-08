@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Workflow Patterns</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body class="pattern-page">
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Agentic Workflow Patterns</h1>
+                <p class="subtitle">Patterns for orchestrating complex agent workflows and processes</p>
+                <div class="header-actions">
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="patterns-grid">
+            <!-- Pipeline Pattern -->
+            <a href="#pipeline" class="pattern-card" role="button" tabindex="0" aria-label="View Pipeline details">
+                <div class="pattern-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Pipeline</h3>
+                <p>Sequential task processing</p>
+                <ul>
+                    <li>Stages</li>
+                    <li>Flow</li>
+                    <li>Processing</li>
+                </ul>
+            </a>
+
+            <!-- Orchestration Pattern -->
+            <a href="#orchestration" class="pattern-card" role="button" tabindex="0" aria-label="View Orchestration details">
+                <div class="pattern-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>Orchestration</h3>
+                <p>Centralized workflow control</p>
+                <ul>
+                    <li>Control</li>
+                    <li>Coordination</li>
+                    <li>Management</li>
+                </ul>
+            </a>
+
+            <!-- Choreography Pattern -->
+            <a href="#choreography" class="pattern-card" role="button" tabindex="0" aria-label="View Choreography details">
+                <div class="pattern-icon">
+                    <i class="fas fa-random"></i>
+                </div>
+                <h3>Choreography</h3>
+                <p>Decentralized workflow coordination</p>
+                <ul>
+                    <li>Events</li>
+                    <li>Messages</li>
+                    <li>Coordination</li>
+                </ul>
+            </a>
+
+            <!-- Saga Pattern -->
+            <a href="#saga" class="pattern-card" role="button" tabindex="0" aria-label="View Saga details">
+                <div class="pattern-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Saga</h3>
+                <p>Distributed transaction management</p>
+                <ul>
+                    <li>Transactions</li>
+                    <li>Compensation</li>
+                    <li>Recovery</li>
+                </ul>
+            </a>
+
+            <!-- Event Sourcing Pattern -->
+            <a href="#event-sourcing" class="pattern-card" role="button" tabindex="0" aria-label="View Event Sourcing details">
+                <div class="pattern-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Event Sourcing</h3>
+                <p>State changes as event sequence</p>
+                <ul>
+                    <li>Events</li>
+                    <li>History</li>
+                    <li>Replay</li>
+                </ul>
+            </a>
+
+            <!-- CQRS Pattern -->
+            <a href="#cqrs" class="pattern-card" role="button" tabindex="0" aria-label="View CQRS details">
+                <div class="pattern-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h3>CQRS</h3>
+                <p>Command Query Responsibility Segregation</p>
+                <ul>
+                    <li>Commands</li>
+                    <li>Queries</li>
+                    <li>Separation</li>
+                </ul>
+            </a>
+        </div>
+
+        <!-- Pattern details sections -->
+        <div id="pipeline" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Pipeline</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A workflow pattern that processes tasks in a sequential pipeline, where each stage's output becomes the next stage's input.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Stages: Processing steps</li>
+                        <li>Data Flow: Information transfer</li>
+                        <li>Error Handling: Failure management</li>
+                        <li>Monitoring: Performance tracking</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Pipeline {
+    constructor() {
+        this.stages = [];
+        this.data = new Map();
+    }
+
+    addStage(stage) {
+        this.stages.push(stage);
+        return this;
+    }
+
+    async execute(input) {
+        let result = input;
+        
+        for (const stage of this.stages) {
+            try {
+                result = await stage.process(result);
+                this.data.set(stage.name, result);
+            } catch (error) {
+                await this.handleError(stage, error);
+                throw error;
+            }
+        }
+        
+        return result;
+    }
+
+    async handleError(stage, error) {
+        // Implement error handling logic
+        console.error(`Error in stage ${stage.name}:`, error);
+    }
+
+    getStageData(stageName) {
+        return this.data.get(stageName);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Data processing</li>
+                        <li>ETL workflows</li>
+                        <li>Content generation</li>
+                        <li>Task automation</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Orchestration - For workflow control</li>
+                        <li>Choreography - For event-based flow</li>
+                        <li>Saga - For transaction management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="orchestration" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Orchestration</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A workflow pattern where a central orchestrator coordinates and manages the execution of multiple agents and tasks.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Orchestrator: Central coordinator</li>
+                        <li>Agent Registry: Available agents</li>
+                        <li>Task Scheduler: Execution planning</li>
+                        <li>Monitor: Execution tracking</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Orchestrator {
+    constructor() {
+        this.agents = {};
+        this.scheduler = new TaskScheduler();
+        this.monitor = new ExecutionMonitor();
+    }
+
+    registerAgent(agent) {
+        this.agents[agent.id] = agent;
+    }
+
+    async executeWorkflow(workflow) {
+        const plan = this.scheduler.createPlan(workflow);
+        return this.monitor.execute(plan);
+    }
+
+    async handleFailure(agent, error) {
+        // Implement failure handling logic
+        console.error(`Error in agent ${agent.id}:`, error);
+        await this.rollback(agent);
+    }
+
+    async rollback(agent) {
+        // Implement rollback logic
+        console.log(`Rolling back agent ${agent.id}`);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Complex system integration</li>
+                        <li>Multi-agent coordination</li>
+                        <li>Workflow automation</li>
+                        <li>Service orchestration</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Pipeline - For sequential processing</li>
+                        <li>Choreography - For decentralized coordination</li>
+                        <li>Saga - For transaction management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="choreography" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Choreography</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A workflow pattern where agents interact directly with each other without central coordination, following predefined interaction patterns.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Interaction Patterns: Defined agent communications</li>
+                        <li>Message Bus: Communication channel</li>
+                        <li>Agent Registry: Available agents</li>
+                        <li>Protocol: Communication rules</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Choreography {
+    constructor() {
+        this.messageBus = new MessageBus();
+        this.agents = {};
+        this.protocol = new Protocol();
+    }
+
+    registerAgent(agent) {
+        this.agents[agent.id] = agent;
+        this.messageBus.subscribe(agent);
+    }
+
+    async start() {
+        for (const agent of Object.values(this.agents)) {
+            await agent.start();
+        }
+    }
+
+    async handleMessage(message) {
+        const { sender, receiver, content } = message;
+        if (this.protocol.validate(message)) {
+            await this.agents[receiver].receive(content);
+        }
+    }
+
+    async stop() {
+        for (const agent of Object.values(this.agents)) {
+            await agent.stop();
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Decentralized systems</li>
+                        <li>Peer-to-peer interactions</li>
+                        <li>Event-driven architectures</li>
+                        <li>Autonomous agent systems</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Orchestration - For centralized control</li>
+                        <li>Pipeline - For sequential processing</li>
+                        <li>Saga - For transaction management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="saga" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Saga</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A workflow pattern that manages distributed transactions by breaking them into a sequence of local transactions with compensating actions.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Transactions: Local operations</li>
+                        <li>Compensating Actions: Rollback operations</li>
+                        <li>Coordinator: Transaction management</li>
+                        <li>Log: Transaction history</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Saga {
+    constructor() {
+        this.transactions = [];
+        this.log = new TransactionLog();
+        this.coordinator = new SagaCoordinator();
+    }
+
+    addTransaction(transaction, compensation) {
+        this.transactions.push({ transaction, compensation });
+    }
+
+    async execute() {
+        for (const { transaction, compensation } of this.transactions) {
+            try {
+                await this.log.startTransaction(transaction);
+                await transaction.execute();
+                await this.log.commitTransaction(transaction);
+            } catch (error) {
+                await this.compensate(transaction, compensation);
+                throw error;
+            }
+        }
+    }
+
+    async compensate(transaction, compensation) {
+        await this.log.startCompensation(transaction);
+        await compensation.execute();
+        await this.log.commitCompensation(transaction);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Distributed transactions</li>
+                        <li>Microservices coordination</li>
+                        <li>Business process management</li>
+                        <li>Data consistency</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Orchestration - For workflow control</li>
+                        <li>Choreography - For event-based flow</li>
+                        <li>Pipeline - For sequential processing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="event-sourcing" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Event Sourcing</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that stores all changes to application state as a sequence of events, enabling state reconstruction and audit trails.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Event Store: Event persistence</li>
+                        <li>Event Stream: Event sequence</li>
+                        <li>Projections: State views</li>
+                        <li>Snapshots: State checkpoints</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class EventSourcing {
+    constructor() {
+        this.eventStore = [];
+        this.projections = new Map();
+    }
+
+    appendEvent(event) {
+        this.eventStore.push({
+            id: this.generateEventId(),
+            type: event.type,
+            data: event.data,
+            timestamp: new Date()
+        });
+        this.applyEvent(event);
+    }
+
+    applyEvent(event) {
+        for (const [name, projection] of this.projections) {
+            projection.apply(event);
+        }
+    }
+
+    createProjection(name, initialState) {
+        const projection = {
+            state: initialState,
+            apply: (event) => {
+                // Implement event application logic
+                this.updateState(event);
+            },
+            updateState: (event) => {
+                // Implement state update logic
+            }
+        };
+        this.projections.set(name, projection);
+        return projection;
+    }
+
+    replayEvents(projectionName) {
+        const projection = this.projections.get(projectionName);
+        if (projection) {
+            for (const event of this.eventStore) {
+                projection.apply(event);
+            }
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Audit trails</li>
+                        <li>State reconstruction</li>
+                        <li>Time travel debugging</li>
+                        <li>Event replay</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>CQRS - For command/query separation</li>
+                        <li>Saga - For transaction management</li>
+                        <li>Choreography - For event-based coordination</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="cqrs" class="pattern-details">
+            <div class="pattern-header">
+                <h2>CQRS</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that separates read and write operations into different models, optimizing each for their specific task.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Command Model: Write operations</li>
+                        <li>Query Model: Read operations</li>
+                        <li>Event Bus: Model synchronization</li>
+                        <li>Projections: Data transformations</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class CQRS {
+    constructor() {
+        this.commandModel = new CommandModel();
+        this.queryModel = new QueryModel();
+        this.eventBus = new EventBus();
+    }
+
+    async executeCommand(command) {
+        const result = await this.commandModel.execute(command);
+        this.eventBus.publish('commandExecuted', result);
+        return result;
+    }
+
+    async executeQuery(query) {
+        return await this.queryModel.execute(query);
+    }
+
+    subscribeToEvents() {
+        this.eventBus.subscribe('commandExecuted', (event) => {
+            this.queryModel.update(event);
+        });
+    }
+}
+
+class CommandModel {
+    async execute(command) {
+        // Implement command execution logic
+        return { success: true };
+    }
+}
+
+class QueryModel {
+    async execute(query) {
+        // Implement query execution logic
+        return { data: [] };
+    }
+
+    update(event) {
+        // Implement query model update logic
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>High-performance reads</li>
+                        <li>Complex reporting</li>
+                        <li>Scalable systems</li>
+                        <li>Data consistency</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Event Sourcing - For event storage</li>
+                        <li>Saga - For transaction management</li>
+                        <li>Orchestration - For workflow control</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

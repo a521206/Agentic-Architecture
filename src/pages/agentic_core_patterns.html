@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Core Patterns</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body class="pattern-page">
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Agentic Core Patterns</h1>
+                <p class="subtitle">Foundation patterns for agentic systems</p>
+                <div class="header-actions">
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="patterns-grid">
+            <!-- Prompt Chaining Pattern -->
+            <a href="#prompt-chaining" class="pattern-card" role="button" tabindex="0" aria-label="View Prompt Chaining details">
+                <div class="pattern-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <h3>Prompt Chaining</h3>
+                <p>Sequential task decomposition for complex workflows</p>
+                <ul>
+                    <li>Data pipelines</li>
+                    <li>Multi-stage workflows</li>
+                    <li>Sequential processing</li>
+                </ul>
+            </a>
+
+            <!-- Routing Pattern -->
+            <a href="#routing" class="pattern-card" role="button" tabindex="0" aria-label="View Routing details">
+                <div class="pattern-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3>Routing</h3>
+                <p>Intelligent input direction to specialized sub-agents</p>
+                <ul>
+                    <li>Dispatch systems</li>
+                    <li>Specialized queries</li>
+                    <li>Dynamic branching</li>
+                </ul>
+            </a>
+
+            <!-- Parallelization Pattern -->
+            <a href="#parallelization" class="pattern-card" role="button" tabindex="0" aria-label="View Parallelization details">
+                <div class="pattern-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h3>Parallelization</h3>
+                <p>Concurrent task execution for improved efficiency</p>
+                <ul>
+                    <li>Batch processing</li>
+                    <li>Creative option generation</li>
+                    <li>Concurrent API calls</li>
+                </ul>
+            </a>
+
+            <!-- Reflection Pattern -->
+            <a href="#reflection" class="pattern-card" role="button" tabindex="0" aria-label="View Reflection details">
+                <div class="pattern-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Reflection</h3>
+                <p>Self-evaluation and continuous improvement</p>
+                <ul>
+                    <li>Error correction</li>
+                    <li>Quality refinement</li>
+                    <li>ReAct (Reasoning & Acting)</li>
+                </ul>
+            </a>
+
+            <!-- Tool Use Pattern -->
+            <a href="#tool-use" class="pattern-card" role="button" tabindex="0" aria-label="View Tool Use details">
+                <div class="pattern-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Tool Use</h3>
+                <p>External system interaction capabilities</p>
+                <ul>
+                    <li>API integration</li>
+                    <li>Data queries</li>
+                    <li>Output validation</li>
+                </ul>
+            </a>
+
+            <!-- Multi-Agent Pattern -->
+            <a href="#multi-agent" class="pattern-card" role="button" tabindex="0" aria-label="View Multi-Agent details">
+                <div class="pattern-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Multi-Agent</h3>
+                <p>Collaborative problem-solving through specialized agents</p>
+                <ul>
+                    <li>Specialized expertise</li>
+                    <li>Delegation</li>
+                    <li>Team collaboration</li>
+                </ul>
+            </a>
+
+            <!-- Planning Pattern -->
+            <a href="#planning" class="pattern-card" role="button" tabindex="0" aria-label="View Planning details">
+                <div class="pattern-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Planning</h3>
+                <p>Goal-oriented task structuring and sequencing</p>
+                <ul>
+                    <li>Task decomposition</li>
+                    <li>Action sequencing</li>
+                    <li>Strategy formulation</li>
+                </ul>
+            </a>
+        </div>
+
+        <!-- Pattern Details -->
+        <div id="prompt-chaining" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Prompt Chaining</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that breaks down complex tasks into a sequence of smaller, manageable prompts. Each prompt in the chain builds upon the output of the previous one, enabling step-by-step reasoning and task completion.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Prompt Sequence: Ordered list of prompts</li>
+                        <li>Context Management: Maintains state between prompts</li>
+                        <li>Output Processing: Formats outputs for next prompt</li>
+                        <li>Error Handling: Manages chain failures</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class PromptChain {
+    constructor(prompts) {
+        this.prompts = prompts;
+        this.context = {};
+    }
+
+    async execute(input) {
+        let currentInput = input;
+        
+        for (const prompt of this.prompts) {
+            try {
+                const output = await prompt.execute(currentInput, this.context);
+                currentInput = this.processOutput(output);
+                this.context[prompt.id] = output;
+            } catch (error) {
+                throw new ChainError(prompt.id, error);
+            }
+        }
+        
+        return currentInput;
+    }
+
+    processOutput(output) {
+        // Format output for next prompt
+        return output;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Complex reasoning tasks</li>
+                        <li>Multi-step problem solving</li>
+                        <li>Information extraction and synthesis</li>
+                        <li>Decision making processes</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Routing Pattern - For directing chain outputs</li>
+                        <li>Planning Pattern - For organizing prompt sequences</li>
+                        <li>Reflection Pattern - For evaluating chain performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="routing" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Routing</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that directs inputs to appropriate handlers based on content analysis, context, or predefined rules. This enables efficient task distribution and specialized processing.</p>
+                </div>
+                
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Input Analyzer: Evaluates input content and context</li>
+                        <li>Routing Rules: Defines routing logic and conditions</li>
+                        <li>Handler Registry: Maps routes to specific handlers</li>
+                        <li>Fallback Mechanism: Handles unmatched inputs</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Router {
+    constructor() {
+        this.handlers = new Map();
+        this.rules = [];
+    }
+
+    addRule(condition, handler) {
+        this.rules.push({ condition, handler });
+    }
+
+    registerHandler(type, handler) {
+        this.handlers.set(type, handler);
+    }
+
+    async route(input) {
+        for (const { condition, handler } of this.rules) {
+            if (await condition(input)) {
+                return await handler(input);
+            }
+        }
+        return await this.fallback(input);
+    }
+
+    async fallback(input) {
+        // Handle unmatched inputs
+        return defaultHandler(input);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Task distribution</li>
+                        <li>Specialized processing</li>
+                        <li>Load balancing</li>
+                        <li>Content-based routing</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Prompt Chaining - For sequential processing</li>
+                        <li>Multi-Agent - For specialized handlers</li>
+                        <li>Tool Use - For external system integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="parallelization" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Parallelization</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables concurrent execution of multiple tasks or prompts, improving efficiency and throughput. This pattern is particularly useful for independent tasks that can be processed simultaneously.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Task Queue: Collection of tasks to be executed</li>
+                        <li>Worker Pool: Set of concurrent executors</li>
+                        <li>Result Aggregator: Combines parallel results</li>
+                        <li>Concurrency Control: Manages resource usage</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class ParallelExecutor {
+    constructor(maxWorkers = 4) {
+        this.maxWorkers = maxWorkers;
+        this.workers = new Set();
+        this.queue = [];
+    }
+
+    async execute(tasks) {
+        const results = new Map();
+        const promises = [];
+
+        for (const task of tasks) {
+            if (this.workers.size >= this.maxWorkers) {
+                await Promise.race([...this.workers]);
+            }
+
+            const promise = this.executeTask(task).then(result => {
+                results.set(task.id, result);
+                this.workers.delete(promise);
+            });
+
+            this.workers.add(promise);
+            promises.push(promise);
+        }
+
+        await Promise.all(promises);
+        return results;
+    }
+
+    async executeTask(task) {
+        return await task.run();
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Batch processing of independent tasks</li>
+                        <li>Parallel data analysis</li>
+                        <li>Concurrent API calls</li>
+                        <li>Multi-agent parallel execution</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Multi-Agent - For distributed execution</li>
+                        <li>Tool Use - For parallel tool execution</li>
+                        <li>Planning - For task organization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="reflection" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Reflection</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables agents to evaluate their own performance, decisions, and outputs, leading to self-improvement and better future performance. This pattern is crucial for building self-improving systems.</p>
+                </div>
+                
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Performance Metrics: Criteria for evaluation</li>
+                        <li>Analysis Engine: Evaluates actions and outcomes</li>
+                        <li>Improvement Strategy: Plans for enhancement</li>
+                        <li>Knowledge Base: Stores lessons learned</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class ReflectiveAgent {
+    constructor() {
+        this.metrics = new MetricsCollector();
+        this.analyzer = new PerformanceAnalyzer();
+        this.improver = new ImprovementPlanner();
+    }
+
+    async reflect(action, outcome) {
+        const metrics = await this.metrics.collect(action, outcome);
+        const analysis = await this.analyzer.analyze(metrics);
+        
+        if (analysis.needsImprovement) {
+            const improvements = await this.improver.plan(analysis);
+            await this.applyImprovements(improvements);
+        }
+
+        return {
+            metrics,
+            analysis,
+            improvements: analysis.needsImprovement ? improvements : null
+        };
+    }
+
+    async applyImprovements(improvements) {
+        for (const improvement of improvements) {
+            await this.updateBehavior(improvement);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Self-improving systems</li>
+                        <li>Quality assurance</li>
+                        <li>Performance optimization</li>
+                        <li>Learning from experience</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Tool Use - For analysis tools</li>
+                        <li>Planning - For improvement strategies</li>
+                        <li>Multi-Agent - For peer review</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tool-use" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Tool Use</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables agents to utilize external tools, APIs, and resources to extend their capabilities beyond their core functionality. This pattern is essential for building powerful and flexible agent systems.</p>
+                </div>
+                
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Tool Registry: Catalog of available tools</li>
+                        <li>Tool Selector: Chooses appropriate tools</li>
+                        <li>Tool Executor: Runs selected tools</li>
+                        <li>Result Processor: Handles tool outputs</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class ToolUser {
+    constructor() {
+        this.tools = new Map();
+        this.selector = new ToolSelector();
+    }
+
+    registerTool(name, tool) {
+        this.tools.set(name, {
+            tool,
+            metadata: tool.getMetadata()
+        });
+    }
+
+    async useTool(task) {
+        const selectedTool = await this.selector.selectTool(task, this.tools);
+        if (!selectedTool) {
+            throw new Error('No suitable tool found');
+        }
+
+        const result = await selectedTool.tool.execute(task);
+        return this.processResult(result);
+    }
+
+    async processResult(result) {
+        // Process and validate tool output
+        return result;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>API integration</li>
+                        <li>External service usage</li>
+                        <li>Resource access</li>
+                        <li>Capability extension</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Routing - For tool selection</li>
+                        <li>Prompt Chaining - For tool orchestration</li>
+                        <li>Reflection - For tool evaluation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="multi-agent" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Multi-Agent</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables collaboration between multiple specialized agents to solve complex tasks. This pattern leverages the strengths of different agents and enables sophisticated problem-solving through cooperation.</p>
+                </div>
+                
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Agent Registry: Collection of available agents</li>
+                        <li>Coordination System: Manages agent interactions</li>
+                        <li>Communication Protocol: Standardizes messaging</li>
+                        <li>Task Distribution: Assigns work to agents</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class MultiAgentSystem {
+    constructor() {
+        this.agents = new Map();
+        this.coordinator = new Coordinator();
+    }
+
+    registerAgent(role, agent) {
+        this.agents.set(role, agent);
+    }
+
+    async executeTask(task) {
+        const plan = await this.coordinator.createPlan(task, this.agents);
+        const results = new Map();
+
+        for (const [role, subtask] of plan) {
+            const agent = this.agents.get(role);
+            results.set(role, await agent.execute(subtask));
+        }
+
+        return this.coordinator.aggregateResults(results);
+    }
+
+    async communicate(sender, receiver, message) {
+        const protocol = this.coordinator.getProtocol();
+        return await protocol.send(sender, receiver, message);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Complex problem solving</li>
+                        <li>Distributed systems</li>
+                        <li>Specialized task handling</li>
+                        <li>Collaborative decision making</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Routing - For task distribution</li>
+                        <li>Planning - For coordination</li>
+                        <li>Tool Use - For agent capabilities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="planning" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Planning</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that enables agents to create and execute strategic plans to achieve goals. This pattern is essential for complex task execution and long-term goal achievement.</p>
+                </div>
+                
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Goal Definition: Clear specification of objectives</li>
+                        <li>Plan Generator: Creates action sequences</li>
+                        <li>Plan Executor: Carries out the plan</li>
+                        <li>Plan Monitor: Tracks progress and adjusts</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Planner {
+    constructor() {
+        this.goals = new Set();
+        this.plans = new Map();
+    }
+
+    async createPlan(goal) {
+        const plan = await this.generatePlan(goal);
+        this.plans.set(goal.id, plan);
+        return plan;
+    }
+
+    async executePlan(goalId) {
+        const plan = this.plans.get(goalId);
+        if (!plan) {
+            throw new Error('No plan found for goal');
+        }
+
+        for (const step of plan.steps) {
+            const result = await this.executeStep(step);
+            if (!result.success) {
+                await this.handleFailure(step, result);
+            }
+        }
+
+        return this.evaluatePlan(plan);
+    }
+
+    async handleFailure(step, result) {
+        // Handle step failure and adjust plan
+        return await this.replan(step, result);
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Project management</li>
+                        <li>Resource allocation</li>
+                        <li>Task scheduling</li>
+                        <li>Goal achievement</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Prompt Chaining - For plan execution</li>
+                        <li>Multi-Agent - For distributed planning</li>
+                        <li>Reflection - For plan evaluation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+</div>
+
+<script src="js/common.js"></script>
+</body>
+</html> 

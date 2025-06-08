@@ -5,7 +5,7 @@ class PatternManager {
     constructor() {
         this.currentPattern = null;
         this.patternCards = document.querySelectorAll('.pattern-card');
-        this.patterns = document.querySelectorAll('.pattern');
+        this.patternDetails = document.querySelectorAll('.pattern-details');
         this.isDetailsVisible = false;
     }
 
@@ -14,27 +14,57 @@ class PatternManager {
         this.setupSmoothScrolling();
         this.initializeGoToTop();
         this.initializeFadeAnimations();
-        this.setupResponsiveTables();
-        this.setupResponsiveImages();
+        
+        // Only setup responsive elements if they exist
+        if (document.querySelector('table')) {
+            this.setupResponsiveTables();
+        }
+        if (document.querySelector('.pattern-image')) {
+            this.setupResponsiveImages();
+        }
+        
+        // Only hide patterns if they exist
+        if (this.patternDetails.length > 0) {
+            this.hideAllPatterns();
+        }
+    }
+
+    hideAllPatterns() {
+        if (this.patternDetails.length === 0) return;
+        
+        this.patternDetails.forEach(pattern => {
+            pattern.style.display = 'none';
+            pattern.classList.remove('fade-in');
+        });
     }
 
     setupEventListeners() {
         // Pattern card click events
         this.patternCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const patternId = card.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
-                if (patternId) {
-                    this.showPattern(patternId);
-                    // Add loading state
-                    card.classList.add('loading');
-                    setTimeout(() => card.classList.remove('loading'), 300);
+            card.addEventListener('click', (e) => {
+                const href = card.getAttribute('href');
+                // Only prevent default for hash links
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const patternId = href.substring(1);
+                    if (patternId) {
+                        this.showPattern(patternId);
+                        // Add loading state
+                        card.classList.add('loading');
+                        setTimeout(() => card.classList.remove('loading'), 300);
+                    }
                 }
+                // For actual page links, let the default behavior happen
             });
         });
 
         // Close button events
         document.querySelectorAll('.close-button').forEach(button => {
-            button.addEventListener('click', () => this.hidePattern());
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.hidePattern();
+            });
         });
 
         // Keyboard events
@@ -45,14 +75,13 @@ class PatternManager {
         });
 
         // Pattern details background click
-        const patternDetails = document.getElementById('pattern-details');
-        if (patternDetails) {
-            patternDetails.addEventListener('click', (event) => {
+        this.patternDetails.forEach(details => {
+            details.addEventListener('click', (event) => {
                 if (event.target === event.currentTarget) {
                     this.hidePattern();
                 }
             });
-        }
+        });
     }
 
     showPattern(patternId) {
@@ -68,19 +97,16 @@ class PatternManager {
             // Update active state of pattern cards
             this.patternCards.forEach(card => {
                 card.classList.remove('active');
-                if (card.getAttribute('onclick')?.includes(patternId)) {
+                if (card.getAttribute('href') === `#${patternId}`) {
                     card.classList.add('active');
                 }
             });
 
-            // Scroll to pattern details
-            selectedPattern.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
+            // Add animation class after a small delay
+            setTimeout(() => {
+                selectedPattern.classList.add('fade-in');
+            }, 50);
 
-            // Add animation class
-            selectedPattern.classList.add('fade-in');
             this.isDetailsVisible = true;
 
             // Prevent body scrolling
@@ -90,8 +116,11 @@ class PatternManager {
 
     hidePattern() {
         if (this.currentPattern) {
-            this.currentPattern.style.display = 'none';
-            this.currentPattern = null;
+            this.currentPattern.classList.remove('fade-in');
+            setTimeout(() => {
+                this.currentPattern.style.display = 'none';
+                this.currentPattern = null;
+            }, 300); // Match the animation duration
         }
 
         // Remove active class from pattern cards
@@ -124,7 +153,7 @@ class PatternManager {
         // Create and append the go-to-top button
         const goToTopButton = document.createElement('div');
         goToTopButton.className = 'go-to-top';
-        goToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        goToTopButton.innerHTML = '↑'; // Using Unicode arrow instead of Font Awesome
         document.body.appendChild(goToTopButton);
 
         // Add scroll event listener
@@ -158,10 +187,13 @@ class PatternManager {
     setupResponsiveTables() {
         const tables = document.querySelectorAll('table');
         tables.forEach(table => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'table-responsive';
-            table.parentNode.insertBefore(wrapper, table);
-            wrapper.appendChild(table);
+            // Only wrap if not already wrapped
+            if (!table.parentElement.classList.contains('table-responsive')) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'table-responsive';
+                table.parentNode.insertBefore(wrapper, table);
+                wrapper.appendChild(table);
+            }
         });
     }
 

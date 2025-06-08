@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Learning Patterns</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body class="pattern-page">
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Agentic Learning Patterns</h1>
+                <p class="subtitle">Patterns for continuous learning and adaptation in agentic systems</p>
+                <div class="header-actions">
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="patterns-grid">
+            <!-- Supervised Learning Pattern -->
+            <a href="#supervised" class="pattern-card" role="button" tabindex="0" aria-label="View Supervised Learning details">
+                <div class="pattern-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Supervised Learning</h3>
+                <p>Learning from labeled examples</p>
+                <ul>
+                    <li>Training</li>
+                    <li>Labels</li>
+                    <li>Validation</li>
+                </ul>
+            </a>
+
+            <!-- Unsupervised Learning Pattern -->
+            <a href="#unsupervised" class="pattern-card" role="button" tabindex="0" aria-label="View Unsupervised Learning details">
+                <div class="pattern-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <h3>Unsupervised Learning</h3>
+                <p>Learning from unlabeled data</p>
+                <ul>
+                    <li>Clustering</li>
+                    <li>Patterns</li>
+                    <li>Discovery</li>
+                </ul>
+            </a>
+
+            <!-- Reinforcement Learning Pattern -->
+            <a href="#reinforcement" class="pattern-card" role="button" tabindex="0" aria-label="View Reinforcement Learning details">
+                <div class="pattern-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Reinforcement Learning</h3>
+                <p>Learning from feedback</p>
+                <ul>
+                    <li>Reward</li>
+                    <li>Policy</li>
+                    <li>Value</li>
+                </ul>
+            </a>
+
+            <!-- Transfer Learning Pattern -->
+            <a href="#transfer" class="pattern-card" role="button" tabindex="0" aria-label="View Transfer Learning details">
+                <div class="pattern-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Transfer Learning</h3>
+                <p>Applying knowledge across domains</p>
+                <ul>
+                    <li>Adaptation</li>
+                    <li>Reuse</li>
+                    <li>Efficiency</li>
+                </ul>
+            </a>
+        </div>
+
+        <!-- Pattern details sections -->
+        <div id="supervised" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Supervised Learning</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent learns from labeled examples to make predictions or decisions.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Training Data: Labeled examples</li>
+                        <li>Model: Learning algorithm</li>
+                        <li>Validation: Performance metrics</li>
+                        <li>Testing: Unseen data evaluation</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class SupervisedLearning {
+    constructor(model) {
+        this.model = model;
+        this.trainingData = [];
+        this.validationData = [];
+    }
+
+    train(features, labels) {
+        this.trainingData = this.prepareData(features, labels);
+        this.model.fit(this.trainingData.features, this.trainingData.labels, {
+            epochs: 100,
+            validationSplit: 0.2,
+            callbacks: {
+                onEpochEnd: (epoch, logs) => {
+                    console.log(`Epoch ${epoch}: loss = ${logs.loss}`);
+                }
+            }
+        });
+    }
+
+    predict(features) {
+        return this.model.predict(features);
+    }
+
+    evaluate(testFeatures, testLabels) {
+        const results = this.model.evaluate(testFeatures, testLabels);
+        return {
+            accuracy: results[1],
+            loss: results[0]
+        };
+    }
+
+    prepareData(features, labels) {
+        // Implement data preprocessing
+        return { features, labels };
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Classification tasks</li>
+                        <li>Regression problems</li>
+                        <li>Pattern recognition</li>
+                        <li>Predictive modeling</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Transfer Learning - For knowledge reuse</li>
+                        <li>Reinforcement Learning - For feedback-based learning</li>
+                        <li>Unsupervised Learning - For pattern discovery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="unsupervised" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Unsupervised Learning</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent discovers patterns and structures in unlabeled data without explicit guidance.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Data: Unlabeled examples</li>
+                        <li>Clustering: Group discovery</li>
+                        <li>Dimensionality: Feature reduction</li>
+                        <li>Anomaly: Outlier detection</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class UnsupervisedLearning {
+    constructor() {
+        this.clusters = new Map();
+        this.features = [];
+    }
+
+    cluster(data, k) {
+        this.features = this.preprocess(data);
+        this.initializeClusters(k);
+        
+        let changed;
+        do {
+            changed = false;
+            for (const point of this.features) {
+                const nearestCluster = this.findNearestCluster(point);
+                if (this.assignToCluster(point, nearestCluster)) {
+                    changed = true;
+                }
+            }
+            this.updateCentroids();
+        } while (changed);
+        
+        return this.clusters;
+    }
+
+    preprocess(data) {
+        // Implement data preprocessing
+        return data;
+    }
+
+    initializeClusters(k) {
+        // Implement cluster initialization
+        for (let i = 0; i < k; i++) {
+            this.clusters.set(i, []);
+        }
+    }
+
+    findNearestCluster(point) {
+        // Implement nearest cluster finding
+        return 0;
+    }
+
+    assignToCluster(point, clusterId) {
+        // Implement cluster assignment
+        return true;
+    }
+
+    updateCentroids() {
+        // Implement centroid update
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Customer segmentation</li>
+                        <li>Anomaly detection</li>
+                        <li>Feature learning</li>
+                        <li>Data compression</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Supervised Learning - For labeled data</li>
+                        <li>Reinforcement Learning - For feedback-based learning</li>
+                        <li>Transfer Learning - For knowledge reuse</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="reinforcement" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Reinforcement Learning</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent learns optimal behavior through trial and error, receiving rewards or penalties for its actions.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Agent: Learning entity</li>
+                        <li>Environment: Learning context</li>
+                        <li>Actions: Possible behaviors</li>
+                        <li>Rewards: Feedback signals</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class ReinforcementLearning {
+    constructor() {
+        this.state = null;
+        this.qTable = new Map();
+        this.learningRate = 0.1;
+        this.discountFactor = 0.9;
+    }
+
+    setState(state) {
+        this.state = state;
+    }
+
+    getAction() {
+        return this.epsilonGreedy();
+    }
+
+    epsilonGreedy() {
+        if (Math.random() < this.epsilon) {
+            return this.explore();
+        }
+        return this.exploit();
+    }
+
+    explore() {
+        // Implement exploration strategy
+        return Math.random();
+    }
+
+    exploit() {
+        // Implement exploitation strategy
+        return this.getBestAction();
+    }
+
+    updateQValue(state, action, reward, nextState) {
+        const currentQ = this.qTable.get(`${state}-${action}`) || 0;
+        const nextMaxQ = this.getMaxQValue(nextState);
+        const newQ = currentQ + this.learningRate * (reward + this.discountFactor * nextMaxQ - currentQ);
+        this.qTable.set(`${state}-${action}`, newQ);
+    }
+
+    getMaxQValue(state) {
+        // Implement max Q-value calculation
+        return 0;
+    }
+
+    getBestAction() {
+        // Implement best action selection
+        return 0;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Game playing</li>
+                        <li>Robotics control</li>
+                        <li>Resource optimization</li>
+                        <li>Adaptive systems</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Supervised Learning - For labeled data</li>
+                        <li>Unsupervised Learning - For pattern discovery</li>
+                        <li>Transfer Learning - For knowledge reuse</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="transfer" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Transfer Learning</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where knowledge gained from one task is applied to improve learning in a related task.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Source: Original task</li>
+                        <li>Target: New task</li>
+                        <li>Knowledge: Transferable information</li>
+                        <li>Adaptation: Task-specific tuning</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class TransferLearning {
+    constructor(sourceModel) {
+        this.sourceModel = sourceModel;
+        this.targetModel = null;
+        this.transferredLayers = new Set();
+    }
+
+    initializeTargetModel() {
+        this.targetModel = this.createModel();
+        this.transferKnowledge();
+    }
+
+    transferKnowledge() {
+        for (const layer of this.sourceModel.layers) {
+            if (this.isTransferable(layer)) {
+                this.transferredLayers.add(layer);
+                this.targetModel.addLayer(layer);
+            }
+        }
+    }
+
+    isTransferable(layer) {
+        // Implement transferability check
+        return true;
+    }
+
+    fineTune(targetData) {
+        this.targetModel.compile({
+            optimizer: 'adam',
+            loss: 'categoricalCrossentropy',
+            metrics: ['accuracy']
+        });
+
+        this.targetModel.fit(targetData.features, targetData.labels, {
+            epochs: 50,
+            validationSplit: 0.2,
+            callbacks: {
+                onEpochEnd: (epoch, logs) => {
+                    console.log(`Fine-tuning epoch ${epoch}: loss = ${logs.loss}`);
+                }
+            }
+        });
+    }
+
+    createModel() {
+        // Implement model creation
+        return null;
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Domain adaptation</li>
+                        <li>Few-shot learning</li>
+                        <li>Model reuse</li>
+                        <li>Knowledge transfer</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Supervised Learning - For labeled data</li>
+                        <li>Unsupervised Learning - For pattern discovery</li>
+                        <li>Reinforcement Learning - For feedback-based learning</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

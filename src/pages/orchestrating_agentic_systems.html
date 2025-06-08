@@ -8,52 +8,156 @@
 </head>
 <body>
   <div class="content">
-    <h1>Orchestrating Agentic Systems: Pattern Interplay and Advanced Architectures</h1>
-    <p class="MsoNormal">While individual agentic patterns provide distinct capabilities, their true power in enterprise applications lies in their orchestration. Complex agentic systems rarely rely on a single pattern; instead, they integrate multiple patterns to create sophisticated workflows capable of addressing intricate business problems.</p>
+    <a href="agentic_Design_Pattern_index.html" class="back-button">← Back to Main Page</a>
+    <header>
+      <h1>Orchestrating Agentic Systems</h1>
+      <p>Mastering the art of combining multiple agentic patterns to create sophisticated enterprise solutions</p>
+    </header>
 
-    <h2>Pattern Integration Strategies</h2>
-    <div class="pattern-details">
-      <h4>Sequential Orchestration</h4>
-      <p>Sequential orchestration involves chaining multiple patterns in a specific order to accomplish complex tasks:</p>
-      <ul>
-        <li>Planning agent defines the overall strategy</li>
-        <li>Tool Use agents execute specific actions</li>
-        <li>Reflection agent reviews and refines results</li>
-      </ul>
-
-      <h4>Dynamic Routing & Specialization</h4>
-      <p>Dynamic routing enables intelligent distribution of tasks to specialized agents:</p>
-      <ul>
-        <li>Intake agent analyzes incoming requests</li>
-        <li>Routing logic determines appropriate specialized agents</li>
-        <li>Multi-agent collaboration for complex problem solving</li>
-      </ul>
-
-      <h4>Iterative Refinement</h4>
-      <p>Iterative refinement patterns focus on continuous improvement:</p>
-      <ul>
-        <li>Embedded reflection at each step</li>
-        <li>Continuous quality assessment</li>
-        <li>Progressive enhancement of results</li>
-      </ul>
-
-      <h4>Hybrid Approaches</h4>
-      <p>Hybrid approaches combine multiple patterns for optimal results:</p>
-      <ul>
-        <li>High-level strategic planning</li>
-        <li>Detailed execution management</li>
-        <li>Integrated feedback loops</li>
-      </ul>
-
-      <h4>Parallel Processing</h4>
-      <p>Parallel processing patterns optimize for efficiency:</p>
-      <ul>
-        <li>Concurrent task execution</li>
-        <li>Coordinated multi-agent operations</li>
-        <li>Efficient resource utilization</li>
-      </ul>
+    <div class="nav-tiles">
+      <div class="nav-tile" onclick="scrollToSection('understanding')">Understanding Patterns</div>
+      <div class="nav-tile" onclick="scrollToSection('core')">Core Strategies</div>
+      <div class="nav-tile" onclick="scrollToSection('advanced')">Advanced Techniques</div>
+      <div class="nav-tile" onclick="scrollToSection('performance')">Performance</div>
     </div>
-    
+
+    <div class="pattern-card fade-in" id="understanding">
+      <h2>Understanding Pattern Orchestration</h2>
+      <p>While individual agentic patterns provide distinct capabilities, their true power in enterprise applications lies in their orchestration. Complex agentic systems rarely rely on a single pattern; instead, they integrate multiple patterns to create sophisticated workflows capable of addressing intricate business problems.</p>
+      <p>This guide explores various strategies for combining agentic patterns effectively, ensuring your systems are both powerful and maintainable.</p>
+    </div>
+
+    <div class="pattern-card fade-in" id="core">
+      <h2>Core Orchestration Strategies</h2>
+      <p>These foundational strategies enable agents to work together effectively, forming the backbone of complex agentic systems.</p>
+      
+      <div class="tile-grid">
+        <div class="tile">
+          <h3>Sequential Orchestration</h3>
+          <p>Sequential orchestration involves chaining multiple patterns in a specific order to accomplish complex tasks:</p>
+          <ul>
+            <li>Planning agent defines the overall strategy</li>
+            <li>Tool Use agents execute specific actions</li>
+            <li>Reflection agent reviews and refines results</li>
+          </ul>
+          <div class="example-box">
+            <h4>Example: Document Processing Pipeline</h4>
+            <p>A document processing system that:</p>
+            <ol>
+              <li>Planning agent analyzes document type and requirements</li>
+              <li>Extraction agent pulls relevant information</li>
+              <li>Validation agent checks data accuracy</li>
+              <li>Formatting agent structures the output</li>
+              <li>Review agent ensures quality and completeness</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3>Dynamic Routing & Specialization</h3>
+          <p>Dynamic routing enables intelligent distribution of tasks to specialized agents:</p>
+          <ul>
+            <li>Intake agent analyzes incoming requests</li>
+            <li>Routing logic determines appropriate specialized agents</li>
+            <li>Multi-agent collaboration for complex problem solving</li>
+          </ul>
+          <div class="example-box">
+            <h4>Example: Customer Service System</h4>
+            <p>A customer service platform that:</p>
+            <ol>
+              <li>Intake agent categorizes customer inquiries</li>
+              <li>Routes technical issues to technical support agents</li>
+              <li>Routes billing questions to financial agents</li>
+              <li>Routes general inquiries to general support agents</li>
+              <li>Escalates complex issues to human supervisors</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card fade-in" id="advanced">
+      <h2>Advanced Orchestration Techniques</h2>
+      <p>Beyond basic sequencing and routing, these techniques offer sophisticated ways to integrate and coordinate existing agentic patterns for enhanced resilience, adaptability, and continuous improvement.</p>
+      
+      <div class="tile-grid">
+        <div class="tile">
+          <h3>Iterative Refinement</h3>
+          <p>Iterative refinement patterns focus on continuous improvement:</p>
+          <ul>
+            <li>Embedded reflection at each step</li>
+            <li>Continuous quality assessment</li>
+            <li>Progressive enhancement of results</li>
+          </ul>
+          <div class="example-box">
+            <h4>Example: Code Review System</h4>
+            <p>An automated code review system that:</p>
+            <ol>
+              <li>Initial review agent checks basic code quality</li>
+              <li>Security agent identifies potential vulnerabilities</li>
+              <li>Performance agent suggests optimizations</li>
+              <li>Refinement agent iteratively improves suggestions</li>
+              <li>Final review agent ensures all improvements are valid</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tile">
+          <h3>Hybrid Approaches</h3>
+          <p>Hybrid approaches combine multiple patterns for optimal results:</p>
+          <ul>
+            <li>High-level strategic planning</li>
+            <li>Detailed execution management</li>
+            <li>Integrated feedback loops</li>
+          </ul>
+          <div class="example-box">
+            <h4>Example: Project Management System</h4>
+            <p>A project management platform that:</p>
+            <ol>
+              <li>Strategic agent sets project goals and milestones</li>
+              <li>Resource agent allocates team members and tools</li>
+              <li>Progress agent tracks and reports status</li>
+              <li>Adaptation agent adjusts plans based on feedback</li>
+              <li>Integration agent ensures all components work together</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pattern-card fade-in" id="performance">
+      <h2>Performance Optimization</h2>
+      <p>Optimizing the performance of orchestrated agentic systems is crucial for efficiency and responsiveness. Parallel processing is a key technique to achieve this.</p>
+      
+      <div class="tile-grid">
+        <div class="tile">
+          <h3>Parallel Processing</h3>
+          <p>Parallel processing patterns optimize for efficiency:</p>
+          <ul>
+            <li>Concurrent task execution</li>
+            <li>Coordinated multi-agent operations</li>
+            <li>Efficient resource utilization</li>
+          </ul>
+          <div class="example-box">
+            <h4>Example: Data Analysis Pipeline</h4>
+            <p>A data analysis system that:</p>
+            <ol>
+              <li>Data ingestion agent processes multiple sources simultaneously</li>
+              <li>Multiple analysis agents work in parallel on different aspects</li>
+              <li>Aggregation agent combines results efficiently</li>
+              <li>Visualization agent creates real-time dashboards</li>
+              <li>Monitoring agent ensures optimal resource usage</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="../js/main.js"></script>
+  <script>
+    function scrollToSection(sectionId) {
+      document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
-</html> 
+</html>

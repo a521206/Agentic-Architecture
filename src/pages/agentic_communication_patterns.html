@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Communication Patterns</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="js/common.js" defer></script>
+</head>
+<body class="pattern-page">
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>Agentic Communication Patterns</h1>
+                <p class="subtitle">Patterns for effective agent communication and interaction</p>
+                <div class="header-actions">
+                    <a href="index.html" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Main
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <div class="patterns-grid">
+            <!-- Request-Response Pattern -->
+            <a href="#request-response" class="pattern-card" role="button" tabindex="0" aria-label="View Request-Response details">
+                <div class="pattern-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Request-Response</h3>
+                <p>Synchronous communication between agents</p>
+                <ul>
+                    <li>Synchronous</li>
+                    <li>Direct</li>
+                    <li>Immediate</li>
+                </ul>
+            </a>
+
+            <!-- Publish-Subscribe Pattern -->
+            <a href="#publish-subscribe" class="pattern-card" role="button" tabindex="0" aria-label="View Publish-Subscribe details">
+                <div class="pattern-icon">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <h3>Publish-Subscribe</h3>
+                <p>Asynchronous event-based communication</p>
+                <ul>
+                    <li>Asynchronous</li>
+                    <li>Event-driven</li>
+                    <li>Decoupled</li>
+                </ul>
+            </a>
+
+            <!-- Message Queue Pattern -->
+            <a href="#message-queue" class="pattern-card" role="button" tabindex="0" aria-label="View Message Queue details">
+                <div class="pattern-icon">
+                    <i class="fas fa-stream"></i>
+                </div>
+                <h3>Message Queue</h3>
+                <p>Reliable message delivery between agents</p>
+                <ul>
+                    <li>Reliable</li>
+                    <li>Persistent</li>
+                    <li>Ordered</li>
+                </ul>
+            </a>
+
+            <!-- RPC Pattern -->
+            <a href="#rpc" class="pattern-card" role="button" tabindex="0" aria-label="View Remote Procedure Call details">
+                <div class="pattern-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Remote Procedure Call</h3>
+                <p>Remote method invocation between agents</p>
+                <ul>
+                    <li>Remote</li>
+                    <li>Method</li>
+                    <li>Procedural</li>
+                </ul>
+            </a>
+
+            <!-- Command Pattern -->
+            <a href="#command" class="pattern-card" role="button" tabindex="0" aria-label="View Command details">
+                <div class="pattern-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <h3>Command</h3>
+                <p>Encapsulated action requests</p>
+                <ul>
+                    <li>Action</li>
+                    <li>Encapsulation</li>
+                    <li>Reversible</li>
+                </ul>
+            </a>
+
+            <!-- Mediator Pattern -->
+            <a href="#mediator" class="pattern-card" role="button" tabindex="0" aria-label="View Mediator details">
+                <div class="pattern-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Mediator</h3>
+                <p>Centralized agent communication</p>
+                <ul>
+                    <li>Centralized</li>
+                    <li>Coordination</li>
+                    <li>Control</li>
+                </ul>
+            </a>
+
+            <!-- Observer Pattern -->
+            <a href="#observer" class="pattern-card" role="button" tabindex="0" aria-label="View Observer details">
+                <div class="pattern-icon">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3>Observer</h3>
+                <p>One-to-many agent notifications</p>
+                <ul>
+                    <li>Notification</li>
+                    <li>State</li>
+                    <li>Event</li>
+                </ul>
+            </a>
+
+            <!-- Message Broker Pattern -->
+            <a href="#message-broker" class="pattern-card" role="button" tabindex="0" aria-label="View Message Broker details">
+                <div class="pattern-icon">
+                    <i class="fas fa-route"></i>
+                </div>
+                <h3>Message Broker</h3>
+                <p>Reliable message delivery and routing</p>
+                <ul>
+                    <li>Reliable</li>
+                    <li>Routing</li>
+                    <li>Distribution</li>
+                </ul>
+            </a>
+        </div>
+
+        <!-- Pattern details sections -->
+        <div id="request-response" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Request-Response</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A synchronous communication pattern where one agent sends a request and waits for a response from another agent.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Request: Message containing action details</li>
+                        <li>Response: Result of the requested action</li>
+                        <li>Timeout: Maximum wait time for response</li>
+                        <li>Error Handling: Failed request management</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class RequestResponsePattern {
+    constructor() {
+        this.requests = new Map();
+    }
+
+    async sendRequest(agent, request) {
+        return new Promise((resolve, reject) => {
+            const requestId = this.generateRequestId();
+            this.requests.set(requestId, { resolve, reject });
+            
+            agent.send({
+                type: 'request',
+                id: requestId,
+                data: request
+            });
+
+            setTimeout(() => {
+                if (this.requests.has(requestId)) {
+                    this.requests.delete(requestId);
+                    reject(new Error('Request timeout'));
+                }
+            }, this.timeout);
+        });
+    }
+
+    handleResponse(response) {
+        const { requestId, data } = response;
+        const request = this.requests.get(requestId);
+        
+        if (request) {
+            this.requests.delete(requestId);
+            request.resolve(data);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>API calls between agents</li>
+                        <li>Data retrieval requests</li>
+                        <li>Command execution</li>
+                        <li>Status queries</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Message Queue - For reliable delivery</li>
+                        <li>RPC - For method invocation</li>
+                        <li>Command - For action encapsulation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="publish-subscribe" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Publish-Subscribe</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>An asynchronous communication pattern where publishers send messages to topics, and subscribers receive messages from topics they're interested in.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Publisher: Message sender</li>
+                        <li>Subscriber: Message receiver</li>
+                        <li>Topic: Message category</li>
+                        <li>Broker: Message distribution</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class PubSubPattern {
+    constructor() {
+        this.topics = new Map();
+        this.subscribers = new Map();
+    }
+
+    subscribe(topic, subscriber) {
+        if (!this.subscribers.has(topic)) {
+            this.subscribers.set(topic, new Set());
+        }
+        this.subscribers.get(topic).add(subscriber);
+    }
+
+    unsubscribe(topic, subscriber) {
+        if (this.subscribers.has(topic)) {
+            this.subscribers.get(topic).delete(subscriber);
+        }
+    }
+
+    publish(topic, message) {
+        if (this.subscribers.has(topic)) {
+            for (const subscriber of this.subscribers.get(topic)) {
+                subscriber.receive(message);
+            }
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Event notifications</li>
+                        <li>Real-time updates</li>
+                        <li>System monitoring</li>
+                        <li>Data distribution</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Observer - For state changes</li>
+                        <li>Message Queue - For reliable delivery</li>
+                        <li>Message Broker - For message routing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-queue" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Message Queue</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A reliable message delivery pattern that ensures messages are processed in order and not lost, even if the receiver is temporarily unavailable.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Queue: Message storage</li>
+                        <li>Producer: Message sender</li>
+                        <li>Consumer: Message processor</li>
+                        <li>Broker: Queue management</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class MessageQueue {
+    constructor() {
+        this.queues = new Map();
+        this.consumers = new Map();
+    }
+
+    createQueue(name) {
+        this.queues.set(name, []);
+    }
+
+    enqueue(queueName, message) {
+        if (this.queues.has(queueName)) {
+            this.queues.get(queueName).push(message);
+            this.notifyConsumers(queueName);
+        }
+    }
+
+    registerConsumer(queueName, consumer) {
+        if (!this.consumers.has(queueName)) {
+            this.consumers.set(queueName, new Set());
+        }
+        this.consumers.get(queueName).add(consumer);
+    }
+
+    async notifyConsumers(queueName) {
+        if (this.queues.has(queueName) && this.consumers.has(queueName)) {
+            const message = this.queues.get(queueName)[0];
+            for (const consumer of this.consumers.get(queueName)) {
+                await consumer.process(message);
+            }
+            this.queues.get(queueName).shift();
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Asynchronous processing</li>
+                        <li>Load balancing</li>
+                        <li>Reliable delivery</li>
+                        <li>Task distribution</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Message Broker - For message routing</li>
+                        <li>Publish-Subscribe - For event distribution</li>
+                        <li>Command - For action encapsulation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="rpc" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Remote Procedure Call</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that allows an agent to execute a procedure on a remote agent as if it were a local procedure call.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Client: Caller</li>
+                        <li>Server: Procedure executor</li>
+                        <li>Stub: Local procedure interface</li>
+                        <li>Protocol: Communication format</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class RPC {
+    constructor() {
+        this.methods = new Map();
+        this.clients = new Map();
+    }
+
+    registerMethod(name, handler) {
+        this.methods.set(name, handler);
+    }
+
+    async call(clientId, methodName, params) {
+        const handler = this.methods.get(methodName);
+        if (handler) {
+            try {
+                const result = await handler(params);
+                this.sendResponse(clientId, { success: true, result });
+            } catch (error) {
+                this.sendResponse(clientId, { success: false, error: error.message });
+            }
+        }
+    }
+
+    sendResponse(clientId, response) {
+        const client = this.clients.get(clientId);
+        if (client) {
+            client.receive(response);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Distributed computing</li>
+                        <li>Service calls</li>
+                        <li>Method invocation</li>
+                        <li>API implementation</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Request-Response - For synchronous calls</li>
+                        <li>Message Queue - For reliable delivery</li>
+                        <li>Command - For action encapsulation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="command" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Command</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that encapsulates a request as an object, allowing parameterization of clients with different requests, queuing of requests, and logging of operations.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Command: Action encapsulation</li>
+                        <li>Invoker: Command executor</li>
+                        <li>Receiver: Action performer</li>
+                        <li>Client: Command creator</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Command {
+    constructor(receiver) {
+        this.receiver = receiver;
+    }
+
+    execute() {
+        throw new Error('Method not implemented');
+    }
+
+    undo() {
+        throw new Error('Method not implemented');
+    }
+}
+
+class CommandInvoker {
+    constructor() {
+        this.history = [];
+    }
+
+    execute(command) {
+        command.execute();
+        this.history.push(command);
+    }
+
+    undo() {
+        const command = this.history.pop();
+        if (command) {
+            command.undo();
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Action queuing</li>
+                        <li>Undo/redo operations</li>
+                        <li>Macro recording</li>
+                        <li>Task scheduling</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Message Queue - For command queuing</li>
+                        <li>Observer - For state changes</li>
+                        <li>Mediator - For command coordination</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="mediator" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Mediator</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that defines an object that encapsulates how a set of agents interact, promoting loose coupling by keeping agents from referring to each other explicitly.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Mediator: Communication coordinator</li>
+                        <li>Colleague: Interacting agent</li>
+                        <li>Protocol: Interaction rules</li>
+                        <li>Registry: Agent tracking</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Mediator {
+    constructor() {
+        this.colleagues = new Map();
+    }
+
+    register(colleague) {
+        this.colleagues.set(colleague.id, colleague);
+        colleague.setMediator(this);
+    }
+
+    notify(sender, event) {
+        for (const [id, colleague] of this.colleagues) {
+            if (id !== sender.id) {
+                colleague.receive(event);
+            }
+        }
+    }
+
+    broadcast(event) {
+        for (const colleague of this.colleagues.values()) {
+            colleague.receive(event);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Complex interactions</li>
+                        <li>System coordination</li>
+                        <li>Event distribution</li>
+                        <li>State management</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Observer - For state changes</li>
+                        <li>Command - For action encapsulation</li>
+                        <li>Message Broker - For message routing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="observer" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Observer</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that defines a one-to-many dependency between agents, where one agent's state change is automatically communicated to all dependent agents.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Subject: State holder</li>
+                        <li>Observer: State watcher</li>
+                        <li>Notification: State change</li>
+                        <li>Registry: Observer tracking</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class Subject {
+    constructor() {
+        this.observers = new Set();
+        this.state = null;
+    }
+
+    attach(observer) {
+        this.observers.add(observer);
+    }
+
+    detach(observer) {
+        this.observers.delete(observer);
+    }
+
+    setState(state) {
+        this.state = state;
+        this.notify();
+    }
+
+    notify() {
+        for (const observer of this.observers) {
+            observer.update(this.state);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>State monitoring</li>
+                        <li>Event handling</li>
+                        <li>Data synchronization</li>
+                        <li>UI updates</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Publish-Subscribe - For event distribution</li>
+                        <li>Mediator - For coordination</li>
+                        <li>Command - For state changes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-broker" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Message Broker</h2>
+                <button class="close-button" aria-label="Close details">&times;</button>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A pattern that provides a central point for message routing, transformation, and delivery between agents, ensuring reliable communication.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li>Broker: Message router</li>
+                        <li>Channel: Message path</li>
+                        <li>Router: Message direction</li>
+                        <li>Transformer: Message format</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>class MessageBroker {
+    constructor() {
+        this.channels = new Map();
+        this.routes = new Map();
+        this.transformers = new Map();
+    }
+
+    createChannel(name) {
+        this.channels.set(name, []);
+    }
+
+    addRoute(source, target, condition) {
+        this.routes.set(source, { target, condition });
+    }
+
+    addTransformer(channel, transformer) {
+        this.transformers.set(channel, transformer);
+    }
+
+    async route(message) {
+        const { source, target, content } = message;
+        const route = this.routes.get(source);
+        
+        if (route && route.condition(content)) {
+            const transformer = this.transformers.get(source);
+            const transformedContent = transformer ? transformer(content) : content;
+            
+            await this.deliver(target, transformedContent);
+        }
+    }
+
+    async deliver(target, content) {
+        const channel = this.channels.get(target);
+        if (channel) {
+            channel.push(content);
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>Message routing</li>
+                        <li>Protocol translation</li>
+                        <li>Load balancing</li>
+                        <li>Message transformation</li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li>Message Queue - For reliable delivery</li>
+                        <li>Publish-Subscribe - For event distribution</li>
+                        <li>Mediator - For coordination</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

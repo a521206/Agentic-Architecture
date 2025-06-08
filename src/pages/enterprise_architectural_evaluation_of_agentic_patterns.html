@@ -8,156 +8,289 @@
 </head>
 <body>
   <div class="content">
-    <h1>Enterprise Architectural Evaluation of Agentic Patterns</h1>
-    <p class="MsoNormal"><i>"With a foundation in the core agentic patterns, we now evaluate them across key enterprise architecture dimensions."</i></p>
-    <p class="MsoNormal">When selecting and implementing agentic design patterns, enterprises must evaluate them against critical architectural dimensions to ensure they meet business requirements and operational standards.</p>
+    <a href="agentic_Design_Pattern_index.html" class="back-button">← Back to Main Page</a>
+    <header>
+      <h1>Enterprise Architectural Evaluation of Agentic Patterns</h1>
+      <p>When selecting and implementing agentic design patterns, enterprises must evaluate them against critical architectural dimensions to ensure they meet business requirements and operational standards. This evaluation framework provides a comprehensive approach to assessing patterns across key enterprise concerns.</p>
+    </header>
+
+    <div class="pattern-grid">
+      <a href="#robustness" class="pattern-card" role="button" tabindex="0" aria-label="View Robustness and Reliability details">
+        <h3>Robustness and Reliability</h3>
+        <p>Ensuring system stability and resilience</p>
+        <ul>
+          <li>Error handling capabilities</li>
+          <li>Graceful degradation</li>
+          <li>Failure recovery</li>
+        </ul>
+      </a>
+
+      <a href="#scalability" class="pattern-card" role="button" tabindex="0" aria-label="View Scalability and Performance details">
+        <h3>Scalability and Performance</h3>
+        <p>Managing growth and resource utilization</p>
+        <ul>
+          <li>Response time under load</li>
+          <li>Resource optimization</li>
+          <li>Throughput capacity</li>
+        </ul>
+      </a>
+
+      <a href="#security" class="pattern-card" role="button" tabindex="0" aria-label="View Security and Data Governance details">
+        <h3>Security and Data Governance</h3>
+        <p>Protecting data and meeting regulations</p>
+        <ul>
+          <li>Access controls</li>
+          <li>Data protection</li>
+          <li>Audit capabilities</li>
+        </ul>
+      </a>
+
+      <a href="#integration" class="pattern-card" role="button" tabindex="0" aria-label="View Integration and Interoperability details">
+        <h3>Integration and Interoperability</h3>
+        <p>Enabling system collaboration</p>
+        <ul>
+          <li>API compatibility</li>
+          <li>Data exchange</li>
+          <li>System connectivity</li>
+        </ul>
+      </a>
+
+      <a href="#cost" class="pattern-card" role="button" tabindex="0" aria-label="View Cost-Efficiency details">
+        <h3>Cost-Efficiency</h3>
+        <p>Optimizing operational expenditures</p>
+        <ul>
+          <li>Token usage</li>
+          <li>Computation cost</li>
+          <li>Resource efficiency</li>
+        </ul>
+      </a>
+
+      <a href="#innovation" class="pattern-card" role="button" tabindex="0" aria-label="View Continuous Innovation and Adaptability details">
+        <h3>Continuous Innovation and Adaptability</h3>
+        <p>Enabling rapid iteration and integration</p>
+        <ul>
+          <li>Modularity</li>
+          <li>Extensibility</li>
+          <li>Integration with new tech</li>
+        </ul>
+      </a>
+    </div>
+
+    <div id="robustness" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Robustness and Reliability</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Assess error handling capabilities, graceful degradation, and resilience to unexpected inputs or tool failures. Patterns like Reflection are crucial for self-healing and maintaining reliability.</p>
+        </div>
+
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Ensures mission-critical applications remain stable and perform consistently, minimizing downtime and data corruption.</p>
+        </div>
+
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> Enhances system robustness by enabling the decomposition of complex tasks into manageable, often independent, sub-tasks. This modularity allows for better error isolation and facilitates graceful degradation in case of partial failures.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> Increases system robustness by leveraging external, specialized, and often highly robust enterprise systems (such as databases, APIs, or legacy applications). However, it inherently introduces dependencies on the reliability and availability of these external systems.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Significantly improves the quality and reliability of agent outputs by identifying and correcting errors, biases, or inconsistencies. It acts as an internal quality gate, enhancing the system's overall dependability.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> The distributed architecture inherent in the Multi-Agent Pattern offers built-in redundancy and fail-safe mechanisms. Failures in one agent can often be isolated, preventing cascading system-wide failures and enhancing overall system resilience.</li>
+            
+            <li><strong>ReAct Pattern:</strong> Its iterative nature allows for dynamic adjustment and potential recovery from intermediate errors or unexpected observations, enhancing resilience for simpler, well-defined tasks.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> The explicit planning and execution phases, coupled with opportunities for intermediate result validation, allow for better error detection and dynamic plan adjustment, making it highly robust for complex and critical tasks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="scalability" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Scalability and Performance</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Consider the ability of patterns to handle increasing workloads and process requests efficiently. Parallelization is key for throughput, while efficient Prompt Chaining and Routing can optimize resource usage.</p>
+        </div>
+
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Supports growth in user demand and data volume without compromising response times or incurring prohibitive costs.</p>
+        </div>
+
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> Directly facilitates parallel execution of sub-tasks, significantly improving overall system throughput and responsiveness for complex operations.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> The scalability of an agentic system heavily depends on the scalability of the integrated tools and external APIs. If external systems are not designed for high concurrency or throughput, they can become a significant bottleneck.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Can introduce computational overhead, especially if multiple critique LLMs or extensive validation processes are involved. Requires efficient implementation and potentially asynchronous processing to manage this overhead.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> Highly scalable due to its ability to distribute workload across multiple specialized agents. This allows for independent scaling of agent groups based on demand, optimizing resource allocation.</li>
+            
+            <li><strong>ReAct Pattern:</strong> Its faster response times for simple, direct tasks make it highly scalable for high-volume, low-complexity interactions, such as those found in customer service chatbots.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> Moderate scalability due to the sequential nature of planning and execution phases, though it can be optimized through parallel execution of independent plan steps.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="security" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Security and Data Governance</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Examine how patterns manage sensitive data, control access to tools and APIs, and adhere to compliance regulations (e.g., GDPR, HIPAA). Tool Use patterns require careful access management.</p>
+        </div>
+
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Protects proprietary information, prevents unauthorized access, and maintains regulatory compliance, mitigating legal and reputational risks.</p>
+        </div>
+
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> The planning phase can proactively identify sensitive steps or specific data access requirements, which then informs the implementation of granular access control policies for subsequent execution phases.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> This is a critical area. Implementing the Tool Use Pattern necessitates stringent API security measures, granular access control for agents to specific tools, robust input/output validation to prevent injection attacks, and secure management of credentials used by agents to access external systems.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Can be strategically used for compliance checks, identifying potential sensitive data leakage, or ensuring adherence to ethical AI guidelines within agent responses, thus bolstering the system's security posture.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> This pattern introduces complexity in security. It requires secure inter-agent communication protocols, granular access control for each agent's specific tools and data, and robust authentication mechanisms within the agent network to prevent unauthorized interactions.</li>
+            
+            <li><strong>ReAct Pattern:</strong> The simpler, more direct flow of ReAct might present a smaller attack surface for complex prompt injection compared to multi-step planning patterns. However, prompt injection remains a core security risk that requires mitigation.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> The planning phase can incorporate explicit security checkpoints or reviews before execution, potentially enhancing control and oversight over sensitive operations.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="integration" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Integration and Interoperability</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Test API compatibility, assess data exchange, evaluate system connectivity, and monitor integration points.</p>
+        </div>
+
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Enables system collaboration, facilitates data flow, reduces integration costs, and improves operational efficiency.</p>
+        </div>
+
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> Helps coordinate integration workflows by breaking down complex integration tasks into manageable steps and identifying dependencies between different systems.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> Essential for system integration as it provides the fundamental mechanism for agents to interact with external systems, APIs, and services.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Can validate integration results and ensure data consistency across different systems, helping to maintain integration quality and reliability.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> Enables distributed system integration by allowing different agents to specialize in interacting with specific systems while coordinating their efforts.</li>
+            
+            <li><strong>ReAct Pattern:</strong> Provides a straightforward approach to system integration for simple, well-defined integration tasks, with quick feedback loops for error handling.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> Offers structured integration capabilities by allowing detailed planning of integration steps followed by controlled execution, suitable for complex integration scenarios.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="cost" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Cost-Efficiency</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Analyze the computational costs associated with pattern execution, particularly LLM token usage for Prompt Chaining, Reflection, and extensive Planning.</p>
+        </div>
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Optimizes operational expenditures, ensuring the economic viability of agentic solutions.</p>
+        </div>
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> Optimized plans can reduce redundant steps and minimize unnecessary tool calls or computations, leading to tangible cost savings in resource consumption.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> Leverages existing enterprise investments in tools and systems, avoiding the need for re-implementation of functionality. However, operational costs are directly tied to external API usage fees and potentially the infrastructure required for tool management.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Reduces the need for manual review and correction, prevents costly errors in critical outputs, and generally improves the accuracy and trustworthiness of the system, leading to long-term cost savings.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> Optimizes resource utilization through specialization, as agents can be highly efficient within their specific domains. However, the initial setup and orchestration complexity can incur higher development and management costs.</li>
+            
+            <li><strong>ReAct Pattern:</strong> Lower token usage and fewer API calls per task contribute to its higher cost-efficiency for frequent, straightforward operations.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> Generally incurs a higher cost per task due to increased token usage and more API calls, making it less suitable for highly cost-sensitive, simple tasks.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="innovation" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Continuous Innovation and Adaptability</h2>
+        <button class="close-button" aria-label="Close details">&times;</button>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Evaluation</h3>
+          <p>Assess how easily patterns can be updated, extended, or integrated with new technologies. Modularity provided by Routing and Multi-Agent patterns can foster adaptability.</p>
+        </div>
+        <div class="pattern-characteristics">
+          <h3>Impact</h3>
+          <p>Enables rapid iteration, integration of new AI models or tools, and responsiveness to evolving business needs and technological advancements.</p>
+        </div>
+        <div class="pattern-assessment">
+          <h3>Pattern-Specific Assessment</h3>
+          <ul>
+            <li><strong>Planning Pattern:</strong> Supports dynamic adaptation and re-planning capabilities, allowing the system to respond effectively to changing requirements or unforeseen circumstances, thereby fostering continuous agility and evolution.</li>
+            
+            <li><strong>Tool Use Pattern:</strong> Unlocks vast potential by enabling agents to interact with real-world data and execute actions directly within enterprise systems. This capability creates entirely new avenues for automation, intelligent decision support, and novel business processes.</li>
+            
+            <li><strong>Reflection Pattern:</strong> Drives continuous improvement and self-optimization of agent behavior. This allows systems to learn and adapt over time without requiring explicit re-training cycles, fostering ongoing innovation and adaptability.</li>
+            
+            <li><strong>Multi-Agent Pattern:</strong> Fosters emergent behaviors and enables the solution of highly complex, multi-faceted problems by mimicking human team collaboration, leading to innovative approaches to business challenges.</li>
+            
+            <li><strong>ReAct Pattern:</strong> Enables dynamic, real-time interaction and quick problem-solving for well-defined tasks, supporting agile and responsive applications.</li>
+            
+            <li><strong>Plan-and-Execute Pattern:</strong> Enables tackling highly complex, multi-faceted problems that require structured reasoning and precise execution, unlocking new levels of automation and intelligence for intricate business processes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
     <div class="image-container">
-      <img src="assets/images/Enterprise Architectural Evaluation of Agentic Patterns.png" alt="Enterprise Architectural Evaluation Framework" class="pattern-image">
+      <img src="../assets/images/Enterprise Architectural Evaluation of Agentic Patterns.png" alt="Enterprise Architectural Evaluation Framework" class="pattern-image">
     </div>
 
-    <h2>Architectural Dimensions</h2>
-    <div class="architectural-dimensions">
-      <h3>1. Robustness and Reliability</h3>
-      <div class="dimension-detail">
-        <h4>Evaluation</h4>
-        <ul>
-          <li>Assess error handling capabilities</li>
-          <li>Evaluate graceful degradation</li>
-          <li>Test resilience to unexpected inputs</li>
-          <li>Monitor tool failure recovery</li>
-        </ul>
-        
-        <h4>Impact</h4>
-        <ul>
-          <li>Ensures mission-critical stability</li>
-          <li>Maintains consistent performance</li>
-          <li>Reduces system downtime</li>
-          <li>Improves user confidence</li>
-        </ul>
-      </div>
-
-      <h3>2. Scalability and Performance</h3>
-      <div class="dimension-detail">
-        <h4>Evaluation</h4>
-        <ul>
-          <li>Measure response times under load</li>
-          <li>Assess resource utilization</li>
-          <li>Evaluate horizontal scaling</li>
-          <li>Monitor throughput capacity</li>
-        </ul>
-        
-        <h4>Impact</h4>
-        <ul>
-          <li>Supports business growth</li>
-          <li>Optimizes resource usage</li>
-          <li>Maintains performance at scale</li>
-          <li>Reduces operational costs</li>
-        </ul>
-      </div>
-
-      <h3>3. Security and Compliance</h3>
-      <div class="dimension-detail">
-        <h4>Evaluation</h4>
-        <ul>
-          <li>Review access controls</li>
-          <li>Assess data protection</li>
-          <li>Evaluate audit capabilities</li>
-          <li>Test compliance features</li>
-        </ul>
-        
-        <h4>Impact</h4>
-        <ul>
-          <li>Protects sensitive data</li>
-          <li>Ensures regulatory compliance</li>
-          <li>Maintains audit trails</li>
-          <li>Builds user trust</li>
-        </ul>
-      </div>
-
-      <h3>4. Integration and Interoperability</h3>
-      <div class="dimension-detail">
-        <h4>Evaluation</h4>
-        <ul>
-          <li>Test API compatibility</li>
-          <li>Assess data exchange</li>
-          <li>Evaluate system connectivity</li>
-          <li>Monitor integration points</li>
-        </ul>
-        
-        <h4>Impact</h4>
-        <ul>
-          <li>Enables system collaboration</li>
-          <li>Facilitates data flow</li>
-          <li>Reduces integration costs</li>
-          <li>Improves operational efficiency</li>
-        </ul>
-      </div>
-    </div>
-
-    <h2>Pattern-Specific Assessment</h2>
-    <div class="pattern-assessment">
-      <h3>Planning Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> Enhances system robustness by enabling the decomposition of complex tasks into manageable, often independent, sub-tasks. This modularity allows for better error isolation and facilitates graceful degradation in case of partial failures.</li>
-        <li><strong>Security:</strong> The planning phase can proactively identify sensitive steps or specific data access requirements, which then informs the implementation of granular access control policies for subsequent execution phases.</li>
-        <li><strong>Scalability:</strong> Directly facilitates parallel execution of sub-tasks, significantly improving overall system throughput and responsiveness for complex operations.</li>
-        <li><strong>Cost-Efficiency:</strong> Optimized plans can reduce redundant steps and minimize unnecessary tool calls or computations, leading to tangible cost savings in resource consumption.</li>
-        <li><strong>Innovation:</strong> Supports dynamic adaptation and re-planning capabilities, allowing the system to respond effectively to changing requirements or unforeseen circumstances, thereby fostering continuous agility and evolution.</li>
-      </ul>
-
-      <h3>Tool Use Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> Increases system robustness by leveraging external, specialized, and often highly robust enterprise systems (such as databases, APIs, or legacy applications). However, it inherently introduces dependencies on the reliability and availability of these external systems.</li>
-        <li><strong>Security:</strong> This is a critical area. Implementing the Tool Use Pattern necessitates stringent API security measures, granular access control for agents to specific tools, robust input/output validation to prevent injection attacks, and secure management of credentials used by agents to access external systems.</li>
-        <li><strong>Scalability:</strong> The scalability of an agentic system heavily depends on the scalability of the integrated tools and external APIs. If external systems are not designed for high concurrency or throughput, they can become a significant bottleneck.</li>
-        <li><strong>Cost-Efficiency:</strong> Leverages existing enterprise investments in tools and systems, avoiding the need for re-implementation of functionality. However, operational costs are directly tied to external API usage fees and potentially the infrastructure required for tool management.</li>
-        <li><strong>Innovation:</strong> Unlocks vast potential by enabling agents to interact with real-world data and execute actions directly within enterprise systems. This capability creates entirely new avenues for automation, intelligent decision support, and novel business processes.</li>
-      </ul>
-
-      <h3>Reflection Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> Significantly improves the quality and reliability of agent outputs by identifying and correcting errors, biases, or inconsistencies. It acts as an internal quality gate, enhancing the system's overall dependability.</li>
-        <li><strong>Security:</strong> Can be strategically used for compliance checks, identifying potential sensitive data leakage, or ensuring adherence to ethical AI guidelines within agent responses, thus bolstering the system's security posture.</li>
-        <li><strong>Scalability:</strong> Can introduce computational overhead, especially if multiple critique LLMs or extensive validation processes are involved. Requires efficient implementation and potentially asynchronous processing to manage this overhead.</li>
-        <li><strong>Cost-Efficiency:</strong> Reduces the need for manual review and correction, prevents costly errors in critical outputs, and generally improves the accuracy and trustworthiness of the system, leading to long-term cost savings.</li>
-        <li><strong>Innovation:</strong> Drives continuous improvement and self-optimization of agent behavior. This allows systems to learn and adapt over time without requiring explicit re-training cycles, fostering ongoing innovation and adaptability.</li>
-      </ul>
-
-      <h3>Multi-Agent Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> The distributed architecture inherent in the Multi-Agent Pattern offers built-in redundancy and fail-safe mechanisms. Failures in one agent can often be isolated, preventing cascading system-wide failures and enhancing overall system resilience.</li>
-        <li><strong>Security:</strong> This pattern introduces complexity in security. It requires secure inter-agent communication protocols, granular access control for each agent's specific tools and data, and robust authentication mechanisms within the agent network to prevent unauthorized interactions.</li>
-        <li><strong>Scalability:</strong> Highly scalable due to its ability to distribute workload across multiple specialized agents. This allows for independent scaling of agent groups based on demand, optimizing resource allocation.</li>
-        <li><strong>Cost-Efficiency:</strong> Optimizes resource utilization through specialization, as agents can be highly efficient within their specific domains. However, the initial setup and orchestration complexity can incur higher development and management costs.</li>
-        <li><strong>Innovation:</strong> Fosters emergent behaviors and enables the solution of highly complex, multi-faceted problems by mimicking human team collaboration, leading to innovative approaches to business challenges.</li>
-      </ul>
-
-      <h3>ReAct Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> Its iterative nature allows for dynamic adjustment and potential recovery from intermediate errors or unexpected observations, enhancing resilience for simpler, well-defined tasks.</li>
-        <li><strong>Security:</strong> The simpler, more direct flow of ReAct might present a smaller attack surface for complex prompt injection compared to multi-step planning patterns. However, prompt injection remains a core security risk that requires mitigation.</li>
-        <li><strong>Scalability:</strong> Its faster response times for simple, direct tasks make it highly scalable for high-volume, low-complexity interactions, such as those found in customer service chatbots.</li>
-        <li><strong>Cost-Efficiency:</strong> Lower token usage and fewer API calls per task contribute to its higher cost-efficiency for frequent, straightforward operations.</li>
-        <li><strong>Innovation:</strong> Enables dynamic, real-time interaction and quick problem-solving for well-defined tasks, supporting agile and responsive applications.</li>
-      </ul>
-
-      <h3>Plan-and-Execute Pattern</h3>
-      <ul>
-        <li><strong>Robustness:</strong> The explicit planning and execution phases, coupled with opportunities for intermediate result validation, allow for better error detection and dynamic plan adjustment, making it highly robust for complex and critical tasks.</li>
-        <li><strong>Security:</strong> The planning phase can incorporate explicit security checkpoints or reviews before execution, potentially enhancing control and oversight over sensitive operations.</li>
-      </ul>
-    </div>
 
     <div class="trade-offs-section">
-      <p>The evaluation clearly demonstrates that no single pattern is optimal across all architectural concerns. There are inherent trade-offs; for example, ReAct's speed often comes at the expense of Plan-and-Execute's accuracy, and the Tool Use pattern's innovative capabilities introduce a significant security burden.</p>
-      
-      <p>Enterprise architects must carefully weigh these trade-offs based on the specific context, criticality, and non-functional requirements of each application. This necessitates a sophisticated architectural approach that strategically combines patterns to achieve a balanced outcome. It means moving beyond a "one-size-fits-all" mentality to a nuanced design process that optimizes for specific architectural goals, often leading to hybrid patterns and composite agentic systems.</p>
-      
-      <p>The following table, the Enterprise Architectural Impact Matrix, provides a high-level, comparative overview for senior developers and architects, allowing them to quickly grasp the implications of each key agentic pattern across critical enterprise architectural dimensions. This matrix serves as a strategic decision-making tool.</p>
-
-      <div class="table-container">
-        <table class="impact-matrix">
+      <h2>Impact Matrix</h2>
+      <div class="impact-matrix">
+        <table>
           <thead>
             <tr>
               <th>Pattern</th>
