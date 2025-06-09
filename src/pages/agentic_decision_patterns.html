@@ -4,116 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Decision Patterns</title>
-    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="../js/app.js" defer></script>
 </head>
-<body class="pattern-page">
-    <div class="container">
+<body>
+    <div class="content">
+        <a href="Agentic_Design_Pattern.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Main
+        </a>
+        
         <header>
-            <div class="header-content">
-                <h1>Agentic Decision Patterns</h1>
-                <p class="subtitle">Patterns for intelligent decision-making in agentic systems</p>
-                <div class="header-actions">
-                    <a href="Agentic_Design_Pattern.html" class="back-button">
-                        <i class="fas fa-arrow-left"></i> Back to Main
-                    </a>
-                </div>
-            </div>
+            <h1>Agentic Decision Patterns</h1>
+            <p class="subtitle">Patterns for intelligent decision-making in agentic systems</p>
         </header>
 
-        <div class="patterns-grid">
-            <!-- Decision Tree Pattern -->
-            <a href="#decision-tree" class="pattern-card" role="button" tabindex="0" aria-label="View Decision Tree details">
+        <nav class="nav-tiles">
+            <a href="#decision-tree" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-sitemap"></i>
                 </div>
                 <h3>Decision Tree</h3>
                 <p>Hierarchical decision-making structure</p>
-                <ul>
-                    <li>Branching</li>
-                    <li>Classification</li>
-                    <li>Prediction</li>
-                </ul>
             </a>
 
-            <!-- Rule Engine Pattern -->
-            <a href="#rule-engine" class="pattern-card" role="button" tabindex="0" aria-label="View Rule Engine details">
+            <a href="#rule-engine" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-cogs"></i>
                 </div>
                 <h3>Rule Engine</h3>
                 <p>Rule-based decision making</p>
-                <ul>
-                    <li>Rules</li>
-                    <li>Conditions</li>
-                    <li>Actions</li>
-                </ul>
             </a>
 
-            <!-- Bayesian Pattern -->
-            <a href="#bayesian" class="pattern-card" role="button" tabindex="0" aria-label="View Bayesian details">
+            <a href="#bayesian" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-chart-line"></i>
                 </div>
                 <h3>Bayesian</h3>
                 <p>Probabilistic decision making</p>
-                <ul>
-                    <li>Probability</li>
-                    <li>Inference</li>
-                    <li>Learning</li>
-                </ul>
             </a>
 
-            <!-- Reinforcement Pattern -->
-            <a href="#reinforcement" class="pattern-card" role="button" tabindex="0" aria-label="View Reinforcement details">
+            <a href="#reinforcement" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-brain"></i>
                 </div>
                 <h3>Reinforcement</h3>
                 <p>Learning from feedback</p>
-                <ul>
-                    <li>Reward</li>
-                    <li>Policy</li>
-                    <li>Value</li>
-                </ul>
             </a>
 
-            <!-- Fuzzy Logic Pattern -->
-            <a href="#fuzzy-logic" class="pattern-card" role="button" tabindex="0" aria-label="View Fuzzy Logic details">
+            <a href="#fuzzy-logic" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-wave-square"></i>
                 </div>
                 <h3>Fuzzy Logic</h3>
                 <p>Handling imprecise information</p>
-                <ul>
-                    <li>Membership</li>
-                    <li>Inference</li>
-                    <li>Defuzzification</li>
-                </ul>
             </a>
 
-            <!-- Expert System Pattern -->
-            <a href="#expert-system" class="pattern-card" role="button" tabindex="0" aria-label="View Expert System details">
+            <a href="#expert-system" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-user-tie"></i>
                 </div>
                 <h3>Expert System</h3>
                 <p>Knowledge-based decision making</p>
-                <ul>
-                    <li>Knowledge</li>
-                    <li>Inference</li>
-                    <li>Explanation</li>
-                </ul>
             </a>
-        </div>
+        </nav>
 
-        <!-- Pattern details sections -->
-        <div id="decision-tree" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Decision Tree</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="decision-tree">
+            <h2>Decision Tree</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -194,13 +150,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="rule-engine" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Rule Engine</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="rule-engine">
+            <h2>Rule Engine</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -265,18 +218,15 @@
                     <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
                     <ul>
                         <li>Decision Tree - For hierarchical decisions</li>
-                        <li>Bayesian - For probabilistic decisions</li>
-                        <li>Reinforcement - For learning decisions</li>
+                        <li>Expert System - For knowledge-based rules</li>
+                        <li>Fuzzy Logic - For imprecise rules</li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="bayesian" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Bayesian</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="bayesian">
+            <h2>Bayesian</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -346,13 +296,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="reinforcement" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Reinforcement</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="reinforcement">
+            <h2>Reinforcement</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -430,13 +377,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="fuzzy-logic" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Fuzzy Logic</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="fuzzy-logic">
+            <h2>Fuzzy Logic</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -525,13 +469,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="expert-system" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Expert System</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="expert-system">
+            <h2>Expert System</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -656,7 +597,8 @@ class ExplanationSystem {
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+    <script src="../js/app.js"></script>
 </body>
 </html> 

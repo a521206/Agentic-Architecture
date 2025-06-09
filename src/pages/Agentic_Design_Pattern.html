@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Architecture</title>
-    <link rel="stylesheet" href="../css/agentic_design_pattern.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <div class="container">
+<body class="pattern-page">
+    <div class="content">
         <a href="../../index.html" class="back-button">
             <i class="fas fa-arrow-left"></i> Back to Main
-          </a>
-              <header>
+        </a>
+        
+        <header>
             <h1>Agentic Design Patterns</h1>
             <p class="description">
                 Explore collection of design patterns for creating robust, scalable, and intelligent agent systems. 
@@ -19,47 +21,64 @@
             </p>
         </header>
 
-        <div class="pattern-sections">
-            <!-- Core Patterns Section -->
-            <div class="pattern-section">
-                <h2>Core Patterns</h2>
+        <nav class="nav-tiles">
+            <a href="#core-patterns" class="nav-tile">
+                <h3>Core Patterns</h3>
                 <p class="pattern-count">7 patterns</p>
-                <p>Fundamental patterns that form the basis of agentic systems</p>
-                <a href="agentic_core_patterns.html" class="pattern-link">View Patterns</a>
-            </div>
-
-            <!-- Workflow Patterns Section -->
-            <div class="pattern-section">
-                <h2>Workflow Patterns</h2>
+            </a>
+            <a href="#workflow-patterns" class="nav-tile">
+                <h3>Workflow Patterns</h3>
                 <p class="pattern-count">12 patterns</p>
-                <p>Patterns for orchestrating agent workflows and processes</p>
-                <a href="agentic_workflow_patterns.html" class="pattern-link">View Patterns</a>
-            </div>
-
-            <!-- Communication Patterns Section -->
-            <div class="pattern-section">
-                <h2>Communication Patterns</h2>
+            </a>
+            <a href="#communication-patterns" class="nav-tile">
+                <h3>Communication Patterns</h3>
                 <p class="pattern-count">8 patterns</p>
-                <p>Patterns for agent communication and interaction</p>
-                <a href="agentic_communication_patterns.html" class="pattern-link">View Patterns</a>
-            </div>
-
-            <!-- Decision Patterns Section -->
-            <div class="pattern-section">
-                <h2>Decision Patterns</h2>
+            </a>
+            <a href="#decision-patterns" class="nav-tile">
+                <h3>Decision Patterns</h3>
                 <p class="pattern-count">5 patterns</p>
-                <p>Patterns for agent decision-making and problem-solving</p>
-                <a href="agentic_decision_patterns.html" class="pattern-link">View Patterns</a>
-            </div>
-
-            <!-- Learning Patterns Section -->
-            <div class="pattern-section">
-                <h2>Learning Patterns</h2>
+            </a>
+            <a href="#learning-patterns" class="nav-tile">
+                <h3>Learning Patterns</h3>
                 <p class="pattern-count">5 patterns</p>
-                <p>Patterns for agent learning and adaptation</p>
-                <a href="agentic_learning_patterns.html" class="pattern-link">View Patterns</a>
-            </div>
-        </div>
+            </a>
+        </nav>
+
+        <section id="core-patterns">
+            <h2>Core Patterns</h2>
+            <p class="pattern-count">7 patterns</p>
+            <p>Fundamental patterns that form the basis of agentic systems</p>
+            <a href="agentic_core_patterns.html" class="pattern-link">View Patterns</a>
+        </section>
+
+        <section id="workflow-patterns">
+            <h2>Workflow Patterns</h2>
+            <p class="pattern-count">12 patterns</p>
+            <p>Patterns for orchestrating agent workflows and processes</p>
+            <a href="agentic_workflow_patterns.html" class="pattern-link">View Patterns</a>
+        </section>
+
+        <section id="communication-patterns">
+            <h2>Communication Patterns</h2>
+            <p class="pattern-count">8 patterns</p>
+            <p>Patterns for agent communication and interaction</p>
+            <a href="agentic_communication_patterns.html" class="pattern-link">View Patterns</a>
+        </section>
+
+        <section id="decision-patterns">
+            <h2>Decision Patterns</h2>
+            <p class="pattern-count">5 patterns</p>
+            <p>Patterns for agent decision-making and problem-solving</p>
+            <a href="agentic_decision_patterns.html" class="pattern-link">View Patterns</a>
+        </section>
+
+        <section id="learning-patterns">
+            <h2>Learning Patterns</h2>
+            <p class="pattern-count">5 patterns</p>
+            <p>Patterns for agent learning and adaptation</p>
+            <a href="agentic_learning_patterns.html" class="pattern-link">View Patterns</a>
+        </section>
     </div>
+    <script src="../js/app.js"></script>
 </body>
 </html> 

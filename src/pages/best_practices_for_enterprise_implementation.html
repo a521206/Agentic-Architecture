@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Best Practices for Enterprise Implementation</title>
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="pattern-page">
   <div class="content">
     <a href="../../index.html" class="back-button">
       <i class="fas fa-arrow-left"></i> Back to Main
@@ -17,62 +18,36 @@
       <p>Successful deployment of agentic systems in an enterprise context requires adherence to best practices that go beyond mere pattern selection.</p>
     </header>
 
-    <div class="pattern-grid">
-      <a href="#security" class="pattern-card" role="button" tabindex="0" aria-label="View Security Measures details">
+    <nav class="nav-tiles" style="margin-bottom: 2.5rem;">
+      <a href="#security" class="nav-tile">
         <h3>Security Measures</h3>
         <p>Protecting sensitive enterprise systems</p>
-        <ul>
-          <li>Authentication & Authorization</li>
-          <li>Data Privacy & Compliance</li>
-          <li>Threat Modeling</li>
-        </ul>
       </a>
 
-      <a href="#governance" class="pattern-card" role="button" tabindex="0" aria-label="View Data Governance details">
+      <a href="#governance" class="nav-tile">
         <h3>Data Governance</h3>
         <p>Maintaining data integrity and compliance</p>
-        <ul>
-          <li>Data Lineage & Quality</li>
-          <li>Compliance & Auditability</li>
-          <li>Ethical AI Considerations</li>
-        </ul>
       </a>
 
-      <a href="#monitoring" class="pattern-card" role="button" tabindex="0" aria-label="View Monitoring and Observability details">
+      <a href="#monitoring" class="nav-tile">
         <h3>Monitoring and Observability</h3>
         <p>Understanding agent behavior and performance</p>
-        <ul>
-          <li>Performance Metrics</li>
-          <li>Error Handling & Logging</li>
-          <li>Agent Behavior Tracking</li>
-        </ul>
       </a>
 
-      <a href="#integration" class="pattern-card" role="button" tabindex="0" aria-label="View Integration Strategies details">
+      <a href="#integration" class="nav-tile">
         <h3>Integration Strategies</h3>
         <p>Seamless system integration</p>
-        <ul>
-          <li>Standardized API Design</li>
-          <li>Microservices Architecture</li>
-          <li>Legacy System Interoperability</li>
-        </ul>
       </a>
 
-      <a href="#development" class="pattern-card" role="button" tabindex="0" aria-label="View Development Lifecycle details">
+      <a href="#development" class="nav-tile">
         <h3>Development Lifecycle</h3>
         <p>Ensuring quality and maintainability</p>
-        <ul>
-          <li>Rigorous Testing</li>
-          <li>Versioning</li>
-          <li>Automated Deployment</li>
-        </ul>
       </a>
-    </div>
+    </nav>
 
-    <div id="security" class="pattern-details">
+    <section id="security" class="pattern-details" style="margin-top: 2.5rem;">
       <div class="pattern-header">
         <h2>Security Measures</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -92,12 +67,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="governance" class="pattern-details">
+    <section id="governance" class="pattern-details">
       <div class="pattern-header">
         <h2>Data Governance</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -114,12 +88,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="monitoring" class="pattern-details">
+    <section id="monitoring" class="pattern-details">
       <div class="pattern-header">
         <h2>Monitoring and Observability</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -137,12 +110,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="integration" class="pattern-details">
+    <section id="integration" class="pattern-details">
       <div class="pattern-header">
         <h2>Integration Strategies</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -160,12 +132,11 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="development" class="pattern-details">
+    <section id="development" class="pattern-details">
       <div class="pattern-header">
         <h2>Development Lifecycle</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -183,7 +154,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   </div>
   <script src="../js/app.js"></script>
 </body>

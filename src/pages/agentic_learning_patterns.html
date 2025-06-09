@@ -4,88 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Learning Patterns</title>
-    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="../js/app.js" defer></script>
 </head>
 <body class="pattern-page">
-    <div class="container">
+    <div class="content">
+        <a href="Agentic_Design_Pattern.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Main
+        </a>
+        
         <header>
-            <div class="header-content">
-                <h1>Agentic Learning Patterns</h1>
-                <p class="subtitle">Patterns for continuous learning and adaptation in agentic systems</p>
-                <div class="header-actions">
-                    <a href="Agentic_Design_Pattern.html" class="back-button">
-                        <i class="fas fa-arrow-left"></i> Back to Main
-                    </a>
-                </div>
-            </div>
+            <h1>Agentic Learning Patterns</h1>
+            <p class="subtitle">Patterns for continuous learning and adaptation in agentic systems</p>
         </header>
 
-        <div class="patterns-grid">
-            <!-- Supervised Learning Pattern -->
-            <a href="#supervised" class="pattern-card" role="button" tabindex="0" aria-label="View Supervised Learning details">
+        <nav class="nav-tiles">
+            <a href="#supervised" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
                 <h3>Supervised Learning</h3>
                 <p>Learning from labeled examples</p>
-                <ul>
-                    <li>Training</li>
-                    <li>Labels</li>
-                    <li>Validation</li>
-                </ul>
             </a>
 
-            <!-- Unsupervised Learning Pattern -->
-            <a href="#unsupervised" class="pattern-card" role="button" tabindex="0" aria-label="View Unsupervised Learning details">
+            <a href="#unsupervised" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-atom"></i>
                 </div>
                 <h3>Unsupervised Learning</h3>
                 <p>Learning from unlabeled data</p>
-                <ul>
-                    <li>Clustering</li>
-                    <li>Patterns</li>
-                    <li>Discovery</li>
-                </ul>
             </a>
 
-            <!-- Reinforcement Learning Pattern -->
-            <a href="#reinforcement" class="pattern-card" role="button" tabindex="0" aria-label="View Reinforcement Learning details">
+            <a href="#reinforcement" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-trophy"></i>
                 </div>
                 <h3>Reinforcement Learning</h3>
                 <p>Learning from feedback</p>
-                <ul>
-                    <li>Reward</li>
-                    <li>Policy</li>
-                    <li>Value</li>
-                </ul>
             </a>
 
-            <!-- Transfer Learning Pattern -->
-            <a href="#transfer" class="pattern-card" role="button" tabindex="0" aria-label="View Transfer Learning details">
+            <a href="#transfer" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-exchange-alt"></i>
                 </div>
                 <h3>Transfer Learning</h3>
                 <p>Applying knowledge across domains</p>
-                <ul>
-                    <li>Adaptation</li>
-                    <li>Reuse</li>
-                    <li>Efficiency</li>
-                </ul>
             </a>
-        </div>
+        </nav>
 
-        <!-- Pattern details sections -->
-        <div id="supervised" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Supervised Learning</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="supervised">
+            <h2>Supervised Learning</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -162,13 +130,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="unsupervised" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Unsupervised Learning</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="unsupervised">
+            <h2>Unsupervised Learning</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -259,13 +224,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="reinforcement" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Reinforcement Learning</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="reinforcement">
+            <h2>Reinforcement Learning</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -355,13 +317,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="transfer" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Transfer Learning</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="transfer">
+            <h2>Transfer Learning</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -450,7 +409,8 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+    <script src="../js/app.js"></script>
 </body>
 </html> 

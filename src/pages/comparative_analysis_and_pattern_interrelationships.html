@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparative Analysis and Pattern Interrelationships</title>
   <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="pattern-page">
   <div class="content">
     <a href="../../index.html" class="back-button">
       <i class="fas fa-arrow-left"></i> Back to Main
@@ -16,50 +17,28 @@
       <p>Understanding the nuances and relationships between agentic design patterns is key to effective system architecture. While distinct, these patterns often exhibit synergies and form layered structures within complex agentic systems.</p>
     </header>
 
-    <div class="pattern-grid">
-      <a href="#layering" class="pattern-card" role="button" tabindex="0" aria-label="View Layering and Hierarchy details">
+    <nav class="nav-tiles">
+      <a href="#layering" class="nav-tile">
         <h3>Layering and Hierarchy</h3>
         <p>A high-level Planning agent may coordinate Multi-Agent teams</p>
-        <ul>
-          <li>Tool Use integration</li>
-          <li>Reflection patterns</li>
-          <li>Prompt Chaining</li>
-        </ul>
       </a>
-
-      <a href="#interdependencies" class="pattern-card" role="button" tabindex="0" aria-label="View Interdependencies details">
+      <a href="#interdependencies" class="nav-tile">
         <h3>Interdependencies</h3>
         <p>Pattern relationships and synergies</p>
-        <ul>
-          <li>Tool Use often depends on Planning or Routing</li>
-          <li>Reflection boosts all patterns</li>
-          <li>Parallelization enhances Prompt Chaining or Multi-Agent workflows</li>
-        </ul>
       </a>
-
-      <a href="#reasoning" class="pattern-card" role="button" tabindex="0" aria-label="View Core Reasoning details">
+      <a href="#reasoning" class="nav-tile">
         <h3>Core Reasoning</h3>
         <p>Different approaches to agent decision-making</p>
-        <ul>
-          <li>ReAct: Reactive and interleaves thought and action</li>
-          <li>Plan-and-Execute: Structured, with planning upfront and mid-course corrections</li>
-        </ul>
       </a>
-
-      <a href="#flexibility" class="pattern-card" role="button" tabindex="0" aria-label="View Flexibility vs Structure details">
+      <a href="#flexibility" class="nav-tile">
         <h3>Flexibility vs Structure</h3>
         <p>Balancing adaptability with predictability</p>
-        <ul>
-          <li>Routing = Dynamic flexibility</li>
-          <li>Planning = Structured predictability</li>
-        </ul>
       </a>
-    </div>
+    </nav>
 
     <div id="layering" class="pattern-details">
       <div class="pattern-header">
         <h2>Layering and Hierarchy</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -128,7 +107,6 @@
     <div id="interdependencies" class="pattern-details">
       <div class="pattern-header">
         <h2>Interdependencies</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -200,7 +178,6 @@
     <div id="reasoning" class="pattern-details">
       <div class="pattern-header">
         <h2>Core Reasoning</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
@@ -280,7 +257,6 @@
     <div id="flexibility" class="pattern-details">
       <div class="pattern-header">
         <h2>Flexibility vs Structure</h2>
-        <button class="close-button" aria-label="Close details">&times;</button>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">

@@ -4,116 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Workflow Patterns</title>
-    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="../js/app.js" defer></script>
 </head>
-<body class="pattern-page">
-    <div class="container">
+<body>
+    <div class="content">
+        <a href="Agentic_Design_Pattern.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Main
+        </a>
+        
         <header>
-            <div class="header-content">
-                <h1>Agentic Workflow Patterns</h1>
-                <p class="subtitle">Patterns for orchestrating complex agent workflows and processes</p>
-                <div class="header-actions">
-                    <a href="Agentic_Design_Pattern.html" class="back-button">
-                        <i class="fas fa-arrow-left"></i> Back to Main
-                    </a>
-                </div>
-            </div>
+            <h1>Agentic Workflow Patterns</h1>
+            <p class="subtitle">Patterns for orchestrating complex agent workflows and processes</p>
         </header>
 
-        <div class="patterns-grid">
-            <!-- Pipeline Pattern -->
-            <a href="#pipeline" class="pattern-card" role="button" tabindex="0" aria-label="View Pipeline details">
+        <nav class="nav-tiles">
+            <a href="#pipeline" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-project-diagram"></i>
                 </div>
                 <h3>Pipeline</h3>
                 <p>Sequential task processing</p>
-                <ul>
-                    <li>Stages</li>
-                    <li>Flow</li>
-                    <li>Processing</li>
-                </ul>
             </a>
 
-            <!-- Orchestration Pattern -->
-            <a href="#orchestration" class="pattern-card" role="button" tabindex="0" aria-label="View Orchestration details">
+            <a href="#orchestration" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-music"></i>
                 </div>
                 <h3>Orchestration</h3>
                 <p>Centralized workflow control</p>
-                <ul>
-                    <li>Control</li>
-                    <li>Coordination</li>
-                    <li>Management</li>
-                </ul>
             </a>
 
-            <!-- Choreography Pattern -->
-            <a href="#choreography" class="pattern-card" role="button" tabindex="0" aria-label="View Choreography details">
+            <a href="#choreography" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-random"></i>
                 </div>
                 <h3>Choreography</h3>
                 <p>Decentralized workflow coordination</p>
-                <ul>
-                    <li>Events</li>
-                    <li>Messages</li>
-                    <li>Coordination</li>
-                </ul>
             </a>
 
-            <!-- Saga Pattern -->
-            <a href="#saga" class="pattern-card" role="button" tabindex="0" aria-label="View Saga details">
+            <a href="#saga" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-book"></i>
                 </div>
                 <h3>Saga</h3>
                 <p>Distributed transaction management</p>
-                <ul>
-                    <li>Transactions</li>
-                    <li>Compensation</li>
-                    <li>Recovery</li>
-                </ul>
             </a>
 
-            <!-- Event Sourcing Pattern -->
-            <a href="#event-sourcing" class="pattern-card" role="button" tabindex="0" aria-label="View Event Sourcing details">
+            <a href="#event-sourcing" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-history"></i>
                 </div>
                 <h3>Event Sourcing</h3>
                 <p>State changes as event sequence</p>
-                <ul>
-                    <li>Events</li>
-                    <li>History</li>
-                    <li>Replay</li>
-                </ul>
             </a>
 
-            <!-- CQRS Pattern -->
-            <a href="#cqrs" class="pattern-card" role="button" tabindex="0" aria-label="View CQRS details">
+            <a href="#cqrs" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-code-branch"></i>
                 </div>
                 <h3>CQRS</h3>
                 <p>Command Query Responsibility Segregation</p>
-                <ul>
-                    <li>Commands</li>
-                    <li>Queries</li>
-                    <li>Separation</li>
-                </ul>
             </a>
-        </div>
+        </nav>
 
-        <!-- Pattern details sections -->
-        <div id="pipeline" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Pipeline</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="pipeline">
+            <h2>Pipeline</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -189,13 +145,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="orchestration" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Orchestration</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="orchestration">
+            <h2>Orchestration</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -249,7 +202,7 @@
                         <li>Complex system integration</li>
                         <li>Multi-agent coordination</li>
                         <li>Workflow automation</li>
-                        <li>Service orchestration</li>
+                        <li>Process management</li>
                     </ul>
                 </div>
 
@@ -257,18 +210,15 @@
                     <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
                     <ul>
                         <li>Pipeline - For sequential processing</li>
-                        <li>Choreography - For decentralized coordination</li>
+                        <li>Choreography - For decentralized control</li>
                         <li>Saga - For transaction management</li>
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="choreography" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Choreography</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="choreography">
+            <h2>Choreography</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -339,13 +289,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="saga" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Saga</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="saga">
+            <h2>Saga</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -415,13 +362,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="event-sourcing" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Event Sourcing</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="event-sourcing">
+            <h2>Event Sourcing</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -507,13 +451,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="cqrs" class="pattern-details">
-            <div class="pattern-header">
-                <h2>CQRS</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="cqrs">
+            <h2>CQRS</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -594,7 +535,8 @@ class QueryModel {
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+    <script src="../js/app.js"></script>
 </body>
 </html> 

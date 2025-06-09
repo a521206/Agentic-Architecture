@@ -30,13 +30,11 @@ const utils = {
     getElements: {
         patternCards: () => document.querySelectorAll('.pattern-card'),
         patternLinks: () => document.querySelectorAll('a[href^="#"]'),
-        closeButtons: () => document.querySelectorAll('.close-button'),
-        overlay: () => document.querySelector('.overlay'),
+        sections: () => document.querySelectorAll('section[id]'),
         fadeElements: () => document.querySelectorAll('.fade-in'),
         tables: () => document.querySelectorAll('table'),
         images: () => document.querySelectorAll('.pattern-image'),
-        interactiveHeaders: () => document.querySelectorAll('.interactive-header'),
-        patternDetails: () => document.querySelectorAll('.pattern-details')
+        interactiveHeaders: () => document.querySelectorAll('.interactive-header')
     },
 
     // Animation helpers
@@ -60,13 +58,12 @@ const utils = {
     isMainPage: () => !document.body.classList.contains('pattern-page')
 };
 
-// Pattern Manager Class
-class PatternManager {
+// Navigation Manager Class
+class NavigationManager {
     constructor() {
-        this.currentPattern = null;
+        this.currentSection = null;
+        this.sections = utils.getElements.sections();
         this.patternCards = utils.getElements.patternCards();
-        this.patternDetails = utils.getElements.patternDetails();
-        this.isDetailsVisible = false;
     }
 
     init() {
@@ -74,6 +71,8 @@ class PatternManager {
         this.setupSmoothScrolling();
         this.initializeGoToTop();
         this.initializeFadeAnimations();
+        this.initializeProgressIndicator();
+        this.setupScrollSpy();
         
         // Only setup responsive elements if they exist
         if (document.querySelector('table')) {
@@ -81,11 +80,6 @@ class PatternManager {
         }
         if (document.querySelector('.pattern-image')) {
             this.setupResponsiveImages();
-        }
-        
-        // Only hide patterns if they exist
-        if (this.patternDetails.length > 0) {
-            this.hideAllPatterns();
         }
 
         // Initialize page-specific functionality
@@ -96,15 +90,6 @@ class PatternManager {
         }
     }
 
-    hideAllPatterns() {
-        if (this.patternDetails.length === 0) return;
-        
-        this.patternDetails.forEach(pattern => {
-            pattern.style.display = 'none';
-            pattern.classList.remove('fade-in');
-        });
-    }
-
     setupEventListeners() {
         // Pattern card click events
         this.patternCards.forEach(card => {
@@ -112,93 +97,28 @@ class PatternManager {
                 const href = card.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
-                    const patternId = href.substring(1);
-                    if (patternId) {
-                        this.showPattern(patternId);
-                        card.classList.add('loading');
-                        setTimeout(() => card.classList.remove('loading'), 300);
+                    const target = document.querySelector(href);
+                    if (target) {
+                        utils.smoothScroll(target);
+                        // Update URL without page reload
+                        history.pushState(null, null, href);
                     }
                 }
             });
         });
 
-        // Close button events
-        utils.getElements.closeButtons().forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.hidePattern();
-            });
-        });
-
-        // Keyboard events
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.hidePattern();
-            }
-        });
-
-        // Pattern details background click
-        this.patternDetails.forEach(details => {
-            details.addEventListener('click', (event) => {
-                if (event.target === event.currentTarget) {
-                    this.hidePattern();
+        // Interactive headers
+        utils.getElements.interactiveHeaders().forEach(header => {
+            header.addEventListener('click', () => {
+                const targetId = header.getAttribute('data-target');
+                if (targetId) {
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        utils.smoothScroll(target);
+                    }
                 }
             });
         });
-
-        // Hash change handling
-        window.addEventListener('hashchange', () => {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                this.showPattern(hash);
-            } else {
-                this.hidePattern();
-            }
-        });
-    }
-
-    showPattern(patternId) {
-        this.hidePattern();
-
-        const selectedPattern = document.getElementById(patternId);
-        if (selectedPattern) {
-            selectedPattern.style.display = 'block';
-            this.currentPattern = selectedPattern;
-
-            this.patternCards.forEach(card => {
-                card.classList.remove('active');
-                if (card.getAttribute('href') === `#${patternId}`) {
-                    card.classList.add('active');
-                }
-            });
-
-            setTimeout(() => {
-                selectedPattern.classList.add('fade-in');
-            }, 50);
-
-            this.isDetailsVisible = true;
-            document.body.style.overflow = 'hidden';
-            window.location.hash = patternId;
-        }
-    }
-
-    hidePattern() {
-        if (this.currentPattern) {
-            this.currentPattern.classList.remove('fade-in');
-            setTimeout(() => {
-                this.currentPattern.style.display = 'none';
-                this.currentPattern = null;
-            }, 300);
-        }
-
-        this.patternCards.forEach(card => {
-            card.classList.remove('active');
-        });
-
-        document.body.style.overflow = 'auto';
-        this.isDetailsVisible = false;
-        window.history.pushState("", document.title, window.location.pathname);
     }
 
     setupSmoothScrolling() {
@@ -208,16 +128,59 @@ class PatternManager {
                 const target = document.querySelector(anchor.getAttribute('href'));
                 if (target) {
                     utils.smoothScroll(target);
+                    // Update URL without page reload
+                    history.pushState(null, null, anchor.getAttribute('href'));
                 }
             });
         });
     }
 
+    setupScrollSpy() {
+        const updateActiveSection = () => {
+            const scrollPosition = window.scrollY;
+            
+            this.sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop - 100 && 
+                    scrollPosition < sectionTop + sectionHeight - 100) {
+                    section.classList.add('active');
+                    this.currentSection = section;
+                    
+                    // Update corresponding navigation link
+                    const id = section.getAttribute('id');
+                    if (id) {
+                        document.querySelectorAll(`a[href="#${id}"]`).forEach(link => {
+                            link.classList.add('active');
+                        });
+                    }
+                } else {
+                    section.classList.remove('active');
+                    const id = section.getAttribute('id');
+                    if (id) {
+                        document.querySelectorAll(`a[href="#${id}"]`).forEach(link => {
+                            link.classList.remove('active');
+                        });
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateActiveSection);
+        // Initial check
+        updateActiveSection();
+    }
+
     initializeGoToTop() {
-        const goToTopButton = document.createElement('div');
-        goToTopButton.className = 'go-to-top';
-        goToTopButton.innerHTML = '↑';
-        document.body.appendChild(goToTopButton);
+        let goToTopButton = document.querySelector('.go-to-top');
+        if (!goToTopButton) {
+            goToTopButton = document.createElement('a');
+            goToTopButton.className = 'go-to-top';
+            goToTopButton.href = '#';
+            goToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
+            document.body.appendChild(goToTopButton);
+        }
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > 300) {
@@ -227,11 +190,25 @@ class PatternManager {
             }
         });
 
-        goToTopButton.addEventListener('click', () => {
+        goToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
+        });
+    }
+
+    initializeProgressIndicator() {
+        const progressBar = document.createElement('div');
+        progressBar.className = 'reading-progress';
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
         });
     }
 
@@ -256,43 +233,27 @@ class PatternManager {
         const handleResponsiveImages = () => {
             utils.getElements.images().forEach(img => {
                 if (img.naturalWidth > img.parentElement.offsetWidth) {
-                    img.style.width = '100%';
+                    img.style.maxWidth = '100%';
                     img.style.height = 'auto';
                 }
             });
         };
 
-        handleResponsiveImages();
+        window.addEventListener('load', handleResponsiveImages);
         window.addEventListener('resize', handleResponsiveImages);
     }
 
     initMainPage() {
-        utils.getElements.interactiveHeaders().forEach(header => {
-            header.addEventListener('click', () => {
-                const targetId = header.getAttribute('data-target');
-                if (targetId) {
-                    const target = document.getElementById(targetId);
-                    if (target) {
-                        utils.smoothScroll(target);
-                    }
-                }
-            });
-        });
+        // Add any main page specific initialization here
     }
 
     initPatternPage() {
-        // Pattern page specific initialization if needed
+        // Add any pattern page specific initialization here
     }
 }
 
-// Initialize when DOM is loaded
+// Initialize navigation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.patternManager = new PatternManager();
-    window.patternManager.init();
-
-    // Handle initial hash
-    if (window.location.hash) {
-        const hash = window.location.hash.substring(1);
-        window.patternManager.showPattern(hash);
-    }
+    const navigationManager = new NavigationManager();
+    navigationManager.init();
 }); 

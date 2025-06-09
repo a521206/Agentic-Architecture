@@ -4,130 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Core Patterns</title>
-    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="../js/app.js" defer></script>
 </head>
 <body class="pattern-page">
-    <div class="container">
+    <div class="content">
+        <a href="Agentic_Design_Pattern.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to Main
+        </a>
+        
         <header>
-            <div class="header-content">
-                <h1>Agentic Core Patterns</h1>
-                <p class="subtitle">Foundation patterns for agentic systems</p>
-                <div class="header-actions">
-                    <a href="Agentic_Design_Pattern.html" class="back-button">
-                        <i class="fas fa-arrow-left"></i> Back to Main
-                    </a>
-                </div>
-            </div>
+            <h1>Agentic Core Patterns</h1>
+            <p class="subtitle">Foundation patterns for agentic systems</p>
         </header>
 
-        <div class="patterns-grid">
-            <!-- Prompt Chaining Pattern -->
-            <a href="#prompt-chaining" class="pattern-card" role="button" tabindex="0" aria-label="View Prompt Chaining details">
+        <nav class="nav-tiles">
+            <a href="#prompt-chaining" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-link"></i>
                 </div>
                 <h3>Prompt Chaining</h3>
                 <p>Sequential task decomposition for complex workflows</p>
-                <ul>
-                    <li>Data pipelines</li>
-                    <li>Multi-stage workflows</li>
-                    <li>Sequential processing</li>
-                </ul>
             </a>
 
-            <!-- Routing Pattern -->
-            <a href="#routing" class="pattern-card" role="button" tabindex="0" aria-label="View Routing details">
+            <a href="#routing" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-route"></i>
                 </div>
                 <h3>Routing</h3>
                 <p>Intelligent input direction to specialized sub-agents</p>
-                <ul>
-                    <li>Dispatch systems</li>
-                    <li>Specialized queries</li>
-                    <li>Dynamic branching</li>
-                </ul>
             </a>
 
-            <!-- Parallelization Pattern -->
-            <a href="#parallelization" class="pattern-card" role="button" tabindex="0" aria-label="View Parallelization details">
+            <a href="#parallelization" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-code-branch"></i>
                 </div>
                 <h3>Parallelization</h3>
                 <p>Concurrent task execution for improved efficiency</p>
-                <ul>
-                    <li>Batch processing</li>
-                    <li>Creative option generation</li>
-                    <li>Concurrent API calls</li>
-                </ul>
             </a>
 
-            <!-- Reflection Pattern -->
-            <a href="#reflection" class="pattern-card" role="button" tabindex="0" aria-label="View Reflection details">
+            <a href="#reflection" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-brain"></i>
                 </div>
                 <h3>Reflection</h3>
                 <p>Self-evaluation and continuous improvement</p>
-                <ul>
-                    <li>Error correction</li>
-                    <li>Quality refinement</li>
-                    <li>ReAct (Reasoning & Acting)</li>
-                </ul>
             </a>
 
-            <!-- Tool Use Pattern -->
-            <a href="#tool-use" class="pattern-card" role="button" tabindex="0" aria-label="View Tool Use details">
+            <a href="#tool-use" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-tools"></i>
                 </div>
                 <h3>Tool Use</h3>
                 <p>External system interaction capabilities</p>
-                <ul>
-                    <li>API integration</li>
-                    <li>Data queries</li>
-                    <li>Output validation</li>
-                </ul>
             </a>
 
-            <!-- Multi-Agent Pattern -->
-            <a href="#multi-agent" class="pattern-card" role="button" tabindex="0" aria-label="View Multi-Agent details">
+            <a href="#multi-agent" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-users"></i>
                 </div>
                 <h3>Multi-Agent</h3>
                 <p>Collaborative problem-solving through specialized agents</p>
-                <ul>
-                    <li>Specialized expertise</li>
-                    <li>Delegation</li>
-                    <li>Team collaboration</li>
-                </ul>
             </a>
 
-            <!-- Planning Pattern -->
-            <a href="#planning" class="pattern-card" role="button" tabindex="0" aria-label="View Planning details">
+            <a href="#planning" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-project-diagram"></i>
                 </div>
                 <h3>Planning</h3>
                 <p>Goal-oriented task structuring and sequencing</p>
-                <ul>
-                    <li>Task decomposition</li>
-                    <li>Action sequencing</li>
-                    <li>Strategy formulation</li>
-                </ul>
             </a>
-        </div>
+        </nav>
 
-        <!-- Pattern Details -->
-        <div id="prompt-chaining" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Prompt Chaining</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="prompt-chaining">
+            <h2>Prompt Chaining</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -194,13 +144,10 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="routing" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Routing</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="routing">
+            <h2>Routing</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -248,33 +195,11 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Task distribution</li>
-                        <li>Specialized processing</li>
-                        <li>Load balancing</li>
-                        <li>Content-based routing</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Prompt Chaining - For sequential processing</li>
-                        <li>Multi-Agent - For specialized handlers</li>
-                        <li>Tool Use - For external system integration</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="parallelization" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Parallelization</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="parallelization">
+            <h2>Parallelization</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -327,33 +252,11 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Batch processing of independent tasks</li>
-                        <li>Parallel data analysis</li>
-                        <li>Concurrent API calls</li>
-                        <li>Multi-agent parallel execution</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Multi-Agent - For distributed execution</li>
-                        <li>Tool Use - For parallel tool execution</li>
-                        <li>Planning - For task organization</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="reflection" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Reflection</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="reflection">
+            <h2>Reflection</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -402,33 +305,11 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Self-improving systems</li>
-                        <li>Quality assurance</li>
-                        <li>Performance optimization</li>
-                        <li>Learning from experience</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Tool Use - For analysis tools</li>
-                        <li>Planning - For improvement strategies</li>
-                        <li>Multi-Agent - For peer review</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="tool-use" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Tool Use</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="tool-use">
+            <h2>Tool Use</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -476,33 +357,11 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>API integration</li>
-                        <li>External service usage</li>
-                        <li>Resource access</li>
-                        <li>Capability extension</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Routing - For tool selection</li>
-                        <li>Prompt Chaining - For tool orchestration</li>
-                        <li>Reflection - For tool evaluation</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="multi-agent" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Multi-Agent</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="multi-agent">
+            <h2>Multi-Agent</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -549,33 +408,11 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Complex problem solving</li>
-                        <li>Distributed systems</li>
-                        <li>Specialized task handling</li>
-                        <li>Collaborative decision making</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Routing - For task distribution</li>
-                        <li>Planning - For coordination</li>
-                        <li>Tool Use - For agent capabilities</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="planning" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Planning</h2>
-                <button class="close-button" aria-label="Close details">&times;</button>
-            </div>
+        <section id="planning">
+            <h2>Planning</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
@@ -628,32 +465,9 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Project management</li>
-                        <li>Resource allocation</li>
-                        <li>Task scheduling</li>
-                        <li>Goal achievement</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Prompt Chaining - For plan execution</li>
-                        <li>Multi-Agent - For distributed planning</li>
-                        <li>Reflection - For plan evaluation</li>
-                    </ul>
-                </div>
             </div>
-        </div>
+        </section>
     </div>
-
-    <div class="overlay"></div>
-</div>
-
-<script src="../js/app.js"></script>
+    <script src="../js/app.js"></script>
 </body>
 </html> 
