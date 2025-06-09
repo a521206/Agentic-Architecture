@@ -22,41 +22,24 @@
         <h3>Layering and Hierarchy</h3>
         <p>A high-level Planning agent may coordinate Multi-Agent teams</p>
       </a>
+
       <a href="#interdependencies" class="nav-tile">
         <h3>Interdependencies</h3>
         <p>Pattern relationships and synergies</p>
       </a>
+
       <a href="#reasoning" class="nav-tile">
         <h3>Core Reasoning</h3>
         <p>Different approaches to agent decision-making</p>
       </a>
+
       <a href="#flexibility" class="nav-tile">
         <h3>Flexibility vs Structure</h3>
         <p>Balancing adaptability with predictability</p>
       </a>
-      <a href="agentic-core-patterns.html" class="nav-tile">
-        <h3>Core Patterns</h3>
-        <p>Fundamental patterns for agentic behavior</p>
-      </a>
-      <a href="agentic-workflow-patterns.html" class="nav-tile">
-        <h3>Workflow Patterns</h3>
-        <p>Patterns for orchestrating agentic processes</p>
-      </a>
-      <a href="agentic-communication-patterns.html" class="nav-tile">
-        <h3>Communication Patterns</h3>
-        <p>Patterns for agentic interaction and collaboration</p>
-      </a>
-      <a href="agentic-decision-patterns.html" class="nav-tile">
-        <h3>Decision Patterns</h3>
-        <p>Patterns for agentic reasoning and decision-making</p>
-      </a>
-      <a href="agentic-learning-patterns.html" class="nav-tile">
-        <h3>Learning Patterns</h3>
-        <p>Patterns for agentic adaptation and improvement</p>
-      </a>
     </nav>
 
-    <div id="layering" class="pattern-details">
+    <section id="layering" class="pattern-details" style="margin-top: 2.5rem;">
       <div class="pattern-header">
         <h2>Layering and Hierarchy</h2>
       </div>
@@ -69,16 +52,16 @@
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li>High-level Planning Agent: Defines the overall strategy and sequence of operations for lower layers.</li>
-            <li>Specialized Agents: Execute specific tasks or sub-processes as directed by higher-level agents.</li>
-            <li>Communication Protocol: Standardized messages for inter-layer coordination and data exchange.</li>
-            <li>State Management: Mechanisms to track progress and context across different layers of the hierarchy.</li>
+            <li><strong>High-level Planning Agent:</strong> Defines the overall strategy and sequence of operations for lower layers.</li>
+            <li><strong>Specialized Agents:</strong> Execute specific tasks or sub-processes as directed by higher-level agents.</li>
+            <li><strong>Communication Protocol:</strong> Standardized messages for inter-layer coordination and data exchange.</li>
+            <li><strong>State Management:</strong> Mechanisms to track progress and context across different layers of the hierarchy.</li>
           </ul>
         </div>
 
         <div class="pattern-implementation">
           <h3>Implementation</h3>
-          <pre><code>class HierarchicalSystem {
+          <pre><code class="language-javascript">class HierarchicalSystem {
     constructor() {
         this.planningAgent = new PlanningAgent();
         this.specializedAgents = new Map();
@@ -122,9 +105,9 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="interdependencies" class="pattern-details">
+    <section id="interdependencies" class="pattern-details">
       <div class="pattern-header">
         <h2>Interdependencies</h2>
       </div>
@@ -137,16 +120,16 @@
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li>Pattern Dependencies: Explicit or implicit relationships where one pattern requires the output or state of another.</li>
-            <li>Synergy Points: Interactions where combining patterns yields enhanced capabilities or efficiency.</li>
-            <li>Communication Channels: Interfaces and protocols for patterns to exchange information and control.</li>
-            <li>State Sharing: Mechanisms for patterns to access and update common context or knowledge.</li>
+            <li><strong>Pattern Dependencies:</strong> Explicit or implicit relationships where one pattern requires the output or state of another.</li>
+            <li><strong>Synergy Points:</strong> Interactions where combining patterns yields enhanced capabilities or efficiency.</li>
+            <li><strong>Communication Channels:</strong> Interfaces and protocols for patterns to exchange information and control.</li>
+            <li><strong>State Sharing:</strong> Mechanisms for patterns to access and update common context or knowledge.</li>
           </ul>
         </div>
 
         <div class="pattern-implementation">
           <h3>Implementation</h3>
-          <pre><code>class PatternOrchestrator {
+          <pre><code class="language-javascript">class PatternOrchestrator {
     constructor() {
         this.patterns = new Map();
         this.dependencies = new Map();
@@ -193,9 +176,9 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="reasoning" class="pattern-details">
+    <section id="reasoning" class="pattern-details">
       <div class="pattern-header">
         <h2>Core Reasoning</h2>
       </div>
@@ -208,16 +191,16 @@
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li>Reasoning Strategy: The specific methodology an agent uses to process information and derive decisions.</li>
-            <li>Action Selection: How the agent chooses and executes actions based on its reasoning.</li>
-            <li>State Management: How internal context and observations are maintained during the reasoning process.</li>
-            <li>Feedback Loop: Mechanisms for agents to learn from outcomes and refine their reasoning.</li>
+            <li><strong>Reasoning Strategy:</strong> The specific methodology an agent uses to process information and derive decisions.</li>
+            <li><strong>Action Selection:</strong> How the agent chooses and executes actions based on its reasoning.</li>
+            <li><strong>State Management:</strong> How internal context and observations are maintained during the reasoning process.</li>
+            <li><strong>Feedback Loop:</strong> Mechanisms for agents to learn from outcomes and refine their reasoning.</li>
           </ul>
         </div>
 
         <div class="pattern-implementation">
           <h3>Implementation</h3>
-          <pre><code>class ReasoningAgent {
+          <pre><code class="language-javascript">class ReasoningAgent {
     constructor(strategy) {
         this.strategy = strategy;
         this.state = {};
@@ -272,9 +255,9 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div id="flexibility" class="pattern-details">
+    <section id="flexibility" class="pattern-details">
       <div class="pattern-header">
         <h2>Flexibility vs Structure</h2>
       </div>
@@ -287,16 +270,16 @@
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li>Adaptability Mechanisms: Design elements that allow an agent to deviate from a rigid path (e.g., dynamic routing, error recovery).</li>
-            <li>Structure Enforcement: Components that ensure adherence to predefined rules, plans, or sequences for predictability (e.g., strict planning, validation steps).</li>
-            <li>Balance Management: Strategies to determine when to prioritize flexibility over structure, or vice versa, based on context.</li>
-            <li>State Transitions: Logic for an agent to shift between more flexible and more structured modes of operation.</li>
+            <li><strong>Adaptability Mechanisms:</strong> Design elements that allow an agent to deviate from a rigid path (e.g., dynamic routing, error recovery).</li>
+            <li><strong>Structure Enforcement:</strong> Components that ensure adherence to predefined rules, plans, or sequences for predictability (e.g., strict planning, validation steps).</li>
+            <li><strong>Balance Management:</strong> Strategies to determine when to prioritize flexibility over structure, or vice versa, based on context.</li>
+            <li><strong>State Transitions:</strong> Logic for an agent to shift between more flexible and more structured modes of operation.</li>
           </ul>
         </div>
 
         <div class="pattern-implementation">
           <h3>Implementation</h3>
-          <pre><code>class AdaptiveSystem {
+          <pre><code class="language-javascript">class AdaptiveSystem {
     constructor(config) {
         this.flexibilityLevel = config.flexibilityLevel;
         this.structureLevel = config.structureLevel;
@@ -347,7 +330,7 @@
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   </div>
   <script src="../js/app.js"></script>
   <script src="../js/pattern-details.js"></script>

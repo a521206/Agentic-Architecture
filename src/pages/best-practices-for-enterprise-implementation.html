@@ -18,55 +18,35 @@
       <p>Successful deployment of agentic systems in an enterprise context requires adherence to best practices that go beyond mere pattern selection.</p>
     </header>
 
-    <nav class="nav-tiles" style="margin-bottom: 2.5rem;">
+    <nav class="nav-tiles">
       <a href="#security" class="nav-tile">
         <h3>Security Measures</h3>
-        <p>Protecting sensitive enterprise systems</p>
+        <p>Protecting agentic systems and data</p>
       </a>
 
       <a href="#governance" class="nav-tile">
         <h3>Data Governance</h3>
-        <p>Maintaining data integrity and compliance</p>
+        <p>Managing data quality and compliance</p>
       </a>
 
       <a href="#monitoring" class="nav-tile">
         <h3>Monitoring and Observability</h3>
-        <p>Understanding agent behavior and performance</p>
+        <p>Tracking system performance and behavior</p>
       </a>
 
       <a href="#integration" class="nav-tile">
         <h3>Integration Strategies</h3>
-        <p>Seamless system integration</p>
+        <p>Connecting with existing systems</p>
       </a>
 
       <a href="#development" class="nav-tile">
-        <h3>Development Lifecycle</h3>
-        <p>Ensuring quality and maintainability</p>
+        <h3>Development Practices</h3>
+        <p>Building and maintaining agentic systems</p>
       </a>
 
-      <a href="agentic-core-patterns.html" class="nav-tile">
-        <h3>Core Patterns</h3>
-        <p>Fundamental patterns for agentic behavior</p>
-      </a>
-
-      <a href="agentic-workflow-patterns.html" class="nav-tile">
-        <h3>Workflow Patterns</h3>
-        <p>Patterns for orchestrating agentic processes</p>
-      </a>
-
-      <a href="agentic-communication-patterns.html" class="nav-tile">
-        <h3>Communication Patterns</h3>
-        <p>Patterns for agentic interaction and collaboration</p>
-      </a>
-
-      <a href="agentic-decision-patterns.html" class="nav-tile">
-        <h3>Decision Patterns</h3>
-        <p>Patterns for agentic reasoning and decision-making</p>
-      </a>
-
-      <a href="agentic-learning-patterns.html" class="nav-tile">
-        <h3>Learning Patterns</h3>
-        <p>Patterns for agentic adaptation and improvement</p>
+      <a href="#testing" class="nav-tile">
+        <h3>Testing and Validation</h3>
+        <p>Ensuring quality and reliability</p>
       </a>
     </nav>
 
@@ -77,18 +57,51 @@
       <div class="pattern-content">
         <div class="pattern-description">
           <h3>Overview</h3>
-          <p>Security is paramount when deploying autonomous AI agents that can interact with sensitive enterprise systems.</p>
+          <p>Agentic systems introduce unique security challenges due to their autonomous nature, pattern-specific behaviors, and complex interactions with enterprise systems.</p>
         </div>
 
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li><strong>Authentication and Authorization:</strong> Implement granular access control mechanisms, ensuring that agents operate with the principle of least privilege. This means an agent should only have access to the specific tools and data sources absolutely necessary for its assigned tasks.</li>
-            <li><strong>Data Privacy and Compliance:</strong> All data handled by agents, especially Personally Identifiable Information (PII) or Protected Health Information (PHI), must adhere to relevant industry regulations and data privacy laws (e.g., GDPR, HIPAA). Implement data masking and anonymization techniques where appropriate.</li>
-            <li><strong>Threat Modeling:</strong> Proactively identify potential attack vectors specific to agentic systems. This includes risks like prompt injection (where malicious instructions are embedded in user input), data exfiltration through unauthorized tool use, or unintended/malicious agent actions.</li>
-            <li><strong>Vulnerability Management:</strong> Regularly audit LLMs, integrated tools, and the agent orchestration framework for known and emerging vulnerabilities.</li>
-            <li><strong>Input/Output Validation:</strong> Rigorously sanitize all inputs provided to agents and validate their outputs to prevent malicious code injection, unintended actions, or the generation of harmful content.</li>
-            <li><strong>Secure Credential Management:</strong> Utilize secure vaults and secrets management systems for storing and retrieving API keys, database credentials, and other sensitive access tokens used by agents.</li>
+            <li><strong>Pattern-Specific Access Control:</strong> Implement granular access controls based on agent patterns and their required capabilities. For example, Planning agents may need broader system access than Tool Use agents, while Reflection agents require access to their own reasoning chains.</li>
+            
+            <li><strong>Prompt Injection Protection:</strong> Develop robust defenses against prompt injection attacks that could manipulate agent behavior, especially for patterns like Planning and Reflection that rely heavily on prompt-based reasoning. Implement input sanitization and validation specific to each pattern's requirements.</li>
+            
+            <li><strong>Tool Use Security:</strong> Establish strict controls over tool access and usage:
+              <ul>
+                <li>Tool-specific permission models based on agent patterns - Define access levels based on pattern requirements and risk assessment</li>
+                <li>Parameter validation and sanitization for tool inputs - Ensure all tool inputs are properly validated and sanitized</li>
+                <li>Output validation and filtering for tool responses - Filter and validate tool outputs to prevent data leakage</li>
+                <li>Rate limiting and usage monitoring per agent pattern - Track and control tool usage based on pattern needs</li>
+              </ul>
+            </li>
+            
+            <li><strong>Reasoning Chain Protection:</strong> Secure the agent's reasoning process by:
+              <ul>
+                <li>Validating intermediate reasoning steps - Ensure each step in the reasoning chain is valid and secure</li>
+                <li>Protecting against manipulation of reflection loops - Prevent unauthorized modification of self-correction processes</li>
+                <li>Ensuring integrity of planning sequences - Maintain the security and consistency of planning operations</li>
+                <li>Monitoring for unexpected pattern deviations - Detect and respond to unusual pattern behavior</li>
+              </ul>
+            </li>
+            
+            <li><strong>Multi-Agent Security:</strong> Implement security measures for agent interactions:
+              <ul>
+                <li>Secure inter-agent communication channels - Encrypt and validate all agent-to-agent communications</li>
+                <li>Pattern-specific trust boundaries - Define trust levels based on pattern relationships</li>
+                <li>Coordination protocol security - Secure the protocols used for agent coordination</li>
+                <li>Conflict resolution safeguards - Ensure secure handling of agent conflicts</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern-Specific Monitoring:</strong> Deploy specialized monitoring for each agentic pattern:
+              <ul>
+                <li>Planning pattern: Monitor plan generation and execution - Track planning effectiveness and security</li>
+                <li>Reflection pattern: Track self-correction attempts - Monitor reflection quality and security</li>
+                <li>Tool Use pattern: Log tool selection and usage - Track tool usage patterns and security</li>
+                <li>Multi-Agent pattern: Monitor coordination and communication - Track agent interactions and security</li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -101,15 +114,47 @@
       <div class="pattern-content">
         <div class="pattern-description">
           <h3>Overview</h3>
-          <p>Effective data governance is crucial for maintaining data integrity, quality, and compliance within agentic systems.</p>
+          <p>Agentic systems require specialized data governance approaches that account for their autonomous nature, pattern-specific data needs, and complex reasoning processes.</p>
         </div>
 
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li><strong>Data Lineage and Quality:</strong> Establish clear data lineage for all information consumed and produced by agents. This ensures traceability and accountability. Implement robust data quality checks to prevent erroneous agent decisions based on flawed data.</li>
-            <li><strong>Compliance and Auditability:</strong> Maintain comprehensive audit trails of all agent decisions, actions, and tool usage. These trails are essential for regulatory compliance, internal accountability, and post-incident analysis.</li>
-            <li><strong>Ethical AI Considerations:</strong> Implement mechanisms for bias detection, fairness assessment, and transparency in agent decision-making processes. Define clear human-in-the-loop protocols for sensitive or high-stakes tasks where human oversight is required.</li>
+            <li><strong>Pattern-Specific Data Policies:</strong> Establish governance policies tailored to each agentic pattern:
+              <ul>
+                <li>Planning Pattern: Govern plan data, dependencies, and execution history - Track and manage planning artifacts</li>
+                <li>Reflection Pattern: Manage reasoning chains and self-correction data - Control reflection process data</li>
+                <li>Tool Use Pattern: Control tool interaction data and results - Manage tool usage records</li>
+                <li>Multi-Agent Pattern: Oversee inter-agent communication and shared context - Govern agent interaction data</li>
+              </ul>
+            </li>
+            
+            <li><strong>Reasoning Chain Governance:</strong> Implement comprehensive tracking and management of agent reasoning processes:
+              <ul>
+                <li>Capture and store complete reasoning chains - Maintain full reasoning history for audit and analysis</li>
+                <li>Track pattern-specific decision points - Record key decisions made by each pattern</li>
+                <li>Monitor self-correction attempts - Track reflection and correction processes</li>
+                <li>Validate reasoning quality and consistency - Ensure reasoning meets quality standards</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern-Specific Audit Trails:</strong> Maintain detailed records of agent activities:
+              <ul>
+                <li>Pattern selection and transitions - Track when and why patterns are selected or changed</li>
+                <li>Tool usage and results - Record tool interactions and outcomes</li>
+                <li>Reasoning chain evolution - Track how reasoning processes develop</li>
+                <li>Multi-agent interactions - Record agent collaboration and communication</li>
+              </ul>
+            </li>
+            
+            <li><strong>Ethical AI Framework:</strong> Implement pattern-specific ethical considerations:
+              <ul>
+                <li>Planning Pattern: Ensure plans align with ethical guidelines - Validate plan ethical compliance</li>
+                <li>Reflection Pattern: Monitor self-correction for bias - Track bias in reflection processes</li>
+                <li>Tool Use Pattern: Validate tool selection ethics - Ensure ethical tool usage</li>
+                <li>Multi-Agent Pattern: Govern collaborative decision-making - Ensure ethical agent collaboration</li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -122,16 +167,47 @@
       <div class="pattern-content">
         <div class="pattern-description">
           <h3>Overview</h3>
-          <p>Comprehensive monitoring is essential for understanding agent behavior, performance, and identifying issues in real-time.</p>
+          <p>Effective monitoring of agentic systems requires pattern-specific observability approaches that capture the unique behaviors and interactions of different agentic patterns.</p>
         </div>
 
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li><strong>Performance Metrics:</strong> Track key performance indicators (KPIs) such as response times, token consumption, frequency and cost of API calls, and overall task completion rates.</li>
-            <li><strong>Error Handling and Logging:</strong> Implement robust error handling mechanisms and ensure comprehensive logging for all agent interactions, tool calls, and decision paths. This provides crucial diagnostic information.</li>
-            <li><strong>Agent Behavior Tracking:</strong> Monitor the internal reasoning steps of agents, their tool usage, and any deviations from expected behavior. Implement alerting systems for anomalies that might indicate issues.</li>
-            <li><strong>Audit Trails:</strong> Maintain detailed records of all actions performed by agents, especially those involving interactions with external systems or sensitive data, for accountability and forensic analysis.</li>
+            <li><strong>Pattern-Specific Metrics:</strong> Track key performance indicators for each agentic pattern:
+              <ul>
+                <li>Planning Pattern: Plan quality, execution success, adaptation rate - Measure planning effectiveness</li>
+                <li>Reflection Pattern: Reasoning quality, self-correction effectiveness - Track reflection performance</li>
+                <li>Tool Use Pattern: Tool selection accuracy, parameter quality - Monitor tool usage efficiency</li>
+                <li>Multi-Agent Pattern: Coordination efficiency, communication quality - Measure collaboration success</li>
+              </ul>
+            </li>
+            
+            <li><strong>Reasoning Chain Monitoring:</strong> Implement comprehensive tracking of agent reasoning:
+              <ul>
+                <li>Capture complete reasoning chains - Record full reasoning process for analysis</li>
+                <li>Monitor pattern transitions - Track when and why patterns change</li>
+                <li>Track self-correction attempts - Monitor reflection and correction processes</li>
+                <li>Measure reasoning quality - Assess the effectiveness of reasoning</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern Interaction Tracking:</strong> Monitor how different patterns work together:
+              <ul>
+                <li>Pattern handoff efficiency - Measure effectiveness of pattern transitions</li>
+                <li>Integration point performance - Track how patterns integrate</li>
+                <li>Hierarchical coordination - Monitor pattern hierarchy effectiveness</li>
+                <li>Pattern conflict resolution - Track how pattern conflicts are resolved</li>
+              </ul>
+            </li>
+            
+            <li><strong>Real-time Pattern Analysis:</strong> Implement continuous monitoring of pattern behavior:
+              <ul>
+                <li>Pattern selection trends - Track which patterns are used most effectively</li>
+                <li>Success rate by pattern - Measure pattern-specific success rates</li>
+                <li>Pattern-specific error rates - Track errors by pattern type</li>
+                <li>Resource usage per pattern - Monitor pattern-specific resource consumption</li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -144,16 +220,47 @@
       <div class="pattern-content">
         <div class="pattern-description">
           <h3>Overview</h3>
-          <p>Seamless integration with existing enterprise systems is vital for agentic systems to deliver business value.</p>
+          <p>Integration of agentic systems requires pattern-specific approaches that account for their unique behaviors, reasoning processes, and interaction requirements.</p>
         </div>
 
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li><strong>Standardized API Design:</strong> Design clean, well-documented, and secure APIs for agents to interact with both internal and external tools. This promotes interoperability and ease of development.</li>
-            <li><strong>Microservices Architecture:</strong> Encapsulate agent functionality within modular microservices. This approach improves isolation, enhances scalability, and allows for independent deployment and management of agent components.</li>
-            <li><strong>Legacy System Interoperability:</strong> Develop robust adapters or middleware solutions to enable agents to interact effectively with older, monolithic enterprise systems that may not have modern APIs.</li>
-            <li><strong>Agent Tool Management Platform:</strong> Implement a centralized platform for managing tool registration, dynamic loading, access control, and call tracing for all agents. This streamlines tool discovery and governance.</li>
+            <li><strong>Pattern-Specific APIs:</strong> Design integration interfaces for each agentic pattern:
+              <ul>
+                <li>Planning Pattern: Plan management and execution APIs - Enable plan creation and tracking</li>
+                <li>Reflection Pattern: Reasoning chain and self-correction APIs - Support reflection processes</li>
+                <li>Tool Use Pattern: Tool registration and invocation APIs - Manage tool interactions</li>
+                <li>Multi-Agent Pattern: Coordination and communication APIs - Enable agent collaboration</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern Orchestration Layer:</strong> Implement a centralized system for managing pattern interactions:
+              <ul>
+                <li>Pattern selection and routing - Direct tasks to appropriate patterns</li>
+                <li>Pattern handoff management - Handle transitions between patterns</li>
+                <li>Pattern state persistence - Maintain pattern state across interactions</li>
+                <li>Pattern conflict resolution - Manage pattern conflicts effectively</li>
+              </ul>
+            </li>
+            
+            <li><strong>Tool Integration Framework:</strong> Develop a robust system for tool management:
+              <ul>
+                <li>Pattern-specific tool registration - Register tools for specific patterns</li>
+                <li>Tool access control by pattern - Control tool access based on pattern needs</li>
+                <li>Tool usage monitoring - Track tool usage and effectiveness</li>
+                <li>Tool result validation - Ensure tool outputs meet requirements</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern-Specific Adapters:</strong> Create specialized adapters for legacy systems:
+              <ul>
+                <li>Planning pattern adapters - Connect planning to legacy systems</li>
+                <li>Reflection pattern interfaces - Enable reflection with legacy data</li>
+                <li>Tool use connectors - Bridge tool use with legacy tools</li>
+                <li>Multi-agent bridges - Connect agents to legacy systems</li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -161,21 +268,88 @@
 
     <section id="development" class="pattern-details">
       <div class="pattern-header">
-        <h2>Development Lifecycle</h2>
+        <h2>Development Practices</h2>
       </div>
       <div class="pattern-content">
         <div class="pattern-description">
           <h3>Overview</h3>
-          <p>A structured development lifecycle ensures the quality, maintainability, and continuous improvement of agentic systems.</p>
+          <p>Development of agentic systems requires specialized practices that account for their autonomous nature, pattern-specific behaviors, and complex reasoning processes.</p>
         </div>
 
         <div class="pattern-characteristics">
           <h3>Key Components</h3>
           <ul>
-            <li><strong>Rigorous Testing:</strong> Conduct thorough unit, integration, and end-to-end testing for agent logic, prompt engineering, and tool interactions. Include adversarial testing to assess robustness against unexpected inputs.</li>
-            <li><strong>Versioning:</strong> Implement robust version control for agents, prompt templates, tools, and their configurations. This allows for rollbacks and controlled deployments.</li>
-            <li><strong>Automated Deployment:</strong> Utilize Continuous Integration/Continuous Delivery (CI/CD) pipelines for automated, secure, and repeatable deployment of agentic systems.</li>
-            <li><strong>Continuous Improvement:</strong> Establish feedback loops from monitoring data and human review to iteratively refine agent behavior, optimize prompt engineering, and improve underlying models.</li>
+            <li><strong>Pattern-Specific Development:</strong> Implement specialized practices for each agentic pattern:
+              <ul>
+                <li>Planning Pattern: Plan template development and validation - Create and test planning templates</li>
+                <li>Reflection Pattern: Reasoning chain design and testing - Design reflection processes</li>
+                <li>Tool Use Pattern: Tool integration and validation - Integrate and test tools</li>
+                <li>Multi-Agent Pattern: Coordination protocol development - Design agent coordination</li>
+              </ul>
+            </li>
+            
+            <li><strong>Prompt Engineering Pipeline:</strong> Establish robust processes for prompt development:
+              <ul>
+                <li>Pattern-specific prompt templates - Create prompts for each pattern</li>
+                <li>Prompt versioning and testing - Manage prompt versions and quality</li>
+                <li>Prompt performance monitoring - Track prompt effectiveness</li>
+                <li>Prompt security validation - Ensure prompt security</li>
+              </ul>
+            </li>
+            
+            <li><strong>Pattern Integration Testing:</strong> Develop comprehensive testing approaches:
+              <ul>
+                <li>Pattern interaction testing - Test how patterns work together</li>
+                <li>Pattern handoff validation - Verify pattern transitions</li>
+                <li>Pattern conflict testing - Test conflict resolution</li>
+                <li>Pattern performance benchmarking - Measure pattern performance</li>
+              </ul>
+            </li>
+            
+            <li><strong>Continuous Pattern Improvement:</strong> Implement ongoing enhancement processes:
+              <ul>
+                <li>Pattern performance analysis - Analyze pattern effectiveness</li>
+                <li>Pattern effectiveness metrics - Measure pattern success</li>
+                <li>Pattern optimization strategies - Improve pattern performance</li>
+                <li>Pattern evolution tracking - Monitor pattern development</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="testing" class="pattern-details">
+      <div class="pattern-header">
+        <h2>Testing and Validation</h2>
+      </div>
+      <div class="pattern-content">
+        <div class="pattern-description">
+          <h3>Overview</h3>
+          <p>Agentic systems require specialized testing approaches that evaluate their autonomous decision-making, reasoning capabilities, and pattern-specific behaviors.</p>
+        </div>
+
+        <div class="pattern-characteristics">
+          <h3>Key Components</h3>
+          <ul>
+            <li><strong>Agent Evaluation Frameworks:</strong> Implement comprehensive evaluation frameworks that assess agent performance across multiple dimensions including task completion, reasoning quality, and pattern adherence. Use metrics like success rate, reasoning chain accuracy, and pattern-specific KPIs.</li>
+            
+            <li><strong>Prompt Engineering Validation:</strong> Test and validate prompt templates for different patterns (Planning, Reflection, Tool Use) to ensure they consistently produce desired behaviors. Include adversarial testing against prompt injection and edge cases.</li>
+            
+            <li><strong>Pattern-Specific Testing:</strong> Develop specialized test suites for each agentic pattern:
+              <ul>
+                <li>Planning Pattern: Test plan generation, execution, and adaptation to changing conditions</li>
+                <li>Reflection Pattern: Evaluate self-correction capabilities and reasoning quality</li>
+                <li>Tool Use Pattern: Validate tool selection, parameter handling, and error recovery</li>
+                <li>Multi-Agent Pattern: Test coordination, communication, and conflict resolution</li>
+              </ul>
+            </li>
+            
+            <li><strong>Reasoning Chain Validation:</strong> Implement automated validation of agent reasoning chains to ensure logical consistency, proper use of tools, and adherence to pattern-specific requirements. This includes testing the quality of intermediate reasoning steps and decision points.</li>
+            
+            <li><strong>Pattern Interaction Testing:</strong> Evaluate how different patterns work together in complex scenarios, testing their integration points, handoffs, and overall system coherence. This includes testing pattern layering and hierarchical relationships.</li>
+            
+            <li><strong>Continuous Evaluation Pipeline:</strong> Establish automated evaluation pipelines that continuously assess agent performance, pattern effectiveness, and system behavior. Include human-in-the-loop validation for complex or high-stakes scenarios.</li>
           </ul>
         </div>
       </div>
