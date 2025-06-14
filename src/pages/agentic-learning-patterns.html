@@ -15,397 +15,914 @@
         
         <header>
             <h1>Agentic Learning Patterns</h1>
-            <p class="subtitle">Patterns for continuous learning and adaptation in agentic systems</p>
+            <p class="subtitle">Modern patterns for continuous learning and adaptation in agentic systems</p>
+            <div class="intro-note">
+                <p>These patterns represent the cutting edge of learning mechanisms in modern agentic systems. While traditional machine learning patterns focus on model training and optimization, these patterns address how agents can learn and adapt in real-time, leveraging the unique capabilities of large language models and modern AI architectures. They are essential for creating truly intelligent and adaptive agentic systems.</p>
+            </div>
         </header>
 
         <nav class="nav-tiles">
-            <a href="#supervised" class="nav-tile">
+            <a href="#in-context" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-graduation-cap"></i>
+                    <i class="fas fa-comments"></i>
                 </div>
-                <h3>Supervised Learning</h3>
-                <p>Learning from labeled examples</p>
+                <h3>In-Context Learning</h3>
+                <p>Learning from prompt examples</p>
             </a>
 
-            <a href="#unsupervised" class="nav-tile">
+            <a href="#meta-learning" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-atom"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <h3>Unsupervised Learning</h3>
-                <p>Learning from unlabeled data</p>
+                <h3>Meta-Learning</h3>
+                <p>Learning to learn</p>
             </a>
 
-            <a href="#reinforcement" class="nav-tile">
+            <a href="#self-refinement" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-trophy"></i>
+                    <i class="fas fa-sync-alt"></i>
                 </div>
-                <h3>Reinforcement Learning</h3>
-                <p>Learning from feedback</p>
+                <h3>Self-Refinement</h3>
+                <p>Learning from self-analysis</p>
             </a>
 
-            <a href="#transfer" class="nav-tile">
+            <a href="#memory-augmented" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-database"></i>
                 </div>
-                <h3>Transfer Learning</h3>
-                <p>Applying knowledge across domains</p>
+                <h3>Memory-Augmented Learning</h3>
+                <p>Learning from past experiences</p>
             </a>
         </nav>
 
-        <section id="supervised">
-            <h2>Supervised Learning</h2>
+        <section id="in-context" class="pattern-details" style="margin-top: 2.5rem;">
+            <div class="pattern-header">
+                <h2>In-Context Learning</h2>
+            </div>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A learning pattern where the agent learns from labeled examples to make predictions or decisions.</p>
+                    <p>A learning pattern where the agent adapts its behavior based on examples provided in the current context or prompt, without requiring parameter updates. This pattern leverages the inherent capabilities of large language models to learn from examples in real-time, making it particularly valuable for rapid adaptation and task-specific learning.</p>
                 </div>
 
                 <div class="pattern-characteristics">
                     <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
                     <ul>
-                        <li>Training Data: Labeled examples</li>
-                        <li>Model: Learning algorithm</li>
-                        <li>Validation: Performance metrics</li>
-                        <li>Testing: Unseen data evaluation</li>
+                        <li><strong>Prompt Examples</strong>
+                            <ul>
+                                <li>Carefully crafted examples that demonstrate the desired behavior</li>
+                                <li>Can include both input-output pairs and step-by-step reasoning</li>
+                                <li>Examples are provided in the context window of the model</li>
+                            </ul>
+                        </li>
+                        <li><strong>Zero-shot Learning</strong>
+                            <ul>
+                                <li>Ability to perform tasks without explicit examples</li>
+                                <li>Leverages model's pre-trained knowledge</li>
+                                <li>Useful for well-defined, common tasks</li>
+                            </ul>
+                        </li>
+                        <li><strong>Few-shot Learning</strong>
+                            <ul>
+                                <li>Learning from a small number of examples (typically 1-5)</li>
+                                <li>Balances between zero-shot and many-shot approaches</li>
+                                <li>Ideal for task-specific adaptation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Chain-of-Thought</strong>
+                            <ul>
+                                <li>Step-by-step reasoning process</li>
+                                <li>Makes the learning process transparent</li>
+                                <li>Enables complex problem-solving</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-implementation">
                     <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class SupervisedLearning {
-    constructor(model) {
-        this.model = model;
-        this.trainingData = [];
-        this.validationData = [];
+                    <pre><code>// Using modern TypeScript with decorators and async patterns
+import { OpenAI } from 'openai';
+import { z } from 'zod';
+import { VectorStore } from '@langchain/community/vectorstores';
+import { OpenAIEmbeddings } from '@langchain/openai';
+
+// Type definitions
+interface Example {
+    input: string;
+    output: string;
+    reasoning?: string;
+    metadata?: Record<string, any>;
+}
+
+@Injectable()
+class InContextLearning {
+    private readonly model: OpenAI;
+    private readonly examples: Example[] = [];
+    private readonly maxExamples: number = 5;
+    private readonly vectorStore: VectorStore;
+
+    constructor(
+        @Inject('OPENAI_API_KEY') private readonly apiKey: string,
+        @Inject('VECTOR_STORE') vectorStore: VectorStore
+    ) {
+        this.model = new OpenAI({ apiKey });
+        this.vectorStore = vectorStore;
     }
 
-    train(features, labels) {
-        this.trainingData = this.prepareData(features, labels);
-        this.model.fit(this.trainingData.features, this.trainingData.labels, {
-            epochs: 100,
-            validationSplit: 0.2,
-            callbacks: {
-                onEpochEnd: (epoch, logs) => {
-                    console.log(`Epoch ${epoch}: loss = ${logs.loss}`);
-                }
+    async addExample(example: Example): Promise<void> {
+        if (this.examples.length >= this.maxExamples) {
+            this.examples.shift();
+        }
+        
+        // Store example in vector store for semantic search
+        await this.vectorStore.addDocuments([{
+            pageContent: JSON.stringify(example),
+            metadata: example.metadata
+        }]);
+        
+        this.examples.push(example);
+    }
+
+    async generatePrompt(task: string): Promise<string> {
+        // Find most relevant examples using semantic search
+        const relevantExamples = await this.vectorStore.similaritySearch(task, {
+            k: this.maxExamples
+        });
+
+        const examples = relevantExamples.map(doc => {
+            const ex = JSON.parse(doc.pageContent) as Example;
+            let prompt = `Input: ${ex.input}\n`;
+            if (ex.reasoning) {
+                prompt += `Reasoning: ${ex.reasoning}\n`;
+            }
+            prompt += `Output: ${ex.output}\n`;
+            return prompt;
+        }).join('\n');
+
+        return `${examples}\nInput: ${task}\nOutput:`;
+    }
+
+    async learn(task: string): Promise<string> {
+        const prompt = await this.generatePrompt(task);
+        const completion = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: prompt }],
+            model: 'gpt-4-turbo-preview',
+            temperature: 0.7,
+            max_tokens: 1000
+        });
+
+        return completion.choices[0].message.content;
+    }
+
+    clearExamples(): void {
+        this.examples.length = 0;
+        this.vectorStore.clear();
+    }
+}</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Task Adaptation</strong>
+                            <p>Quickly adapt to new tasks without fine-tuning the model. This enables rapid prototyping and testing of new capabilities.</p>
+                            <a href="https://arxiv.org/abs/2203.07814" target="_blank">Read about Task Adaptation</a>
+                        </li>
+                        <li>
+                            <strong>Rapid Prototyping</strong>
+                            <p>Test and iterate on new agent behaviors quickly by providing examples in the prompt. This accelerates development cycles.</p>
+                            <a href="https://www.anthropic.com/index/prompting-and-in-context-learning" target="_blank">Learn about Rapid Prototyping</a>
+                        </li>
+                        <li>
+                            <strong>Few-shot Learning</strong>
+                            <p>Learn from a small number of examples for specific tasks. This is particularly useful for domain-specific applications.</p>
+                            <a href="https://arxiv.org/abs/2005.14165" target="_blank">Explore Few-shot Learning</a>
+                        </li>
+                        <li>
+                            <strong>Dynamic Behavior Modification</strong>
+                            <p>Modify agent behavior in real-time based on user feedback or changing requirements. This enables flexible and adaptive systems.</p>
+                            <a href="https://www.anthropic.com/index/claude-2" target="_blank">Read about Dynamic Behavior</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li><strong>Meta-Learning:</strong> For developing effective learning strategies across different tasks</li>
+                        <li><strong>Self-Refinement:</strong> For improving the quality of learned behaviors through self-analysis</li>
+                        <li><strong>Memory-Augmented Learning:</strong> For storing and retrieving relevant examples from past experiences</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="meta-learning" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Meta-Learning</h2>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent develops the ability to quickly adapt to new tasks with minimal data by learning effective learning strategies. This pattern enables agents to become more efficient learners over time, reducing the need for extensive training data for new tasks.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li><strong>Task Distribution</strong>
+                            <ul>
+                                <li>Collection of diverse learning scenarios</li>
+                                <li>Variety of task types and complexities</li>
+                                <li>Balanced representation of different domains</li>
+                            </ul>
+                        </li>
+                        <li><strong>Learning Strategy</strong>
+                            <ul>
+                                <li>Methods for adapting to new tasks</li>
+                                <li>Optimization of learning parameters</li>
+                                <li>Selection of appropriate learning approaches</li>
+                            </ul>
+                        </li>
+                        <li><strong>Quick Adaptation</strong>
+                            <ul>
+                                <li>Rapid task mastery with minimal data</li>
+                                <li>Efficient transfer of learned strategies</li>
+                                <li>Optimization of learning speed</li>
+                            </ul>
+                        </li>
+                        <li><strong>Meta-parameters</strong>
+                            <ul>
+                                <li>Learning rate adaptation</li>
+                                <li>Strategy selection criteria</li>
+                                <li>Performance optimization parameters</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>// Modern TypeScript implementation with dependency injection and async patterns
+import { OpenAI } from 'openai';
+import { z } from 'zod';
+import { VectorStore } from '@langchain/community/vectorstores';
+import { OpenAIEmbeddings } from '@langchain/openai';
+
+// Type definitions
+interface Task {
+    id: string;
+    type: string;
+    content: string;
+    metadata?: Record<string, any>;
+}
+
+interface LearningStrategy {
+    name: string;
+    apply: (examples: any[]) => Promise<any>;
+    evaluate: (result: any) => Promise<number>;
+}
+
+@Injectable()
+class MetaLearning {
+    private readonly model: OpenAI;
+    private readonly vectorStore: VectorStore;
+    private readonly strategies: Map<string, LearningStrategy>;
+    private readonly taskHistory: Task[] = [];
+
+    private readonly metaParameters = {
+        learningRate: 0.01,
+        adaptationThreshold: 0.8,
+        strategySelectionCriteria: 'performance',
+        maxHistorySize: 1000
+    };
+
+    constructor(
+        @Inject('OPENAI_API_KEY') private readonly apiKey: string,
+        @Inject('VECTOR_STORE') vectorStore: VectorStore
+    ) {
+        this.model = new OpenAI({ apiKey });
+        this.vectorStore = vectorStore;
+        this.strategies = new Map();
+        this.initializeStrategies();
+    }
+
+    private initializeStrategies(): void {
+        this.strategies.set('few-shot', {
+            name: 'Few-shot Learning',
+            apply: async (examples) => {
+                const prompt = this.createFewShotPrompt(examples);
+                return await this.model.chat.completions.create({
+                    messages: [{ role: 'user', content: prompt }],
+                    model: 'gpt-4-turbo-preview'
+                });
+            },
+            evaluate: async (result) => {
+                // Implement evaluation logic
+                return 0.9;
+            }
+        });
+
+        this.strategies.set('zero-shot', {
+            name: 'Zero-shot Learning',
+            apply: async (examples) => {
+                return await this.model.chat.completions.create({
+                    messages: [{ role: 'user', content: examples[0].content }],
+                    model: 'gpt-4-turbo-preview'
+                });
+            },
+            evaluate: async (result) => {
+                // Implement evaluation logic
+                return 0.7;
             }
         });
     }
 
-    predict(features) {
-        return this.model.predict(features);
+    async learn(task: Task, examples: any[]): Promise<any> {
+        const strategy = await this.selectStrategy(task);
+        const result = await strategy.apply(examples);
+        const performance = await strategy.evaluate(result);
+        
+        await this.updateMetaParameters(performance);
+        await this.storeTaskHistory(task, strategy, performance);
+        
+        return result;
     }
 
-    evaluate(testFeatures, testLabels) {
-        const results = this.model.evaluate(testFeatures, testLabels);
+    private async selectStrategy(task: Task): Promise<LearningStrategy> {
+        // Find similar tasks from history
+        const similarTasks = await this.vectorStore.similaritySearch(task.content, {
+            k: 5
+        });
+
+        // Analyze task type and select appropriate strategy
+        const taskType = await this.analyzeTaskType(task, similarTasks);
+        return this.strategies.get(taskType) || this.strategies.get('few-shot');
+    }
+
+    private async analyzeTaskType(task: Task, similarTasks: any[]): Promise<string> {
+        const prompt = `Analyze the following task and similar tasks to determine the best learning strategy:
+        Task: ${task.content}
+        Similar Tasks: ${JSON.stringify(similarTasks)}
+        Consider:
+        1. Task complexity
+        2. Available examples
+        3. Required precision
+        4. Time constraints`;
+
+        const analysis = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: prompt }],
+            model: 'gpt-4-turbo-preview'
+        });
+
+        return this.parseTaskType(analysis.choices[0].message.content);
+    }
+
+    private async updateMetaParameters(performance: number): Promise<void> {
+        if (performance > this.metaParameters.adaptationThreshold) {
+            this.metaParameters.learningRate *= 0.9;
+        } else {
+            this.metaParameters.learningRate *= 1.1;
+        }
+    }
+
+    private async storeTaskHistory(task: Task, strategy: LearningStrategy, performance: number): Promise<void> {
+        const historyEntry = {
+            task,
+            strategy: strategy.name,
+            performance,
+            timestamp: new Date()
+        };
+
+        await this.vectorStore.addDocuments([{
+            pageContent: JSON.stringify(historyEntry),
+            metadata: { type: 'task_history' }
+        }]);
+
+        this.taskHistory.push(task);
+        if (this.taskHistory.length > this.metaParameters.maxHistorySize) {
+            this.taskHistory.shift();
+        }
+    }
+
+    private parseTaskType(analysis: string): string {
+        // Implement task type parsing logic
+        return 'few-shot';
+    }
+
+    private createFewShotPrompt(examples: any[]): string {
+        // Implement few-shot prompt creation
+        return '';
+    }
+}
+</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Few-shot Learning</strong>
+                            <p>Learn new tasks with minimal examples by leveraging meta-learned strategies. This enables efficient adaptation to new scenarios.</p>
+                            <a href="https://arxiv.org/abs/1703.03400" target="_blank">Read about Few-shot Learning</a>
+                        </li>
+                        <li>
+                            <strong>Rapid Task Adaptation</strong>
+                            <p>Quickly adapt to new tasks by applying learned strategies. This reduces the time needed for task mastery.</p>
+                            <a href="https://www.anthropic.com/index/meta-learning" target="_blank">Learn about Task Adaptation</a>
+                        </li>
+                        <li>
+                            <strong>Multi-agent Coordination</strong>
+                            <p>Enable agents to learn effective coordination strategies. This improves collaboration in complex systems.</p>
+                            <a href="https://arxiv.org/abs/2003.02979" target="_blank">Explore Multi-agent Learning</a>
+                        </li>
+                        <li>
+                            <strong>Transfer Learning Optimization</strong>
+                            <p>Optimize the transfer of knowledge between related tasks. This enhances learning efficiency across domains.</p>
+                            <a href="https://www.anthropic.com/index/transfer-learning" target="_blank">Read about Transfer Learning</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li><strong>In-Context Learning:</strong> For example-based adaptation</li>
+                        <li><strong>Self-Refinement:</strong> For performance improvement</li>
+                        <li><strong>Memory-Augmented Learning:</strong> For experience storage</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="self-refinement" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Self-Refinement</h2>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent improves its performance by analyzing its own outputs and iteratively refining its approach through self-critique and adjustment. This pattern enables continuous improvement and quality enhancement without external supervision.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li><strong>Self-Analysis</strong>
+                            <ul>
+                                <li>Evaluation of output quality</li>
+                                <li>Identification of improvement areas</li>
+                                <li>Assessment of reasoning process</li>
+                            </ul>
+                        </li>
+                        <li><strong>Feedback Loop</strong>
+                            <ul>
+                                <li>Iterative improvement process</li>
+                                <li>Continuous quality enhancement</li>
+                                <li>Adaptive refinement strategies</li>
+                            </ul>
+                        </li>
+                        <li><strong>Critique</strong>
+                            <ul>
+                                <li>Performance assessment</li>
+                                <li>Error identification</li>
+                                <li>Quality metrics evaluation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Adjustment</strong>
+                            <ul>
+                                <li>Strategy modification</li>
+                                <li>Parameter optimization</li>
+                                <li>Behavior refinement</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>// Modern TypeScript implementation with dependency injection and async patterns
+import { OpenAI } from 'openai';
+import { z } from 'zod';
+import { VectorStore } from '@langchain/community/vectorstores';
+import { OpenAIEmbeddings } from '@langchain/openai';
+
+// Type definitions
+interface Critique {
+    score: number;
+    feedback: string;
+    improvements: string[];
+    metrics: Record<string, number>;
+}
+
+interface RefinementResult {
+    finalOutput: string;
+    iterations: number;
+    critiqueHistory: Critique[];
+    metrics: Record<string, number>;
+}
+
+@Injectable()
+class SelfRefinement {
+    private readonly model: OpenAI;
+    private readonly vectorStore: VectorStore;
+    private readonly maxIterations: number = 3;
+    private readonly qualityThreshold: number = 0.8;
+    private readonly critiqueHistory: Critique[] = [];
+
+    constructor(
+        @Inject('OPENAI_API_KEY') private readonly apiKey: string,
+        @Inject('VECTOR_STORE') vectorStore: VectorStore
+    ) {
+        this.model = new OpenAI({ apiKey });
+        this.vectorStore = vectorStore;
+    }
+
+    async refine(task: string): Promise<RefinementResult> {
+        let currentOutput = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: task }],
+            model: 'gpt-4-turbo-preview'
+        }).then(res => res.choices[0].message.content);
+
+        let iteration = 0;
+        const metrics: Record<string, number> = {};
+
+        while (iteration < this.maxIterations) {
+            const critique = await this.selfCritique(currentOutput);
+            metrics[`iteration_${iteration}`] = critique.score;
+
+            if (this.isSatisfactory(critique)) {
+                break;
+            }
+
+            currentOutput = await this.improveOutput(currentOutput, critique);
+            this.critiqueHistory.push(critique);
+            iteration++;
+        }
+
         return {
-            accuracy: results[1],
-            loss: results[0]
+            finalOutput: currentOutput,
+            iterations: iteration,
+            critiqueHistory: this.critiqueHistory,
+            metrics
         };
     }
 
-    prepareData(features, labels) {
-        // Implement data preprocessing
-        return { features, labels };
-    }
-}</code></pre>
-                </div>
+    private async selfCritique(output: string): Promise<Critique> {
+        const critiquePrompt = `Analyze the following output and provide a detailed critique:
+        Output: ${output}
+        Consider:
+        1. Accuracy and correctness
+        2. Completeness and coverage
+        3. Clarity and coherence
+        4. Potential improvements
+        5. Specific metrics for each aspect`;
 
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Classification tasks</li>
-                        <li>Regression problems</li>
-                        <li>Pattern recognition</li>
-                        <li>Predictive modeling</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Transfer Learning - For knowledge reuse</li>
-                        <li>Reinforcement Learning - For feedback-based learning</li>
-                        <li>Unsupervised Learning - For pattern discovery</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="unsupervised">
-            <h2>Unsupervised Learning</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A learning pattern where the agent discovers patterns and structures in unlabeled data without explicit guidance.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Data: Unlabeled examples</li>
-                        <li>Clustering: Group discovery</li>
-                        <li>Dimensionality: Feature reduction</li>
-                        <li>Anomaly: Outlier detection</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class UnsupervisedLearning {
-    constructor() {
-        this.clusters = new Map();
-        this.features = [];
-    }
-
-    cluster(data, k) {
-        this.features = this.preprocess(data);
-        this.initializeClusters(k);
-        
-        let changed;
-        do {
-            changed = false;
-            for (const point of this.features) {
-                const nearestCluster = this.findNearestCluster(point);
-                if (this.assignToCluster(point, nearestCluster)) {
-                    changed = true;
-                }
-            }
-            this.updateCentroids();
-        } while (changed);
-        
-        return this.clusters;
-    }
-
-    preprocess(data) {
-        // Implement data preprocessing
-        return data;
-    }
-
-    initializeClusters(k) {
-        // Implement cluster initialization
-        for (let i = 0; i < k; i++) {
-            this.clusters.set(i, []);
-        }
-    }
-
-    findNearestCluster(point) {
-        // Implement nearest cluster finding
-        return 0;
-    }
-
-    assignToCluster(point, clusterId) {
-        // Implement cluster assignment
-        return true;
-    }
-
-    updateCentroids() {
-        // Implement centroid update
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Customer segmentation</li>
-                        <li>Anomaly detection</li>
-                        <li>Feature learning</li>
-                        <li>Data compression</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Supervised Learning - For labeled data</li>
-                        <li>Reinforcement Learning - For feedback-based learning</li>
-                        <li>Transfer Learning - For knowledge reuse</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="reinforcement">
-            <h2>Reinforcement Learning</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A learning pattern where the agent learns optimal behavior through trial and error, receiving rewards or penalties for its actions.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Agent: Learning entity</li>
-                        <li>Environment: Learning context</li>
-                        <li>Actions: Possible behaviors</li>
-                        <li>Rewards: Feedback signals</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class ReinforcementLearning {
-    constructor() {
-        this.state = null;
-        this.qTable = new Map();
-        this.learningRate = 0.1;
-        this.discountFactor = 0.9;
-    }
-
-    setState(state) {
-        this.state = state;
-    }
-
-    getAction() {
-        return this.epsilonGreedy();
-    }
-
-    epsilonGreedy() {
-        if (Math.random() < this.epsilon) {
-            return this.explore();
-        }
-        return this.exploit();
-    }
-
-    explore() {
-        // Implement exploration strategy
-        return Math.random();
-    }
-
-    exploit() {
-        // Implement exploitation strategy
-        return this.getBestAction();
-    }
-
-    updateQValue(state, action, reward, nextState) {
-        const currentQ = this.qTable.get(`${state}-${action}`) || 0;
-        const nextMaxQ = this.getMaxQValue(nextState);
-        const newQ = currentQ + this.learningRate * (reward + this.discountFactor * nextMaxQ - currentQ);
-        this.qTable.set(`${state}-${action}`, newQ);
-    }
-
-    getMaxQValue(state) {
-        // Implement max Q-value calculation
-        return 0;
-    }
-
-    getBestAction() {
-        // Implement best action selection
-        return 0;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Game playing</li>
-                        <li>Robotics control</li>
-                        <li>Resource optimization</li>
-                        <li>Adaptive systems</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Supervised Learning - For labeled data</li>
-                        <li>Unsupervised Learning - For pattern discovery</li>
-                        <li>Transfer Learning - For knowledge reuse</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="transfer">
-            <h2>Transfer Learning</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A learning pattern where knowledge gained from one task is applied to improve learning in a related task.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Source: Original task</li>
-                        <li>Target: New task</li>
-                        <li>Knowledge: Transferable information</li>
-                        <li>Adaptation: Task-specific tuning</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class TransferLearning {
-    constructor(sourceModel) {
-        this.sourceModel = sourceModel;
-        this.targetModel = null;
-        this.transferredLayers = new Set();
-    }
-
-    initializeTargetModel() {
-        this.targetModel = this.createModel();
-        this.transferKnowledge();
-    }
-
-    transferKnowledge() {
-        for (const layer of this.sourceModel.layers) {
-            if (this.isTransferable(layer)) {
-                this.transferredLayers.add(layer);
-                this.targetModel.addLayer(layer);
-            }
-        }
-    }
-
-    isTransferable(layer) {
-        // Implement transferability check
-        return true;
-    }
-
-    fineTune(targetData) {
-        this.targetModel.compile({
-            optimizer: 'adam',
-            loss: 'categoricalCrossentropy',
-            metrics: ['accuracy']
+        const critique = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: critiquePrompt }],
+            model: 'gpt-4-turbo-preview',
+            temperature: 0.3
         });
 
-        this.targetModel.fit(targetData.features, targetData.labels, {
-            epochs: 50,
-            validationSplit: 0.2,
-            callbacks: {
-                onEpochEnd: (epoch, logs) => {
-                    console.log(`Fine-tuning epoch ${epoch}: loss = ${logs.loss}`);
-                }
-            }
-        });
+        return this.parseCritique(critique.choices[0].message.content);
     }
 
-    createModel() {
-        // Implement model creation
-        return null;
+    private isSatisfactory(critique: Critique): boolean {
+        return critique.score >= this.qualityThreshold;
     }
-}</code></pre>
+
+    private async improveOutput(output: string, critique: Critique): Promise<string> {
+        const improvementPrompt = `Based on the following critique, improve the output:
+        Original Output: ${output}
+        Critique: ${critique.feedback}
+        Improvements needed: ${critique.improvements.join(', ')}
+        Metrics to improve: ${Object.entries(critique.metrics)
+            .map(([k, v]) => `${k}: ${v}`)
+            .join(', ')}`;
+
+        const improved = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: improvementPrompt }],
+            model: 'gpt-4-turbo-preview',
+            temperature: 0.7
+        });
+
+        return improved.choices[0].message.content;
+    }
+
+    private parseCritique(critiqueText: string): Critique {
+        // Implement critique parsing logic using structured output
+        const schema = z.object({
+            score: z.number(),
+            feedback: z.string(),
+            improvements: z.array(z.string()),
+            metrics: z.record(z.number())
+        });
+
+        try {
+            const parsed = JSON.parse(critiqueText);
+            return schema.parse(parsed);
+        } catch (error) {
+            // Fallback to basic parsing if structured output fails
+            return {
+                score: 0.5,
+                feedback: critiqueText,
+                improvements: [],
+                metrics: {}
+            };
+        }
+    }
+}
+</code></pre>
                 </div>
 
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Domain adaptation</li>
-                        <li>Few-shot learning</li>
-                        <li>Model reuse</li>
-                        <li>Knowledge transfer</li>
+                        <li>
+                            <strong>Code Generation Refinement</strong>
+                            <p>Improve generated code through self-critique and iteration. This ensures higher quality and more reliable code.</p>
+                            <a href="https://arxiv.org/abs/2303.08774" target="_blank">Read about Code Generation</a>
+                        </li>
+                        <li>
+                            <strong>Content Quality Improvement</strong>
+                            <p>Enhance the quality of generated content through self-analysis. This leads to more polished and professional outputs.</p>
+                            <a href="https://www.anthropic.com/index/content-generation" target="_blank">Learn about Content Quality</a>
+                        </li>
+                        <li>
+                            <strong>Error Correction</strong>
+                            <p>Identify and fix errors through self-critique. This improves reliability and accuracy.</p>
+                            <a href="https://arxiv.org/abs/2303.08774" target="_blank">Explore Error Correction</a>
+                        </li>
+                        <li>
+                            <strong>Performance Optimization</strong>
+                            <p>Optimize system performance through continuous self-improvement. This leads to better efficiency and effectiveness.</p>
+                            <a href="https://www.anthropic.com/index/performance-optimization" target="_blank">Read about Performance Optimization</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-related">
                     <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
                     <ul>
-                        <li>Supervised Learning - For labeled data</li>
-                        <li>Unsupervised Learning - For pattern discovery</li>
-                        <li>Reinforcement Learning - For feedback-based learning</li>
+                        <li><strong>In-Context Learning:</strong> For example-based learning</li>
+                        <li><strong>Meta-Learning:</strong> For learning strategies</li>
+                        <li><strong>Memory-Augmented Learning:</strong> For experience storage</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="memory-augmented" class="pattern-details">
+            <div class="pattern-header">
+                <h2>Memory-Augmented Learning</h2>
+            </div>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>A learning pattern where the agent uses external memory systems to store and retrieve past experiences, enabling continual learning without requiring model retraining. This pattern is crucial for maintaining context and leveraging historical knowledge in agentic systems.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <ul>
+                        <li><strong>Vector Database</strong>
+                            <ul>
+                                <li>Efficient storage of experience vectors</li>
+                                <li>Semantic search capabilities</li>
+                                <li>Scalable memory management</li>
+                            </ul>
+                        </li>
+                        <li><strong>Retrieval</strong>
+                            <ul>
+                                <li>Context-aware memory access</li>
+                                <li>Relevance-based retrieval</li>
+                                <li>Dynamic memory selection</li>
+                            </ul>
+                        </li>
+                        <li><strong>Episodic Memory</strong>
+                            <ul>
+                                <li>Event-based experience storage</li>
+                                <li>Temporal sequence tracking</li>
+                                <li>Context preservation</li>
+                            </ul>
+                        </li>
+                        <li><strong>Semantic Memory</strong>
+                            <ul>
+                                <li>Knowledge-based storage</li>
+                                <li>Concept organization</li>
+                                <li>Relationship mapping</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Implementation</h3>
+                    <pre><code>// Modern TypeScript implementation with dependency injection and async patterns
+import { OpenAI } from 'openai';
+import { z } from 'zod';
+import { VectorStore } from '@langchain/community/vectorstores';
+import { OpenAIEmbeddings } from '@langchain/openai';
+import { Redis } from 'ioredis';
+
+// Type definitions
+interface Experience {
+    id: string;
+    type: 'episodic' | 'semantic';
+    content: string;
+    timestamp?: number;
+    concepts?: string[];
+    metadata?: Record<string, any>;
+}
+
+interface MemoryConfig {
+    maxEpisodicMemories: number;
+    maxSemanticMemories: number;
+    relevanceThreshold: number;
+    embeddingModel: string;
+}
+
+@Injectable()
+class MemoryAugmentedLearning {
+    private readonly model: OpenAI;
+    private readonly vectorStore: VectorStore;
+    private readonly redis: Redis;
+    private readonly config: MemoryConfig;
+
+    constructor(
+        @Inject('OPENAI_API_KEY') private readonly apiKey: string,
+        @Inject('VECTOR_STORE') vectorStore: VectorStore,
+        @Inject('REDIS_CLIENT') redis: Redis,
+        @Inject('MEMORY_CONFIG') config: MemoryConfig
+    ) {
+        this.model = new OpenAI({ apiKey });
+        this.vectorStore = vectorStore;
+        this.redis = redis;
+        this.config = config;
+    }
+
+    async storeExperience(experience: Experience): Promise<void> {
+        // Generate embedding for the experience
+        const embedding = await this.generateEmbedding(experience.content);
+        
+        // Store in vector database
+        await this.vectorStore.addDocuments([{
+            pageContent: experience.content,
+            metadata: {
+                ...experience.metadata,
+                type: experience.type,
+                timestamp: experience.timestamp || Date.now(),
+                concepts: experience.concepts
+            }
+        }]);
+
+        // Store in Redis for quick access
+        const key = `experience:${experience.id}`;
+        await this.redis.set(key, JSON.stringify(experience));
+        
+        // Update memory limits
+        await this.enforceMemoryLimits(experience.type);
+    }
+
+    async retrieveRelevantMemories(query: string, options: {
+        limit?: number;
+        type?: 'episodic' | 'semantic' | 'both';
+        timeRange?: { start: number; end: number };
+    } = {}): Promise<Experience[]> {
+        const { limit = 5, type = 'both', timeRange } = options;
+
+        // Generate query embedding
+        const queryEmbedding = await this.generateEmbedding(query);
+
+        // Search vector store
+        const results = await this.vectorStore.similaritySearchWithScore(query, {
+            k: limit * 2, // Fetch more to filter
+            filter: this.buildFilter(type, timeRange)
+        });
+
+        // Filter and transform results
+        return results
+            .filter(([_, score]) => score >= this.config.relevanceThreshold)
+            .slice(0, limit)
+            .map(([doc, _]) => this.transformToExperience(doc));
+    }
+
+    private async generateEmbedding(text: string): Promise<number[]> {
+        const response = await this.model.embeddings.create({
+            model: this.config.embeddingModel,
+            input: text
+        });
+        return response.data[0].embedding;
+    }
+
+    private async enforceMemoryLimits(type: 'episodic' | 'semantic'): Promise<void> {
+        const maxMemories = type === 'episodic' 
+            ? this.config.maxEpisodicMemories 
+            : this.config.maxSemanticMemories;
+
+        const keys = await this.redis.keys(`experience:${type}:*`);
+        if (keys.length > maxMemories) {
+            const toRemove = keys.length - maxMemories;
+            const oldestKeys = await this.redis.zrange(
+                `timeline:${type}`,
+                0,
+                toRemove - 1
+            );
+            await this.redis.del(...oldestKeys);
+        }
+    }
+
+    private buildFilter(type: 'episodic' | 'semantic' | 'both', timeRange?: { start: number; end: number }) {
+        const filter: any = {};
+        
+        if (type !== 'both') {
+            filter.type = type;
+        }
+        
+        if (timeRange) {
+            filter.timestamp = {
+                $gte: timeRange.start,
+                $lte: timeRange.end
+            };
+        }
+        
+        return filter;
+    }
+
+    private transformToExperience(doc: any): Experience {
+        return {
+            id: doc.metadata.id,
+            type: doc.metadata.type,
+            content: doc.pageContent,
+            timestamp: doc.metadata.timestamp,
+            concepts: doc.metadata.concepts,
+            metadata: doc.metadata
+        };
+    }
+
+    async extractConcepts(experience: Experience): Promise<string[]> {
+        const prompt = `Extract key concepts from the following experience:
+        ${experience.content}
+        Consider:
+        1. Main topics and themes
+        2. Important entities and relationships
+        3. Core ideas and principles`;
+
+        const response = await this.model.chat.completions.create({
+            messages: [{ role: 'user', content: prompt }],
+            model: 'gpt-4-turbo-preview',
+            temperature: 0.3
+        });
+
+        return this.parseConcepts(response.choices[0].message.content);
+    }
+
+    private parseConcepts(text: string): string[] {
+        try {
+            return JSON.parse(text);
+        } catch {
+            // Fallback to basic parsing
+            return text.split(',').map(c => c.trim());
+        }
+    }
+}
+</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Continual Learning</strong>
+                            <p>Enable continuous learning from new experiences without retraining. This maintains up-to-date knowledge and capabilities.</p>
+                            <a href="https://arxiv.org/abs/2002.12411" target="_blank">Read about Continual Learning</a>
+                        </li>
+                        <li>
+                            <strong>Experience Reuse</strong>
+                            <p>Leverage past experiences to improve future performance. This enhances efficiency and effectiveness.</p>
+                            <a href="https://www.anthropic.com/index/experience-reuse" target="_blank">Learn about Experience Reuse</a>
+                        </li>
+                        <li>
+                            <strong>Knowledge Accumulation</strong>
+                            <p>Build and maintain a growing knowledge base. This enables more informed decision-making.</p>
+                            <a href="https://arxiv.org/abs/2002.12411" target="_blank">Explore Knowledge Accumulation</a>
+                        </li>
+                        <li>
+                            <strong>Context-aware Responses</strong>
+                            <p>Generate responses based on relevant past experiences. This improves relevance and accuracy.</p>
+                            <a href="https://www.anthropic.com/index/context-awareness" target="_blank">Read about Context Awareness</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <ul>
+                        <li><strong>In-Context Learning:</strong> For example-based learning</li>
+                        <li><strong>Meta-Learning:</strong> For learning strategies</li>
+                        <li><strong>Self-Refinement:</strong> For performance improvement</li>
                     </ul>
                 </div>
             </div>

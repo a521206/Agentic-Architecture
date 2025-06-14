@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="pattern-page">
     <div class="content">
         <a href="agentic-design-pattern.html" class="back-button">
             <i class="fas fa-arrow-left"></i> Back to Main
@@ -18,584 +18,499 @@
             <p class="subtitle">Patterns for intelligent decision-making in agentic systems</p>
         </header>
 
-        <nav class="nav-tiles">
-            <a href="#decision-tree" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-sitemap"></i>
-                </div>
-                <h3>Decision Tree</h3>
-                <p>Hierarchical decision-making structure</p>
-            </a>
-
+        <div class="nav-tiles">
             <a href="#rule-engine" class="nav-tile">
-                <div class="pattern-icon">
                     <i class="fas fa-cogs"></i>
-                </div>
                 <h3>Rule Engine</h3>
-                <p>Rule-based decision making</p>
+                <p>Rule-based decision making using explicit business rules and conditions</p>
             </a>
-
-            <a href="#bayesian" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Bayesian</h3>
-                <p>Probabilistic decision making</p>
-            </a>
-
             <a href="#reinforcement" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3>Reinforcement</h3>
-                <p>Learning from feedback</p>
+                <i class="fas fa-robot"></i>
+                <h3>Reinforcement Learning</h3>
+                <p>Learning optimal decision-making through trial and error</p>
             </a>
-
-            <a href="#fuzzy-logic" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-wave-square"></i>
-                </div>
-                <h3>Fuzzy Logic</h3>
-                <p>Handling imprecise information</p>
-            </a>
-
             <a href="#expert-system" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
+                <i class="fas fa-brain"></i>
                 <h3>Expert System</h3>
-                <p>Knowledge-based decision making</p>
+                <p>Knowledge-based decision making using expert rules and facts</p>
             </a>
-        </nav>
+        </div>
 
-        <section id="decision-tree">
-            <h2>Decision Tree</h2>
-            <div class="pattern-content">
+        <section id="rule-engine" class="pattern-section">
+            <div class="pattern-header">
+                <h2><i class="fas fa-cogs"></i> Rule Engine</h2>
+                <p>Rule-based decision making using explicit business rules and conditions</p>
+            </div>
                 <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A hierarchical decision-making structure that breaks down complex decisions into a series of simpler choices.</p>
+                <p>Rule Engine is a pattern that implements structured decision-making through a collection of explicit rules and conditions. Each rule consists of conditions that, when met, trigger specific actions or decisions. This pattern is particularly useful for implementing complex business logic and deterministic decision-making processes in agentic systems.</p>
+                
+                <p>There are several approaches to implementing rule engines:</p>
+                <ul>
+                    <li><strong>Forward Chaining:</strong> Rules are evaluated in sequence, with each rule potentially triggering other rules.</li>
+                    <li><strong>Backward Chaining:</strong> Rules are evaluated in reverse, starting from the goal and working backwards.</li>
+                    <li><strong>Drools:</strong> A popular open-source business rule management system that provides a powerful rule engine with complex event processing. <a href="https://www.drools.org/" target="_blank">Read about Drools</a></li>
+                    <li><strong>Easy Rules:</strong> A simple rules engine for Java that makes it easy to implement business rules. <a href="https://github.com/j-easy/easy-rules" target="_blank">Learn about Easy Rules</a></li>
+                </ul>
                 </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Nodes: Decision points</li>
-                        <li>Branches: Possible outcomes</li>
-                        <li>Leaves: Final decisions</li>
-                        <li>Criteria: Decision rules</li>
-                    </ul>
-                </div>
-
                 <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class DecisionTree {
-    constructor() {
-        this.root = null;
+                <h3><i class="fas fa-code"></i> Implementation using Drools</h3>
+                <pre><code>// Using Drools for Rule Engine implementation
+package com.example.rules;
+
+import org.drools.core.event.DefaultAgendaEventListener;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.rule.FactHandle;
+
+public class RuleEngine {
+    private final KieContainer kieContainer;
+    private KieSession kieSession;
+    
+    public RuleEngine() {
+        KieServices kieServices = KieServices.Factory.get();
+        this.kieContainer = kieServices.getKieClasspathContainer();
     }
-
-    addNode(data, criteria) {
-        const node = {
-            data,
-            criteria,
-            children: [],
-            isLeaf: false
-        };
-
-        if (!this.root) {
-            this.root = node;
-        } else {
-            this.insertNode(this.root, node);
-        }
-    }
-
-    insertNode(parent, node) {
-        if (this.evaluateCriteria(parent.criteria, node.data)) {
-            if (parent.children.length === 0) {
-                parent.children.push(node);
-            } else {
-                this.insertNode(parent.children[0], node);
+    
+    public void initialize() {
+        this.kieSession = kieContainer.newKieSession();
+        // Add event listener for rule execution tracking
+        kieSession.addEventListener(new DefaultAgendaEventListener() {
+            @Override
+            public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
+                System.out.println("Rule fired: " + event.getMatch().getRule().getName());
             }
-        } else {
-            if (parent.children.length < 2) {
-                parent.children.push(node);
-            } else {
-                this.insertNode(parent.children[1], node);
-            }
+        });
+    }
+    
+    public void addFact(Object fact) {
+        if (kieSession != null) {
+            kieSession.insert(fact);
         }
     }
-
-    evaluateCriteria(criteria, data) {
-        // Implement criteria evaluation logic
-        return true;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Classification tasks</li>
-                        <li>Risk assessment</li>
-                        <li>Diagnostic systems</li>
-                        <li>Decision support</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Rule Engine - For rule-based decisions</li>
-                        <li>Bayesian - For probabilistic decisions</li>
-                        <li>Reinforcement - For learning decisions</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="rule-engine">
-            <h2>Rule Engine</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that implements decision-making through a collection of rules, where each rule consists of conditions and corresponding actions.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Rules: Condition-action pairs</li>
-                        <li>Facts: Current state</li>
-                        <li>Engine: Rule processor</li>
-                        <li>Conflict Resolution: Rule priority</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class RuleEngine {
-    constructor() {
-        this.rules = [];
-        this.facts = new Map();
-    }
-
-    addRule(condition, action, priority = 0) {
-        this.rules.push({ condition, action, priority });
-        this.rules.sort((a, b) => b.priority - a.priority);
-    }
-
-    addFact(name, value) {
-        this.facts.set(name, value);
-    }
-
-    async execute() {
-        for (const rule of this.rules) {
-            if (await this.evaluateCondition(rule.condition)) {
-                await rule.action(this.facts);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    async evaluateCondition(condition) {
-        // Implement condition evaluation logic
-        return true;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Business rules</li>
-                        <li>Validation logic</li>
-                        <li>Policy enforcement</li>
-                        <li>Decision automation</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Decision Tree - For hierarchical decisions</li>
-                        <li>Expert System - For knowledge-based rules</li>
-                        <li>Fuzzy Logic - For imprecise rules</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="bayesian">
-            <h2>Bayesian</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that uses probability theory to make decisions based on prior knowledge and new evidence, updating beliefs as new information becomes available.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Prior: Initial beliefs</li>
-                        <li>Evidence: New information</li>
-                        <li>Posterior: Updated beliefs</li>
-                        <li>Model: Probability structure</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Bayesian {
-    constructor() {
-        this.priors = new Map();
-        this.evidence = new Map();
-        this.model = new Map();
-    }
-
-    setPrior(hypothesis, probability) {
-        this.priors.set(hypothesis, probability);
-    }
-
-    addEvidence(evidence, likelihood) {
-        this.evidence.set(evidence, likelihood);
-    }
-
-    updateBeliefs() {
-        for (const [hypothesis, prior] of this.priors) {
-            let posterior = prior;
-            for (const [evidence, likelihood] of this.evidence) {
-                posterior = this.calculatePosterior(posterior, likelihood);
-            }
-            this.priors.set(hypothesis, posterior);
+    
+    public void executeRules() {
+        if (kieSession != null) {
+            kieSession.fireAllRules();
         }
     }
-
-    calculatePosterior(prior, likelihood) {
-        // Implement Bayesian update formula
-        return prior * likelihood;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Probabilistic reasoning</li>
-                        <li>Uncertainty handling</li>
-                        <li>Learning from data</li>
-                        <li>Risk assessment</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Decision Tree - For hierarchical decisions</li>
-                        <li>Rule Engine - For rule-based decisions</li>
-                        <li>Reinforcement - For learning decisions</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="reinforcement">
-            <h2>Reinforcement</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that enables agents to learn optimal decision-making through trial and error, using rewards and penalties to guide behavior.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Agent: Decision maker</li>
-                        <li>Environment: Decision context</li>
-                        <li>Policy: Decision strategy</li>
-                        <li>Reward: Feedback signal</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Reinforcement {
-    constructor() {
-        this.state = null;
-        this.policy = new Map();
-        this.rewards = new Map();
-        this.learningRate = 0.1;
-    }
-
-    setState(state) {
-        this.state = state;
-    }
-
-    getAction() {
-        return this.policy.get(this.state) || this.explore();
-    }
-
-    updatePolicy(reward) {
-        const currentValue = this.rewards.get(this.state) || 0;
-        const newValue = currentValue + this.learningRate * (reward - currentValue);
-        this.rewards.set(this.state, newValue);
-        this.updatePolicy();
-    }
-
-    explore() {
-        // Implement exploration strategy
-        return Math.random();
-    }
-
-    updatePolicy() {
-        // Implement policy update logic
-        this.policy.set(this.state, this.getBestAction());
-    }
-
-    getBestAction() {
-        // Implement best action selection
-        return 0;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Game playing</li>
-                        <li>Robotics control</li>
-                        <li>Resource optimization</li>
-                        <li>Adaptive systems</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Decision Tree - For hierarchical decisions</li>
-                        <li>Rule Engine - For rule-based decisions</li>
-                        <li>Bayesian - For probabilistic decisions</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="fuzzy-logic">
-            <h2>Fuzzy Logic</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that handles imprecise or vague information by using degrees of truth rather than strict boolean logic.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Fuzzy Sets: Membership functions</li>
-                        <li>Fuzzy Rules: Inference rules</li>
-                        <li>Fuzzification: Input conversion</li>
-                        <li>Defuzzification: Output conversion</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class FuzzyLogic {
-    constructor() {
-        this.fuzzySets = new Map();
-        this.rules = [];
-    }
-
-    addFuzzySet(name, membershipFunction) {
-        this.fuzzySets.set(name, membershipFunction);
-    }
-
-    addRule(antecedents, consequent) {
-        this.rules.push({ antecedents, consequent });
-    }
-
-    fuzzify(input) {
-        const fuzzyValues = new Map();
-        for (const [name, membershipFn] of this.fuzzySets) {
-            fuzzyValues.set(name, membershipFn(input));
+    
+    public void dispose() {
+        if (kieSession != null) {
+            kieSession.dispose();
         }
-        return fuzzyValues;
-    }
-
-    infer(fuzzyValues) {
-        const ruleResults = [];
-        for (const rule of this.rules) {
-            const strength = this.evaluateAntecedents(rule.antecedents, fuzzyValues);
-            ruleResults.push({
-                consequent: rule.consequent,
-                strength
-            });
-        }
-        return ruleResults;
-    }
-
-    defuzzify(ruleResults) {
-        // Implement centroid or other defuzzification method
-        return this.calculateCentroid(ruleResults);
-    }
-
-    evaluateAntecedents(antecedents, fuzzyValues) {
-        // Implement min-max or other evaluation method
-        return Math.min(...antecedents.map(a => fuzzyValues.get(a)));
-    }
-
-    calculateCentroid(ruleResults) {
-        // Implement centroid calculation
-        return 0;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Control systems</li>
-                        <li>Natural language processing</li>
-                        <li>Pattern recognition</li>
-                        <li>Decision support</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Rule Engine - For rule-based decisions</li>
-                        <li>Expert System - For knowledge-based decisions</li>
-                        <li>Bayesian - For probabilistic decisions</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="expert-system">
-            <h2>Expert System</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that emulates the decision-making ability of a human expert by using a knowledge base and inference engine.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Knowledge Base: Expert knowledge</li>
-                        <li>Inference Engine: Reasoning system</li>
-                        <li>Working Memory: Current state</li>
-                        <li>Explanation System: Decision rationale</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class ExpertSystem {
-    constructor() {
-        this.knowledgeBase = new KnowledgeBase();
-        this.workingMemory = new WorkingMemory();
-        this.inferenceEngine = new InferenceEngine();
-        this.explanationSystem = new ExplanationSystem();
-    }
-
-    addRule(rule) {
-        this.knowledgeBase.addRule(rule);
-    }
-
-    addFact(fact) {
-        this.workingMemory.addFact(fact);
-    }
-
-    async solve(goal) {
-        const solution = await this.inferenceEngine.solve(
-            this.knowledgeBase,
-            this.workingMemory,
-            goal
-        );
-
-        if (solution) {
-            const explanation = this.explanationSystem.generateExplanation(
-                solution,
-                this.knowledgeBase
-            );
-            return { solution, explanation };
-        }
-
-        return null;
     }
 }
 
-class KnowledgeBase {
-    constructor() {
-        this.rules = [];
-    }
-
-    addRule(rule) {
-        this.rules.push(rule);
-    }
-
-    getMatchingRules(facts) {
-        return this.rules.filter(rule => rule.matches(facts));
-    }
-}
-
-class WorkingMemory {
-    constructor() {
-        this.facts = new Set();
-    }
-
-    addFact(fact) {
-        this.facts.add(fact);
-    }
-
-    hasFact(fact) {
-        return this.facts.has(fact);
+// Example usage
+public class RuleEngineExample {
+    public static void main(String[] args) {
+        // Create rule engine instance
+        RuleEngine engine = new RuleEngine();
+        engine.initialize();
+        
+        // Create and add facts
+        Customer customer = new Customer("John Doe", 25, 750);
+        LoanApplication application = new LoanApplication(50000, 36);
+        
+        engine.addFact(customer);
+        engine.addFact(application);
+        
+        // Execute rules
+        engine.executeRules();
+        
+        // Cleanup
+        engine.dispose();
     }
 }
 
-class InferenceEngine {
-    async solve(knowledgeBase, workingMemory, goal) {
-        // Implement forward or backward chaining
-        return this.backwardChain(knowledgeBase, workingMemory, goal);
-    }
+// Example DRL file (loan_rules.drl)
+/*
+package com.example.rules
 
-    backwardChain(knowledgeBase, workingMemory, goal) {
-        // Implement backward chaining logic
-        return null;
-    }
-}
+import com.example.model.Customer
+import com.example.model.LoanApplication
 
-class ExplanationSystem {
-    generateExplanation(solution, knowledgeBase) {
-        // Implement explanation generation
-        return {
-            steps: solution.steps,
-            rules: solution.rules,
-            facts: solution.facts
-        };
-    }
-}</code></pre>
+rule "High Risk Customer"
+    when
+        $customer : Customer(creditScore < 600)
+        $application : LoanApplication()
+    then
+        $application.setStatus("REJECTED");
+        $application.setReason("Low credit score");
+end
+
+rule "Approved Loan"
+    when
+        $customer : Customer(creditScore >= 700)
+        $application : LoanApplication(amount <= 100000)
+    then
+        $application.setStatus("APPROVED");
+        $application.setReason("Good credit score and reasonable amount");
+end
+*/</code></pre>
                 </div>
 
                 <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Diagnostic systems</li>
-                        <li>Medical diagnosis</li>
-                        <li>Technical support</li>
-                        <li>Decision support</li>
+                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
+                <ul>
+                    <li>
+                        <strong>Business Rules</strong>
+                        <p>Implement complex business logic and decision-making processes</p>
+                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
+                    </li>
+                    <li>
+                        <strong>Workflow Management</strong>
+                        <p>Manage complex workflows and business processes</p>
+                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
+                    </li>
+                    <li>
+                        <strong>Policy Enforcement</strong>
+                        <p>Enforce business policies and compliance rules</p>
+                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
+                    </li>
+                    <li>
+                        <strong>Decision Support</strong>
+                        <p>Provide decision support for complex scenarios</p>
+                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
+                    </li>
                     </ul>
+            </div>
+        </section>
+
+        <section id="reinforcement" class="pattern-section">
+            <div class="pattern-header">
+                <h2><i class="fas fa-robot"></i> Reinforcement Learning</h2>
+                <p>Learning optimal decision-making through trial and error</p>
+            </div>
+                <div class="pattern-description">
+                <p>Reinforcement Learning is a pattern that enables agents to learn optimal decision-making strategies through interaction with their environment. The agent receives feedback in the form of rewards or penalties, which it uses to improve its decision-making over time. This pattern is particularly valuable for learning complex behaviors and optimizing long-term outcomes in agentic systems.</p>
+                
+                <p>There are several approaches to implementing reinforcement learning:</p>
+                <ul>
+                    <li><strong>Q-Learning:</strong> Value-based method for learning optimal action-selection policies.</li>
+                    <li><strong>Policy Gradient:</strong> Direct optimization of policy parameters for better performance.</li>
+                    <li><strong>Stable Baselines3:</strong> A set of reliable implementations of reinforcement learning algorithms in PyTorch. <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Read about Stable Baselines3</a></li>
+                    <li><strong>Ray RLlib:</strong> A scalable reinforcement learning library that supports distributed training. <a href="https://docs.ray.io/en/latest/rllib/index.html" target="_blank">Learn about Ray RLlib</a></li>
+                </ul>
+                </div>
+            <div class="pattern-implementation">
+                <h3><i class="fas fa-code"></i> Implementation using Stable Baselines3</h3>
+                <pre><code>// Using Stable Baselines3 for Reinforcement Learning implementation
+import gym
+import numpy as np
+from stable_baselines3 import PPO
+from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+from stable_baselines3.common.callbacks import EvalCallback
+from stable_baselines3.common.monitor import Monitor
+
+class ReinforcementSystem:
+    def __init__(self, env_name, model_type='PPO'):
+        self.env_name = env_name
+        self.model_type = model_type
+        self.model = None
+        self.env = None
+        self.eval_env = None
+        
+    def create_env(self):
+        """Create and wrap the environment"""
+        env = gym.make(self.env_name)
+        env = Monitor(env)
+        env = DummyVecEnv([lambda: env])
+        env = VecNormalize(env, norm_obs=True, norm_reward=True)
+        return env
+    
+    def initialize(self):
+        """Initialize the RL system"""
+        self.env = self.create_env()
+        self.eval_env = self.create_env()
+        
+        if self.model_type == 'PPO':
+            self.model = PPO(
+                'MlpPolicy',
+                self.env,
+                learning_rate=3e-4,
+                n_steps=2048,
+                batch_size=64,
+                n_epochs=10,
+                gamma=0.99,
+                gae_lambda=0.95,
+                clip_range=0.2,
+                verbose=1
+            )
+    
+    def train(self, total_timesteps=1000000):
+        """Train the RL agent"""
+        eval_callback = EvalCallback(
+            self.eval_env,
+            best_model_save_path='./best_model',
+            log_path='./logs/',
+            eval_freq=10000,
+            deterministic=True,
+            render=False
+        )
+        
+        self.model.learn(
+            total_timesteps=total_timesteps,
+            callback=eval_callback
+        )
+    
+    def predict(self, observation):
+        """Make predictions using the trained model"""
+        action, _states = self.model.predict(observation, deterministic=True)
+        return action
+    
+    def save(self, path):
+        """Save the trained model"""
+        self.model.save(path)
+    
+    def load(self, path):
+        """Load a trained model"""
+        self.model = PPO.load(path)
+
+# Example usage
+if __name__ == "__main__":
+    # Create and train the RL system
+    rl_system = ReinforcementSystem('CartPole-v1')
+    rl_system.initialize()
+    rl_system.train(total_timesteps=100000)
+    
+    # Test the trained agent
+    obs = rl_system.env.reset()
+    for _ in range(1000):
+        action = rl_system.predict(obs)
+        obs, reward, done, info = rl_system.env.step(action)
+        if done:
+            obs = rl_system.env.reset()
+    
+    # Save the trained model
+    rl_system.save('cartpole_model')</code></pre>
                 </div>
 
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Rule Engine - For rule-based decisions</li>
-                        <li>Fuzzy Logic - For imprecise reasoning</li>
-                        <li>Decision Tree - For hierarchical decisions</li>
+                <div class="pattern-use-cases">
+                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
+                <ul>
+                    <li>
+                        <strong>Game Playing</strong>
+                        <p>Learn optimal strategies for games and puzzles</p>
+                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
+                    </li>
+                    <li>
+                        <strong>Robotics Control</strong>
+                        <p>Control robots and autonomous systems</p>
+                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
+                    </li>
+                    <li>
+                        <strong>Resource Optimization</strong>
+                        <p>Optimize resource allocation and scheduling</p>
+                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
+                    </li>
+                    <li>
+                        <strong>Adaptive Systems</strong>
+                        <p>Build systems that adapt to changing conditions</p>
+                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
+                    </li>
                     </ul>
+            </div>
+        </section>
+
+        <section id="expert-system" class="pattern-section">
+            <div class="pattern-header">
+                <h2><i class="fas fa-brain"></i> Expert System</h2>
+                <p>Knowledge-based decision making using expert rules and facts</p>
+            </div>
+                <div class="pattern-description">
+                <p>Expert System is a pattern that emulates human decision-making by using a knowledge base of expert rules and facts. The system uses an inference engine to apply these rules to specific situations and reach conclusions. This pattern is particularly useful for implementing domain-specific decision-making capabilities in agentic systems.</p>
+                
+                <p>There are several approaches to implementing expert systems:</p>
+                <ul>
+                    <li><strong>Rule-Based Systems:</strong> Using if-then rules to represent expert knowledge.</li>
+                    <li><strong>Case-Based Reasoning:</strong> Solving new problems based on past experiences.</li>
+                    <li><strong>Neo4j:</strong> A graph database that provides powerful tools for building knowledge graphs and expert systems. <a href="https://neo4j.com/developer/kb/" target="_blank">Read about Neo4j</a></li>
+                    <li><strong>Protégé:</strong> An open-source ontology editor and knowledge management system. <a href="https://protege.stanford.edu/" target="_blank">Learn about Protégé</a></li>
+                </ul>
                 </div>
+            <div class="pattern-implementation">
+                <h3><i class="fas fa-code"></i> Implementation using Neo4j</h3>
+                <pre><code>// Using Neo4j for Expert System implementation
+from neo4j import GraphDatabase
+from typing import List, Dict, Any
+import json
+
+class ExpertSystem:
+    def __init__(self, uri: str, user: str, password: str):
+        self.driver = GraphDatabase.driver(uri, auth=(user, password))
+        self.knowledge_base = {}
+        self.rules = []
+        
+    def close(self):
+        """Close the database connection"""
+        self.driver.close()
+    
+    def add_knowledge(self, domain: str, facts: Dict[str, Any]):
+        """Add domain knowledge to the system"""
+        with self.driver.session() as session:
+            # Create domain node
+            session.run(
+                "MERGE (d:Domain {name: $domain})",
+                domain=domain
+            )
+            
+            # Add facts as nodes and relationships
+            for fact_type, fact_data in facts.items():
+                for fact in fact_data:
+                    session.run(
+                        """
+                        MATCH (d:Domain {name: $domain})
+                        MERGE (f:Fact {type: $type, data: $data})
+                        MERGE (d)-[:HAS_FACT]->(f)
+                        """,
+                        domain=domain,
+                        type=fact_type,
+                        data=json.dumps(fact)
+                    )
+    
+    def add_rule(self, rule: Dict[str, Any]):
+        """Add a rule to the system"""
+        self.rules.append(rule)
+        with self.driver.session() as session:
+            session.run(
+                """
+                CREATE (r:Rule {
+                    name: $name,
+                    conditions: $conditions,
+                    actions: $actions
+                })
+                """,
+                name=rule['name'],
+                conditions=json.dumps(rule['conditions']),
+                actions=json.dumps(rule['actions'])
+            )
+    
+    def query_knowledge(self, domain: str, query: str) -> List[Dict[str, Any]]:
+        """Query the knowledge base"""
+        with self.driver.session() as session:
+            result = session.run(
+                """
+                MATCH (d:Domain {name: $domain})-[:HAS_FACT]->(f:Fact)
+                WHERE f.type = $type
+                RETURN f.data as data
+                """,
+                domain=domain,
+                type=query
+            )
+            return [record["data"] for record in result]
+    
+    def infer(self, domain: str, facts: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Make inferences based on current facts"""
+        with self.driver.session() as session:
+            # Add current facts
+            self.add_knowledge(domain, {"current": [facts]})
+            
+            # Apply rules
+            results = []
+            for rule in self.rules:
+                if self._evaluate_conditions(rule['conditions'], facts):
+                    results.extend(rule['actions'])
+            
+            return results
+    
+    def _evaluate_conditions(self, conditions: List[Dict[str, Any]], facts: Dict[str, Any]) -> bool:
+        """Evaluate rule conditions against current facts"""
+        for condition in conditions:
+            if not self._check_condition(condition, facts):
+                return False
+        return True
+    
+    def _check_condition(self, condition: Dict[str, Any], facts: Dict[str, Any]) -> bool:
+        """Check if a single condition is satisfied"""
+        field = condition['field']
+        operator = condition['operator']
+        value = condition['value']
+        
+        if field not in facts:
+            return False
+            
+        fact_value = facts[field]
+        
+        if operator == 'equals':
+            return fact_value == value
+        elif operator == 'greater_than':
+            return fact_value > value
+        elif operator == 'less_than':
+            return fact_value < value
+        elif operator == 'contains':
+            return value in fact_value
+        
+        return False
+
+# Example usage
+if __name__ == "__main__":
+    # Initialize expert system
+    expert = ExpertSystem("bolt://localhost:7687", "neo4j", "password")
+    
+    # Add domain knowledge
+    medical_knowledge = {
+        "symptoms": [
+            {"name": "fever", "severity": "high"},
+            {"name": "cough", "severity": "moderate"}
+        ],
+        "conditions": [
+            {"name": "flu", "symptoms": ["fever", "cough"]},
+            {"name": "cold", "symptoms": ["cough"]}
+        ]
+    }
+    expert.add_knowledge("medical", medical_knowledge)
+    
+    # Add rules
+    expert.add_rule({
+        "name": "flu_diagnosis",
+        "conditions": [
+            {"field": "temperature", "operator": "greater_than", "value": 38},
+            {"field": "has_cough", "operator": "equals", "value": True}
+        ],
+        "actions": [
+            {"diagnosis": "flu", "confidence": 0.8},
+            {"recommendation": "rest and fluids"}
+        ]
+    })
+    
+    # Make inference
+    current_symptoms = {
+        "temperature": 39,
+        "has_cough": True
+    }
+    results = expert.infer("medical", current_symptoms)
+    print("Diagnosis results:", results)
+    
+    # Close connection
+    expert.close()</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
+                <ul>
+                    <li>
+                        <strong>Diagnostic Systems</strong>
+                        <p>Diagnose problems and provide solutions</p>
+                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
+                    </li>
+                    <li>
+                        <strong>Medical Diagnosis</strong>
+                        <p>Assist in medical diagnosis and treatment</p>
+                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
+                    </li>
+                    <li>
+                        <strong>Technical Support</strong>
+                        <p>Provide technical support and troubleshooting</p>
+                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
+                    </li>
+                    <li>
+                        <strong>Decision Support</strong>
+                        <p>Support complex decision-making processes</p>
+                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
+                    </li>
+                    </ul>
             </div>
         </section>
     </div>

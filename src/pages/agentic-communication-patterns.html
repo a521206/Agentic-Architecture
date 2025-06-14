@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Communication Patterns</title>
+    <title>LLM Agent Communication Protocols</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -14,660 +14,856 @@
         </a>
         
         <header>
-            <h1>Agentic Communication Patterns</h1>
-            <p class="subtitle">Patterns for effective agent communication and interaction</p>
+            <h1>LLM Agent Communication Protocols</h1>
+            <p class="subtitle">Standardized interactions in Multi-Agent Systems</p>
         </header>
 
         <nav class="nav-tiles">
-            <a href="#request-response" class="nav-tile">
+            <a href="#tool-calling" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-tools"></i>
                 </div>
-                <h3>Request-Response</h3>
-                <p>Synchronous communication between agents</p>
+                <h3>Tool Calling</h3>
+                <p>Function Execution</p>
             </a>
 
-            <a href="#publish-subscribe" class="nav-tile">
+            <a href="#rag" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-broadcast-tower"></i>
+                    <i class="fas fa-database"></i>
                 </div>
-                <h3>Publish-Subscribe</h3>
-                <p>Asynchronous event-based communication</p>
+                <h3>RAG</h3>
+                <p>Knowledge Retrieval</p>
             </a>
 
-            <a href="#message-queue" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-stream"></i>
-                </div>
-                <h3>Message Queue</h3>
-                <p>Reliable message delivery between agents</p>
-            </a>
-
-            <a href="#rpc" class="nav-tile">
+            <a href="#a2a" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-network-wired"></i>
                 </div>
-                <h3>Remote Procedure Call</h3>
-                <p>Remote method invocation between agents</p>
+                <h3>Agent-to-Agent</h3>
+                <p>Multi-Agent Systems</p>
             </a>
 
-            <a href="#command" class="nav-tile">
+            <a href="#acp" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-terminal"></i>
+                    <i class="fas fa-exchange-alt"></i>
                 </div>
-                <h3>Command</h3>
-                <p>Encapsulated action requests</p>
-            </a>
-
-            <a href="#mediator" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Mediator</h3>
-                <p>Centralized agent communication</p>
-            </a>
-
-            <a href="#observer" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <h3>Observer</h3>
-                <p>One-to-many agent notifications</p>
-            </a>
-
-            <a href="#message-broker" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-route"></i>
-                </div>
-                <h3>Message Broker</h3>
-                <p>Reliable message delivery and routing</p>
+                <h3>Agent Communication</h3>
+                <p>Structured Dialogue</p>
             </a>
         </nav>
 
-        <section id="request-response">
-            <h2>Request-Response</h2>
+        <section id="tool-calling">
+            <h2>Tool Calling / Function Calling</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A synchronous communication pattern where one agent sends a request and waits for a response from another agent.</p>
+                    <p>Tool calling enables LLM agents to execute functions, from simple calculations to complex API calls. The Model Context Protocol (MCP) is a specific standardization protocol that defines how an LLM agent securely and uniformly accesses and utilizes external tools, APIs, and contextual data. Any function can be registered as a tool, allowing the agent to perform mathematical operations, access external services, or execute code. Frameworks like LangChain and AutoGen make it easy to define and use these tools, whether they're simple utility functions or complex external service integrations.</p>
                 </div>
 
                 <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
                     <ul>
-                        <li>Request: Message containing action details</li>
-                        <li>Response: Result of the requested action</li>
-                        <li>Timeout: Maximum wait time for response</li>
-                        <li>Error Handling: Failed request management</li>
+                        <li><strong>Function Registration</strong>
+                            <ul>
+                                <li>Tools are registered with metadata describing their purpose, parameters, and return types.</li>
+                                <li>Frameworks provide standardized ways to define and expose tool capabilities.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Structured Invocation</strong>
+                            <ul>
+                                <li>Agents generate structured requests (typically JSON) specifying the tool and arguments.</li>
+                                <li>Includes parameter validation and type checking before execution.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Execution & Response</strong>
+                            <ul>
+                                <li>Tools execute in a controlled environment with proper error handling.</li>
+                                <li>Results are returned in a structured format for agent interpretation.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Security & Validation</strong>
+                            <ul>
+                                <li>Tools run with appropriate permissions and resource limits.</li>
+                                <li>Input validation and sanitization before execution.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class RequestResponsePattern {
-    constructor() {
-        this.requests = new Map();
-    }
+                    <h3><i class="fas fa-code"></i> Conceptual Example: Tool Registration and Execution</h3>
+                    <pre><code>from typing import Dict, Any, List
+import json
+from datetime import datetime
 
-    async sendRequest(agent, request) {
-        return new Promise((resolve, reject) => {
-            const requestId = this.generateRequestId();
-            this.requests.set(requestId, { resolve, reject });
-            
-            agent.send({
-                type: 'request',
-                id: requestId,
-                data: request
-            });
-
-            setTimeout(() => {
-                if (this.requests.has(requestId)) {
-                    this.requests.delete(requestId);
-                    reject(new Error('Request timeout'));
-                }
-            }, this.timeout);
-        });
-    }
-
-    handleResponse(response) {
-        const { requestId, data } = response;
-        const request = this.requests.get(requestId);
+class ToolRegistry:
+    """Manages the registration and execution of tools."""
+    
+    def __init__(self):
+        self.tools: Dict[str, Dict[str, Any]] = {}
+    
+    def register_tool(self, name: str, func: callable, description: str, 
+                     parameters: Dict[str, Any]) -> None:
+        """Register a new tool with its metadata."""
+        self.tools[name] = {
+            "function": func,
+            "description": description,
+            "parameters": parameters,
+            "registered_at": datetime.utcnow().isoformat()
+        }
+    
+    def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute a registered tool with the provided arguments."""
+        if tool_name not in self.tools:
+            raise ValueError(f"Tool '{tool_name}' not found")
         
-        if (request) {
-            this.requests.delete(requestId);
-            request.resolve(data);
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>API calls between agents</li>
-                        <li>Data retrieval requests</li>
-                        <li>Command execution</li>
-                        <li>Status queries</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Message Queue - For reliable delivery</li>
-                        <li>RPC - For method invocation</li>
-                        <li>Command - For action encapsulation</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="publish-subscribe">
-            <h2>Publish-Subscribe</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>An asynchronous communication pattern where publishers send messages to topics, and subscribers receive messages from topics they're interested in.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Publisher: Message sender</li>
-                        <li>Subscriber: Message receiver</li>
-                        <li>Topic: Message category</li>
-                        <li>Broker: Message distribution</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class PubSubPattern {
-    constructor() {
-        this.topics = new Map();
-        this.subscribers = new Map();
-    }
-
-    subscribe(topic, subscriber) {
-        if (!this.subscribers.has(topic)) {
-            this.subscribers.set(topic, new Set());
-        }
-        this.subscribers.get(topic).add(subscriber);
-    }
-
-    unsubscribe(topic, subscriber) {
-        const subscribers = this.subscribers.get(topic);
-        if (subscribers) {
-            subscribers.delete(subscriber);
-        }
-    }
-
-    publish(topic, message) {
-        const subscribers = this.subscribers.get(topic);
-        if (subscribers) {
-            subscribers.forEach(subscriber => {
-                subscriber.receive(message);
-            });
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Event notifications</li>
-                        <li>State updates</li>
-                        <li>System monitoring</li>
-                        <li>Real-time updates</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Observer - For state notifications</li>
-                        <li>Message Broker - For message distribution</li>
-                        <li>Event Sourcing - For event history</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="message-queue">
-            <h2>Message Queue</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A reliable message delivery pattern that ensures messages are processed in order and not lost, even if the receiver is temporarily unavailable.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Queue: Message storage</li>
-                        <li>Producer: Message sender</li>
-                        <li>Consumer: Message processor</li>
-                        <li>Broker: Queue management</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class MessageQueue {
-    constructor() {
-        this.queues = new Map();
-        this.consumers = new Map();
-    }
-
-    createQueue(name) {
-        this.queues.set(name, []);
-    }
-
-    enqueue(queueName, message) {
-        if (this.queues.has(queueName)) {
-            this.queues.get(queueName).push(message);
-            this.notifyConsumers(queueName);
-        }
-    }
-
-    registerConsumer(queueName, consumer) {
-        if (!this.consumers.has(queueName)) {
-            this.consumers.set(queueName, new Set());
-        }
-        this.consumers.get(queueName).add(consumer);
-    }
-
-    async notifyConsumers(queueName) {
-        if (this.queues.has(queueName) && this.consumers.has(queueName)) {
-            const message = this.queues.get(queueName)[0];
-            for (const consumer of this.consumers.get(queueName)) {
-                await consumer.process(message);
-            }
-            this.queues.get(queueName).shift();
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Asynchronous processing</li>
-                        <li>Load balancing</li>
-                        <li>Reliable delivery</li>
-                        <li>Task distribution</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Message Broker - For message routing</li>
-                        <li>Publish-Subscribe - For event distribution</li>
-                        <li>Command - For action encapsulation</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="rpc">
-            <h2>Remote Procedure Call</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that allows an agent to execute a procedure on a remote agent as if it were a local procedure call.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Client: Caller</li>
-                        <li>Server: Procedure executor</li>
-                        <li>Stub: Local procedure interface</li>
-                        <li>Protocol: Communication format</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class RPC {
-    constructor() {
-        this.methods = new Map();
-        this.clients = new Map();
-    }
-
-    registerMethod(name, handler) {
-        this.methods.set(name, handler);
-    }
-
-    async call(clientId, methodName, params) {
-        const handler = this.methods.get(methodName);
-        if (handler) {
-            try {
-                const result = await handler(params);
-                this.sendResponse(clientId, { success: true, result });
-            } catch (error) {
-                this.sendResponse(clientId, { success: false, error: error.message });
-            }
-        }
-    }
-
-    sendResponse(clientId, response) {
-        const client = this.clients.get(clientId);
-        if (client) {
-            client.receive(response);
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Distributed computing</li>
-                        <li>Service calls</li>
-                        <li>Method invocation</li>
-                        <li>API implementation</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Request-Response - For synchronous calls</li>
-                        <li>Message Queue - For reliable delivery</li>
-                        <li>Command - For action encapsulation</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="command">
-            <h2>Command</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that encapsulates a request as an object, allowing parameterization of clients with different requests, queuing of requests, and logging of operations.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Command: Action encapsulation</li>
-                        <li>Invoker: Command executor</li>
-                        <li>Receiver: Action performer</li>
-                        <li>Client: Command creator</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Command {
-    constructor(receiver) {
-        this.receiver = receiver;
-    }
-
-    execute() {
-        throw new Error('Method not implemented');
-    }
-
-    undo() {
-        throw new Error('Method not implemented');
-    }
-}
-
-class CommandInvoker {
-    constructor() {
-        this.history = [];
-    }
-
-    execute(command) {
-        command.execute();
-        this.history.push(command);
-    }
-
-    undo() {
-        const command = this.history.pop();
-        if (command) {
-            command.undo();
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Action queuing</li>
-                        <li>Undo/redo operations</li>
-                        <li>Macro recording</li>
-                        <li>Task scheduling</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Message Queue - For command queuing</li>
-                        <li>Observer - For state changes</li>
-                        <li>Mediator - For command coordination</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="mediator">
-            <h2>Mediator</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that defines an object that encapsulates how a set of agents interact, promoting loose coupling by keeping agents from referring to each other explicitly.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Mediator: Communication coordinator</li>
-                        <li>Colleague: Interacting agent</li>
-                        <li>Protocol: Interaction rules</li>
-                        <li>Registry: Agent tracking</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Mediator {
-    constructor() {
-        this.colleagues = new Map();
-    }
-
-    register(colleague) {
-        this.colleagues.set(colleague.id, colleague);
-        colleague.setMediator(this);
-    }
-
-    notify(sender, event) {
-        for (const [id, colleague] of this.colleagues) {
-            if (id !== sender.id) {
-                colleague.receive(event);
-            }
-        }
-    }
-
-    broadcast(event) {
-        for (const colleague of this.colleagues.values()) {
-            colleague.receive(event);
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>Complex interactions</li>
-                        <li>System coordination</li>
-                        <li>Event distribution</li>
-                        <li>State management</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Observer - For state changes</li>
-                        <li>Command - For action encapsulation</li>
-                        <li>Message Broker - For message routing</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="observer">
-            <h2>Observer</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that defines a one-to-many dependency between agents, where one agent's state change is automatically communicated to all dependent agents.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Subject: State holder</li>
-                        <li>Observer: State watcher</li>
-                        <li>Notification: State change</li>
-                        <li>Registry: Observer tracking</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Subject {
-    constructor() {
-        this.observers = new Set();
-        this.state = null;
-    }
-
-    attach(observer) {
-        this.observers.add(observer);
-    }
-
-    detach(observer) {
-        this.observers.delete(observer);
-    }
-
-    setState(state) {
-        this.state = state;
-        this.notify();
-    }
-
-    notify() {
-        for (const observer of this.observers) {
-            observer.update(this.state);
-        }
-    }
-}</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>State monitoring</li>
-                        <li>Event handling</li>
-                        <li>Data synchronization</li>
-                        <li>UI updates</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Publish-Subscribe - For event distribution</li>
-                        <li>Mediator - For coordination</li>
-                        <li>Command - For state changes</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="message-broker">
-            <h2>Message Broker</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that provides a central point for message routing, transformation, and delivery between agents, ensuring reliable communication.</p>
-                </div>
-
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
-                        <li>Broker: Message router</li>
-                        <li>Channel: Message path</li>
-                        <li>Router: Message direction</li>
-                        <li>Transformer: Message format</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class MessageBroker {
-    constructor() {
-        this.channels = new Map();
-        this.routes = new Map();
-        this.transformers = new Map();
-    }
-
-    createChannel(name) {
-        this.channels.set(name, []);
-    }
-
-    addRoute(source, target, condition) {
-        this.routes.set(source, { target, condition });
-    }
-
-    addTransformer(channel, transformer) {
-        this.transformers.set(channel, transformer);
-    }
-
-    async route(message) {
-        const { source, target, content } = message;
-        const route = this.routes.get(source);
-        
-        if (route && route.condition(content)) {
-            const transformer = this.transformers.get(source);
-            const transformedContent = transformer ? transformer(content) : content;
+        tool = self.tools[tool_name]
+        try:
+            # Validate arguments against parameter schema
+            self._validate_arguments(tool["parameters"], arguments)
             
-            await this.deliver(target, transformedContent);
-        }
-    }
+            # Execute the tool
+            result = tool["function"](**arguments)
+            
+            return {
+                "status": "success",
+                "result": result,
+                "executed_at": datetime.utcnow().isoformat()
+            }
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": str(e),
+                "executed_at": datetime.utcnow().isoformat()
+            }
+    
+    def _validate_arguments(self, schema: Dict[str, Any], arguments: Dict[str, Any]) -> None:
+        """Validate arguments against the tool's parameter schema."""
+        for param_name, param_info in schema.items():
+            if param_name not in arguments:
+                if param_info.get("required", True):
+                    raise ValueError(f"Missing required parameter: {param_name}")
+            else:
+                # Type checking would go here
+                pass
 
-    async deliver(target, content) {
-        const channel = this.channels.get(target);
-        if (channel) {
-            channel.push(content);
+# Example tool implementations
+def calculator(expression: str) -> float:
+    """A simple calculator tool that evaluates mathematical expressions."""
+    return eval(expression)
+
+def web_search(query: str) -> str:
+    """Simulates a web search tool."""
+    return f"Search results for: {query}"
+
+# Create and configure the tool registry
+registry = ToolRegistry()
+
+# Register tools
+registry.register_tool(
+    name="calculator",
+    func=calculator,
+    description="Perform basic mathematical calculations",
+    parameters={
+        "expression": {
+            "type": "string",
+            "description": "Mathematical expression to evaluate",
+            "required": True
         }
     }
-}</code></pre>
+)
+
+registry.register_tool(
+    name="web_search",
+    func=web_search,
+    description="Search the web for information",
+    parameters={
+        "query": {
+            "type": "string",
+            "description": "Search query",
+            "required": True
+        }
+    }
+)
+
+# Example usage
+if __name__ == "__main__":
+    # Simulate LLM agent generating tool calls
+    tool_calls = [
+        {
+            "tool": "calculator",
+            "arguments": {"expression": "2 + 2 * 3"}
+        },
+        {
+            "tool": "web_search",
+            "arguments": {"query": "latest AI trends"}
+        }
+    ]
+    
+    # Execute each tool call
+    for call in tool_calls:
+        print(f"\nExecuting {call['tool']}...")
+        result = registry.execute_tool(call["tool"], call["arguments"])
+        print(f"Result: {json.dumps(result, indent=2)}")</code></pre>
                 </div>
 
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Message routing</li>
-                        <li>Protocol translation</li>
-                        <li>Load balancing</li>
-                        <li>Message transformation</li>
+                        <li>
+                            <strong>Customer Support Automation</strong>
+                            <ul>
+                                <li>Agents retrieve customer details from databases, check order statuses, or initiate refunds by calling internal APIs.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Customer Information Assistant (Dataiku)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Business Workflow Orchestration</strong>
+                            <ul>
+                                <li>Automating tasks like scheduling meetings, sending calendar invites, or managing CRM records based on natural language commands.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Task Automation (Symflower)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Financial Analysis</strong>
+                            <ul>
+                                <li>Calling APIs to retrieve real-time stock prices, perform currency conversions, or calculate complex financial metrics.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Currency Conversion (Analytics Vidhya)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Code Generation and Execution</strong>
+                            <ul>
+                                <li>Enabling LLM agents to write and run code to solve problems, perform data analysis, or interact with development tools.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">AI-Powered Coding Assistants (PromptLayer)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>E-commerce Product Management</strong>
+                            <ul>
+                                <li>Integrating with inventory databases to provide real-time product suggestions, check availability, and manage orders.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Product Recommendations (Analytics Vidhya)</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
+                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
                     <ul>
-                        <li>Message Queue - For reliable delivery</li>
-                        <li>Publish-Subscribe - For event distribution</li>
-                        <li>Mediator - For coordination</li>
+                        <li>Function Calling vs Model Context Protocol</li>
+                        <li>Tool Registration & Discovery</li>
+                        <li>Function Execution Context</li>
+                        <li>Error Handling & Validation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="rag">
+            <h2>Retrieval-Augmented Generation (RAG)</h2>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>Retrieval-Augmented Generation (RAG) combines vector databases with LLMs to enhance responses with relevant context. Frameworks like LangChain and LlamaIndex provide robust implementations for document processing, embedding generation, and semantic search, enabling accurate and context-aware responses. This approach helps reduce hallucinations and provides up-to-date information by retrieving relevant documents before generating responses.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
+                    <ul>
+                        <li><strong>Document Processing</strong>
+                            <ul>
+                                <li>Chunking and preprocessing of documents for efficient retrieval.</li>
+                                <li>Metadata extraction and indexing for better search capabilities.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Vector Storage</strong>
+                            <ul>
+                                <li>Efficient storage and retrieval of document embeddings.</li>
+                                <li>Support for various vector databases and similarity metrics.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Query Processing</strong>
+                            <ul>
+                                <li>Query understanding and transformation for better retrieval.</li>
+                                <li>Hybrid search combining semantic and keyword matching.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Context Integration</strong>
+                            <ul>
+                                <li>Structured combination of retrieved context with LLM prompts.</li>
+                                <li>Dynamic context window management for optimal response generation.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Conceptual Example: RAG Pipeline</h3>
+                    <pre><code>from typing import List, Dict, Any
+import numpy as np
+from datetime import datetime
+import json
+
+class Document:
+    """Represents a document in the knowledge base."""
+    def __init__(self, content: str, metadata: Dict[str, Any] = None):
+        self.content = content
+        self.metadata = metadata or {}
+        self.embedding = None # Placeholder for actual embedding
+        self.chunks: List[str] = [] # For a real chunking strategy
+    
+    def chunk_content(self, chunk_size_words: int = 50, overlap_words: int = 10) -> None:
+        """Splits document content into conceptual chunks."""
+        words = self.content.split()
+        self.chunks = []
+        for i in range(0, len(words), chunk_size_words - overlap_words):
+            chunk = " ".join(words[i : i + chunk_size_words])
+            self.chunks.append(chunk)
+
+class VectorStore:
+    """Manages document embeddings and similarity search."""
+    def __init__(self):
+        self.documents: List[Document] = []
+        self.embeddings: List[np.ndarray] = []
+        self.embedding_dimension = 384 # Typical embedding dimension
+
+    def add_document(self, document: Document) -> None:
+        """Adds a document and generates a mock embedding for it."""
+        self.documents.append(document)
+        # In a real implementation, this would call an actual embedding model API
+        document.embedding = np.random.rand(self.embedding_dimension) # Mock embedding
+        self.embeddings.append(document.embedding)
+    
+    def search(self, query_embedding: np.ndarray, top_k: int = 3) -> List[Document]:
+        """Searches for similar documents using cosine similarity (conceptual)."""
+        if not self.embeddings or len(self.embeddings) == 0:
+            return []
+        
+        # Ensure query_embedding is a numpy array
+        query_embedding = np.asarray(query_embedding)
+
+        # Calculate dot products (numerator for cosine similarity)
+        dot_products = np.dot(self.embeddings, query_embedding)
+        
+        # Calculate magnitudes (denominators for cosine similarity)
+        doc_magnitudes = np.linalg.norm(self.embeddings, axis=1)
+        query_magnitude = np.linalg.norm(query_embedding)
+        
+        # Avoid division by zero
+        similarities = np.zeros_like(dot_products)
+        non_zero_denominators = (doc_magnitudes * query_magnitude) != 0
+        similarities[non_zero_denominators] = dot_products[non_zero_denominators] / (
+            doc_magnitudes[non_zero_denominators] * query_magnitude
+        )
+        
+        # Get indices of top-k most similar documents
+        top_indices = np.argsort(similarities)[::-1][:top_k] # Sort descending, take top_k
+        
+        return [self.documents[i] for i in top_indices]
+
+class RAGPipeline:
+    """Implements the RAG pipeline for question answering."""
+    def __init__(self, vector_store: VectorStore):
+        self.vector_store = vector_store
+        self.embedding_dimension = vector_store.embedding_dimension # From vector store
+
+    def _mock_query_embedding(self, query: str) -> np.ndarray:
+        """Generates a mock embedding for the query."""
+        # In a real system, this would use the same embedding model as for documents
+        np.random.seed(hash(query) % (2**32 - 1)) # Simple way to get repeatable "mock" embeddings
+        return np.random.rand(self.embedding_dimension)
+
+    def _mock_llm_generate_response(self, query: str, context: str) -> str:
+        """
+        Simulates an LLM generating a response, augmented by retrieved context.
+        In reality, the LLM processes a prompt crafted from query and context.
+        """
+        if "no relevant context found" in context.lower():
+            return f"I couldn't find specific information in my knowledge base about '{query}'. Here's a general thought."
+        
+        return f"Based on the knowledge base: '{context[:100]}...'\n\nAnswer for '{query}': This is a generated response augmented by the retrieved facts."
+
+    def process_query(self, query: str, top_k: int = 3) -> Dict[str, Any]:
+        """Processes a query through the RAG pipeline."""
+        print(f"\n--- Processing Query: '{query}' ---")
+        
+        # 1. Generate query embedding
+        query_embedding = self._mock_query_embedding(query)
+        
+        # 2. Retrieve relevant documents
+        relevant_docs = self.vector_store.search(query_embedding, top_k=top_k)
+        
+        # 3. Prepare context for the LLM
+        context_content = [doc.content for doc in relevant_docs]
+        context_str = "\n".join(context_content) if context_content else "No relevant context found."
+        print(f"Retrieved Context:\n{context_str[:200]}...") # Print a snippet of context
+        
+        # 4. Generate response using the LLM (augmented with context)
+        response_text = self._mock_llm_generate_response(query, context_str)
+        
+        return {
+            "query": query,
+            "retrieved_context": context_str,
+            "response": response_text,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+# Example usage
+if __name__ == "__main__":
+    # 1. Create a VectorStore and add documents
+    vector_store = VectorStore()
+    
+    docs_content = [
+        "Retrieval-Augmented Generation (RAG) is an AI framework that combines information retrieval with generative LLMs. It improves factual accuracy.",
+        "RAG helps LLMs access up-to-date facts, reducing hallucinations and enhancing response quality.",
+        "Vector databases store document embeddings and enable semantic search for efficient retrieval in RAG systems.",
+        "Fine-tuning an LLM involves retraining the model, which is different from RAG where external context is injected without retraining.",
+        "The Eiffel Tower is a landmark in Paris, France. It was built for the 1889 World's Fair."
+    ]
+    
+    for content in docs_content:
+        doc = Document(content)
+        # In a real system, you'd chunk here if documents are large
+        vector_store.add_document(doc)
+    
+    print(f"Vector store initialized with {len(vector_store.documents)} documents.")
+    
+    # 2. Create and run RAG pipeline
+    rag_pipeline = RAGPipeline(vector_store)
+
+    # Example 1: Relevant query
+    result1 = rag_pipeline.process_query("How does RAG improve LLMs?")
+    print(f"\nResult for 'How does RAG improve LLMs?':\n{json.dumps(result1, indent=2)}\n")
+
+    # Example 2: Query for unrelated content
+    result2 = rag_pipeline.process_query("Tell me about the Eiffel Tower.")
+    print(f"\nResult for 'Tell me about the Eiffel Tower.':\n{json.dumps(result2, indent=2)}\n")
+
+    # Example 3: Query with no matching relevant content
+    result3 = rag_pipeline.process_query("What is the capital of Australia?")
+    print(f"\nResult for 'What is the capital of Australia?':\n{json.dumps(result3, indent=2)}\n")</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Enterprise Knowledge Chatbots</strong>
+                            <ul>
+                                <li>Answering employee questions based on internal documentation, HR policies, or product manuals.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">HR Platform Intranet Solution (Merge.dev)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Customer Support Systems</strong>
+                            <ul>
+                                <li>Providing accurate and personalized answers to customer queries by accessing product databases, FAQs, or support tickets.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Customer Support Chatbot (Signity Solutions)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Sales and Marketing Intelligence</strong>
+                            <ul>
+                                <li>Generating actionable reports or personalized lead recommendations by integrating with CRM and ERP data.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Lead Recommendations (Merge.dev)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Domain-Specific Question Answering</strong>
+                            <ul>
+                                <li>Creating AI systems that can answer complex questions in specialized fields like healthcare, legal, or finance, grounded in authoritative sources.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Medical Index Assistant (NVIDIA)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
+                    <ul>
+                        <li>Vector Databases for embedding storage</li>
+                        <li>Knowledge Base Integration</li>
+                        <li>Semantic Search</li>
+                        <li>Context Window Management</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="a2a">
+            <h2>Agent-to-Agent Protocol (A2A)</h2>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>Google's A2A is an open protocol designed for horizontal integration – secure and standardized communication between diverse AI agents across different platforms and vendors. This protocol allows agents from different platforms and vendors to discover each other's capabilities, exchange messages, and collaborate on tasks. It uses signed messages and capability discovery to ensure secure cross-platform interactions, making it ideal for distributed agent systems and cloud-based AI applications. Note that this is different from local multi-agent frameworks like CrewAI and AutoGen, which focus on coordinating agents within a single system.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
+                    <ul>
+                        <li><strong>Capability Discovery (Agent Cards)</strong>
+                            <ul>
+                                <li>Agents publish public JSON "Agent Cards" (e.g., at /.well-known/agent.json) describing their functionalities, endpoints, security, and data formats.</li>
+                                <li>Client agents dynamically discover and select suitable remote agents based on these cards.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Task Delegation</strong>
+                            <ul>
+                                <li>A client agent sends a "Task" (a specific work unit with a unique ID) to a remote agent.</li>
+                                <li>Tasks include metadata and a "message" containing details (text, files, etc.).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Structured Messaging & Artifacts</strong>
+                            <ul>
+                                <li>Communication uses signed, structured messages based on a shared schema.</li>
+                                <li>Results are returned as "Artifacts," which can be multi-part (e.g., text, files), crucial for rich data exchange.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Asynchronous Operations & Notifications</strong>
+                            <ul>
+                                <li>Supports long-running tasks, with clients receiving updates via push notifications or Server-Sent Events (SSE).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Conceptual Example: A2A Interaction</h3>
+                    <pre><code>import json
+import uuid
+from datetime import datetime
+
+# --- Mock A2A Remote Agent Server (Conceptual) ---
+class MockA2ARemoteAgent:
+    def __init__(self, agent_id: str, capabilities: list, api_url: str):
+        self.agent_id = agent_id
+        self.api_url = api_url
+
+    def get_agent_card(self) -> dict:
+        """Simulates serving the Agent Card for discovery."""
+        return {
+            "id": self.agent_id,
+            "name": f"{self.agent_id.replace('-', ' ').title()} Agent",
+            "capabilities": [{"name": cap, "description": f"Can {cap.replace('_', ' ')} tasks."} for cap in self.capabilities],
+            "endpoints": {"api": self.api_url},
+            # ... other standard Agent Card fields
+        }
+
+    def handle_task_send(self, task: dict) -> dict:
+        """Simulates processing an incoming A2A Task and returning an Artifact."""
+        task_id = task.get("task_id")
+        performative = task.get("message", {}).get("performative")
+        
+        print(f"[{self.agent_id}] Processing Task '{task_id}' (Performative: '{performative}')")
+
+        # Simulate simple task execution
+        status = "completed"
+        artifact_content = f"Task '{task_id}' processed by {self.agent_id}. Performative: {performative}."
+
+        return {
+            "task_id": task_id,
+            "artifact_id": str(uuid.uuid4()),
+            "status": status,
+            "artifacts": [{"type": "text/plain", "content": artifact_content}],
+            "timestamp": datetime.utcnow().isoformat(),
+            "signature": "MOCKED_SIGNATURE" # In reality, cryptographically signed
+        }
+
+# --- Mock A2A Client (Conceptual) ---
+class MockA2AClient:
+    def __init__(self, client_id: str):
+        self.client_id = client_id
+
+    def discover_agent_card(self, mock_agent_server: MockA2ARemoteAgent) -> dict:
+        """Simulates fetching an Agent Card from a remote agent."""
+        print(f"[{self.client_id}] Discovering agent '{mock_agent_server.agent_id}'...")
+        return mock_agent_server.get_agent_card()
+
+    def send_a2a_task(self, target_api_url: str, task_payload: dict, mock_agent_server: MockA2ARemoteAgent) -> dict:
+        """Simulates sending an A2A Task to a remote agent's API endpoint."""
+        print(f"[{self.client_id}] Sending Task to '{mock_agent_server.agent_id}' at {target_api_url}...")
+        # In a real scenario, this would be an HTTP POST request to target_api_url
+        # For this mock, we directly call the server's handler
+        return mock_agent_server.handle_task_send(task_payload)
+
+# --- Example A2A Workflow ---
+if __name__ == "__main__":
+    # 1. Define a mock remote agent (simulates an independent service)
+    #    In a real system, this agent would be a running web service.
+    remote_flight_agent = MockA2ARemoteAgent(
+        agent_id="flight-booker",
+        capabilities=["book_flight"],
+        api_url="https://api.mock-flight-agent.com/a2a"
+    )
+
+    # 2. Define our client agent (the one initiating the task)
+    my_orchestrator_client = MockA2AClient(client_id="my-travel-orchestrator")
+
+    # --- A2A Communication Flow ---
+
+    # Step A: Client discovers the remote agent's capabilities
+    flight_agent_card = my_orchestrator_client.discover_agent_card(remote_flight_agent)
+    print(f"\n--- Discovered Agent Card ---")
+    print(json.dumps(flight_agent_card, indent=2))
+    print(f"Agent '{flight_agent_card['name']}' has capabilities: {[c['name'] for c in flight_agent_card['capabilities']]}\n")
+
+    # Step B: Client sends a Task to the discovered agent
+    if "book_flight" in [c['name'] for c in flight_agent_card['capabilities']]:
+        task_id = str(uuid.uuid4())
+        task_payload = {
+            "task_id": task_id,
+            "client_id": my_orchestrator_client.client_id,
+            "message": {
+                "type": "request",
+                "performative": "book_flight",
+                "payload": {"origin": "HYD", "destination": "BLR", "date": "2025-07-20"}
+            },
+            "timestamp": datetime.utcnow().isoformat(),
+            "signature": "CLIENT_SIGNED_PAYLOAD" # In reality, cryptographically signed
+        }
+        
+        # Send the task and receive the artifact (response)
+        response_artifact = my_orchestrator_client.send_a2a_task(
+            flight_agent_card["endpoints"]["api"],
+            task_payload,
+            remote_flight_agent # Pass the mock server for direct call in this example
+        )
+        print(f"\n--- Received Artifact from Flight Agent ---")
+        print(json.dumps(response_artifact, indent=2))
+        print(f"\nTask Status: {response_artifact['status']}")
+        if response_artifact['artifacts']:
+            print(f"Artifact Content: {response_artifact['artifacts'][0]['content']}")
+    else:
+        print("Flight booking capability not found on the discovered agent.")</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Enterprise Business Process Automation</strong>
+                            <ul>
+                                <li>Linking agents for customer support, inventory management, and finance to automate workflows across different departments.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Connecting Business Operations (Analytics Vidhya)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Inter-Organizational Collaboration</strong>
+                            <ul>
+                                <li>Enabling AI systems from different companies to work together, e.g., a manufacturing agent coordinating with a logistics provider's agent for real-time shipping estimates.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Pure A2A Use Case (DataCamp)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>AI-Powered Hiring Workflows</strong>
+                            <ul>
+                                <li>A manager's hiring agent orchestrating other specialized agents for resume search, interview scheduling, and background checks.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Making Hiring Easier (Analytics Vidhya)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Complex IT Helpdesk Resolution</strong>
+                            <ul>
+                                <li>A client agent orchestrating hardware diagnostics, software rollbacks, and device replacements through collaboration with specialized remote agents.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">IT Helpdesk Ticket Resolution (DataCamp)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Hybrid AI Architectures</strong>
+                            <ul>
+                                <li>Combining A2A with other protocols like MCP for comprehensive solutions, such as a loan processing agent using MCP for data validation then A2A for risk assessment and compliance agents.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">A2A and MCP Working Together (DataCamp)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
+                    <ul>
+                        <li>Agent Cards for capability discovery</li>
+                        <li>Signed Message Exchange</li>
+                        <li>Cross-Platform Security</li>
+                        <li>Internet-Scale Communication</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="acp">
+            <h2>Agent Communication Protocol (ACP)</h2>
+            <div class="pattern-content">
+                <div class="pattern-description">
+                    <h3><i class="fas fa-info-circle"></i> Description</h3>
+                    <p>Agent Communication Protocol (ACP) provides a structured framework for agent interactions, focusing on local-first, REST-native communication. It enables secure and efficient dialogue between agents through standardized message formats, event-driven architecture, and metadata management. This protocol is particularly useful for privacy-sensitive scenarios and edge computing applications.</p>
+                </div>
+
+                <div class="pattern-characteristics">
+                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
+                    <ul>
+                        <li><strong>REST-native Messaging</strong>
+                            <ul>
+                                <li>Standard HTTP methods for agent communication.</li>
+                                <li>Structured request/response formats for clear interaction patterns.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Event-Driven Architecture</strong>
+                            <ul>
+                                <li>Asynchronous communication through event publishing and subscription.</li>
+                                <li>Support for real-time updates and notifications.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Structured Dialogue</strong>
+                            <ul>
+                                <li>Standardized message formats for different types of interactions.</li>
+                                <li>Support for multi-turn conversations and context management.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Security & Authentication</strong>
+                            <ul>
+                                <li>Built-in support for authentication and authorization.</li>
+                                <li>Secure message exchange and data protection.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-implementation">
+                    <h3><i class="fas fa-code"></i> Conceptual Example: ACP Communication</h3>
+                    <pre><code>from typing import Dict, Any, List
+import json
+from datetime import datetime
+from enum import Enum
+
+class MessageType(Enum):
+    REQUEST = "request"
+    RESPONSE = "response"
+    EVENT = "event"
+    NOTIFICATION = "notification"
+
+class ACPMessage:
+    """Represents a message in the Agent Communication Protocol."""
+    def __init__(self, 
+                 message_type: MessageType,
+                 content: Dict[str, Any],
+                 sender_id: str,
+                 recipient_id: str = None):
+        self.message_type = message_type
+        self.content = content
+        self.sender_id = sender_id
+        self.recipient_id = recipient_id
+        self.timestamp = datetime.utcnow().isoformat()
+        self.message_id = f"{sender_id}_{self.timestamp}"
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert message to dictionary format."""
+        return {
+            "message_id": self.message_id,
+            "type": self.message_type.value,
+            "content": self.content,
+            "sender": self.sender_id,
+            "recipient": self.recipient_id,
+            "timestamp": self.timestamp
+        }
+
+class ACPAgent:
+    """Implements an agent using the ACP protocol."""
+    def __init__(self, agent_id: str):
+        self.agent_id = agent_id
+        self.message_handlers: Dict[MessageType, List[callable]] = {
+            msg_type: [] for msg_type in MessageType
+        }
+    
+    def register_handler(self, message_type: MessageType, handler: callable) -> None:
+        """Register a handler for a specific message type."""
+        self.message_handlers[message_type].append(handler)
+    
+    def send_message(self, message: ACPMessage) -> None:
+        """Send a message to another agent."""
+        # In a real implementation, this would use HTTP or another transport
+        print(f"Sending message: {json.dumps(message.to_dict(), indent=2)}")
+    
+    def receive_message(self, message: ACPMessage) -> None:
+        """Process an incoming message."""
+        print(f"Received message: {json.dumps(message.to_dict(), indent=2)}")
+        
+        # Call registered handlers
+        for handler in self.message_handlers[message.message_type]:
+            handler(message)
+
+# Example usage
+if __name__ == "__main__":
+    # Create agents
+    agent1 = ACPAgent("agent1")
+    agent2 = ACPAgent("agent2")
+    
+    # Register message handlers
+    def handle_request(message: ACPMessage) -> None:
+        print(f"Agent {agent1.agent_id} handling request: {message.content}")
+        # Send response
+        response = ACPMessage(
+            message_type=MessageType.RESPONSE,
+            content={"status": "success", "data": "Request processed"},
+            sender_id=agent1.agent_id,
+            recipient_id=message.sender_id
+        )
+        agent1.send_message(response)
+    
+    agent1.register_handler(MessageType.REQUEST, handle_request)
+    
+    # Send a request
+    request = ACPMessage(
+        message_type=MessageType.REQUEST,
+        content={"action": "process_data", "data": "sample data"},
+        sender_id=agent2.agent_id,
+        recipient_id=agent1.agent_id
+    )
+    agent2.send_message(request)
+    agent1.receive_message(request)</code></pre>
+                </div>
+
+                <div class="pattern-use-cases">
+                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
+                    <ul>
+                        <li>
+                            <strong>Local Multi-Agent Orchestration</strong>
+                            <ul>
+                                <li>Coordinating multiple agents within a single system for complex task execution.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Task Orchestration (Local)</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Edge Computing Applications</strong>
+                            <ul>
+                                <li>Enabling agent communication in resource-constrained environments.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">IoT Device Management</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Privacy-Sensitive Scenarios</strong>
+                            <ul>
+                                <li>Secure communication between agents handling sensitive data.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Healthcare Data Processing</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Peer-to-Peer Agent Interactions</strong>
+                            <ul>
+                                <li>Direct communication between agents without central coordination.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Distributed Task Processing</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="pattern-related">
+                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
+                    <ul>
+                        <li>REST-native Communication</li>
+                        <li>Event-Driven Architecture</li>
+                        <li>Structured Dialogue</li>
+                        <li>Local-First Design</li>
                     </ul>
                 </div>
             </div>

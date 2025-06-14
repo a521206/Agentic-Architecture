@@ -16,9 +16,13 @@
         <header>
             <h1>Agentic Workflow Patterns</h1>
             <p class="subtitle">Patterns for orchestrating complex agent workflows and processes</p>
+            <div class="intro-note">
+                <p>These patterns represent the next level of complexity in building advanced LLM agent systems. While single-agent patterns focus on individual agent behavior, these workflow patterns address how to build robust systems composed of multiple agents, tools, and processes. They are foundational patterns from distributed systems architecture that are critical for creating reliable, scalable, and complex agentic applications.</p>
+            </div>
         </header>
 
         <nav class="nav-tiles">
+            <h3>Workflow Patterns</h3>
             <a href="#pipeline" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-project-diagram"></i>
@@ -51,20 +55,21 @@
                 <p>Distributed transaction management</p>
             </a>
 
+            <h3>Supporting Patterns</h3>
             <a href="#event-sourcing" class="nav-tile">
                 <div class="pattern-icon">
                     <i class="fas fa-history"></i>
                 </div>
                 <h3>Event Sourcing</h3>
-                <p>State changes as event sequence</p>
+                <p>State change tracking & audit</p>
             </a>
 
             <a href="#cqrs" class="nav-tile">
                 <div class="pattern-icon">
-                    <i class="fas fa-code-branch"></i>
+                    <i class="fas fa-exchange-alt"></i>
                 </div>
                 <h3>CQRS</h3>
-                <p>Command Query Responsibility Segregation</p>
+                <p>Command Query Separation</p>
             </a>
         </nav>
 
@@ -73,7 +78,8 @@
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern that processes tasks in a sequential pipeline, where each stage's output becomes the next stage's input.</p>
+                    <p>A workflow pattern that processes tasks in a sequential pipeline, where each stage's output becomes the next stage's input. This pattern is particularly relevant for LLM agents as it directly parallels the concept of "Prompt Chaining" - the fundamental way to structure multi-step LLM tasks.</p>
+                    <p>Example LLM workflow: Define Goal → Search Web → Synthesize Findings → Draft Report → Review & Edit</p>
                 </div>
 
                 <div class="pattern-characteristics">
@@ -129,10 +135,24 @@
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Data processing</li>
-                        <li>ETL workflows</li>
-                        <li>Content generation</li>
-                        <li>Task automation</li>
+                        <li><strong>LangChain's Sequential Chains</strong>
+                            <ul>
+                                <li><a href="https://python.langchain.com/docs/modules/chains/foundational/sequential_chains" target="_blank">Documentation</a> - Shows how to create multi-step LLM workflows</li>
+                                <li>Example: Research and summarization pipeline</li>
+                            </ul>
+                        </li>
+                        <li><strong>AutoGPT's Task Execution</strong>
+                            <ul>
+                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank">GitHub Repository</a> - Demonstrates complex task breakdown and execution</li>
+                                <li>Example: Autonomous research and writing workflows</li>
+                            </ul>
+                        </li>
+                        <li><strong>Hugging Face's Pipeline API</strong>
+                            <ul>
+                                <li><a href="https://huggingface.co/docs/transformers/pipeline" target="_blank">Documentation</a> - Shows how to chain multiple ML models</li>
+                                <li>Example: Text processing and generation pipelines</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
@@ -152,7 +172,8 @@
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern where a central orchestrator coordinates and manages the execution of multiple agents and tasks.</p>
+                    <p>A workflow pattern where a central orchestrator coordinates and manages the execution of multiple agents and tasks. In LLM systems, this is like having a "manager" agent that delegates tasks to specialized "worker" agents.</p>
+                    <p>Example: A "Travel Agent" orchestrator coordinating a "Flight Booker" agent and a "Hotel Booker" agent. Frameworks like CrewAI are built on this model.</p>
                 </div>
 
                 <div class="pattern-characteristics">
@@ -199,6 +220,25 @@
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
+                        <li><strong>CrewAI Framework</strong>
+                            <ul>
+                                <li><a href="https://github.com/joaomdmoura/crewAI" target="_blank">GitHub Repository</a> - A framework for orchestrating role-playing AI agents</li>
+                                <li>Example: Coordinating multiple specialized agents for complex tasks</li>
+                            </ul>
+                        </li>
+                        <li><strong>Microsoft Semantic Kernel</strong>
+                            <ul>
+                                <li><a href="https://github.com/microsoft/semantic-kernel" target="_blank">GitHub Repository</a> - Orchestrates AI services and traditional programming</li>
+                                <li>Example: Building AI applications with multiple components</li>
+                            </ul>
+                        </li>
+                        <li><strong>LangGraph</strong>
+                            <ul>
+                                <li><a href="https://github.com/langchain-ai/langgraph" target="_blank">GitHub Repository</a> - Builds stateful, multi-actor applications with LLMs</li>
+                                <li>Example: Complex agent workflows with state management</li>
+                            </ul>
+                        </li>
+                    </ul>
                         <li>Complex system integration</li>
                         <li>Multi-agent coordination</li>
                         <li>Workflow automation</li>
@@ -222,7 +262,8 @@
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern where agents interact directly with each other without central coordination, following predefined interaction patterns.</p>
+                    <p>A workflow pattern where agents interact directly with each other without central coordination, following predefined interaction patterns. In LLM systems, this enables more decentralized, event-driven architectures where agents react to events and messages.</p>
+                    <p>Example: A "customer support" agent creates a "ticket" event, which a "technical agent" then picks up without being directly commanded by the first agent.</p>
                 </div>
 
                 <div class="pattern-characteristics">
@@ -273,10 +314,24 @@
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Decentralized systems</li>
-                        <li>Peer-to-peer interactions</li>
-                        <li>Event-driven architectures</li>
-                        <li>Autonomous agent systems</li>
+                        <li><strong>LangChain's Agent Executors</strong>
+                            <ul>
+                                <li><a href="https://python.langchain.com/docs/modules/agents/" target="_blank">Documentation</a> - Event-driven agent execution</li>
+                                <li>Example: Autonomous agents reacting to tool outputs</li>
+                            </ul>
+                        </li>
+                        <li><strong>AutoGen Framework</strong>
+                            <ul>
+                                <li><a href="https://github.com/microsoft/autogen" target="_blank">GitHub Repository</a> - Enables complex agent interactions</li>
+                                <li>Example: Multi-agent conversations and collaborations</li>
+                            </ul>
+                        </li>
+                        <li><strong>BabyAGI</strong>
+                            <ul>
+                                <li><a href="https://github.com/yoheinakajima/babyagi" target="_blank">GitHub Repository</a> - Task-driven autonomous agent</li>
+                                <li>Example: Self-improving task execution through events</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
@@ -296,7 +351,8 @@
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern that manages distributed transactions by breaking them into a sequence of local transactions with compensating actions.</p>
+                    <p>A workflow pattern that manages distributed transactions by breaking them into a sequence of local transactions with compensating actions. This is crucial for reliability in multi-step LLM tasks, ensuring the system can recover from failures and maintain consistency.</p>
+                    <p>Example: An LLM agent booking a trip might book a flight (step 1) and then try to book a hotel (step 2). If the hotel is full, the Saga pattern ensures the agent knows how to execute a compensating action - canceling the flight - to avoid leaving the system in an inconsistent state.</p>
                 </div>
 
                 <div class="pattern-characteristics">
@@ -346,10 +402,24 @@
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Distributed transactions</li>
-                        <li>Microservices coordination</li>
-                        <li>Business process management</li>
-                        <li>Data consistency</li>
+                        <li><strong>LangChain's Memory Management</strong>
+                            <ul>
+                                <li><a href="https://python.langchain.com/docs/modules/memory/" target="_blank">Documentation</a> - Handles state management and rollbacks</li>
+                                <li>Example: Maintaining conversation context with error recovery</li>
+                            </ul>
+                        </li>
+                        <li><strong>Microsoft's Semantic Kernel</strong>
+                            <ul>
+                                <li><a href="https://github.com/microsoft/semantic-kernel/blob/main/docs/PLANNING.md" target="_blank">Planning Documentation</a> - Implements planning with rollback capabilities</li>
+                                <li>Example: Complex task planning with error recovery</li>
+                            </ul>
+                        </li>
+                        <li><strong>AutoGPT's Task Management</strong>
+                            <ul>
+                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT/blob/master/autogpt/workspace/task.py" target="_blank">Task Implementation</a> - Shows task execution with compensation</li>
+                                <li>Example: Autonomous task execution with error handling</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
@@ -369,16 +439,24 @@
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that stores all changes to application state as a sequence of events, enabling state reconstruction and audit trails.</p>
+                    <p>Event Sourcing stores all changes to application state as a sequence of events, enabling state reconstruction and audit trails. For LLM agents, this is invaluable for debugging, auditing, and maintaining a complete history of agent decisions and actions.</p>
+                    <p>Example: A research assistant agent's event log might look like:</p>
+                    <ul>
+                        <li>Event 1: "Received research query about climate change"</li>
+                        <li>Event 2: "Searched academic databases for recent papers"</li>
+                        <li>Event 3: "Analyzed 5 papers and extracted key findings"</li>
+                        <li>Event 4: "Generated initial research summary"</li>
+                        <li>Event 5: "Revised summary based on new information"</li>
+                    </ul>
                 </div>
 
                 <div class="pattern-characteristics">
                     <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
                     <ul>
-                        <li>Event Store: Event persistence</li>
-                        <li>Event Stream: Event sequence</li>
-                        <li>Projections: State views</li>
-                        <li>Snapshots: State checkpoints</li>
+                        <li>Event Store: Sequence of events</li>
+                        <li>Event Handlers: State updates</li>
+                        <li>Projections: Read models</li>
+                        <li>Event Replay: State reconstruction</li>
                     </ul>
                 </div>
 
@@ -406,21 +484,6 @@
         }
     }
 
-    createProjection(name, initialState) {
-        const projection = {
-            state: initialState,
-            apply: (event) => {
-                // Implement event application logic
-                this.updateState(event);
-            },
-            updateState: (event) => {
-                // Implement state update logic
-            }
-        };
-        this.projections.set(name, projection);
-        return projection;
-    }
-
     replayEvents(projectionName) {
         const projection = this.projections.get(projectionName);
         if (projection) {
@@ -435,30 +498,58 @@
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>Audit trails</li>
-                        <li>State reconstruction</li>
-                        <li>Time travel debugging</li>
-                        <li>Event replay</li>
+                        <li><strong>LangChain's Callback System</strong>
+                            <ul>
+                                <li><a href="https://python.langchain.com/docs/modules/callbacks/" target="_blank">Documentation</a> - Tracks and logs all agent actions and decisions</li>
+                                <li>Example: Debugging and auditing agent behavior</li>
+                            </ul>
+                        </li>
+                        <li><strong>AutoGPT's Action History</strong>
+                            <ul>
+                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT/blob/master/autogpt/memory/local.py" target="_blank">Memory Implementation</a> - Maintains complete history of agent actions</li>
+                                <li>Example: Replaying and analyzing agent decision paths</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-related">
                     <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
                     <ul>
-                        <li>CQRS - For command/query separation</li>
+                        <li>CQRS - For optimized read/write operations</li>
                         <li>Saga - For transaction management</li>
-                        <li>Choreography - For event-based coordination</li>
+                        <li>Orchestration - For workflow control</li>
                     </ul>
                 </div>
             </div>
         </section>
 
         <section id="cqrs">
-            <h2>CQRS</h2>
+            <h2>CQRS (Command Query Responsibility Segregation)</h2>
             <div class="pattern-content">
                 <div class="pattern-description">
                     <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A pattern that separates read and write operations into different models, optimizing each for their specific task.</p>
+                    <p>CQRS separates read and write operations into different models, optimizing each for their specific task. For LLM agents, this pattern is particularly valuable for optimizing performance and maintaining consistency in systems that need to both learn from new information (write) and answer questions quickly (read).</p>
+                    
+                    <p>Example: A knowledge management agent using CQRS might work like this:</p>
+                    <ul>
+                        <li><strong>Command Side (Write):</strong>
+                            <ul>
+                                <li>Processes new documents and updates knowledge base</li>
+                                <li>Performs deep analysis and learning</li>
+                                <li>Updates embeddings and indexes</li>
+                                <li>Can be slower, more resource-intensive</li>
+                            </ul>
+                        </li>
+                        <li><strong>Query Side (Read):</strong>
+                            <ul>
+                                <li>Quickly retrieves relevant information</li>
+                                <li>Generates responses to user queries</li>
+                                <li>Uses optimized read models</li>
+                                <li>Must be fast and responsive</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="pattern-characteristics">
@@ -467,7 +558,7 @@
                         <li>Command Model: Write operations</li>
                         <li>Query Model: Read operations</li>
                         <li>Event Bus: Model synchronization</li>
-                        <li>Projections: Data transformations</li>
+                        <li>Data Sync: Model consistency</li>
                     </ul>
                 </div>
 
@@ -495,41 +586,31 @@
             this.queryModel.update(event);
         });
     }
-}
-
-class CommandModel {
-    async execute(command) {
-        // Implement command execution logic
-        return { success: true };
-    }
-}
-
-class QueryModel {
-    async execute(query) {
-        // Implement query execution logic
-        return { data: [] };
-    }
-
-    update(event) {
-        // Implement query model update logic
-    }
 }</code></pre>
                 </div>
 
                 <div class="pattern-use-cases">
                     <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
                     <ul>
-                        <li>High-performance reads</li>
-                        <li>Complex reporting</li>
-                        <li>Scalable systems</li>
-                        <li>Data consistency</li>
+                        <li><strong>LangChain's Vector Stores</strong>
+                            <ul>
+                                <li><a href="https://python.langchain.com/docs/modules/data_connection/vectorstores/" target="_blank">Documentation</a> - Separates document ingestion from querying</li>
+                                <li>Example: Efficient document retrieval and querying</li>
+                            </ul>
+                        </li>
+                        <li><strong>Chroma DB</strong>
+                            <ul>
+                                <li><a href="https://github.com/chroma-core/chroma" target="_blank">GitHub Repository</a> - Vector database with separate read/write paths</li>
+                                <li>Example: High-performance vector search with batch updates</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="pattern-related">
                     <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
                     <ul>
-                        <li>Event Sourcing - For event storage</li>
+                        <li>Event Sourcing - For state tracking</li>
                         <li>Saga - For transaction management</li>
                         <li>Orchestration - For workflow control</li>
                     </ul>
