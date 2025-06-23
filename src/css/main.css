@@ -112,6 +112,19 @@ header {
     margin: 2rem 0;
 }
 
+.pattern-grid-3col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+    .pattern-grid-3col {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 /* Reading Progress Bar */
 .reading-progress {
     position: fixed;
