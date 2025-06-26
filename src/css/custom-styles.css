@@ -1,0 +1,90 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+/* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+.header-gradient {
+    background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+}
+.content-block-bg {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.section-header-blue {
+    background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-purple {
+    background-image: linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-green {
+    background-image: linear-gradient(to right, #4ade80, #22c55e, #16a34a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-yellow {
+    background-image: linear-gradient(to right, #fcd34d, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-orange {
+    background-image: linear-gradient(to right, #fdba74, #fb923c, #f97316);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-red {
+    background-image: linear-gradient(to right, #f87171, #ef4444, #dc2626);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-indigo {
+    background-image: linear-gradient(to right, #818cf8, #6366f1, #4f46e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.section-header-teal {
+    background-image: linear-gradient(to right, #4fd1c5, #20c997, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+/* Back to Top Button Styles */
+.go-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(37, 99, 235, 0.9);
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 50;
+}
+.go-to-top:hover {
+    background: rgba(29, 78, 216, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+}
+.go-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+} 

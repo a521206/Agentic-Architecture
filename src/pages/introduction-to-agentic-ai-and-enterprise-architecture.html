@@ -4,77 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introduction to Agentic AI and Enterprise Architecture</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <!-- Removed ../css/main.css as it was outdated and caused styling issues -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Custom gradient for section headers */
+        .section-header-blue {
+            background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
 </head>
-<body>
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="foundational-understanding.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Foundational
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="comprehensive-framework-for-enterprise-agentic-systems.html" class="nav-button next">
-                    Next: Framework <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="foundational-understanding.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Foundational
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="comprehensive-framework-for-enterprise-agentic-systems.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Framework <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Introduction to Agentic AI and Enterprise Architecture</h1>
-            <p>Understanding the fundamentals of agentic AI and its role in enterprise architecture</p>
+        <!-- Header -->
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Introduction to Agentic AI and Enterprise Architecture</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Understanding the fundamentals of agentic AI and its role in enterprise architecture</p>
         </header>
 
-        <nav class="nav-tiles">
-            <a href="#what-is-agentic-ai" class="nav-tile">
-                <h3>What is Agentic AI?</h3>
+        <!-- Navigation Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <a href="#what-is-agentic-ai" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-question-circle"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800">What is Agentic AI?</h3>
+                <p class="text-gray-600 text-sm">Defining the next generation of intelligent systems</p>
             </a>
-            <a href="#key-characteristics" class="nav-tile">
-                <h3>Key Characteristics</h3>
+            <a href="#key-characteristics" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-list-ul"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800">Key Characteristics</h3>
+                <p class="text-gray-600 text-sm">Core attributes defining autonomous agents</p>
             </a>
-            <a href="#enterprise-integration" class="nav-tile">
-                <h3>Enterprise Integration</h3>
+            <a href="#enterprise-integration" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-building"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800">Enterprise Integration</h3>
+                <p class="text-gray-600 text-sm">Integrating agents into existing enterprise architectures</p>
             </a>
         </nav>
 
-        <section id="what-is-agentic-ai">
-            <h2>What is Agentic AI?</h2>
-            <p>
-                Artificial Intelligence is undergoing a revolutionary transformation, with Large Language Models (LLMs) leading the charge in enterprise innovation. 
-                Enter "Agentic AI" – a new breed of intelligent systems that can think, plan, and act independently to achieve complex objectives. 
-                While traditional AI systems are limited to predefined tasks, agentic AI systems are dynamic, capable of learning from their environment and adapting their strategies in real-time.
-            </p>
-            <p>
-                However, integrating Agentic AI requires a strategic architectural approach. 
-                This guide provides a practical framework for operationalizing agentic design patterns, ensuring these advanced capabilities are scalable, secure, and resilient within existing enterprise systems. 
-                It's designed to equip architects and developers with the methods to build sophisticated agentic systems, driving innovation and securing a competitive edge.            
-            </p>
+        <!-- What is Agentic AI? Section -->
+        <section id="what-is-agentic-ai" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-question-circle text-blue-600"></i> What is Agentic AI?
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Artificial Intelligence is undergoing a revolutionary transformation, with Large Language Models (LLMs) leading the charge in enterprise innovation. 
+                    Enter "Agentic AI" – a new breed of intelligent systems that can think, plan, and act independently to achieve complex objectives. 
+                    While traditional AI systems are limited to predefined tasks, agentic AI systems are dynamic, capable of learning from their environment and adapting their strategies in real-time.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    However, integrating Agentic AI requires a strategic architectural approach. 
+                    This guide provides a practical framework for operationalizing agentic design patterns, ensuring these advanced capabilities are scalable, secure, and resilient within existing enterprise systems. 
+                    It's designed to equip architects and developers with the methods to build sophisticated agentic systems, driving innovation and securing a competitive edge.            
+                </p>
+            </div>
         </section>
 
-        <section id="key-characteristics">
-            <h2>Key Characteristics</h2>
-            <ul>
-                <li><strong>Autonomy:</strong> Ability to operate independently and make decisions</li>
-                <li><strong>Goal Orientation:</strong> Focus on achieving specific objectives</li>
-                <li><strong>Adaptability:</strong> Capacity to learn and adjust to new situations</li>
-                <li><strong>Interoperability:</strong> Seamless integration with existing systems</li>
-            </ul>
+        <!-- Key Characteristics Section -->
+        <section id="key-characteristics" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-list-ul text-blue-600"></i> Key Characteristics
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                    <li><strong class="text-gray-900">Autonomy:</strong> Ability to operate independently and make decisions</li>
+                    <li><strong class="text-gray-900">Goal Orientation:</strong> Focus on achieving specific objectives</li>
+                    <li><strong class="text-gray-900">Adaptability:</strong> Capacity to learn and adjust to new situations</li>
+                    <li><strong class="text-gray-900">Interoperability:</strong> Seamless integration with existing systems</li>
+                </ul>
+            </div>
         </section>
 
-        <section id="enterprise-integration">
-            <h2>Enterprise Architecture Integration</h2>
-            <p>Agentic AI systems must be carefully integrated into existing enterprise architectures, considering factors such as:</p>
-            <ul>
-                <li>Security and compliance requirements</li>
-                <li>Scalability and performance needs</li>
-                <li>Integration with legacy systems</li>
-                <li>Data governance and privacy concerns</li>
-            </ul>
+        <!-- Enterprise Integration Section -->
+        <section id="enterprise-integration" class="mb-12">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-building text-blue-600"></i> Enterprise Architecture Integration
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <p class="text-gray-700 leading-relaxed mb-4">Agentic AI systems must be carefully integrated into existing enterprise architectures, considering factors such as:</p>
+                <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                    <li><strong class="text-gray-900">Security and compliance requirements</strong></li>
+                    <li><strong class="text-gray-900">Scalability and performance needs</strong></li>
+                    <li><strong class="text-gray-900">Integration with legacy systems</strong></li>
+                    <li><strong class="text-gray-900">Data governance and privacy concerns</strong></li>
+                </ul>
+            </div>
         </section>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

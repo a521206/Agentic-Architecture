@@ -3,57 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Architecture</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <title>Agentic Design Patterns</title>
+    <!-- Removed ../css/main.css as it was not provided and caused styling issues -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        /* Back to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 50;
+        }
+        .go-to-top:hover {
+            background: rgba(29, 78, 216, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+        }
+        .go-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body class="pattern-page">
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="designing-and-building-agentic-systems.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Designing
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="comparative-analysis-and-pattern-interrelationships.html" class="nav-button next">
-                    Next: Analysis <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="designing-and-building-agentic-systems.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Designing
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="comparative-analysis-and-pattern-interrelationships.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Analysis <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Agentic Design Patterns</h1>
-            <p class="description">
-                Explore collection of design patterns for creating robust, scalable, and intelligent agent systems. 
+        <!-- Header -->
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Design Patterns</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">
+                Explore a collection of design patterns for creating robust, scalable, and intelligent agent systems. 
                 Each pattern provides detailed implementation guidelines, use cases, and best practices.
             </p>
         </header>
 
-        <nav class="nav-tiles">
-            <a href="agentic-core-patterns.html" class="nav-tile">
-                <h3>Core Patterns</h3>
-                <p class="pattern-count">5 patterns</p>
+        <!-- Navigation Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
+            <a href="agentic-core-patterns.html" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-star"></i></div> <!-- Added icon for core patterns -->
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800 text-center">Core Patterns</h3>
+                <p class="text-gray-600 text-center text-sm">5 patterns</p>
             </a>
-            <a href="agentic-workflow-patterns.html" class="nav-tile">
-                <h3>Workflow Patterns</h3>
-                <p class="pattern-count">6 patterns</p>
+            <a href="agentic-workflow-patterns.html" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-project-diagram"></i></div> <!-- Added icon for workflow patterns -->
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800 text-center">Workflow Patterns</h3>
+                <p class="text-gray-600 text-center text-sm">6 patterns</p>
             </a>
-            <a href="agentic-communication-patterns.html" class="nav-tile">
-                <h3>Communication Protocols</h3>
-                <p class="pattern-count">4 patterns</p>
+            <a href="agentic-communication-patterns.html" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-comments"></i></div> <!-- Added icon for communication protocols -->
+                <h3 class="font-extrabold text-xl mb-2 text-green-800 text-center">Communication Protocols</h3>
+                <p class="text-gray-600 text-center text-sm">4 patterns</p>
             </a>
-            <a href="agentic-decision-patterns.html" class="nav-tile">
-                <h3>Decision Patterns</h3>
-                <p class="pattern-count">3 patterns</p>
+            <a href="agentic-decision-patterns.html" class="bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-yellow-200 hover:ring-yellow-300 transform hover:scale-105">
+                <div class="text-5xl text-yellow-600 mb-3"><i class="fas fa-lightbulb"></i></div> <!-- Added icon for decision patterns -->
+                <h3 class="font-extrabold text-xl mb-2 text-yellow-800 text-center">Decision Patterns</h3>
+                <p class="text-gray-600 text-center text-sm">3 patterns</p>
             </a>
-            <a href="agentic-learning-patterns.html" class="nav-tile">
-                <h3>Learning Patterns</h3>
-                <p class="pattern-count">4 patterns</p>
+            <a href="agentic-learning-patterns.html" class="bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-pink-200 hover:ring-pink-300 transform hover:scale-105">
+                <div class="text-5xl text-pink-600 mb-3"><i class="fas fa-graduation-cap"></i></div> <!-- Added icon for learning patterns -->
+                <h3 class="font-extrabold text-xl mb-2 text-pink-800 text-center">Learning Patterns</h3>
+                <p class="text-gray-600 text-center text-sm">4 patterns</p>
             </a>
         </nav>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

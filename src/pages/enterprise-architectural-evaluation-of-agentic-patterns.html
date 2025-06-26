@@ -4,335 +4,580 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enterprise Architectural Evaluation of Agentic Patterns</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+      body {
+          font-family: 'Inter', sans-serif;
+      }
+      /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+      .header-gradient {
+          background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+      }
+      /* Custom gradients for section headers */
+      .section-header-blue {
+          background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .section-header-purple {
+          background-image: linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .section-header-green {
+          background-image: linear-gradient(to right, #4ade80, #22c55e, #16a34a);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .section-header-orange {
+          background-image: linear-gradient(to right, #fdba74, #fb923c, #f97316);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .section-header-red {
+          background-image: linear-gradient(to right, #f87171, #ef4444, #dc2626);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .section-header-indigo {
+          background-image: linear-gradient(to right, #818cf8, #6366f1, #4f46e5);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .content-block-bg {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+      }
+      /* Table specific styling */
+      .impact-matrix table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 1.5rem;
+          background-color: #fff;
+          border-radius: 1rem; /* rounded-xl */
+          overflow: hidden; /* Ensures border-radius applies */
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+          border: 1px solid #e2e8f0; /* ring-1 ring-gray-200 */
+      }
+      .impact-matrix th, .impact-matrix td {
+          padding: 1rem; /* p-4 */
+          text-align: left; /* text-left */
+          border-bottom: 1px solid #e2e8f0; /* border-b border-gray-200 */
+      }
+      .impact-matrix th {
+          background-color: #f8fafc; /* bg-gray-50 */
+          font-weight: 600; /* font-semibold */
+          color: #475569; /* text-gray-700 */
+      }
+      .impact-matrix tbody tr:last-child td {
+          border-bottom: none;
+      }
+      .impact-matrix tbody tr:nth-child(even) {
+          background-color: #f8fafc; /* even:bg-gray-50 */
+      }
+      /* Back to Top Button Styles */
+      .go-to-top {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          background: rgba(37, 99, 235, 0.9);
+          color: white;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 9999px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          z-index: 50;
+      }
+      .go-to-top:hover {
+          background: rgba(29, 78, 216, 0.95);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+      }
+      .go-to-top.visible {
+          opacity: 1;
+          visibility: visible;
+      }
+  </style>
 </head>
-<body class="pattern-page">
-  <div class="content">
-    <div class="section-navigation">
-      <div class="nav-buttons">
-        <a href="enterprise-adoption-and-implementation.html" class="nav-button prev">
-          <i class="fas fa-arrow-left"></i> Previous: Enterprise
-        </a>
-        <a href="../../index.html" class="nav-button home">
-          <i class="fas fa-home"></i> Home
-        </a>
-        <a href="best-practices-for-enterprise-implementation.html" class="nav-button next">
-          Next: Best Practices <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Navigation -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+      <a href="enterprise-adoption-and-implementation.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+        <i class="fas fa-arrow-left mr-2"></i> Previous: Enterprise
+      </a>
+      <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="best-practices-for-enterprise-implementation.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+        Next: Best Practices <i class="fas fa-arrow-right ml-2"></i>
+      </a>
     </div>
     
-    <header>
-      <h1>Enterprise Architectural Evaluation of Agentic Patterns</h1>
-      <p>When selecting and implementing agentic design patterns, enterprises must evaluate them against critical architectural dimensions to ensure they meet business requirements and operational standards. This evaluation framework provides a comprehensive approach to assessing patterns across key enterprise concerns.</p>
+    <!-- Header -->
+    <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Enterprise Architectural Evaluation of Agentic Patterns</h1>
+      <p class="text-2xl text-blue-700 font-medium opacity-90">When selecting and implementing agentic design patterns, enterprises must evaluate them against critical architectural dimensions to ensure they meet business requirements and operational standards. This evaluation framework provides a comprehensive approach to assessing patterns across key enterprise concerns.</p>
     </header>
 
-    <nav class="nav-tiles">
-      <a href="#robustness" class="nav-tile">
-        <h3>Robustness and Reliability</h3>
-        <p>Ensuring system stability and fault tolerance</p>
+    <!-- Nav Tiles -->
+    <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 mb-16">
+      <a href="#robustness" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+        <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-shield-alt"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-blue-800">Robustness and Reliability</h3>
+        <p class="text-gray-600 text-sm">Ensuring system stability and fault tolerance</p>
       </a>
 
-      <a href="#scalability" class="nav-tile">
-        <h3>Scalability and Performance</h3>
-        <p>Handling growth and maintaining efficiency</p>
+      <a href="#scalability" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+        <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-arrow-up"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-purple-800">Scalability and Performance</h3>
+        <p class="text-gray-600 text-sm">Handling growth and maintaining efficiency</p>
       </a>
 
-      <a href="#security" class="nav-tile">
-        <h3>Security and Data Governance</h3>
-        <p>Protecting data and ensuring compliance</p>
+      <a href="#security" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+        <div class="text-5xl text-green-600 mb-3"><i class="fas fa-lock"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-green-800">Security and Data Governance</h3>
+        <p class="text-gray-600 text-sm">Protecting data and ensuring compliance</p>
       </a>
 
-      <a href="#integration" class="nav-tile">
-        <h3>Integration and Interoperability</h3>
-        <p>Connecting with existing systems</p>
+      <a href="#integration" class="bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-orange-200 hover:ring-orange-300 transform hover:scale-105">
+        <div class="text-5xl text-orange-600 mb-3"><i class="fas fa-puzzle-piece"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-orange-800">Integration and Interoperability</h3>
+        <p class="text-gray-600 text-sm">Connecting with existing systems</p>
       </a>
 
-      <a href="#cost" class="nav-tile">
-        <h3>Cost-Efficiency</h3>
-        <p>Optimizing resource utilization</p>
+      <a href="#cost" class="bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-red-200 hover:ring-red-300 transform hover:scale-105">
+        <div class="text-5xl text-red-600 mb-3"><i class="fas fa-dollar-sign"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-red-800">Cost-Efficiency</h3>
+        <p class="text-gray-600 text-sm">Optimizing resource utilization</p>
       </a>
 
-      <a href="#innovation" class="nav-tile">
-        <h3>Continuous Innovation</h3>
-        <p>Enabling rapid iteration and integration</p>
+      <a href="#innovation" class="bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-indigo-200 hover:ring-indigo-300 transform hover:scale-105">
+        <div class="text-5xl text-indigo-600 mb-3"><i class="fas fa-lightbulb"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-indigo-800">Continuous Innovation</h3>
+        <p class="text-gray-600 text-sm">Enabling rapid iteration and integration</p>
       </a>
     </nav>
 
-    <div class="image-container" style="max-width: 800px; margin: 2rem auto;">
-      <img src="../assets/images/Enterprise Architectural Evaluation of Agentic Patterns.png" alt="Enterprise Architectural Evaluation Framework" class="pattern-image" style="width: 100%; max-height: 600px; object-fit: contain;">
+    <div class="max-w-4xl mx-auto mb-10">
+      <img src="../assets/images/Enterprise Architectural Evaluation of Agentic Patterns.png" alt="Enterprise Architectural Evaluation Framework" class="w-full h-auto rounded-xl shadow-lg border border-gray-200">
     </div>
 
-    <div id="trade-offs-section" class="trade-offs-section">
-      <h2>Impact Matrix</h2>
-      <div class="impact-matrix">
-        <table>
-          <thead>
-            <tr>
-              <th>Pattern</th>
-              <th>Robustness</th>
-              <th>Security</th>
-              <th>Scalability</th>
-              <th>Cost-Efficiency</th>
-              <th>Innovation</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Planning</td>
-              <td>High</td>
-              <td>Medium</td>
-              <td>High</td>
-              <td>Medium</td>
-              <td>Medium</td>
-            </tr>
-            <tr>
-              <td>Tool Use</td>
-              <td>Medium</td>
-              <td>Low</td>
-              <td>Medium</td>
-              <td>High</td>
-              <td>High</td>
-            </tr>
-            <tr>
-              <td>Reflection</td>
-              <td>High</td>
-              <td>High</td>
-              <td>Medium</td>
-              <td>Medium</td>
-              <td>High</td>
-            </tr>
-            <tr>
-              <td>Multi-Agent</td>
-              <td>High</td>
-              <td>Low</td>
-              <td>High</td>
-              <td>Medium</td>
-              <td>High</td>
-            </tr>
-            <tr>
-              <td>ReAct</td>
-              <td>Medium</td>
-              <td>Medium</td>
-              <td>High</td>
-              <td>High</td>
-              <td>Medium</td>
-            </tr>
-            <tr>
-              <td>Plan-and-Execute</td>
-              <td>High</td>
-              <td>High</td>
-              <td>Medium</td>
-              <td>Medium</td>
-              <td>Medium</td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="mb-10">
+      <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+          <i class="fas fa-chart-line text-blue-600"></i> Impact Matrix
+      </h2>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-gray-700">
+              <thead>
+                <tr>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left rounded-tl-xl">Pattern</th>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left">Robustness</th>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left">Security</th>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left">Scalability</th>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left">Cost-Efficiency</th>
+                  <th class="px-4 py-3 bg-gray-100 font-semibold text-gray-700 text-left rounded-tr-xl">Innovation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3 border-b border-gray-200">Planning</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                </tr>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3 border-b border-gray-200">Tool Use</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Low</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                </tr>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3 border-b border-gray-200">Reflection</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                </tr>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3 border-b border-gray-200">Multi-Agent</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Low</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                </tr>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3 border-b border-gray-200">ReAct</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">High</td>
+                  <td class="px-4 py-3 border-b border-gray-200">Medium</td>
+                </tr>
+                <tr class="even:bg-gray-50">
+                  <td class="px-4 py-3">Plan-and-Execute</td>
+                  <td class="px-4 py-3">High</td>
+                  <td class="px-4 py-3">High</td>
+                  <td class="px-4 py-3">Medium</td>
+                  <td class="px-4 py-3">Medium</td>
+                  <td class="px-4 py-3">Medium</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
     </div>
 
-    <section id="robustness" class="pattern-details" style="margin-top: 2.5rem;">
-      <div class="pattern-header">
-        <h2>Robustness and Reliability</h2>
+    <!-- Robustness and Reliability Section -->
+    <section id="robustness" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-shield-alt text-blue-600"></i> Robustness and Reliability
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Assess error handling capabilities, graceful degradation, and resilience to unexpected inputs or tool failures. Patterns like Reflection are crucial for self-healing and maintaining reliability.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Assess error handling capabilities, graceful degradation, and resilience to unexpected inputs or tool failures. Patterns like Reflection are crucial for self-healing and maintaining reliability.</p>
         </div>
 
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Ensures mission-critical applications remain stable and perform consistently, minimizing downtime and data corruption.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Impact
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Ensures mission-critical applications remain stable and perform consistently, minimizing downtime and data corruption.</p>
         </div>
 
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> Enhances system robustness by enabling the decomposition of complex tasks into manageable, often independent, sub-tasks. This modularity allows for better error isolation and facilitates graceful degradation in case of partial failures.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-clipboard-list text-blue-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> Enhances system robustness by enabling the decomposition of complex tasks into manageable, often independent, sub-tasks. This modularity allows for better error isolation and facilitates graceful degradation in case of partial failures.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> Increases system robustness by leveraging external, specialized, and often highly robust enterprise systems (such as databases, APIs, or legacy applications). However, it inherently introduces dependencies on the reliability and availability of these external systems.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> Increases system robustness by leveraging external, specialized, and often highly robust enterprise systems (such as databases, APIs, or legacy applications). However, it inherently introduces dependencies on the reliability and availability of these external systems.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Significantly improves the quality and reliability of agent outputs by identifying and correcting errors, biases, or inconsistencies. It acts as an internal quality gate, enhancing the system's overall dependability.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Significantly improves the quality and reliability of agent outputs by identifying and correcting errors, biases, or inconsistencies. It acts as an internal quality gate, enhancing the system's overall dependability.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> The distributed architecture inherent in the Multi-Agent Pattern offers built-in redundancy and fail-safe mechanisms. Failures in one agent can often be isolated, preventing cascading system-wide failures and enhancing overall system resilience.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> The distributed architecture inherent in the Multi-Agent Pattern offers built-in redundancy and fail-safe mechanisms. Failures in one agent can often be isolated, preventing cascading system-wide failures and enhancing overall system resilience.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> Its iterative nature allows for dynamic adjustment and potential recovery from intermediate errors or unexpected observations, enhancing resilience for simpler, well-defined tasks.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> Its iterative nature allows for dynamic adjustment and potential recovery from intermediate errors or unexpected observations, enhancing resilience for simpler, well-defined tasks.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> The explicit planning and execution phases, coupled with opportunities for intermediate result validation, allow for better error detection and dynamic plan adjustment, making it highly robust for complex and critical tasks.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> The explicit planning and execution phases, coupled with opportunities for intermediate result validation, allow for better error detection and dynamic plan adjustment, making it highly robust for complex and critical tasks.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="scalability" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Scalability and Performance</h2>
+    <!-- Scalability and Performance Section -->
+    <section id="scalability" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-purple bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+            <i class="fas fa-arrow-up text-purple-600"></i> Scalability and Performance
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Consider the ability of patterns to handle increasing workloads and process requests efficiently. Parallelization is key for throughput, while efficient Prompt Chaining and Routing can optimize resource usage.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+            <i class="fas fa-info-circle text-purple-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Consider the ability of patterns to handle increasing workloads and process requests efficiently. Parallelization is key for throughput, while efficient Prompt Chaining and Routing can optimize resource usage.</p>
         </div>
 
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Supports growth in user demand and data volume without compromising response times or incurring prohibitive costs.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+            <i class="fas fa-puzzle-piece text-purple-500"></i> Impact
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Supports growth in user demand and data volume without compromising response times or incurring prohibitive costs.</p>
         </div>
 
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> Directly facilitates parallel execution of sub-tasks, significantly improving overall system throughput and responsiveness for complex operations.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+            <i class="fas fa-clipboard-list text-purple-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> Directly facilitates parallel execution of sub-tasks, significantly improving overall system throughput and responsiveness for complex operations.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> The scalability of an agentic system heavily depends on the scalability of the integrated tools and external APIs. If external systems are not designed for high concurrency or throughput, they can become a significant bottleneck.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> The scalability of an agentic system heavily depends on the scalability of the integrated tools and external APIs. If external systems are not designed for high concurrency or throughput, they can become a significant bottleneck.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Can introduce computational overhead, especially if multiple critique LLMs or extensive validation processes are involved. Requires efficient implementation and potentially asynchronous processing to manage this overhead.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Can introduce computational overhead, especially if multiple critique LLMs or extensive validation processes are involved. Requires efficient implementation and potentially asynchronous processing to manage this overhead.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> Highly scalable due to its ability to distribute workload across multiple specialized agents. This allows for independent scaling of agent groups based on demand, optimizing resource allocation.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> Highly scalable due to its ability to distribute workload across multiple specialized agents. This allows for independent scaling of agent groups based on demand, optimizing resource allocation.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> Its faster response times for simple, direct tasks make it highly scalable for high-volume, low-complexity interactions, such as those found in customer service chatbots.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> Its faster response times for simple, direct tasks make it highly scalable for high-volume, low-complexity interactions, such as those found in customer service chatbots.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> Moderate scalability due to the sequential nature of planning and execution phases, though it can be optimized through parallel execution of independent plan steps.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> Moderate scalability due to the sequential nature of planning and execution phases, though it can be optimized through parallel execution of independent plan steps.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="security" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Security and Data Governance</h2>
+    <!-- Security and Data Governance Section -->
+    <section id="security" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-green bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+            <i class="fas fa-lock text-green-600"></i> Security and Data Governance
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Examine how patterns manage sensitive data, control access to tools and APIs, and adhere to compliance regulations (e.g., GDPR, HIPAA). Tool Use patterns require careful access management.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+            <i class="fas fa-info-circle text-green-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Examine how patterns manage sensitive data, control access to tools and APIs, and adhere to compliance regulations (e.g., GDPR, HIPAA). Tool Use patterns require careful access management.</p>
         </div>
 
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Protects proprietary information, prevents unauthorized access, and maintains regulatory compliance, mitigating legal and reputational risks.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+            <i class="fas fa-puzzle-piece text-green-500"></i> Impact
+          </h3>
+          <p class="text-700 leading-relaxed">Protects proprietary information, prevents unauthorized access, and maintains regulatory compliance, mitigating legal and reputational risks.</p>
         </div>
 
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> The planning phase can proactively identify sensitive steps or specific data access requirements, which then informs the implementation of granular access control policies for subsequent execution phases.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+            <i class="fas fa-clipboard-list text-green-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> The planning phase can proactively identify sensitive steps or specific data access requirements, which then informs the implementation of granular access control policies for subsequent execution phases.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> This is a critical area. Implementing the Tool Use Pattern necessitates stringent API security measures, granular access control for agents to specific tools, robust input/output validation to prevent injection attacks, and secure management of credentials used by agents to access external systems.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> This is a critical area. Implementing the Tool Use Pattern necessitates stringent API security measures, granular access control for agents to specific tools, robust input/output validation to prevent injection attacks, and secure management of credentials used by agents to access external systems.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Can be strategically used for compliance checks, identifying potential sensitive data leakage, or ensuring adherence to ethical AI guidelines within agent responses, thus bolstering the system's security posture.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Can be strategically used for compliance checks, identifying potential sensitive data leakage, or ensuring adherence to ethical AI guidelines within agent responses, thus bolstering the system's security posture.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> This pattern introduces complexity in security. It requires secure inter-agent communication protocols, granular access control for each agent's specific tools and data, and robust authentication mechanisms within the agent network to prevent unauthorized interactions.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> This pattern introduces complexity in security. It requires secure inter-agent communication protocols, granular access control for each agent's specific tools and data, and robust authentication mechanisms within the agent network to prevent unauthorized interactions.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> The simpler, more direct flow of ReAct might present a smaller attack surface for complex prompt injection compared to multi-step planning patterns. However, prompt injection remains a core security risk that requires mitigation.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> The simpler, more direct flow of ReAct might present a smaller attack surface for complex prompt injection compared to multi-step planning patterns. However, prompt injection remains a core security risk that requires mitigation.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> The planning phase can incorporate explicit security checkpoints or reviews before execution, potentially enhancing control and oversight over sensitive operations.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> The planning phase can incorporate explicit security checkpoints or reviews before execution, potentially enhancing control and oversight over sensitive operations.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="integration" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Integration and Interoperability</h2>
+    <!-- Integration and Interoperability Section -->
+    <section id="integration" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-orange bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-orange-200">
+            <i class="fas fa-puzzle-piece text-orange-600"></i> Integration and Interoperability
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Test API compatibility, assess data exchange, evaluate system connectivity, and monitor integration points.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-orange-100 p-10 mb-10 border border-orange-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-orange-700">
+            <i class="fas fa-info-circle text-orange-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Test API compatibility, assess data exchange, evaluate system connectivity, and monitor integration points.</p>
         </div>
 
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Enables system collaboration, facilitates data flow, reduces integration costs, and improves operational efficiency.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-orange-700">
+            <i class="fas fa-puzzle-piece text-orange-500"></i> Impact
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Enables system collaboration, facilitates data flow, reduces integration costs, and improves operational efficiency.</p>
         </div>
 
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> Helps coordinate integration workflows by breaking down complex integration tasks into manageable steps and identifying dependencies between different systems.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-orange-700">
+            <i class="fas fa-clipboard-list text-orange-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> Helps coordinate integration workflows by breaking down complex integration tasks into manageable steps and identifying dependencies between different systems.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> Essential for system integration as it provides the fundamental mechanism for agents to interact with external systems, APIs, and services.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> Essential for system integration as it provides the fundamental mechanism for agents to interact with external systems, APIs, and services.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Can validate integration results and ensure data consistency across different systems, helping to maintain integration quality and reliability.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Can validate integration results and ensure data consistency across different systems, helping to maintain integration quality and reliability.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> Enables distributed system integration by allowing different agents to specialize in interacting with specific systems while coordinating their efforts.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> Enables distributed system integration by allowing different agents to specialize in interacting with specific systems while coordinating their efforts.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> Provides a straightforward approach to system integration for simple, well-defined integration tasks, with quick feedback loops for error handling.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> Provides a straightforward approach to system integration for simple, well-defined integration tasks, with quick feedback loops for error handling.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> Offers structured integration capabilities by allowing detailed planning of integration steps followed by controlled execution, suitable for complex integration scenarios.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> Offers structured integration capabilities by allowing detailed planning of integration steps followed by controlled execution, suitable for complex integration scenarios.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="cost" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Cost-Efficiency</h2>
+    <!-- Cost-Efficiency Section -->
+    <section id="cost" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-red bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-red-200">
+            <i class="fas fa-dollar-sign text-red-600"></i> Cost-Efficiency
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Analyze the computational costs associated with pattern execution, particularly LLM token usage for Prompt Chaining, Reflection, and extensive Planning.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-red-100 p-10 mb-10 border border-red-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-red-700">
+            <i class="fas fa-info-circle text-red-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Analyze the computational costs associated with pattern execution, particularly LLM token usage for Prompt Chaining, Reflection, and extensive Planning.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Optimizes operational expenditures, ensuring the economic viability of agentic solutions.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-red-700">
+            <i class="fas fa-puzzle-piece text-red-500"></i> Impact
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Optimizes operational expenditures, ensuring the economic viability of agentic solutions.</p>
         </div>
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> Optimized plans can reduce redundant steps and minimize unnecessary tool calls or computations, leading to tangible cost savings in resource consumption.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-red-700">
+            <i class="fas fa-clipboard-list text-red-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> Optimized plans can reduce redundant steps and minimize unnecessary tool calls or computations, leading to tangible cost savings in resource consumption.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> Leverages existing enterprise investments in tools and systems, avoiding the need for re-implementation of functionality. However, operational costs are directly tied to external API usage fees and potentially the infrastructure required for tool management.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> Leverages existing enterprise investments in tools and systems, avoiding the need for re-implementation of functionality. However, operational costs are directly tied to external API usage fees and potentially the infrastructure required for tool management.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Reduces the need for manual review and correction, prevents costly errors in critical outputs, and generally improves the accuracy and trustworthiness of the system, leading to long-term cost savings.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Reduces the need for manual review and correction, prevents costly errors in critical outputs, and generally improves the accuracy and trustworthiness of the system, leading to long-term cost savings.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> Optimizes resource utilization through specialization, as agents can be highly efficient within their specific domains. However, the initial setup and orchestration complexity can incur higher development and management costs.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> Optimizes resource utilization through specialization, as agents can be highly efficient within their specific domains. However, the initial setup and orchestration complexity can incur higher development and management costs.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> Lower token usage and fewer API calls per task contribute to its higher cost-efficiency for frequent, straightforward operations.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> Lower token usage and fewer API calls per task contribute to its higher cost-efficiency for frequent, straightforward operations.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> Generally incurs a higher cost per task due to increased token usage and more API calls, making it less suitable for highly cost-sensitive, simple tasks.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> Generally incurs a higher cost per task due to increased token usage and more API calls, making it less suitable for highly cost-sensitive, simple tasks.
+            </li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="innovation" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Continuous Innovation</h2>
+    <!-- Continuous Innovation Section -->
+    <section id="innovation" class="mb-12">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-indigo bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-indigo-200">
+            <i class="fas fa-lightbulb text-indigo-600"></i> Continuous Innovation
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Evaluation</h3>
-          <p>Assess how easily patterns can be updated, extended, or integrated with new technologies. Modularity provided by Routing and Multi-Agent patterns can foster adaptability.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-indigo-100 p-10 mb-10 border border-indigo-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+            <i class="fas fa-info-circle text-indigo-500"></i> Evaluation
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Assess how easily patterns can be updated, extended, or integrated with new technologies. Modularity provided by Routing and Multi-Agent patterns can foster adaptability.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Impact</h3>
-          <p>Enables rapid iteration, integration of new AI models or tools, and responsiveness to evolving business needs and technological advancements.</p>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+            <i class="fas fa-puzzle-piece text-indigo-500"></i> Impact
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Enables rapid iteration, integration of new AI models or tools, and responsiveness to evolving business needs and technological advancements.</p>
         </div>
-        <div class="pattern-assessment">
-          <h3>Pattern-Specific Assessment</h3>
-          <ul>
-            <li><strong>Planning Pattern:</strong> Supports dynamic adaptation and re-planning capabilities, allowing the system to respond effectively to changing requirements or unforeseen circumstances, thereby fostering continuous agility and evolution.</li>
+        <div>
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+            <i class="fas fa-clipboard-list text-indigo-500"></i> Pattern-Specific Assessment
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li>
+                <strong class="text-gray-900">Planning Pattern:</strong> Supports dynamic adaptation and re-planning capabilities, allowing the system to respond effectively to changing requirements or unforeseen circumstances, thereby fostering continuous agility and evolution.
+            </li>
             
-            <li><strong>Tool Use Pattern:</strong> Unlocks vast potential by enabling agents to interact with real-world data and execute actions directly within enterprise systems. This capability creates entirely new avenues for automation, intelligent decision support, and novel business processes.</li>
+            <li>
+                <strong class="text-gray-900">Tool Use Pattern:</strong> Unlocks vast potential by enabling agents to interact with real-world data and execute actions directly within enterprise systems. This capability creates entirely new avenues for automation, intelligent decision support, and novel business processes.
+            </li>
             
-            <li><strong>Reflection Pattern:</strong> Drives continuous improvement and self-optimization of agent behavior. This allows systems to learn and adapt over time without requiring explicit re-training cycles, fostering ongoing innovation and adaptability.</li>
+            <li>
+                <strong class="text-gray-900">Reflection Pattern:</strong> Drives continuous improvement and self-optimization of agent behavior. This allows systems to learn and adapt over time without requiring explicit re-training cycles, fostering ongoing innovation and adaptability.
+            </li>
             
-            <li><strong>Multi-Agent Pattern:</strong> Fosters emergent behaviors and enables the solution of highly complex, multi-faceted problems by mimicking human team collaboration, leading to innovative approaches to business challenges.</li>
+            <li>
+                <strong class="text-gray-900">Multi-Agent Pattern:</strong> Fosters emergent behaviors and enables the solution of highly complex, multi-faceted problems by mimicking human team collaboration, leading to innovative approaches to business challenges.
+            </li>
             
-            <li><strong>ReAct Pattern:</strong> Enables dynamic, real-time interaction and quick problem-solving for well-defined tasks, supporting agile and responsive applications.</li>
+            <li>
+                <strong class="text-gray-900">ReAct Pattern:</strong> Enables dynamic, real-time interaction and quick problem-solving for well-defined tasks, supporting agile and responsive applications.
+            </li>
             
-            <li><strong>Plan-and-Execute Pattern:</strong> Enables tackling highly complex, multi-faceted problems that require structured reasoning and precise execution, unlocking new levels of automation and intelligence for intricate business processes.</li>
+            <li>
+                <strong class="text-gray-900">Plan-and-Execute Pattern:</strong> Enables tackling highly complex, multi-faceted problems that require structured reasoning and precise execution, unlocking new levels of automation and intelligence for intricate business processes.
+            </li>
           </ul>
         </div>
       </div>
     </section>
-
   </div>
   <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

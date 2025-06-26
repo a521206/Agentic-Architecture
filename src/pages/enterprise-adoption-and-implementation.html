@@ -3,64 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Adoption and Implementation - Agentic AI & Enterprise Architecture</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <title>Enterprise Adoption and Implementation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .section-header-blue {
+            background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-purple {
+            background-image: linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-orange {
+            background-image: linear-gradient(to right, #fdba74, #fb923c, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Back to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 50;
+        }
+        .go-to-top:hover {
+            background: rgba(29, 78, 216, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+        }
+        .go-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body>
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="designing-and-building-agentic-systems.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Designing
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="conclusion-and-future-outlook.html" class="nav-button next">
-                    Next: Conclusion <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="designing-and-building-agentic-systems.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Designing
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="conclusion-and-future-outlook.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Conclusion <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
 
-        <header>
-            <h1>Enterprise Adoption and Implementation</h1>
-            <p>Strategic guidance for evaluating, adopting, and implementing agentic systems in enterprise environments</p>
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Enterprise Adoption and Implementation</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Strategic guidance for evaluating, adopting, and implementing agentic systems in enterprise environments</p>
         </header>
 
-        <div class="section-overview">
-            <p>This section provides practical guidance for enterprise adoption of agentic systems. Learn how to evaluate patterns for enterprise fit, understand implementation best practices, and navigate the challenges of deploying agentic systems in complex enterprise environments.</p>
+        <div class="content-block-bg rounded-2xl shadow-xl ring-2 ring-blue-100 p-8 mb-10 border border-blue-200 backdrop-blur-sm">
+            <p class="text-gray-700 leading-relaxed">This section provides practical guidance for enterprise adoption of agentic systems. Learn how to evaluate patterns for enterprise fit, understand implementation best practices, and navigate the challenges of deploying agentic systems in complex enterprise environments.</p>
         </div>
 
-        <div class="pattern-grid">
-            <a href="enterprise-architectural-evaluation-of-agentic-patterns.html" class="pattern-card fade-in" data-pattern-id="evaluation">
-                <h3>Enterprise Architectural Evaluation</h3>
-                <p>Comprehensive evaluation framework for assessing agentic patterns' suitability for enterprise implementation</p>
-                <div class="card-meta">
-                    <span class="difficulty">Advanced</span>
-                    <span class="duration">40 min read</span>
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <a href="enterprise-architectural-evaluation-of-agentic-patterns.html" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-chart-pie"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800">Enterprise Architectural Evaluation</h3>
+                <p class="text-gray-600 text-sm mb-4">Comprehensive evaluation framework for assessing agentic patterns' suitability for enterprise implementation</p>
+                <div class="flex justify-between items-center w-full text-xs text-gray-500 mt-auto">
+                    <span><i class="fas fa-chart-line mr-1"></i> Advanced</span>
+                    <span><i class="fas fa-book-reader mr-1"></i> 40 min read</span>
                 </div>
             </a>
 
-            <a href="best-practices-for-enterprise-implementation.html" class="pattern-card fade-in" data-pattern-id="best-practices">
-                <h3>Implementation Best Practices</h3>
-                <p>Proven guidelines, common pitfalls, and success factors for deploying agentic systems in enterprise environments</p>
-                <div class="card-meta">
-                    <span class="difficulty">Advanced</span>
-                    <span class="duration">45 min read</span>
+            <a href="best-practices-for-enterprise-implementation.html" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-thumbs-up"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800">Implementation Best Practices</h3>
+                <p class="text-gray-600 text-sm mb-4">Proven guidelines, common pitfalls, and success factors for deploying agentic systems in enterprise environments</p>
+                <div class="flex justify-between items-center w-full text-xs text-gray-500 mt-auto">
+                    <span><i class="fas fa-chart-line mr-1"></i> Advanced</span>
+                    <span><i class="fas fa-book-reader mr-1"></i> 45 min read</span>
                 </div>
             </a>
 
-            <a href="agentic-overusage-risks.html" class="pattern-card fade-in" data-pattern-id="risks">
-                <h3>Risks of OverUsing Agentic Automation</h3>
-                <p>Case studies and analysis of operational, security, and organizational risks from excessive agentic automation</p>
-                <div class="card-meta">
-                    <span class="difficulty">All levels</span>
-                    <span class="duration">10 min read</span>
+            <a href="agentic-overusage-risks.html" class="bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-orange-200 hover:ring-orange-300 transform hover:scale-105">
+                <div class="text-5xl text-orange-600 mb-3"><i class="fas fa-exclamation-triangle"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-orange-800">Risks of OverUsing Agentic Automation</h3>
+                <p class="text-gray-600 text-sm mb-4">Case studies and analysis of operational, security, and organizational risks from excessive agentic automation</p>
+                <div class="flex justify-between items-center w-full text-xs text-gray-500 mt-auto">
+                    <span><i class="fas fa-star mr-1"></i> All levels</span>
+                    <span><i class="fas fa-book-reader mr-1"></i> 10 min read</span>
                 </div>
             </a>
-        </div>
+        </nav>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

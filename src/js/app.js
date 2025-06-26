@@ -1,6 +1,6 @@
 // Main JavaScript for Agentic Design Patterns
 
-// Pattern Details Data
+// Pattern Details Data (No changes needed, already good)
 const patternDetails = {
     "prompt-chaining": {
         description: "Sequential execution of prompts where each output feeds into the next prompt.",
@@ -26,26 +26,25 @@ const patternDetails = {
 
 // Utility Functions
 const utils = {
-    // DOM element selectors
+    // DOM element selectors (will be called once in NavigationManager constructor)
     getElements: {
         patternCards: () => document.querySelectorAll('.pattern-card'),
         patternLinks: () => document.querySelectorAll('a[href^="#"]'),
         sections: () => document.querySelectorAll('section[id]'),
         fadeElements: () => document.querySelectorAll('.fade-in'),
         tables: () => document.querySelectorAll('table'),
-        images: () => document.querySelectorAll('.pattern-image'),
+        // Responsive image handling will be primarily via CSS, removing JS image selector
+        // images: () => document.querySelectorAll('.pattern-image'),
         interactiveHeaders: () => document.querySelectorAll('.interactive-header')
     },
 
-    // Animation helpers
+    // Animation helpers - Use CSS transitions for better performance
     fadeIn: (element) => {
-        element.style.opacity = '0';
-        setTimeout(() => {
-            element.style.opacity = '1';
-        }, 100);
+        // Add a class that triggers CSS transition for opacity
+        element.classList.add('fade-in-active');
     },
 
-    // Scroll helpers
+    // Scroll helpers (No changes needed, already good)
     smoothScroll: (element) => {
         element.scrollIntoView({
             behavior: 'smooth',
@@ -53,7 +52,7 @@ const utils = {
         });
     },
 
-    // Page state helpers
+    // Page state helpers (No changes needed, already good)
     isPatternPage: () => document.body.classList.contains('pattern-page'),
     isMainPage: () => !document.body.classList.contains('pattern-page')
 };
@@ -62,8 +61,17 @@ const utils = {
 class NavigationManager {
     constructor() {
         this.currentSection = null;
+        // Cache common DOM elements once for performance
         this.sections = utils.getElements.sections();
         this.patternCards = utils.getElements.patternCards();
+        this.patternLinks = utils.getElements.patternLinks();
+        this.interactiveHeaders = utils.getElements.interactiveHeaders();
+        this.fadeElements = utils.getElements.fadeElements();
+        this.tables = utils.getElements.tables();
+
+        // Configuration for scroll spy and go-to-top
+        this.scrollOffset = 100; // Offset for scroll spy
+        this.goToTopThreshold = 300; // Scroll position for go-to-top button
     }
 
     init() {
@@ -73,14 +81,12 @@ class NavigationManager {
         this.initializeFadeAnimations();
         this.initializeProgressIndicator();
         this.setupScrollSpy();
-        
+
         // Only setup responsive elements if they exist
-        if (document.querySelector('table')) {
+        if (this.tables.length > 0) {
             this.setupResponsiveTables();
         }
-        if (document.querySelector('.pattern-image')) {
-            this.setupResponsiveImages();
-        }
+        // Removed setupResponsiveImages - handled by CSS
 
         // Initialize page-specific functionality
         if (utils.isPatternPage()) {
@@ -108,7 +114,7 @@ class NavigationManager {
         });
 
         // Interactive headers
-        utils.getElements.interactiveHeaders().forEach(header => {
+        this.interactiveHeaders.forEach(header => {
             header.addEventListener('click', () => {
                 const targetId = header.getAttribute('data-target');
                 if (targetId) {
@@ -122,14 +128,15 @@ class NavigationManager {
     }
 
     setupSmoothScrolling() {
-        utils.getElements.patternLinks().forEach(anchor => {
+        this.patternLinks.forEach(anchor => {
             anchor.addEventListener('click', (e) => {
                 e.preventDefault();
-                const target = document.querySelector(anchor.getAttribute('href'));
+                const href = anchor.getAttribute('href');
+                const target = document.querySelector(href);
                 if (target) {
                     utils.smoothScroll(target);
                     // Update URL without page reload
-                    history.pushState(null, null, anchor.getAttribute('href'));
+                    history.pushState(null, null, href);
                 }
             });
         });
@@ -138,16 +145,17 @@ class NavigationManager {
     setupScrollSpy() {
         const updateActiveSection = () => {
             const scrollPosition = window.scrollY;
-            
+
             this.sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.offsetHeight;
-                
-                if (scrollPosition >= sectionTop - 100 && 
-                    scrollPosition < sectionTop + sectionHeight - 100) {
+
+                // Use the configured scroll offset
+                if (scrollPosition >= sectionTop - this.scrollOffset &&
+                    scrollPosition < sectionTop + sectionHeight - this.scrollOffset) {
                     section.classList.add('active');
                     this.currentSection = section;
-                    
+
                     // Update corresponding navigation link
                     const id = section.getAttribute('id');
                     if (id) {
@@ -174,16 +182,20 @@ class NavigationManager {
 
     initializeGoToTop() {
         let goToTopButton = document.querySelector('.go-to-top');
+        // Prefer to have the button in HTML, but create if not found
         if (!goToTopButton) {
             goToTopButton = document.createElement('a');
             goToTopButton.className = 'go-to-top';
             goToTopButton.href = '#';
+            goToTopButton.setAttribute('aria-label', 'Go to top of page'); // Accessibility improvement
+            // Assuming Font Awesome is used for the icon
             goToTopButton.innerHTML = '<i class="fas fa-arrow-up"></i>';
             document.body.appendChild(goToTopButton);
         }
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
+            // Use the configured go-to-top threshold
+            if (window.scrollY > this.goToTopThreshold) {
                 goToTopButton.classList.add('visible');
             } else {
                 goToTopButton.classList.remove('visible');
@@ -204,22 +216,31 @@ class NavigationManager {
         progressBar.className = 'reading-progress';
         document.body.appendChild(progressBar);
 
+        // Optimized scroll event listener for progress bar
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progressBar.style.width = scrolled + '%';
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    progressBar.style.width = scrolled + '%';
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
     }
 
     initializeFadeAnimations() {
-        utils.getElements.fadeElements().forEach(element => {
+        // Apply a class immediately that has a CSS transition for opacity
+        this.fadeElements.forEach(element => {
             utils.fadeIn(element);
         });
     }
 
     setupResponsiveTables() {
-        utils.getElements.tables().forEach(table => {
+        this.tables.forEach(table => {
             if (!table.parentElement.classList.contains('table-responsive')) {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'table-responsive';
@@ -227,20 +248,6 @@ class NavigationManager {
                 wrapper.appendChild(table);
             }
         });
-    }
-
-    setupResponsiveImages() {
-        const handleResponsiveImages = () => {
-            utils.getElements.images().forEach(img => {
-                if (img.naturalWidth > img.parentElement.offsetWidth) {
-                    img.style.maxWidth = '100%';
-                    img.style.height = 'auto';
-                }
-            });
-        };
-
-        window.addEventListener('load', handleResponsiveImages);
-        window.addEventListener('resize', handleResponsiveImages);
     }
 
     initMainPage() {
@@ -256,4 +263,4 @@ class NavigationManager {
 document.addEventListener('DOMContentLoaded', () => {
     const navigationManager = new NavigationManager();
     navigationManager.init();
-}); 
+});

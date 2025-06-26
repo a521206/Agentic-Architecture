@@ -4,208 +4,350 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Learning Resources</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Custom gradient for section headers */
+        .section-header-blue {
+            background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-purple {
+            background-image: linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-green {
+            background-image: linear-gradient(to right, #4ade80, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-yellow {
+            background-image: linear-gradient(to right, #fcd34d, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-red {
+            background-image: linear-gradient(to right, #f87171, #ef4444, #dc2626);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-teal {
+            background-image: linear-gradient(to right, #4fd1c5, #20c997, #10b981); /* A nice teal for protocols */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Back to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 50;
+        }
+        .go-to-top:hover {
+            background: rgba(29, 78, 216, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+        }
+        .go-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body class="pattern-page">
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="conclusion-and-future-outlook.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Conclusion
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="../../index.html" class="nav-button next">
-                    Back to Start <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="conclusion-and-future-outlook.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Conclusion
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Back to Start <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Agentic Learning Resources</h1>
-            <p>Explore the best free courses and resources to master agentic AI, agentic systems, and their applications in enterprise and beyond.</p>
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Learning Resources</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Explore the best free courses and resources to master agentic AI, agentic systems, and their applications in enterprise and beyond.</p>
         </header>
-        <nav class="nav-tiles">
-            <a href="#foundations" class="nav-tile">
-                <h3>Foundations</h3>
-                <p>Python, AI/ML, and Prompting Basics</p>
+
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
+            <a href="#foundations" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-book"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800">Foundations</h3>
+                <p class="text-gray-600 text-sm">Python, AI/ML, and Prompting Basics</p>
             </a>
-            <a href="#beginner" class="nav-tile">
-                <h3>Beginner</h3>
-                <p>Agentic AI Fundamentals</p>
+            <a href="#beginner" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-hat-wizard"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800">Beginner</h3>
+                <p class="text-gray-600 text-sm">Agentic AI Fundamentals</p>
             </a>
-            <a href="#intermediate" class="nav-tile">
-                <h3>Intermediate</h3>
-                <p>Build and Experiment</p>
+            <a href="#intermediate" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-tools"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800">Intermediate</h3>
+                <p class="text-gray-600 text-sm">Build and Experiment</p>
             </a>
-            <a href="#advanced" class="nav-tile">
-                <h3>Advanced</h3>
-                <p>Master and Innovate</p>
+            <a href="#advanced" class="bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-yellow-200 hover:ring-yellow-300 transform hover:scale-105">
+                <div class="text-5xl text-yellow-600 mb-3"><i class="fas fa-rocket"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-yellow-800">Advanced</h3>
+                <p class="text-gray-600 text-sm">Master and Innovate</p>
             </a>
-            <a href="#protocols" class="nav-tile">
-                <h3>Agentic Protocols</h3>
-                <p>A2A, MCP, A2C & interoperability</p>
+            <a href="#protocols" class="bg-gradient-to-br from-teal-50 to-teal-100 hover:from-teal-100 hover:to-teal-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-teal-200 hover:ring-teal-300 transform hover:scale-105">
+                <div class="text-5xl text-teal-600 mb-3"><i class="fas fa-handshake"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-teal-800">Agentic Protocols</h3>
+                <p class="text-gray-600 text-center text-sm">A2A, MCP, A2C & interoperability</p>
             </a>
         </nav>
-        <section id="foundations" class="pattern-details" style="margin-top:2.5rem;">
-            <div class="pattern-header">
-                <h2>Foundations: Python, AI, and Prompting</h2>
+        
+        <section id="foundations" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-book text-blue-600"></i> Foundations: Python, AI, and Prompting
+                </h2>
             </div>
-            <div class="pattern-grid-3col">
-                <div>
-                    <h3>Overview</h3>
-                    <p>Start here if you're new to programming, AI, or LLMs. This stage will help you build the essential skills needed for agentic AI: Python programming, basic AI/ML concepts, and prompt engineering for LLMs.</p>
-                </div>
-                <div>
-                    <h3>Learning Goals</h3>
-                    <ul>
-                        <li>Write and understand basic Python code</li>
-                        <li>Grasp core AI and machine learning concepts</li>
-                        <li>Understand how to interact with LLMs and craft effective prompts</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Recommended Resources</h3>
-                    <ul>
-                        <li><b>Learn Python:</b>
-                            <ul>
-                                <li><a href="https://www.coursera.org/specializations/python" target="_blank" rel="noopener">Python for Everybody (Coursera, University of Michigan)</a> (audit for free)</li>
-                                <li><a href="https://www.youtube.com/watch?v=tKTZoB2Vjuk" target="_blank" rel="noopener">Google's Python Class (YouTube)</a></li>
-                            </ul>
-                        </li>
-                        <li><b>Intro to AI & Machine Learning:</b>
-                            <ul>
-                                <li><a href="https://www.elementsofai.com/" target="_blank" rel="noopener">Elements of AI (University of Helsinki)</a></li>
-                                <li><a href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank" rel="noopener">Intro to Machine Learning (Kaggle)</a></li>
-                            </ul>
-                        </li>
-                        <li><b>Prompting & LLM Basics:</b>
-                            <ul>
-                                <li><a href="https://www.youtube.com/watch?v=qwB6tB1hGzA" target="_blank" rel="noopener">ChatGPT Prompt Engineering for Beginners (YouTube, DeepLearning.AI)</a></li>
-                                <li><a href="https://www.promptingguide.ai/" target="_blank" rel="noopener">Prompt Engineering Guide (website)</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="beginner" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Beginner: Understand the Basics</h2>
-            </div>
-            <div class="pattern-grid-3col">
-                <div>
-                    <h3>Overview</h3>
-                    <p>Start here if you know Python and basic AI concepts, but are new to agentic AI. This stage introduces the core ideas behind agentic AI and how it differs from traditional AI approaches, focusing on autonomy, planning, and tool use.</p>
-                </div>
-                <div>
-                    <h3>Learning Goals</h3>
-                    <ul>
-                        <li>Understand what agentic AI is and why it matters</li>
-                        <li>Learn about autonomy, planning, tool use, and multi-agent systems</li>
-                        <li>Explore practical applications and real-world examples of agentic systems</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Recommended Resources</h3>
-                    <ul>
-                        <li><a href="https://agentacademy.ai/" target="_blank" rel="noopener">Understanding Agentic AI (AgentAcademy.ai)</a> - A good starting point for conceptual understanding.</li>
-                        <li><a href="https://www.mygreatlearning.com/academy/learn-for-free/courses/getting-started-with-agentic-ai" target="_blank" rel="noopener">Getting Started with Agentic AI (Great Learning)</a> - Another free course to build foundational knowledge.</li>
-                        <li><a href="https://www.youtube.com/playlist?list=PLlrxD0HtieHg7uB3_amVXvaRgxIcXLt1N" target="_blank" rel="noopener">AI Agents for Beginners (Microsoft Developer, YouTube)</a> - A practical video series for initial understanding.</li>
-                        <li><a href="https://www.freecodecamp.org/news/what-are-ai-agents/" target="_blank" rel="noopener">What are AI Agents? (freeCodeCamp)</a> - A clear article explaining the basics.</li>
-                    </ul>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                            <i class="fas fa-info-circle text-blue-500"></i> Overview
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">Start here if you're new to programming, AI, or LLMs. This stage will help you build the essential skills needed for agentic AI: Python programming, basic AI/ML concepts, and prompt engineering for LLMs.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                            <i class="fas fa-clipboard-list text-blue-500"></i> Learning Goals
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                            <li>Write and understand basic Python code</li>
+                            <li>Grasp core AI and machine learning concepts</li>
+                            <li>Understand how to interact with LLMs and craft effective prompts</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                            <i class="fas fa-laptop-code text-blue-500"></i> Recommended Resources
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-3">
+                            <li><strong class="text-gray-900">Learn Python:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                    <li><a href="https://www.coursera.org/specializations/python" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Python for Everybody (Coursera, University of Michigan)</a> (audit for free)</li>
+                                    <li><a href="https://www.youtube.com/watch?v=tKTZoB2Vjuk" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Google's Python Class (YouTube)</a></li>
+                                </ul>
+                            </li>
+                            <li><strong class="text-gray-900">Intro to AI & Machine Learning:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                    <li><a href="https://www.elementsofai.com/" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Elements of AI (University of Helsinki)</a></li>
+                                    <li><a href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Intro to Machine Learning (Kaggle)</a></li>
+                                </ul>
+                            </li>
+                            <li><strong class="text-gray-900">Prompting & LLM Basics:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                    <li><a href="https://www.youtube.com/watch?v=qwB6tB1hGzA" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">ChatGPT Prompt Engineering for Beginners (YouTube, DeepLearning.AI)</a></li>
+                                    <li><a href="https://www.promptingguide.ai/" target="_blank" rel="noopener" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Prompt Engineering Guide (website)</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
-        <section id="intermediate" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Intermediate: Build and Experiment</h2>
+        
+        <section id="beginner" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-purple bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+                    <i class="fas fa-hat-wizard text-purple-600"></i> Beginner: Understand the Basics
+                </h2>
             </div>
-            <div class="pattern-grid-3col">
-                <div>
-                    <h3>Overview</h3>
-                    <p>Start here if you understand agentic AI concepts and want to build simple agents. This stage is about hands-on learning: designing, building, and deploying agentic systems using popular frameworks.</p>
-                </div>
-                <div>
-                    <h3>Learning Goals</h3>
-                    <ul>
-                        <li>Design and implement simple agentic systems</li>
-                        <li>Apply agentic design patterns to solve real-world problems</li>
-                        <li>Gain practical experience with hands-on projects and use cases</li>
-                        <li>Understand basic agent frameworks like LangChain or AutoGen</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Recommended Resources</h3>
-                    <ul>
-                        <li><a href="https://www.coursera.org/learn/agentic-ai" target="_blank" rel="noopener">Agentic AI and AI Agents: A Primer for Leaders (Coursera)</a> - Focuses on the strategic aspects and high-level architecture.</li>
-                        <li><a href="https://www.deeplearning.ai/short-courses/ai-agentic-design-patterns-with-autogen/" target="_blank" rel="noopener">AI Agentic Design Patterns with AutoGen (DeepLearning.AI)</a> - Excellent for practical application with AutoGen.</li>
-                        <li><a href="https://www.youtube.com/watch?v=2tqHuwfgMI8" target="_blank" rel="noopener">AI Agents Full Course (YouTube)</a> - A more extensive YouTube course covering various aspects.</li>
-                        <li><a href="https://python.langchain.com/docs/" target="_blank" rel="noopener">LangChain Documentation (Official)</a> - Dive into a leading framework for building LLM applications.</li>
-                        <li><a href="https://microsoft.github.io/autogen/" target="_blank" rel="noopener">AutoGen Documentation (Official)</a> - Learn to build multi-agent conversation systems.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="advanced" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Advanced: Master and Innovate</h2>
-            </div>
-            <div class="pattern-grid-3col">
-                <div>
-                    <h3>Overview</h3>
-                    <p>Start here if you want to go deep into frameworks, orchestration, and contribute to the field. This stage is for those ready to master advanced frameworks, multi-agent orchestration, and contribute to the agentic AI community through research and open-source projects.</p>
-                </div>
-                <div>
-                    <h3>Learning Goals</h3>
-                    <ul>
-                        <li>Master advanced agentic frameworks and complex orchestration techniques</li>
-                        <li>Contribute to open-source projects and the agentic AI community</li>
-                        <li>Stay updated with the latest trends, research papers, and ethical considerations</li>
-                        <li>Design and evaluate sophisticated multi-agent systems</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Recommended Resources</h3>
-                    <ul>
-                        <li><a href="https://huggingface.co/learn/agents-course" target="_blank" rel="noopener">AI Agents Course (Hugging Face)</a> - A comprehensive course covering advanced topics and frameworks.</li>
-                        <li><a href="https://medium.com/@maximilian.vogel/mastering-ai-agents-the-10-best-free-courses-tutorials-learning-tools-46bc380a19d1" target="_blank" rel="noopener">Mastering AI Agents: The 10 Best Free Courses, Tutorials & Learning Tools (Medium)</a> - A curated list for deeper dives.</li>
-                        <li><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener">LangChain GitHub Repository</a> & <a href="https://github.com/microsoft/autogen" target="_blank" rel="noopener">AutoGen GitHub Repository</a> - Engage with the open-source community.</li>
-                    </ul>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200 backdrop-blur-sm">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                            <i class="fas fa-info-circle text-purple-500"></i> Overview
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">Start here if you know Python and basic AI concepts, but are new to agentic AI. This stage introduces the core ideas behind agentic AI and how it differs from traditional AI approaches, focusing on autonomy, planning, and tool use.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                            <i class="fas fa-clipboard-list text-purple-500"></i> Learning Goals
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                            <li>Understand what agentic AI is and why it matters</li>
+                            <li>Learn about autonomy, planning, tool use, and multi-agent systems</li>
+                            <li>Explore practical applications and real-world examples of agentic systems</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                            <i class="fas fa-laptop-code text-purple-500"></i> Recommended Resources
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-3">
+                            <li><a href="https://agentacademy.ai/" target="_blank" rel="noopener" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Understanding Agentic AI (AgentAcademy.ai)</a> - A good starting point for conceptual understanding.</li>
+                            <li><a href="https://www.mygreatlearning.com/academy/learn-for-free/courses/getting-started-with-agentic-ai" target="_blank" rel="noopener" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Getting Started with Agentic AI (Great Learning)</a> - Another free course to build foundational knowledge.</li>
+                            <li><a href="https://www.youtube.com/playlist?list=PLlrxD0HtieHg7uB3_amVXvaRgxIcXLt1N" target="_blank" rel="noopener" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">AI Agents for Beginners (Microsoft Developer, YouTube)</a> - A practical video series for initial understanding.</li>
+                            <li><a href="https://www.freecodecamp.org/news/what-are-ai-agents/" target="_blank" rel="noopener" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">What are AI Agents? (freeCodeCamp)</a> - A clear article explaining the basics.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
-        <section id="protocols" class="pattern-details">
-            <div class="pattern-header">
-                <h2>Agentic Protocols & Interoperability</h2>
+        
+        <section id="intermediate" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-green bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+                    <i class="fas fa-tools text-green-600"></i> Intermediate: Build and Experiment
+                </h2>
             </div>
-            <div class="pattern-grid-3col">
-                <div>
-                    <h3>Overview</h3>
-                    <p>Agentic protocols enable seamless communication and collaboration between agents, models, and cloud services. Understanding these protocols is essential for building scalable, interoperable, and future-proof agentic systems.</p>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200 backdrop-blur-sm">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                            <i class="fas fa-info-circle text-green-500"></i> Overview
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">Start here if you understand agentic AI concepts and want to build simple agents. This stage is about hands-on learning: designing, building, and deploying agentic systems using popular frameworks.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                            <i class="fas fa-clipboard-list text-green-500"></i> Learning Goals
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                            <li>Design and implement simple agentic systems</li>
+                            <li>Apply agentic design patterns to solve real-world problems</li>
+                            <li>Gain practical experience with hands-on projects and use cases</li>
+                            <li>Understand basic agent frameworks like LangChain or AutoGen</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                            <i class="fas fa-laptop-code text-green-500"></i> Recommended Resources
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-3">
+                            <li><a href="https://www.coursera.org/learn/agentic-ai" target="_blank" rel="noopener" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Agentic AI and AI Agents: A Primer for Leaders (Coursera)</a> - Focuses on the strategic aspects and high-level architecture.</li>
+                            <li><a href="https://www.deeplearning.ai/short-courses/ai-agentic-design-patterns-with-autogen/" target="_blank" rel="noopener" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">AI Agentic Design Patterns with AutoGen (DeepLearning.AI)</a> - Excellent for practical application with AutoGen.</li>
+                            <li><a href="https://www.youtube.com/watch?v=2tqHuwfgMI8" target="_blank" rel="noopener" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">AI Agents Full Course (YouTube)</a> - A more extensive YouTube course covering various aspects.</li>
+                            <li><a href="https://python.langchain.com/docs/" target="_blank" rel="noopener" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">LangChain Documentation (Official)</a> - Dive into a leading framework for building LLM applications.</li>
+                            <li><a href="https://microsoft.github.io/autogen/" target="_blank" rel="noopener" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">AutoGen Documentation (Official)</a> - Learn to build multi-agent conversation systems.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <h3>Learning Goals</h3>
-                    <ul>
-                        <li>Understand the purpose and architecture of agentic protocols (A2A, MCP, A2C)</li>
-                        <li>Learn how to implement and leverage these protocols for interoperability</li>
-                        <li>Gain hands-on experience with protocol specifications and server implementations</li>
-                    </ul>
+            </div>
+        </section>
+        
+        <section id="advanced" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-yellow bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-yellow-200">
+                    <i class="fas fa-rocket text-yellow-600"></i> Advanced: Master and Innovate
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-yellow-100 p-10 mb-10 border border-yellow-200 backdrop-blur-sm">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                            <i class="fas fa-info-circle text-yellow-500"></i> Overview
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">Start here if you want to go deep into frameworks, orchestration, and contribute to the field. This stage is for those ready to master advanced frameworks, multi-agent orchestration, and contribute to the agentic AI community through research and open-source projects.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                            <i class="fas fa-clipboard-list text-yellow-500"></i> Learning Goals
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                            <li>Master advanced agentic frameworks and complex orchestration techniques</li>
+                            <li>Contribute to open-source projects and the agentic AI community</li>
+                            <li>Stay updated with the latest trends, research papers, and ethical considerations</li>
+                            <li>Design and evaluate sophisticated multi-agent systems</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                            <i class="fas fa-laptop-code text-yellow-500"></i> Recommended Resources
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-3">
+                            <li><a href="https://huggingface.co/learn/agents-course" target="_blank" rel="noopener" class="underline text-yellow-600 hover:text-yellow-800 transition-colors duration-200">AI Agents Course (Hugging Face)</a> - A comprehensive course covering advanced topics and frameworks.</li>
+                            <li><a href="https://medium.com/@maximilian.vogel/mastering-ai-agents-the-10-best-free-courses-tutorials-learning-tools-46bc380a19d1" target="_blank" rel="noopener" class="underline text-yellow-600 hover:text-yellow-800 transition-colors duration-200">Mastering AI Agents: The 10 Best Free Courses, Tutorials & Learning Tools (Medium)</a> - A curated list for deeper dives.</li>
+                            <li><a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener" class="underline text-yellow-600 hover:text-yellow-800 transition-colors duration-200">LangChain GitHub Repository</a> & <a href="https://github.com/microsoft/autogen" target="_blank" rel="noopener" class="underline text-yellow-600 hover:text-yellow-800 transition-colors duration-200">AutoGen GitHub Repository</a> - Engage with the open-source community.</li>
+                        </ul>
+                    </div>
                 </div>
-                <div>
-                    <h3>Recommended Resources</h3>
-                    <ul>
-                        <li><a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" rel="noopener">A2A (Agent-to-Agent) Protocol</a> - Overview and use cases for agent-to-agent communication.</li>
-                        <li><a href="https://github.com/modelcontext/protocol" target="_blank" rel="noopener">MCP (Model Context Protocol) Specification</a> - Official protocol for LLM agent interoperability.</li>
-                        <li><a href="https://github.com/modelcontext/mcp-server" target="_blank" rel="noopener">Building an MCP Server (GitHub)</a> - Reference implementation and guide for running your own MCP server.</li>
-                        <li><a href="https://github.com/agentcloud/a2c" target="_blank" rel="noopener">A2C (Agent-to-Cloud) Protocol</a> - Protocol for connecting agents to cloud services and infrastructure.</li>
-                    </ul>
+            </div>
+        </section>
+        
+        <section id="protocols" class="mb-12">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-teal bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-teal-200">
+                    <i class="fas fa-handshake text-teal-600"></i> Agentic Protocols & Interoperability
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-teal-100 p-10 mb-10 border border-teal-200 backdrop-blur-sm">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-teal-700">
+                            <i class="fas fa-info-circle text-teal-500"></i> Overview
+                        </h3>
+                        <p class="text-gray-700 leading-relaxed">Agentic protocols enable seamless communication and collaboration between agents, models, and cloud services. Understanding these protocols is essential for building scalable, interoperable, and future-proof agentic systems.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-teal-700">
+                            <i class="fas fa-clipboard-list text-teal-500"></i> Learning Goals
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                            <li>Understand the purpose and architecture of agentic protocols (A2A, MCP, A2C)</li>
+                            <li>Learn how to implement and leverage these protocols for interoperability</li>
+                            <li>Gain hands-on experience with protocol specifications and server implementations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-teal-700">
+                            <i class="fas fa-laptop-code text-teal-500"></i> Recommended Resources
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 ml-4 space-y-3">
+                            <li><a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" rel="noopener" class="underline text-teal-600 hover:text-teal-800 transition-colors duration-200">A2A (Agent-to-Agent) Protocol</a> - Overview and use cases for agent-to-agent communication.</li>
+                            <li><a href="https://github.com/modelcontext/protocol" target="_blank" rel="noopener" class="underline text-teal-600 hover:text-teal-800 transition-colors duration-200">MCP (Model Context Protocol) Specification</a> - Official protocol for LLM agent interoperability.</li>
+                            <li><a href="https://github.com/modelcontext/mcp-server" target="_blank" rel="noopener" class="underline text-teal-600 hover:text-teal-800 transition-colors duration-200">Building an MCP Server (GitHub)</a> - Reference implementation and guide for running your own MCP server.</li>
+                            <li><a href="https://github.com/agentcloud/a2c" target="_blank" rel="noopener" class="underline text-teal-600 hover:text-teal-800 transition-colors duration-200">A2C (Agent-to-Cloud) Protocol</a> - Protocol for connecting agents to cloud services and infrastructure.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

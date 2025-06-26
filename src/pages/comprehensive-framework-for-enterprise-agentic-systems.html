@@ -4,206 +4,285 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comprehensive Framework for Enterprise Agentic Systems</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+      body {
+          font-family: 'Inter', sans-serif;
+      }
+      /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+      .header-gradient {
+          background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+      }
+      .section-header-blue {
+          background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+      }
+      .content-block-bg {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+      }
+  </style>
 </head>
-<body>
-  <div class="content">
-    <div class="section-navigation">
-      <div class="nav-buttons">
-        <a href="introduction-to-agentic-ai-and-enterprise-architecture.html" class="nav-button prev">
-          <i class="fas fa-arrow-left"></i> Previous: Introduction
-        </a>
-        <a href="../../index.html" class="nav-button home">
-          <i class="fas fa-home"></i> Home
-        </a>
-        <a href="designing-and-building-agentic-systems.html" class="nav-button next">
-          Next: Designing <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+<body class="bg-gray-50 text-gray-800">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Navigation -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+      <a href="introduction-to-agentic-ai-and-enterprise-architecture.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+        <i class="fas fa-arrow-left mr-2"></i> Previous: Introduction
+      </a>
+      <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="designing-and-building-agentic-systems.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+        Next: Designing <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
     
-    <header>
-      <h1>Comprehensive Framework for Enterprise Agentic Systems</h1>
-      <p>A structured approach to enterprise agentic systems</p>
+    <!-- Header -->
+    <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Comprehensive Framework for Enterprise Agentic Systems</h1>
+      <p class="text-2xl text-blue-700 font-medium opacity-90">A structured approach to enterprise agentic systems</p>
     </header>
 
-    <div class="image-container" style="max-width: 800px; margin: 2rem auto;">
-      <img src="../assets/images/Framework.png" alt="Enterprise Agentic Systems Framework" class="pattern-image" style="width: 100%; max-height: 600px; object-fit: contain;">
+    <!-- Image Container -->
+    <div class="max-w-4xl mx-auto mb-10">
+      <img src="../assets/images/Framework.png" alt="Enterprise Agentic Systems Framework" class="w-full h-auto rounded-xl shadow-lg border border-gray-200">
     </div>
 
-    <nav class="nav-tiles">
-      <a href="#goal-definition" class="nav-tile">
-        <h3>Goal Definition</h3>
-        <p>Problem space analysis and outcome definition</p>
+    <!-- Nav Tiles -->
+    <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      <a href="#goal-definition" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+        <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-bullseye"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-blue-800">Goal Definition</h3>
+        <p class="text-gray-600 text-sm">Problem space analysis and outcome definition</p>
       </a>
 
-      <a href="#pattern-selection" class="nav-tile">
-        <h3>Pattern Selection</h3>
-        <p>Mapping goals to agentic patterns</p>
+      <a href="#pattern-selection" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+        <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-puzzle-piece"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-purple-800">Pattern Selection</h3>
+        <p class="text-gray-600 text-sm">Mapping goals to agentic patterns</p>
       </a>
 
-      <a href="#tooling" class="nav-tile">
-        <h3>Tooling & Integration</h3>
-        <p>External system interaction</p>
+      <a href="#tooling" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+        <div class="text-5xl text-green-600 mb-3"><i class="fas fa-tools"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-green-800">Tooling & Integration</h3>
+        <p class="text-gray-600 text-sm">External system interaction</p>
       </a>
 
-      <a href="#data-management" class="nav-tile">
-        <h3>Data Management</h3>
-        <p>Knowledge and context handling</p>
+      <a href="#data-management" class="bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-yellow-200 hover:ring-yellow-300 transform hover:scale-105">
+        <div class="text-5xl text-yellow-600 mb-3"><i class="fas fa-database"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-yellow-800">Data Management</h3>
+        <p class="text-gray-600 text-sm">Knowledge and context handling</p>
       </a>
 
-      <a href="#observability" class="nav-tile">
-        <h3>Observability</h3>
-        <p>Monitoring and governance</p>
+      <a href="#observability" class="bg-gradient-to-br from-red-50 to-red-100 hover:from-red-100 hover:to-red-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-red-200 hover:ring-red-300 transform hover:scale-105">
+        <div class="text-5xl text-red-600 mb-3"><i class="fas fa-eye"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-red-800">Observability</h3>
+        <p class="text-gray-600 text-sm">Monitoring and governance</p>
       </a>
 
-      <a href="#deployment" class="nav-tile">
-        <h3>Deployment</h3>
-        <p>Infrastructure and operations</p>
+      <a href="#deployment" class="bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-indigo-200 hover:ring-indigo-300 transform hover:scale-105">
+        <div class="text-5xl text-indigo-600 mb-3"><i class="fas fa-cloud-upload-alt"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-indigo-800">Deployment</h3>
+        <p class="text-gray-600 text-sm">Infrastructure and operations</p>
       </a>
 
-      <a href="#ethics" class="nav-tile">
-        <h3>Ethics & Safety</h3>
-        <p>Responsible AI implementation</p>
+      <a href="#ethics" class="bg-gradient-to-br from-teal-50 to-teal-100 hover:from-teal-100 hover:to-teal-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-teal-200 hover:ring-teal-300 transform hover:scale-105">
+        <div class="text-5xl text-teal-600 mb-3"><i class="fas fa-balance-scale"></i></div>
+        <h3 class="font-extrabold text-xl mb-2 text-teal-800">Ethics & Safety</h3>
+        <p class="text-gray-600 text-sm">Responsible AI implementation</p>
       </a>
     </nav>
 
-    <section id="goal-definition" class="pattern-details" style="margin-top: 2.5rem;">
-      <div class="pattern-header">
-        <h2>Goal Definition & Problem Space Analysis</h2>
+    <!-- Goal Definition Section -->
+    <section id="goal-definition" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-bullseye text-blue-600"></i> Goal Definition & Problem Space Analysis
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Clear articulation of business problems and desired outcomes is fundamental to successful agentic system implementation.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Clear articulation of business problems and desired outcomes is fundamental to successful agentic system implementation.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Business Problem Articulation:</strong> Clearly articulate the business problem and desired outcomes.</li>
-            <li><strong>Goal Decomposition:</strong> Decompose complex goals into sub-goals amenable to agentic solutions.</li>
-            <li><strong>External Interaction Points:</strong> Identify necessary external interactions (data sources, systems, human intervention points).</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Business Problem Articulation:</strong> Clearly articulate the business problem and desired outcomes.</li>
+            <li><strong class="text-gray-900">Goal Decomposition:</strong> Decompose complex goals into sub-goals amenable to agentic solutions.</li>
+            <li><strong class="text-gray-900">External Interaction Points:</strong> Identify necessary external interactions (data sources, systems, human intervention points).</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="pattern-selection" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Agentic Pattern Selection & Design</h2>
+    <!-- Pattern Selection Section -->
+    <section id="pattern-selection" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-puzzle-piece text-blue-600"></i> Agentic Pattern Selection & Design
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Strategic selection and design of agentic patterns to achieve business objectives.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Strategic selection and design of agentic patterns to achieve business objectives.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Core Pattern Mapping:</strong> Map sub-goals to appropriate core agentic patterns (e.g., Planning for sequential tasks, Multi-Agent for collaborative expertise, Tool Use for external interactions).</li>
-            <li><strong>Orchestration Flow:</strong> Design the orchestration flow: how patterns chain, route, parallelize, and reflect.</li>
-            <li><strong>Autonomy Levels:</strong> Consider the level of autonomy and required human-in-the-loop interventions.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Core Pattern Mapping:</strong> Map sub-goals to appropriate core agentic patterns (e.g., Planning for sequential tasks, Multi-Agent for collaborative expertise, Tool Use for external interactions).</li>
+            <li><strong class="text-gray-900">Orchestration Flow:</strong> Design the orchestration flow: how patterns chain, route, parallelize, and reflect.</li>
+            <li><strong class="text-gray-900">Autonomy Levels:</strong> Consider the level of autonomy and required human-in-the-loop interventions.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="tooling" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Tooling & Integration Layer</h2>
+    <!-- Tooling & Integration Layer Section -->
+    <section id="tooling" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-tools text-blue-600"></i> Tooling & Integration Layer
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Robust integration with external systems and tools is essential for agent functionality.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Robust integration with external systems and tools is essential for agent functionality.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Tool Identification:</strong> Identify and define necessary external tools (APIs, databases, legacy systems) for agent interaction.</li>
-            <li><strong>Secure Interfaces:</strong> Develop secure and performant interfaces for agents to interact with these tools.</li>
-            <li><strong>Error Handling:</strong> Establish robust error handling and retry mechanisms for tool calls.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Tool Identification:</strong> Identify and define necessary external tools (APIs, databases, legacy systems) for agent interaction.</li>
+            <li><strong class="text-gray-900">Secure Interfaces:</strong> Develop secure and performant interfaces for agents to interact with these tools.</li>
+            <li><strong class="text-gray-900">Error Handling:</strong> Establish robust error handling and retry mechanisms for tool calls.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="data-management" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Data & Knowledge Management</h2>
+    <!-- Data & Knowledge Management Section -->
+    <section id="data-management" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-database text-blue-600"></i> Data & Knowledge Management
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Effective data and knowledge management is crucial for agent performance and reliability.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Effective data and knowledge management is crucial for agent performance and reliability.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Data Pipelines:</strong> Define data sources and pipelines for agent input and output.</li>
-            <li><strong>Memory Management:</strong> Implement strategies for agent memory, context management, and knowledge retrieval (e.g., RAG architectures).</li>
-            <li><strong>Data Governance:</strong> Ensure data governance, privacy, and security measures are in place.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Data Pipelines:</strong> Define data sources and pipelines for agent input and output.</li>
+            <li><strong class="text-gray-900">Memory Management:</strong> Implement strategies for agent memory, context management, and knowledge retrieval (e.g., RAG architectures).</li>
+            <li><strong class="text-gray-900">Data Governance:</strong> Ensure data governance, privacy, and security measures are in place.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="observability" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Observability & Governance Layer</h2>
+    <!-- Observability & Governance Layer Section -->
+    <section id="observability" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-eye text-blue-600"></i> Observability & Governance Layer
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Comprehensive monitoring and governance ensures system reliability and compliance.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Comprehensive monitoring and governance ensures system reliability and compliance.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Logging & Monitoring:</strong> Implement comprehensive logging, monitoring, and tracing for agent decisions, actions, and performance.</li>
-            <li><strong>Behavior Governance:</strong> Establish governance mechanisms for prompt engineering, model updates, and agent behavior.</li>
-            <li><strong>Performance KPIs:</strong> Define KPIs for agent performance and business impact.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Logging & Monitoring:</strong> Implement comprehensive logging, monitoring, and tracing for agent decisions, actions, and performance.</li>
+            <li><strong class="text-gray-900">Behavior Governance:</strong> Establish governance mechanisms for prompt engineering, model updates, and agent behavior.</li>
+            <li><strong class="text-gray-900">Performance KPIs:</strong> Define KPIs for agent performance and business impact.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="deployment" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Deployment & Operations</h2>
+    <!-- Deployment & Operations Section -->
+    <section id="deployment" class="mb-20">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-cloud-upload-alt text-blue-600"></i> Deployment & Operations
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Strategic deployment and operational management ensure system scalability and reliability.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Strategic deployment and operational management ensure system scalability and reliability.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Infrastructure Selection:</strong> Select appropriate deployment infrastructure (cloud, on-premise, hybrid).</li>
-            <li><strong>Scalability:</strong> Implement scalable and resilient deployment strategies.</li>
-            <li><strong>CI/CD Pipeline:</strong> Establish continuous integration/continuous deployment (CI/CD) pipelines for agent updates.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Infrastructure Selection:</strong> Select appropriate deployment infrastructure (cloud, on-premise, hybrid).</li>
+            <li><strong class="text-gray-900">Scalability:</strong> Implement scalable and resilient deployment strategies.</li>
+            <li><strong class="text-gray-900">CI/CD Pipeline:</strong> Establish continuous integration/continuous deployment (CI/CD) pipelines for agent updates.</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section id="ethics" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Ethical & Safety Considerations</h2>
+    <!-- Ethical & Safety Considerations Section -->
+    <section id="ethics" class="mb-12">
+      <div class="mb-8">
+        <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+            <i class="fas fa-balance-scale text-blue-600"></i> Ethical & Safety Considerations
+        </h2>
       </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Overview</h3>
-          <p>Ethical considerations and safety protocols are essential for responsible AI implementation.</p>
+      <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-info-circle text-blue-500"></i> Overview
+          </h3>
+          <p class="text-gray-700 leading-relaxed">Ethical considerations and safety protocols are essential for responsible AI implementation.</p>
         </div>
-        <div class="pattern-characteristics">
-          <h3>Key Components</h3>
-          <ul>
-            <li><strong>Bias Mitigation:</strong> Proactively identify and mitigate potential biases, fairness issues, and unintended consequences.</li>
-            <li><strong>Transparency:</strong> Design for transparency and explainability where possible.</li>
-            <li><strong>Safety Protocols:</strong> Establish clear safety protocols and human oversight.</li>
+        <div class="mb-10">
+          <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+            <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+          </h3>
+          <ul class="space-y-4 text-gray-700 list-disc list-inside ml-4">
+            <li><strong class="text-gray-900">Bias Mitigation:</strong> Proactively identify and mitigate potential biases, fairness issues, and unintended consequences.</li>
+            <li><strong class="text-gray-900">Transparency:</strong> Design for transparency and explainability where possible.</li>
+            <li><strong class="text-gray-900">Safety Protocols:</strong> Establish clear safety protocols and human oversight.</li>
           </ul>
         </div>
       </div>
@@ -211,4 +290,4 @@
   </div>
   <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

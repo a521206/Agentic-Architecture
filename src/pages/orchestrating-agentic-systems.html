@@ -1,211 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orchestrating Agentic Systems</title>
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orchestrating Agentic Systems</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Custom gradients for section headers */
+        .section-header-blue {
+            background-image: linear-gradient(to right, #60a5fa, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-purple {
+            background-image: linear-gradient(to right, #a78bfa, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-header-green {
+            background-image: linear-gradient(to right, #4ade80, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        /* Back to Top Button Styles */
+        .go-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 50;
+        }
+        .go-to-top:hover {
+            background: rgba(29, 78, 216, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+        }
+        .go-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
 </head>
-<body class="pattern-page">
-  <div class="content">
-    <div class="section-navigation">
-      <div class="nav-buttons">
-        <a href="comparative-analysis-and-pattern-interrelationships.html" class="nav-button prev">
-          <i class="fas fa-arrow-left"></i> Previous: Analysis
-        </a>
-        <a href="../../index.html" class="nav-button home">
-          <i class="fas fa-home"></i> Home
-        </a>
-        <a href="enterprise-adoption-and-implementation.html" class="nav-button next">
-          Next: Enterprise <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="comparative-analysis-and-pattern-interrelationships.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Analysis
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="enterprise-adoption-and-implementation.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Enterprise <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        
+        <!-- Header -->
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Orchestrating Agentic Systems</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">While individual agentic patterns provide distinct capabilities, their true power in enterprise applications lies in their orchestration. Complex agentic systems rarely rely on a single pattern; instead, they integrate multiple patterns to create sophisticated workflows capable of addressing intricate business problems.</p>
+        </header>
+
+        <!-- Navigation Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <a href="#core" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-cubes"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800">Core Orchestration Strategies</h3>
+                <p class="text-gray-600 text-sm">Understanding fundamental approaches to coordinating agentic systems</p>
+            </a>
+            <a href="#advanced" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-cogs"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800">Advanced Orchestration Techniques</h3>
+                <p class="text-gray-600 text-sm">Advanced techniques for complex agentic system coordination</p>
+            </a>
+            <a href="#performance" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center text-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-tachometer-alt"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800">Performance Optimization</h3>
+                <p class="text-gray-600 text-sm">Techniques for optimizing agentic system performance</p>
+            </a>
+        </nav>
+
+        <!-- Core Orchestration Strategies Section -->
+        <section id="core" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-blue bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-cubes text-blue-600"></i> Core Orchestration Strategies
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-info-circle text-blue-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">These foundational strategies are crucial for structuring how individual AI agents interact and contribute to complex, multi-step tasks within an agentic system. They define the basic flow and delegation of responsibilities.</p>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-project-diagram text-blue-500"></i> Sequential Orchestration
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        In sequential orchestration, agentic patterns are chained in a predefined order, where the output of one agent or pattern becomes the input for the next. This ensures a logical progression for complex tasks, simulating a step-by-step reasoning process.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li><strong class="text-gray-900">Planning Agent:</strong> Initiates the workflow by defining the overall strategy and breaking down the task into sequential steps.</li>
+                        <li><strong class="text-gray-900">Tool Use Agents:</strong> Execute specific actions or retrieve information using external tools, feeding their results to the next stage.</li>
+                        <li><strong class="text-gray-900">Reflection Agent:</strong> Reviews and refines the outcomes of preceding steps, providing feedback for improvement or triggering re-evaluation.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-route text-blue-500"></i> Dynamic Routing & Specialization
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Dynamic routing enables intelligent, agent-driven distribution of tasks to specialized agents based on real-time analysis of the input or current state. This pattern allows for adaptive and efficient handling of diverse inquiries or sub-problems.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li><strong class="text-gray-900">Intake Agent:</strong> Analyzes incoming requests, categorizing them and extracting key information.</li>
+                        <li><strong class="text-gray-900">Routing Logic:</strong> An agent-driven mechanism (often an LLM with specific instructions) determines the most appropriate specialized agent or workflow based on the intake analysis.</li>
+                        <li><strong class="text-gray-900">Multi-Agent Collaboration:</strong> The routed task is handled by a team of agents with specific expertise, fostering specialized problem-solving and potentially parallel execution for sub-tasks.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-lightbulb text-blue-500"></i> Use Cases
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">Example: Document Processing Pipeline</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4 space-y-1">
+                                <li>Planning agent analyzes document type and requirements</li>
+                                <li>Extraction agent pulls relevant information</li>
+                                <li>Validation agent checks data accuracy</li>
+                                <li>Formatting agent structures the output</li>
+                                <li>Review agent ensures quality and completeness</li>
+                            </ol>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">Example: Customer Service System</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4 space-y-1">
+                                <li>Intake agent categorizes customer inquiries</li>
+                                <li>Routes technical issues to technical support agents</li>
+                                <li>Routes billing questions to financial agents</li>
+                                <li>Routes general inquiries to general support agents</li>
+                                <li>Escalates complex issues to human supervisors</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Orchestration Techniques Section -->
+        <section id="advanced" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-purple bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+                    <i class="fas fa-cogs text-purple-600"></i> Advanced Orchestration Techniques
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-info-circle text-purple-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Beyond basic sequencing and routing, these advanced techniques enable agentic systems to exhibit greater resilience, adaptability, and self-improvement by deeply integrating and coordinating various agentic patterns.</p>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-sync-alt text-purple-500"></i> Iterative Refinement
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Iterative refinement patterns involve cycles of execution and self-correction within an agentic system, where agents continuously evaluate their outputs and refine their approach. This drives continuous improvement and higher quality results.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li><strong class="text-gray-900">Embedded Reflection:</strong> Agents apply a Reflection pattern at key checkpoints or after each step to critically assess their own work or the system's state.</li>
+                        <li><strong class="text-gray-900">Continuous Quality Assessment:</strong> Agents use internal criteria or external feedback (e.g., from a separate evaluation agent) to gauge the quality and correctness of results.</li>
+                        <li><strong class="text-gray-900">Progressive Enhancement:</strong> Based on self-assessment, agents iteratively modify their plans, re-execute tasks, or adjust parameters to progressively improve the output until a desired quality threshold is met.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-random text-purple-500"></i> Hybrid Approaches
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Hybrid approaches combine multiple distinct agentic patterns or orchestration strategies to achieve optimal performance for specific, complex scenarios. This leverages the strengths of different patterns to address multifaceted problems.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li><strong class="text-gray-900">High-Level Strategic Planning:</strong> A master Planning agent may define the overall strategy, while lower-level agents utilize different patterns (e.g., ReAct, Tool Use) for execution.</li>
+                        <li><strong class="text-gray-900">Detailed Execution Management:</strong> Blends structured execution (e.g., a predefined sequential pipeline for common cases) with flexible, dynamic problem-solving (e.g., routing to a creative agent for novel issues).</li>
+                        <li><strong class="text-gray-900">Integrated Feedback Loops:</strong> Incorporates Reflection and learning mechanisms throughout the system, allowing different patterns to inform and adapt based on collective performance and outcomes.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-lightbulb text-purple-500"></i> Use Cases
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">Example: Code Review System</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4 space-y-1">
+                                <li>Initial review agent checks basic code quality</li>
+                                <li>Security agent identifies potential vulnerabilities</li>
+                                <li>Performance agent suggests optimizations</li>
+                                <li>Refinement agent iteratively improves suggestions</li>
+                                <li>Final review agent ensures all improvements are valid</li>
+                            </ol>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200">
+                            <h4 class="font-bold text-lg mb-2 text-gray-900">Example: Project Management System</h4>
+                            <ol class="list-decimal list-inside text-gray-700 ml-4 space-y-1">
+                                <li>Strategic agent sets project goals and milestones</li>
+                                <li>Resource agent allocates team members and tools</li>
+                                <li>Progress agent tracks and reports status</li>
+                                <li>Adaptation agent adjusts plans based on feedback</li>
+                                <li>Integration agent ensures all components work together</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Optimization Section -->
+        <section id="performance" class="mb-12">
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold section-header-green bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+                    <i class="fas fa-tachometer-alt text-green-600"></i> Performance Optimization
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-info-circle text-green-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Optimizing the performance of orchestrated agentic systems is crucial for efficiency and responsiveness. Parallel processing is a key technique to achieve this.</p>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-bezier-curve text-green-500"></i> Parallel Processing in Agentic Systems
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        In agentic systems, parallel processing is a fundamental pattern for executing multiple agent tasks or computations concurrently, significantly enhancing throughput and enabling the scaling of complex workflows and maximizing resource utilization across various agents.
+                    </p>
+                    <h4 class="font-semibold text-xl mb-2 text-gray-900">Key Aspects:</h4>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li>
+                            <strong class="text-gray-900">Concurrent Agent Task Execution:</strong> Involves specialized agents working on independent or semi-independent parts of a larger problem simultaneously. This is often achieved through asynchronous operations, allowing agents to initiate long-running tasks (e.g., LLM calls, tool invocations) without blocking, and processing results later.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Coordinated Multi-Agent Operations:</strong> Ensures that concurrently running agents effectively cooperate. This requires robust coordination mechanisms such as shared state management, inter-agent messaging queues, or a supervisor agent to aggregate or synthesize collective results and prevent conflicts.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Distributed Resource Utilization:</strong> Achieves high efficiency by distributing computational load across available processors, cores, or even separate machines. This prevents bottlenecks and optimizes the use of distributed computing resources for agent workloads.
+                        </li>
+                    </ul>
+                    <h4 class="font-semibold text-xl mb-2 text-gray-900 mt-6">Common Approaches:</h4>
+                    <ul class="list-disc list-inside text-gray-700 ml-4 space-y-2">
+                        <li>
+                            <strong class="text-gray-900">Agent-Specific Task Parallelism:</strong> Different specialized agents within a workflow execute distinct tasks in parallel. For instance, one agent might be dedicated to data fetching, another to real-time analysis, and a third to report generation, all operating concurrently.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Agent-Driven Data Parallelism:</strong> Multiple instances of the same agent, or different specialized agents, process distinct subsets of data simultaneously. This is highly effective for scaling operations involving large volumes of inputs, such as analyzing numerous documents or handling a high volume of customer inquiries.
+                        </li>
+                        <li>
+                            <strong class="text-gray-900">Asynchronous Agent Operations:</strong> Agentic frameworks heavily rely on asynchronous programming models. This enables agents to initiate non-blocking operations, such as making external API calls or interacting with large language models, allowing them to continue with other computations while awaiting external responses.
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-lightbulb text-green-500"></i> Use Cases
+                    </h3>
+                    <div class="bg-gray-50 rounded-xl p-6 shadow-inner border border-gray-200 mt-6">
+                        <h4 class="font-bold text-lg mb-2 text-gray-900">Example: Data Analysis Pipeline</h4>
+                        <ol class="list-decimal list-inside text-gray-700 ml-4 space-y-1">
+                            <li>Data ingestion agent processes multiple sources simultaneously</li>
+                            <li>Multiple analysis agents work in parallel on different aspects</li>
+                            <li>Aggregation agent combines results efficiently</li>
+                            <li>Visualization agent creates real-time dashboards</li>
+                            <li>Monitoring agent ensures optimal resource usage</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    
-    <header>
-      <h1>Orchestrating Agentic Systems</h1>
-      <p>While individual agentic patterns provide distinct capabilities, their true power in enterprise applications lies in their orchestration. Complex agentic systems rarely rely on a single pattern; instead, they integrate multiple patterns to create sophisticated workflows capable of addressing intricate business problems.</p>
-    </header>
-
-    <nav class="nav-tiles">
-      <a href="#core" class="nav-tile">
-        <h3>Core Orchestration Strategies</h3>
-        <p>Understanding fundamental approaches to coordinating agentic systems</p>
-      </a>
-      <a href="#advanced" class="nav-tile">
-        <h3>Advanced Orchestration Techniques</h3>
-        <p>Advanced techniques for complex agentic system coordination</p>
-      </a>
-      <a href="#performance" class="nav-tile">
-        <h3>Performance Optimization</h3>
-        <p>Techniques for optimizing agentic system performance</p>
-      </a>
-    </nav>
-
-    <section id="core" class="pattern-details" style="margin-top: 2.5rem;">
-      <div class="pattern-header">
-        <h2>Core Orchestration Strategies</h2>
-      </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Description</h3>
-          <p>These foundational strategies are crucial for structuring how individual AI agents interact and contribute to complex, multi-step tasks within an agentic system. They define the basic flow and delegation of responsibilities.</p>
-        </div>
-
-        <div class="pattern-characteristics">
-          <h3>Sequential Orchestration</h3>
-          <p>
-            In sequential orchestration, agentic patterns are chained in a predefined order, where the output of one agent or pattern becomes the input for the next. This ensures a logical progression for complex tasks, simulating a step-by-step reasoning process.
-          </p>
-          <ul>
-            <li><strong>Planning Agent:</strong> Initiates the workflow by defining the overall strategy and breaking down the task into sequential steps.</li>
-            <li><strong>Tool Use Agents:</strong> Execute specific actions or retrieve information using external tools, feeding their results to the next stage.</li>
-            <li><strong>Reflection Agent:</strong> Reviews and refines the outcomes of preceding steps, providing feedback for improvement or triggering re-evaluation.</li>
-          </ul>
-
-          <h3>Dynamic Routing & Specialization</h3>
-          <p>
-            Dynamic routing enables intelligent, agent-driven distribution of tasks to specialized agents based on real-time analysis of the input or current state. This pattern allows for adaptive and efficient handling of diverse inquiries or sub-problems.
-          </p>
-          <ul>
-            <li><strong>Intake Agent:</strong> Analyzes incoming requests, categorizing them and extracting key information.</li>
-            <li><strong>Routing Logic:</strong> An agent-driven mechanism (often an LLM with specific instructions) determines the most appropriate specialized agent or workflow based on the intake analysis.</li>
-            <li><strong>Multi-Agent Collaboration:</strong> The routed task is handled by a team of agents with specific expertise, fostering specialized problem-solving and potentially parallel execution for sub-tasks.</li>
-          </ul>
-        </div>
-
-        <div class="pattern-use-cases">
-          <h3>Example: Document Processing Pipeline</h3>
-          <ol>
-            <li>Planning agent analyzes document type and requirements</li>
-            <li>Extraction agent pulls relevant information</li>
-            <li>Validation agent checks data accuracy</li>
-            <li>Formatting agent structures the output</li>
-            <li>Review agent ensures quality and completeness</li>
-          </ol>
-
-          <h3>Example: Customer Service System</h3>
-          <ol>
-            <li>Intake agent categorizes customer inquiries</li>
-            <li>Routes technical issues to technical support agents</li>
-            <li>Routes billing questions to financial agents</li>
-            <li>Routes general inquiries to general support agents</li>
-            <li>Escalates complex issues to human supervisors</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section id="advanced" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Advanced Orchestration Techniques</h2>
-      </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Description</h3>
-          <p>Beyond basic sequencing and routing, these advanced techniques enable agentic systems to exhibit greater resilience, adaptability, and self-improvement by deeply integrating and coordinating various agentic patterns.</p>
-        </div>
-
-        <div class="pattern-characteristics">
-          <h3>Iterative Refinement</h3>
-          <p>
-            Iterative refinement patterns involve cycles of execution and self-correction within an agentic system, where agents continuously evaluate their outputs and refine their approach. This drives continuous improvement and higher quality results.
-          </p>
-          <ul>
-            <li><strong>Embedded Reflection:</strong> Agents apply a Reflection pattern at key checkpoints or after each step to critically assess their own work or the system's state.</li>
-            <li><strong>Continuous Quality Assessment:</strong> Agents use internal criteria or external feedback (e.g., from a separate evaluation agent) to gauge the quality and correctness of results.</li>
-            <li><strong>Progressive Enhancement:</strong> Based on self-assessment, agents iteratively modify their plans, re-execute tasks, or adjust parameters to progressively improve the output until a desired quality threshold is met.</li>
-          </ul>
-
-          <h3>Hybrid Approaches</h3>
-          <p>
-            Hybrid approaches combine multiple distinct agentic patterns or orchestration strategies to achieve optimal performance for specific, complex scenarios. This leverages the strengths of different patterns to address multifaceted problems.
-          </p>
-          <ul>
-            <li><strong>High-Level Strategic Planning:</strong> A master Planning agent may define the overall strategy, while lower-level agents utilize different patterns (e.g., ReAct, Tool Use) for execution.</li>
-            <li><strong>Detailed Execution Management:</strong> Blends structured execution (e.g., a predefined sequential pipeline for common cases) with flexible, dynamic problem-solving (e.g., routing to a creative agent for novel issues).</li>
-            <li><strong>Integrated Feedback Loops:</strong> Incorporates Reflection and learning mechanisms throughout the system, allowing different patterns to inform and adapt based on collective performance and outcomes.</li>
-          </ul>
-        </div>
-
-        <div class="pattern-use-cases">
-          <h3>Example: Code Review System</h3>
-          <ol>
-            <li>Initial review agent checks basic code quality</li>
-            <li>Security agent identifies potential vulnerabilities</li>
-            <li>Performance agent suggests optimizations</li>
-            <li>Refinement agent iteratively improves suggestions</li>
-            <li>Final review agent ensures all improvements are valid</li>
-          </ol>
-
-          <h3>Example: Project Management System</h3>
-          <ol>
-            <li>Strategic agent sets project goals and milestones</li>
-            <li>Resource agent allocates team members and tools</li>
-            <li>Progress agent tracks and reports status</li>
-            <li>Adaptation agent adjusts plans based on feedback</li>
-            <li>Integration agent ensures all components work together</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <section id="performance" class="pattern-details">
-      <div class="pattern-header">
-        <h2>Performance Optimization</h2>
-      </div>
-      <div class="pattern-content">
-        <div class="pattern-description">
-          <h3>Description</h3>
-          <p>Optimizing the performance of orchestrated agentic systems is crucial for efficiency and responsiveness. Parallel processing is a key technique to achieve this.</p>
-        </div>
-
-        <div class="pattern-characteristics">
-          <h3>Parallel Processing in Agentic Systems</h3>
-          <p>
-            In agentic systems, parallel processing is a fundamental pattern for executing multiple agent tasks or computations concurrently, significantly enhancing throughput and enabling the scaling of complex workflows and maximizing resource utilization across various agents.
-          </p>
-          <h4>Key Aspects:</h4>
-          <ul>
-            <li>
-              <strong>Concurrent Agent Task Execution:</strong> Involves specialized agents working on independent or semi-independent parts of a larger problem simultaneously. This is often achieved through asynchronous operations, allowing agents to initiate long-running tasks (e.g., LLM calls, tool invocations) without blocking, and processing results later.
-            </li>
-            <li>
-              <strong>Coordinated Multi-Agent Operations:</strong> Ensures that concurrently running agents effectively cooperate. This requires robust coordination mechanisms such as shared state management, inter-agent messaging queues, or a supervisor agent to aggregate or synthesize collective results and prevent conflicts.
-            </li>
-            <li>
-              <strong>Distributed Resource Utilization:</strong> Achieves high efficiency by distributing computational load across available processors, cores, or even separate machines. This prevents bottlenecks and optimizes the use of distributed computing resources for agent workloads.
-            </li>
-          </ul>
-          <h4>Common Approaches:</h4>
-          <ul>
-            <li>
-              <strong>Agent-Specific Task Parallelism:</strong> Different specialized agents within a workflow execute distinct tasks in parallel. For instance, one agent might be dedicated to data fetching, another to real-time analysis, and a third to report generation, all operating concurrently.
-            </li>
-            <li>
-              <strong>Agent-Driven Data Parallelism:</strong> Multiple instances of the same agent, or different specialized agents, process distinct subsets of data simultaneously. This is highly effective for scaling operations involving large volumes of inputs, such as analyzing numerous documents or handling a high volume of customer inquiries.
-            </li>
-            <li>
-              <strong>Asynchronous Agent Operations:</strong> Agentic frameworks heavily rely on asynchronous programming models. This enables agents to initiate non-blocking operations, such as making external API calls or interacting with large language models, allowing them to continue with other computations while awaiting external responses.
-            </li>
-          </ul>
-        </div>
-
-        <div class="pattern-use-cases">
-          <h3>Example: Data Analysis Pipeline</h3>
-          <ol>
-            <li>Data ingestion agent processes multiple sources simultaneously</li>
-            <li>Multiple analysis agents work in parallel on different aspects</li>
-            <li>Aggregation agent combines results efficiently</li>
-            <li>Visualization agent creates real-time dashboards</li>
-            <li>Monitoring agent ensures optimal resource usage</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-  </div>
-  <script src="../js/app.js"></script>
-  <script src="../js/pattern-details.js"></script>
+    <script src="../js/app.js"></script>
 </body>
 </html>
