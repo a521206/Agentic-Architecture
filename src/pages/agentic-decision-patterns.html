@@ -4,67 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Decision Patterns</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+    </style>
 </head>
-<body class="pattern-page">
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="agentic-communication-patterns.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Communication
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="agentic-learning-patterns.html" class="nav-button next">
-                    Next: Learning <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="agentic-communication-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Communication
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="agentic-learning-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Learning <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Agentic Decision Patterns</h1>
-            <p class="subtitle">Patterns for intelligent decision-making and problem-solving in agentic systems</p>
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Decision Patterns</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Patterns for intelligent decision-making and problem-solving in agentic systems</p>
         </header>
 
-        <div class="nav-tiles">
-            <a href="#rule-engine" class="nav-tile">
-                    <i class="fas fa-cogs"></i>
-                <h3>Rule Engine</h3>
-                <p>Rule-based decision making using explicit business rules and conditions</p>
+        <!-- Pattern Navigation Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <a href="#rule-engine" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-cogs"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800 text-center">Rule Engine</h3>
+                <p class="text-gray-600 text-center text-sm">Rule-based decision making using explicit business rules and conditions</p>
             </a>
-            <a href="#reinforcement" class="nav-tile">
-                <i class="fas fa-robot"></i>
-                <h3>Reinforcement Learning</h3>
-                <p>Learning optimal decision-making through trial and error</p>
+            <a href="#reinforcement" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-robot"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800 text-center">Reinforcement Learning</h3>
+                <p class="text-gray-600 text-center text-sm">Learning optimal decision-making through trial and error</p>
             </a>
-            <a href="#expert-system" class="nav-tile">
-                <i class="fas fa-brain"></i>
-                <h3>Expert System</h3>
-                <p>Knowledge-based decision making using expert rules and facts</p>
+            <a href="#expert-system" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-brain"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800 text-center">Expert System</h3>
+                <p class="text-gray-600 text-center text-sm">Knowledge-based decision making using expert rules and facts</p>
             </a>
-        </div>
+        </nav>
 
-        <section id="rule-engine" class="pattern-section">
-            <div class="pattern-header">
-                <h2><i class="fas fa-cogs"></i> Rule Engine</h2>
-                <p>Rule-based decision making using explicit business rules and conditions</p>
+        <!-- Rule Engine Section -->
+        <section id="rule-engine" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-cogs text-blue-600"></i> Rule Engine
+                </h2>
             </div>
-                <div class="pattern-description">
-                <p>Rule Engine is a pattern that implements structured decision-making through a collection of explicit rules and conditions. Each rule consists of conditions that, when met, trigger specific actions or decisions. This pattern is particularly useful for implementing complex business logic and deterministic decision-making processes in agentic systems.</p>
-                
-                <p>There are several approaches to implementing rule engines:</p>
-                <ul>
-                    <li><strong>Forward Chaining:</strong> Rules are evaluated in sequence, with each rule potentially triggering other rules.</li>
-                    <li><strong>Backward Chaining:</strong> Rules are evaluated in reverse, starting from the goal and working backwards.</li>
-                    <li><strong>Drools:</strong> A popular open-source business rule management system that provides a powerful rule engine with complex event processing. <a href="https://www.drools.org/" target="_blank">Read about Drools</a></li>
-                    <li><strong>Easy Rules:</strong> A simple rules engine for Java that makes it easy to implement business rules. <a href="https://github.com/j-easy/easy-rules" target="_blank">Learn about Easy Rules</a></li>
-                </ul>
+            <div class="bg-white/95 rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-info-circle text-blue-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Rule Engine is a pattern that implements structured decision-making through a collection of explicit rules and conditions. Each rule consists of conditions that, when met, trigger specific actions or decisions. This pattern is particularly useful for implementing complex business logic and deterministic decision-making processes in agentic systems.</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing rule engines:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
+                        <li><span class="font-bold text-gray-800">Forward Chaining:</span> Rules are evaluated in sequence, with each rule potentially triggering other rules.</li>
+                        <li><span class="font-bold text-gray-800">Backward Chaining:</span> Rules are evaluated in reverse, starting from the goal and working backwards.</li>
+                        <li><span class="font-bold text-gray-800">Drools:</span> A popular open-source business rule management system that provides a powerful rule engine with complex event processing. <a href="https://www.drools.org/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Drools</a></li>
+                        <li><span class="font-bold text-gray-800">Easy Rules:</span> A simple rules engine for Java that makes it easy to implement business rules. <a href="https://github.com/j-easy/easy-rules" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Easy Rules</a></li>
+                    </ul>
                 </div>
-                <div class="pattern-implementation">
-                <h3><i class="fas fa-code"></i> Implementation using Drools</h3>
-                <pre><code>// Using Drools for Rule Engine implementation
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-code text-blue-500"></i> Implementation using Drools
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Drools for Rule Engine implementation
 package com.example.rules;
 
 import org.drools.core.event.DefaultAgendaEventListener;
@@ -160,53 +178,63 @@ rule "Approved Loan"
 end
 */</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
-                <ul>
-                    <li>
-                        <strong>Business Rules</strong>
-                        <p>Implement complex business logic and decision-making processes</p>
-                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
-                    </li>
-                    <li>
-                        <strong>Workflow Management</strong>
-                        <p>Manage complex workflows and business processes</p>
-                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
-                    </li>
-                    <li>
-                        <strong>Policy Enforcement</strong>
-                        <p>Enforce business policies and compliance rules</p>
-                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
-                    </li>
-                    <li>
-                        <strong>Decision Support</strong>
-                        <p>Provide decision support for complex scenarios</p>
-                        <a href="https://www.drools.org/learn/documentation.html" target="_blank">Learn more about Drools</a>
-                    </li>
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-tasks text-blue-500"></i> Use Cases
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
+                        <li>
+                            <strong>Business Rules</strong>
+                            <p class="mb-1">Implement complex business logic and decision-making processes</p>
+                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
+                        </li>
+                        <li>
+                            <strong>Workflow Management</strong>
+                            <p class="mb-1">Manage complex workflows and business processes</p>
+                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
+                        </li>
+                        <li>
+                            <strong>Policy Enforcement</strong>
+                            <p class="mb-1">Enforce business policies and compliance rules</p>
+                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
+                        </li>
+                        <li>
+                            <strong>Decision Support</strong>
+                            <p class="mb-1">Provide decision support for complex scenarios</p>
+                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
+                        </li>
                     </ul>
+                </div>
             </div>
         </section>
 
-        <section id="reinforcement" class="pattern-section">
-            <div class="pattern-header">
-                <h2><i class="fas fa-robot"></i> Reinforcement Learning</h2>
-                <p>Learning optimal decision-making through trial and error</p>
+        <!-- Reinforcement Learning Section -->
+        <section id="reinforcement" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+                    <i class="fas fa-robot text-purple-600"></i> Reinforcement Learning
+                </h2>
             </div>
-                <div class="pattern-description">
-                <p>Reinforcement Learning is a pattern that enables agents to learn optimal decision-making strategies through interaction with their environment. The agent receives feedback in the form of rewards or penalties, which it uses to improve its decision-making over time. This pattern is particularly valuable for learning complex behaviors and optimizing long-term outcomes in agentic systems.</p>
-                
-                <p>There are several approaches to implementing reinforcement learning:</p>
-                <ul>
-                    <li><strong>Q-Learning:</strong> Value-based method for learning optimal action-selection policies.</li>
-                    <li><strong>Policy Gradient:</strong> Direct optimization of policy parameters for better performance.</li>
-                    <li><strong>Stable Baselines3:</strong> A set of reliable implementations of reinforcement learning algorithms in PyTorch. <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Read about Stable Baselines3</a></li>
-                    <li><strong>Ray RLlib:</strong> A scalable reinforcement learning library that supports distributed training. <a href="https://docs.ray.io/en/latest/rllib/index.html" target="_blank">Learn about Ray RLlib</a></li>
-                </ul>
+            <div class="bg-white/95 rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-info-circle text-purple-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Reinforcement Learning is a pattern that enables agents to learn optimal decision-making strategies through interaction with their environment. The agent receives feedback in the form of rewards or penalties, which it uses to improve its decision-making over time. This pattern is particularly valuable for learning complex behaviors and optimizing long-term outcomes in agentic systems.</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing reinforcement learning:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
+                        <li><span class="font-bold text-gray-800">Q-Learning:</span> Value-based method for learning optimal action-selection policies.</li>
+                        <li><span class="font-bold text-gray-800">Policy Gradient:</span> Direct optimization of policy parameters for better performance.</li>
+                        <li><span class="font-bold text-gray-800">Stable Baselines3:</span> A set of reliable implementations of reinforcement learning algorithms in PyTorch. <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about Stable Baselines3</a></li>
+                        <li><span class="font-bold text-gray-800">Ray RLlib:</span> A scalable reinforcement learning library that supports distributed training. <a href="https://docs.ray.io/en/latest/rllib/index.html" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn about Ray RLlib</a></li>
+                    </ul>
                 </div>
-            <div class="pattern-implementation">
-                <h3><i class="fas fa-code"></i> Implementation using Stable Baselines3</h3>
-                <pre><code>// Using Stable Baselines3 for Reinforcement Learning implementation
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-code text-purple-500"></i> Implementation using Stable Baselines3
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Stable Baselines3 for Reinforcement Learning implementation
 import gym
 import numpy as np
 from stable_baselines3 import PPO
@@ -296,53 +324,63 @@ if __name__ == "__main__":
     # Save the trained model
     rl_system.save('cartpole_model')</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
-                <ul>
-                    <li>
-                        <strong>Game Playing</strong>
-                        <p>Learn optimal strategies for games and puzzles</p>
-                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
-                    </li>
-                    <li>
-                        <strong>Robotics Control</strong>
-                        <p>Control robots and autonomous systems</p>
-                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
-                    </li>
-                    <li>
-                        <strong>Resource Optimization</strong>
-                        <p>Optimize resource allocation and scheduling</p>
-                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
-                    </li>
-                    <li>
-                        <strong>Adaptive Systems</strong>
-                        <p>Build systems that adapt to changing conditions</p>
-                        <a href="https://stable-baselines3.readthedocs.io/" target="_blank">Learn more about Stable Baselines3</a>
-                    </li>
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-tasks text-purple-500"></i> Use Cases
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
+                        <li>
+                            <strong>Game Playing</strong>
+                            <p class="mb-1">Learn optimal strategies for games and puzzles</p>
+                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
+                        </li>
+                        <li>
+                            <strong>Robotics Control</strong>
+                            <p class="mb-1">Control robots and autonomous systems</p>
+                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
+                        </li>
+                        <li>
+                            <strong>Resource Optimization</strong>
+                            <p class="mb-1">Optimize resource allocation and scheduling</p>
+                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
+                        </li>
+                        <li>
+                            <strong>Adaptive Systems</strong>
+                            <p class="mb-1">Build systems that adapt to changing conditions</p>
+                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
+                        </li>
                     </ul>
+                </div>
             </div>
         </section>
 
-        <section id="expert-system" class="pattern-section">
-            <div class="pattern-header">
-                <h2><i class="fas fa-brain"></i> Expert System</h2>
-                <p>Knowledge-based decision making using expert rules and facts</p>
+        <!-- Expert System Section -->
+        <section id="expert-system" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+                    <i class="fas fa-brain text-green-600"></i> Expert System
+                </h2>
             </div>
-                <div class="pattern-description">
-                <p>Expert System is a pattern that emulates human decision-making by using a knowledge base of expert rules and facts. The system uses an inference engine to apply these rules to specific situations and reach conclusions. This pattern is particularly useful for implementing domain-specific decision-making capabilities in agentic systems.</p>
-                
-                <p>There are several approaches to implementing expert systems:</p>
-                <ul>
-                    <li><strong>Rule-Based Systems:</strong> Using if-then rules to represent expert knowledge.</li>
-                    <li><strong>Case-Based Reasoning:</strong> Solving new problems based on past experiences.</li>
-                    <li><strong>Neo4j:</strong> A graph database that provides powerful tools for building knowledge graphs and expert systems. <a href="https://neo4j.com/developer/kb/" target="_blank">Read about Neo4j</a></li>
-                    <li><strong>Protégé:</strong> An open-source ontology editor and knowledge management system. <a href="https://protege.stanford.edu/" target="_blank">Learn about Protégé</a></li>
-                </ul>
+            <div class="bg-white/95 rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200 backdrop-blur-sm">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-info-circle text-green-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Expert System is a pattern that emulates human decision-making by using a knowledge base of expert rules and facts. The system uses an inference engine to apply these rules to specific situations and reach conclusions. This pattern is particularly useful for implementing domain-specific decision-making capabilities in agentic systems.</p>
+                    
+                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing expert systems:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
+                        <li><span class="font-bold text-gray-800">Rule-Based Systems:</span> Using if-then rules to represent expert knowledge.</li>
+                        <li><span class="font-bold text-gray-800">Case-Based Reasoning:</span> Solving new problems based on past experiences.</li>
+                        <li><span class="font-bold text-gray-800">Neo4j:</span> A graph database that provides powerful tools for building knowledge graphs and expert systems. <a href="https://neo4j.com/developer/kb/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Read about Neo4j</a></li>
+                        <li><span class="font-bold text-gray-800">Protégé:</span> An open-source ontology editor and knowledge management system. <a href="https://protege.stanford.edu/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn about Protégé</a></li>
+                    </ul>
                 </div>
-            <div class="pattern-implementation">
-                <h3><i class="fas fa-code"></i> Implementation using Neo4j</h3>
-                <pre><code>// Using Neo4j for Expert System implementation
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-code text-green-500"></i> Implementation using Neo4j
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Neo4j for Expert System implementation
 from neo4j import GraphDatabase
 from typing import List, Dict, Any
 import json
@@ -496,34 +534,36 @@ if __name__ == "__main__":
     # Close connection
     expert.close()</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                <h3><i class="fas fa-tasks"></i> Use Cases</h3>
-                <ul>
-                    <li>
-                        <strong>Diagnostic Systems</strong>
-                        <p>Diagnose problems and provide solutions</p>
-                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
-                    </li>
-                    <li>
-                        <strong>Medical Diagnosis</strong>
-                        <p>Assist in medical diagnosis and treatment</p>
-                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
-                    </li>
-                    <li>
-                        <strong>Technical Support</strong>
-                        <p>Provide technical support and troubleshooting</p>
-                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
-                    </li>
-                    <li>
-                        <strong>Decision Support</strong>
-                        <p>Support complex decision-making processes</p>
-                        <a href="https://neo4j.com/docs/" target="_blank">Learn more about Neo4j</a>
-                    </li>
+                <div>
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-tasks text-green-500"></i> Use Cases
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
+                        <li>
+                            <strong>Diagnostic Systems</strong>
+                            <p class="mb-1">Diagnose problems and provide solutions</p>
+                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
+                        </li>
+                        <li>
+                            <strong>Medical Diagnosis</strong>
+                            <p class="mb-1">Assist in medical diagnosis and treatment</p>
+                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
+                        </li>
+                        <li>
+                            <strong>Technical Support</strong>
+                            <p class="mb-1">Provide technical support and troubleshooting</p>
+                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
+                        </li>
+                        <li>
+                            <strong>Decision Support</strong>
+                            <p class="mb-1">Support complex decision-making processes</p>
+                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
+                        </li>
                     </ul>
+                </div>
             </div>
         </section>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

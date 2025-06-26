@@ -4,97 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Workflow Patterns</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        /* Removed section-header-gradient global definition to allow per-section coloring */
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
 </head>
-<body class="pattern-page">
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="agentic-core-patterns.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Core Patterns
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="agentic-communication-patterns.html" class="nav-button next">
-                    Next: Communication <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="agentic-core-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Core Patterns
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="agentic-communication-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Communication <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Agentic Workflow Patterns</h1>
-            <p class="subtitle">Patterns for orchestrating complex workflows and business processes</p>
-            <div class="intro-note">
-                <p>These patterns represent the next level of complexity in building advanced LLM agent systems. While single-agent patterns focus on individual agent behavior, these workflow patterns address how to build robust systems composed of multiple agents, tools, and processes. They are foundational patterns from distributed systems architecture that are critical for creating reliable, scalable, and complex agentic applications.</p>
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Workflow Patterns</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Patterns for orchestrating complex workflows and business processes</p>
+            <div class="mt-6 max-w-3xl mx-auto bg-white/80 rounded-xl p-6 shadow-lg">
+                <p class="text-gray-700 leading-relaxed">These patterns represent the next level of complexity in building advanced LLM agent systems. While single-agent patterns focus on individual agent behavior, these workflow patterns address how to build robust systems composed of multiple agents, tools, and processes. They are foundational patterns from distributed systems architecture that are critical for creating reliable, scalable, and complex agentic applications.</p>
             </div>
         </header>
 
-        <nav class="nav-tiles">
-            <h3>Workflow Patterns</h3>
-            <a href="#pipeline" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-project-diagram"></i>
-                </div>
-                <h3>Pipeline</h3>
-                <p>Sequential task processing</p>
+        <!-- Pattern Navigation Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <a href="#pipeline" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-project-diagram"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800 text-center">Pipeline</h3>
+                <p class="text-gray-600 text-center text-sm">Sequential task processing</p>
             </a>
 
-            <a href="#orchestration" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-music"></i>
-                </div>
-                <h3>Orchestration</h3>
-                <p>Centralized workflow control</p>
+            <a href="#orchestration" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-music"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800 text-center">Orchestration</h3>
+                <p class="text-gray-600 text-center text-sm">Centralized workflow control</p>
             </a>
 
-            <a href="#choreography" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-random"></i>
-                </div>
-                <h3>Choreography</h3>
-                <p>Decentralized workflow coordination</p>
+            <a href="#choreography" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-random"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800 text-center">Choreography</h3>
+                <p class="text-gray-600 text-center text-sm">Decentralized workflow coordination</p>
             </a>
 
-            <a href="#saga" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <h3>Saga</h3>
-                <p>Distributed transaction management</p>
+            <a href="#saga" class="bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-yellow-200 hover:ring-yellow-300 transform hover:scale-105">
+                <div class="text-5xl text-yellow-600 mb-3"><i class="fas fa-book"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-yellow-800 text-center">Saga</h3>
+                <p class="text-gray-600 text-center text-sm">Distributed transaction management</p>
             </a>
 
-            <h3>Supporting Patterns</h3>
-            <a href="#event-sourcing" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-history"></i>
-                </div>
-                <h3>Event Sourcing</h3>
-                <p>State change tracking & audit</p>
+            
+            <div class="col-span-full text-center mb-4 mt-8">
+                <h3 class="text-2xl font-bold text-gray-700">Supporting Patterns</h3>
+            </div>
+            
+            <a href="#event-sourcing" class="bg-gradient-to-br from-pink-50 to-pink-100 hover:from-pink-100 hover:to-pink-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-pink-200 hover:ring-pink-300 transform hover:scale-105">
+                <div class="text-5xl text-pink-600 mb-3"><i class="fas fa-history"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-pink-800 text-center">Event Sourcing</h3>
+                <p class="text-gray-600 text-center text-sm">State change tracking & audit</p>
             </a>
 
-            <a href="#cqrs" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h3>CQRS</h3>
-                <p>Command Query Separation</p>
+            <a href="#cqrs" class="bg-gradient-to-br from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-indigo-200 hover:ring-indigo-300 transform hover:scale-105">
+                <div class="text-5xl text-indigo-600 mb-3"><i class="fas fa-exchange-alt"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-indigo-800 text-center">CQRS</h3>
+                <p class="text-gray-600 text-center text-sm">Command Query Separation</p>
             </a>
         </nav>
 
-        <section id="pipeline">
-            <h2>Pipeline</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern that processes tasks in a sequential pipeline, where each stage's output becomes the next stage's input. This pattern is particularly relevant for LLM agents as it directly parallels the concept of "Prompt Chaining" - the fundamental way to structure multi-step LLM tasks.</p>
-                    <p>Example LLM workflow: Define Goal → Search Web → Synthesize Findings → Draft Report → Review & Edit</p>
+        <section id="pipeline" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-project-diagram text-blue-600"></i> Pipeline Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-info-circle text-blue-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">A linear sequence of processing stages where the output of one stage is the input to the next. Each stage performs a specific transformation or analysis on the data.</p>
+                    <p class="text-gray-700 leading-relaxed">This pattern is particularly relevant for LLM agents as it directly parallels the concept of "Prompt Chaining" - the fundamental way to structure multi-step LLM tasks.</p>
+                    <p class="text-gray-700 leading-relaxed">Example LLM workflow: Define Goal → Search Web → Synthesize Findings → Draft Report → Review & Edit</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-puzzle-piece text-blue-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Stages: Processing steps</li>
                         <li>Data Flow: Information transfer</li>
                         <li>Error Handling: Failure management</li>
@@ -102,12 +118,13 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Pipeline {
-    constructor() {
-        this.stages = [];
-        this.data = new Map();
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-code text-blue-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class Pipeline {
+    constructor(stages = []) {
+        this.stages = stages;
     }
 
     addStage(stage) {
@@ -121,74 +138,40 @@
         for (const stage of this.stages) {
             try {
                 result = await stage.process(result);
-                this.data.set(stage.name, result);
             } catch (error) {
-                await this.handleError(stage, error);
+                console.error(`Error in pipeline stage: ${stage.name}`, error);
                 throw error;
             }
         }
         
         return result;
     }
-
-    async handleError(stage, error) {
-        // Implement error handling logic
-        console.error(`Error in stage ${stage.name}:`, error);
-    }
-
-    getStageData(stageName) {
-        return this.data.get(stageName);
-    }
 }</code></pre>
-                </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>LangChain's Sequential Chains</strong>
-                            <ul>
-                                <li><a href="https://python.langchain.com/docs/modules/chains/foundational/sequential_chains" target="_blank">Documentation</a> - Shows how to create multi-step LLM workflows</li>
-                                <li>Example: Research and summarization pipeline</li>
-                            </ul>
-                        </li>
-                        <li><strong>AutoGPT's Task Execution</strong>
-                            <ul>
-                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank">GitHub Repository</a> - Demonstrates complex task breakdown and execution</li>
-                                <li>Example: Autonomous research and writing workflows</li>
-                            </ul>
-                        </li>
-                        <li><strong>Hugging Face's Pipeline API</strong>
-                            <ul>
-                                <li><a href="https://huggingface.co/docs/transformers/pipeline" target="_blank">Documentation</a> - Shows how to chain multiple ML models</li>
-                                <li>Example: Text processing and generation pipelines</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Orchestration - For workflow control</li>
-                        <li>Choreography - For event-based flow</li>
-                        <li>Saga - For transaction management</li>
-                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="orchestration">
-            <h2>Orchestration</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern where a central orchestrator coordinates and manages the execution of multiple agents and tasks. In LLM systems, this is like having a "manager" agent that delegates tasks to specialized "worker" agents.</p>
-                    <p>Example: A "Travel Agent" orchestrator coordinating a "Flight Booker" agent and a "Hotel Booker" agent. Frameworks like CrewAI are built on this model.</p>
+        <section id="orchestration" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+                    <i class="fas fa-music text-purple-600"></i> Orchestration Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-info-circle text-purple-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">A central orchestrator manages and coordinates the execution of multiple agents or services to achieve a business process or workflow.</p>
+                    <p class="text-gray-700 leading-relaxed">This pattern is like having a "manager" agent that delegates tasks to specialized "worker" agents.</p>
+                    <p class="text-gray-700 leading-relaxed">Example: A "Travel Agent" orchestrator coordinating a "Flight Booker" agent and a "Hotel Booker" agent. Frameworks like CrewAI are built on this model.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-puzzle-piece text-purple-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Orchestrator: Central coordinator</li>
                         <li>Agent Registry: Available agents</li>
                         <li>Task Scheduler: Execution planning</li>
@@ -196,9 +179,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Orchestrator {
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-code text-purple-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class Orchestrator {
     constructor() {
         this.agents = {};
         this.scheduler = new TaskScheduler();
@@ -226,59 +211,30 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>CrewAI Framework</strong>
-                            <ul>
-                                <li><a href="https://github.com/joaomdmoura/crewAI" target="_blank">GitHub Repository</a> - A framework for orchestrating role-playing AI agents</li>
-                                <li>Example: Coordinating multiple specialized agents for complex tasks</li>
-                            </ul>
-                        </li>
-                        <li><strong>Microsoft Semantic Kernel</strong>
-                            <ul>
-                                <li><a href="https://github.com/microsoft/semantic-kernel" target="_blank">GitHub Repository</a> - Orchestrates AI services and traditional programming</li>
-                                <li>Example: Building AI applications with multiple components</li>
-                            </ul>
-                        </li>
-                        <li><strong>LangGraph</strong>
-                            <ul>
-                                <li><a href="https://github.com/langchain-ai/langgraph" target="_blank">GitHub Repository</a> - Builds stateful, multi-actor applications with LLMs</li>
-                                <li>Example: Complex agent workflows with state management</li>
-                            </ul>
-                        </li>
-                    </ul>
-                        <li>Complex system integration</li>
-                        <li>Multi-agent coordination</li>
-                        <li>Workflow automation</li>
-                        <li>Process management</li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Pipeline - For sequential processing</li>
-                        <li>Choreography - For decentralized control</li>
-                        <li>Saga - For transaction management</li>
-                    </ul>
-                </div>
             </div>
         </section>
 
-        <section id="choreography">
-            <h2>Choreography</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern where agents interact directly with each other without central coordination, following predefined interaction patterns. In LLM systems, this enables more decentralized, event-driven architectures where agents react to events and messages.</p>
-                    <p>Example: A "customer support" agent creates a "ticket" event, which a "technical agent" then picks up without being directly commanded by the first agent.</p>
+        <section id="choreography" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+                    <i class="fas fa-random text-green-600"></i> Choreography Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-info-circle text-green-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">A decentralized workflow pattern where agents interact directly with each other without central coordination, following predefined interaction patterns.</p>
+                    <p class="text-gray-700 leading-relaxed">This enables more decentralized, event-driven architectures where agents react to events and messages.</p>
+                    <p class="text-gray-700 leading-relaxed">Example: A "customer support" agent creates a "ticket" event, which a "technical agent" then picks up without being directly commanded by the first agent.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-puzzle-piece text-green-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Interaction Patterns: Defined agent communications</li>
                         <li>Message Bus: Communication channel</li>
                         <li>Agent Registry: Available agents</li>
@@ -286,9 +242,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Choreography {
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-code text-green-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class Choreography {
     constructor() {
         this.messageBus = new MessageBus();
         this.agents = {};
@@ -320,54 +278,30 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>LangChain's Agent Executors</strong>
-                            <ul>
-                                <li><a href="https://python.langchain.com/docs/modules/agents/" target="_blank">Documentation</a> - Event-driven agent execution</li>
-                                <li>Example: Autonomous agents reacting to tool outputs</li>
-                            </ul>
-                        </li>
-                        <li><strong>AutoGen Framework</strong>
-                            <ul>
-                                <li><a href="https://github.com/microsoft/autogen" target="_blank">GitHub Repository</a> - Enables complex agent interactions</li>
-                                <li>Example: Multi-agent conversations and collaborations</li>
-                            </ul>
-                        </li>
-                        <li><strong>BabyAGI</strong>
-                            <ul>
-                                <li><a href="https://github.com/yoheinakajima/babyagi" target="_blank">GitHub Repository</a> - Task-driven autonomous agent</li>
-                                <li>Example: Self-improving task execution through events</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Orchestration - For centralized control</li>
-                        <li>Pipeline - For sequential processing</li>
-                        <li>Saga - For transaction management</li>
-                    </ul>
-                </div>
             </div>
         </section>
 
-        <section id="saga">
-            <h2>Saga</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>A workflow pattern that manages distributed transactions by breaking them into a sequence of local transactions with compensating actions. This is crucial for reliability in multi-step LLM tasks, ensuring the system can recover from failures and maintain consistency.</p>
-                    <p>Example: An LLM agent booking a trip might book a flight (step 1) and then try to book a hotel (step 2). If the hotel is full, the Saga pattern ensures the agent knows how to execute a compensating action - canceling the flight - to avoid leaving the system in an inconsistent state.</p>
+        <section id="saga" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-yellow-200">
+                    <i class="fas fa-book text-yellow-600"></i> Saga Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-yellow-100 p-10 mb-10 border border-yellow-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-info-circle text-yellow-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">A workflow pattern that manages distributed transactions by breaking them into a sequence of local transactions with compensating actions.</p>
+                    <p class="text-gray-700 leading-relaxed">This is crucial for reliability in multi-step LLM tasks, ensuring the system can recover from failures and maintain consistency.</p>
+                    <p class="text-gray-700 leading-relaxed">Example: An LLM agent booking a trip might book a flight (step 1) and then try to book a hotel (step 2). If the hotel is full, the Saga pattern ensures the agent knows how to execute a compensating action - canceling the flight - to avoid leaving the system in an inconsistent state.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-puzzle-piece text-yellow-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Transactions: Local operations</li>
                         <li>Compensating Actions: Rollback operations</li>
                         <li>Coordinator: Transaction management</li>
@@ -375,9 +309,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class Saga {
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-code text-yellow-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class Saga {
     constructor() {
         this.transactions = [];
         this.log = new TransactionLog();
@@ -408,50 +344,24 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>LangChain's Memory Management</strong>
-                            <ul>
-                                <li><a href="https://python.langchain.com/docs/modules/memory/" target="_blank">Documentation</a> - Handles state management and rollbacks</li>
-                                <li>Example: Maintaining conversation context with error recovery</li>
-                            </ul>
-                        </li>
-                        <li><strong>Microsoft's Semantic Kernel</strong>
-                            <ul>
-                                <li><a href="https://github.com/microsoft/semantic-kernel/blob/main/docs/PLANNING.md" target="_blank">Planning Documentation</a> - Implements planning with rollback capabilities</li>
-                                <li>Example: Complex task planning with error recovery</li>
-                            </ul>
-                        </li>
-                        <li><strong>AutoGPT's Task Management</strong>
-                            <ul>
-                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT/blob/master/autogpt/workspace/task.py" target="_blank">Task Implementation</a> - Shows task execution with compensation</li>
-                                <li>Example: Autonomous task execution with error handling</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Orchestration - For workflow control</li>
-                        <li>Choreography - For event-based flow</li>
-                        <li>Pipeline - For sequential processing</li>
-                    </ul>
-                </div>
             </div>
         </section>
 
-        <section id="event-sourcing">
-            <h2>Event Sourcing</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>Event Sourcing stores all changes to application state as a sequence of events, enabling state reconstruction and audit trails. For LLM agents, this is invaluable for debugging, auditing, and maintaining a complete history of agent decisions and actions.</p>
-                    <p>Example: A research assistant agent's event log might look like:</p>
-                    <ul>
+        <section id="event-sourcing" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-pink-400 to-pink-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-pink-200">
+                    <i class="fas fa-history text-pink-600"></i> Event Sourcing Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-pink-100 p-10 mb-10 border border-pink-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
+                        <i class="fas fa-info-circle text-pink-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">Stores all changes to application state as a sequence of events, enabling state reconstruction and audit trails.</p>
+                    <p class="text-gray-700 leading-relaxed">This is invaluable for debugging, auditing, and maintaining a complete history of agent decisions and actions.</p>
+                    <p class="text-gray-700 leading-relaxed">Example: A research assistant agent's event log might look like:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Event 1: "Received research query about climate change"</li>
                         <li>Event 2: "Searched academic databases for recent papers"</li>
                         <li>Event 3: "Analyzed 5 papers and extracted key findings"</li>
@@ -460,9 +370,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
+                        <i class="fas fa-puzzle-piece text-pink-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Event Store: Sequence of events</li>
                         <li>Event Handlers: State updates</li>
                         <li>Projections: Read models</li>
@@ -470,9 +382,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class EventSourcing {
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
+                        <i class="fas fa-code text-pink-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class EventSourcing {
     constructor() {
         this.eventStore = [];
         this.projections = new Map();
@@ -504,55 +418,34 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>LangChain's Callback System</strong>
-                            <ul>
-                                <li><a href="https://python.langchain.com/docs/modules/callbacks/" target="_blank">Documentation</a> - Tracks and logs all agent actions and decisions</li>
-                                <li>Example: Debugging and auditing agent behavior</li>
-                            </ul>
-                        </li>
-                        <li><strong>AutoGPT's Action History</strong>
-                            <ul>
-                                <li><a href="https://github.com/Significant-Gravitas/AutoGPT/blob/master/autogpt/memory/local.py" target="_blank">Memory Implementation</a> - Maintains complete history of agent actions</li>
-                                <li>Example: Replaying and analyzing agent decision paths</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>CQRS - For optimized read/write operations</li>
-                        <li>Saga - For transaction management</li>
-                        <li>Orchestration - For workflow control</li>
-                    </ul>
-                </div>
             </div>
         </section>
 
-        <section id="cqrs">
-            <h2>CQRS (Command Query Responsibility Segregation)</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>CQRS separates read and write operations into different models, optimizing each for their specific task. For LLM agents, this pattern is particularly valuable for optimizing performance and maintaining consistency in systems that need to both learn from new information (write) and answer questions quickly (read).</p>
-                    
-                    <p>Example: A knowledge management agent using CQRS might work like this:</p>
-                    <ul>
+        <section id="cqrs" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-indigo-400 to-indigo-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-indigo-200">
+                    <i class="fas fa-exchange-alt text-indigo-600"></i> CQRS Pattern
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-indigo-100 p-10 mb-10 border border-indigo-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+                        <i class="fas fa-info-circle text-indigo-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">Separates read and write operations into different models, optimizing each for their specific task.</p>
+                    <p class="text-gray-700 leading-relaxed">This pattern is particularly valuable for optimizing performance and maintaining consistency in systems that need to both learn from new information (write) and answer questions quickly (read).</p>
+                    <p class="text-gray-700 leading-relaxed">Example: A knowledge management agent using CQRS might work like this:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li><strong>Command Side (Write):</strong>
-                            <ul>
+                            <ul class="list-circle list-inside ml-6 mt-2">
                                 <li>Processes new documents and updates knowledge base</li>
                                 <li>Performs deep analysis and learning</li>
                                 <li>Updates embeddings and indexes</li>
                                 <li>Can be slower, more resource-intensive</li>
                             </ul>
                         </li>
-                        <li><strong>Query Side (Read):</strong>
-                            <ul>
+                        <li class="mt-4"><strong>Query Side (Read):</strong>
+                            <ul class="list-circle list-inside ml-6 mt-2">
                                 <li>Quickly retrieves relevant information</li>
                                 <li>Generates responses to user queries</li>
                                 <li>Uses optimized read models</li>
@@ -562,9 +455,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Components</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+                        <i class="fas fa-puzzle-piece text-indigo-500"></i> Key Components
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li>Command Model: Write operations</li>
                         <li>Query Model: Read operations</li>
                         <li>Event Bus: Model synchronization</li>
@@ -572,9 +467,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Implementation</h3>
-                    <pre><code>class CQRS {
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-indigo-700">
+                        <i class="fas fa-code text-indigo-500"></i> Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code class="language-javascript">class CQRS {
     constructor() {
         this.commandModel = new CommandModel();
         this.queryModel = new QueryModel();
@@ -598,36 +495,9 @@
     }
 }</code></pre>
                 </div>
-
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li><strong>LangChain's Vector Stores</strong>
-                            <ul>
-                                <li><a href="https://python.langchain.com/docs/modules/data_connection/vectorstores/" target="_blank">Documentation</a> - Separates document ingestion from querying</li>
-                                <li>Example: Efficient document retrieval and querying</li>
-                            </ul>
-                        </li>
-                        <li><strong>Chroma DB</strong>
-                            <ul>
-                                <li><a href="https://github.com/chroma-core/chroma" target="_blank">GitHub Repository</a> - Vector database with separate read/write paths</li>
-                                <li>Example: High-performance vector search with batch updates</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Patterns</h3>
-                    <ul>
-                        <li>Event Sourcing - For state tracking</li>
-                        <li>Saga - For transaction management</li>
-                        <li>Orchestration - For workflow control</li>
-                    </ul>
-                </div>
             </div>
         </section>
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>

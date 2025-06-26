@@ -4,95 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Communication Patterns</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for gradients and shadows not easily achievable with Tailwind alone */
+        .header-gradient {
+            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
+        }
+        .content-block-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        /* Removed custom pre/code styles, relying on Tailwind classes */
+    </style>
 </head>
-<body class="pattern-page">
-    <div class="content">
-        <div class="section-navigation">
-            <div class="nav-buttons">
-                <a href="agentic-workflow-patterns.html" class="nav-button prev">
-                    <i class="fas fa-arrow-left"></i> Previous: Workflow
-                </a>
-                <a href="../../index.html" class="nav-button home">
-                    <i class="fas fa-home"></i> Home
-                </a>
-                <a href="agentic-decision-patterns.html" class="nav-button next">
-                    Next: Decision <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <!-- Navigation -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
+            <a href="agentic-workflow-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                <i class="fas fa-arrow-left mr-2"></i> Previous: Workflow
+            </a>
+            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
+                <i class="fas fa-home mr-2"></i> Home
+            </a>
+            <a href="agentic-decision-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
+                Next: Decision <i class="fas fa-arrow-right ml-2"></i>
+            </a>
         </div>
         
-        <header>
-            <h1>Agentic Communication Patterns</h1>
-            <p class="subtitle">Patterns for enabling effective communication and collaboration between agents</p>
+        <!-- Header -->
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Communication Patterns</h1>
+            <p class="text-2xl text-blue-700 font-medium opacity-90">Patterns for enabling effective communication and collaboration between agents</p>
         </header>
 
-        <nav class="nav-tiles">
-            <a href="#tool-calling" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <h3>Tool Calling</h3>
-                <p>Function Execution</p>
+        <!-- Nav Tiles -->
+        <nav class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <a href="#tool-calling" class="bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-blue-200 hover:ring-blue-300 transform hover:scale-105">
+                <div class="text-5xl text-blue-600 mb-3"><i class="fas fa-tools"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-blue-800 text-center">Tool Calling</h3>
+                <p class="text-gray-600 text-center text-sm">Function Execution</p>
             </a>
-
-            <a href="#rag" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-database"></i>
-                </div>
-                <h3>RAG</h3>
-                <p>Knowledge Retrieval</p>
+            <a href="#rag" class="bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-purple-200 hover:ring-purple-300 transform hover:scale-105">
+                <div class="text-5xl text-purple-600 mb-3"><i class="fas fa-database"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-purple-800 text-center">RAG</h3>
+                <p class="text-gray-600 text-center text-sm">Knowledge Retrieval</p>
             </a>
-
-            <a href="#a2a" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-network-wired"></i>
-                </div>
-                <h3>Agent-to-Agent</h3>
-                <p>Multi-Agent Systems</p>
+            <a href="#a2a" class="bg-gradient-to-br from-green-50 to-green-100 hover:from-green-100 hover:to-green-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-green-200 hover:ring-green-300 transform hover:scale-105">
+                <div class="text-5xl text-green-600 mb-3"><i class="fas fa-network-wired"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-green-800 text-center">Agent-to-Agent</h3>
+                <p class="text-gray-600 text-center text-sm">Multi-Agent Systems</p>
             </a>
-
-            <a href="#acp" class="nav-tile">
-                <div class="pattern-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h3>Agent Communication</h3>
-                <p>Structured Dialogue</p>
+            <a href="#acp" class="bg-gradient-to-br from-yellow-50 to-yellow-100 hover:from-yellow-100 hover:to-yellow-200 transition-all duration-300 rounded-2xl p-8 flex flex-col items-center shadow-lg ring-1 ring-yellow-200 hover:ring-yellow-300 transform hover:scale-105">
+                <div class="text-5xl text-yellow-600 mb-3"><i class="fas fa-exchange-alt"></i></div>
+                <h3 class="font-extrabold text-xl mb-2 text-yellow-800 text-center">Agent Communication</h3>
+                <p class="text-gray-600 text-center text-sm">Structured Dialogue</p>
             </a>
         </nav>
 
-        <section id="tool-calling">
-            <h2>Tool Calling / Function Calling</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>Tool calling enables LLM agents to execute functions, from simple calculations to complex API calls. The Model Context Protocol (MCP) is a specific standardization protocol that defines how an LLM agent securely and uniformly accesses and utilizes external tools, APIs, and contextual data. Any function can be registered as a tool, allowing the agent to perform mathematical operations, access external services, or execute code. Frameworks like LangChain and AutoGen make it easy to define and use these tools, whether they're simple utility functions or complex external service integrations.</p>
+        <!-- Tool Calling Section -->
+        <section id="tool-calling" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-blue-400 to-blue-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-blue-200">
+                    <i class="fas fa-tools text-blue-600"></i> Tool Calling / Function Calling
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-blue-100 p-10 mb-10 border border-blue-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-info-circle text-blue-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Tool calling enables LLM agents to execute functions, from simple calculations to complex API calls. The Model Context Protocol (MCP) is a specific standardization protocol that defines how an LLM agent securely and uniformly accesses and utilizes external tools, APIs, and contextual data. Any function can be registered as a tool, allowing the agent to perform mathematical operations, access external services, or execute code. Frameworks like LangChain and AutoGen make it easy to define and use these tools, whether they're simple utility functions or complex external service integrations.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
-                    <ul>
-                        <li><strong>Function Registration</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-puzzle-piece text-blue-500"></i> Key Communication Protocols
+                    </h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Function Registration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools are registered with metadata describing their purpose, parameters, and return types.</li>
                                 <li>Frameworks provide standardized ways to define and expose tool capabilities.</li>
                             </ul>
                         </li>
-                        <li><strong>Structured Invocation</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Structured Invocation</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Agents generate structured requests (typically JSON) specifying the tool and arguments.</li>
                                 <li>Includes parameter validation and type checking before execution.</li>
                             </ul>
                         </li>
-                        <li><strong>Execution & Response</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Execution & Response</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools execute in a controlled environment with proper error handling.</li>
                                 <li>Results are returned in a structured format for agent interpretation.</li>
                             </ul>
                         </li>
-                        <li><strong>Security & Validation</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Security & Validation</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools run with appropriate permissions and resource limits.</li>
                                 <li>Input validation and sanitization before execution.</li>
                             </ul>
@@ -100,9 +119,11 @@
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Conceptual Example: Tool Registration and Execution</h3>
-                    <pre><code>from typing import Dict, Any, List
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-code text-blue-500"></i> Conceptual Example: Tool Registration and Execution
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import Dict, Any, List
 import json
 from datetime import datetime
 
@@ -217,50 +238,54 @@ if __name__ == "__main__":
         print(f"Result: {json.dumps(result, indent=2)}")</code></pre>
                 </div>
 
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>
-                            <strong>Customer Support Automation</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-lightbulb text-blue-500"></i> Use Cases
+                    </h3>
+                    <ul class="space-y-6 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Customer Support Automation</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Agents retrieve customer details from databases, check order statuses, or initiate refunds by calling internal APIs.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Customer Information Assistant (Dataiku)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Customer Information Assistant (Dataiku)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Business Workflow Orchestration</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Business Workflow Orchestration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Automating tasks like scheduling meetings, sending calendar invites, or managing CRM records based on natural language commands.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Task Automation (Symflower)</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Task Automation (Symflower)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Financial Analysis</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Financial Analysis</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Calling APIs to retrieve real-time stock prices, perform currency conversions, or calculate complex financial metrics.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Currency Conversion (Analytics Vidhya)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Currency Conversion (Analytics Vidhya)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Code Generation and Execution</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Code Generation and Execution</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Enabling LLM agents to write and run code to solve problems, perform data analysis, or interact with development tools.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">AI-Powered Coding Assistants (PromptLayer)</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-blue-600 hover:text-blue-800 underline">AI-Powered Coding Assistants (PromptLayer)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>E-commerce Product Management</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">E-commerce Product Management</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Integrating with inventory databases to provide real-time product suggestions, check availability, and manage orders.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Product Recommendations (Analytics Vidhya)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Product Recommendations (Analytics Vidhya)</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-project-diagram text-blue-500"></i> Related Concepts
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
                         <li>Function Calling vs Model Context Protocol</li>
                         <li>Tool Registration & Discovery</li>
                         <li>Function Execution Context</li>
@@ -270,90 +295,75 @@ if __name__ == "__main__":
             </div>
         </section>
 
-        <section id="rag">
-            <h2>Retrieval-Augmented Generation (RAG)</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>Retrieval-Augmented Generation (RAG) combines vector databases with LLMs to enhance responses with relevant context. Frameworks like LangChain and LlamaIndex provide robust implementations for document processing, embedding generation, and semantic search, enabling accurate and context-aware responses. This approach helps reduce hallucinations and provides up-to-date information by retrieving relevant documents before generating responses.</p>
+        <!-- RAG Section -->
+        <section id="rag" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-purple-400 to-purple-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-purple-200">
+                    <i class="fas fa-database text-purple-600"></i> RAG (Retrieval Augmented Generation)
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-purple-100 p-10 mb-10 border border-purple-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-info-circle text-purple-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">RAG (Retrieval Augmented Generation) is a pattern that enhances LLM responses by incorporating relevant information from external knowledge sources. This pattern is particularly useful for grounding LLM outputs in factual data and providing up-to-date information. RAG combines the power of information retrieval with generative AI to produce more accurate and contextually relevant responses.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
-                    <ul>
-                        <li><strong>Document Processing</strong>
-                            <ul>
-                                <li>Chunking and preprocessing of documents for efficient retrieval.</li>
-                                <li>Metadata extraction and indexing for better search capabilities.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Vector Storage</strong>
-                            <ul>
-                                <li>Efficient storage and retrieval of document embeddings.</li>
-                                <li>Support for various vector databases and similarity metrics.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Query Processing</strong>
-                            <ul>
-                                <li>Query understanding and transformation for better retrieval.</li>
-                                <li>Hybrid search combining semantic and keyword matching.</li>
-                            </ul>
-                        </li>
-                        <li><strong>Context Integration</strong>
-                            <ul>
-                                <li>Structured combination of retrieved context with LLM prompts.</li>
-                                <li>Dynamic context window management for optimal response generation.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Conceptual Example: RAG Pipeline</h3>
-                    <pre><code>from typing import List, Dict, Any
-import numpy as np
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-code text-purple-500"></i> Implementation Example
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import numpy as np
+from typing import List, Dict, Any
+from dataclasses import dataclass
 from datetime import datetime
-import json
 
+@dataclass
 class Document:
     """Represents a document in the knowledge base."""
-    def __init__(self, content: str, metadata: Dict[str, Any] = None):
-        self.content = content
-        self.metadata = metadata or {}
-        self.embedding = None # Placeholder for actual embedding
-        self.chunks: List[str] = [] # For a real chunking strategy
-    
-    def chunk_content(self, chunk_size_words: int = 50, overlap_words: int = 10) -> None:
-        """Splits document content into conceptual chunks."""
-        words = self.content.split()
-        self.chunks = []
-        for i in range(0, len(words), chunk_size_words - overlap_words):
-            chunk = " ".join(words[i : i + chunk_size_words])
-            self.chunks.append(chunk)
+    content: str
+    embedding: np.ndarray = None
+    metadata: Dict[str, Any] = None
 
 class VectorStore:
-    """Manages document embeddings and similarity search."""
-    def __init__(self):
+    """Simple vector store for document embeddings and similarity search."""
+    def __init__(self, embedding_dimension: int = 128):
         self.documents: List[Document] = []
-        self.embeddings: List[np.ndarray] = []
-        self.embedding_dimension = 384 # Typical embedding dimension
-
+        self.embeddings: np.ndarray = None
+        self.embedding_dimension = embedding_dimension
+    
+    def _mock_document_embedding(self, document: Document) -> np.ndarray:
+        """
+        Generates a mock embedding for a document.
+        In a real system, this would use a proper embedding model.
+        """
+        np.random.seed(hash(document.content) % (2**32 - 1))
+        return np.random.rand(self.embedding_dimension)
+    
     def add_document(self, document: Document) -> None:
-        """Adds a document and generates a mock embedding for it."""
+        """Adds a document to the vector store."""
+        # Generate embedding
+        document.embedding = self._mock_document_embedding(document)
+        
+        # Add to documents list
         self.documents.append(document)
-        # In a real implementation, this would call an actual embedding model API
-        document.embedding = np.random.rand(self.embedding_dimension) # Mock embedding
-        self.embeddings.append(document.embedding)
+        
+        # Update embeddings matrix
+        if self.embeddings is None:
+            self.embeddings = document.embedding.reshape(1, -1)
+        else:
+            self.embeddings = np.vstack([self.embeddings, document.embedding])
     
     def search(self, query_embedding: np.ndarray, top_k: int = 3) -> List[Document]:
-        """Searches for similar documents using cosine similarity (conceptual)."""
-        if not self.embeddings or len(self.embeddings) == 0:
+        """
+        Performs similarity search using cosine similarity.
+        Returns top-k most similar documents.
+        """
+        if len(self.documents) == 0:
             return []
         
-        # Ensure query_embedding is a numpy array
-        query_embedding = np.asarray(query_embedding)
-
-        # Calculate dot products (numerator for cosine similarity)
+        # Calculate dot products
         dot_products = np.dot(self.embeddings, query_embedding)
         
         # Calculate magnitudes (denominators for cosine similarity)
@@ -368,7 +378,7 @@ class VectorStore:
         )
         
         # Get indices of top-k most similar documents
-        top_indices = np.argsort(similarities)[::-1][:top_k] # Sort descending, take top_k
+        top_indices = np.argsort(similarities)[::-1][:top_k]
         
         return [self.documents[i] for i in top_indices]
 
@@ -376,21 +386,17 @@ class RAGPipeline:
     """Implements the RAG pipeline for question answering."""
     def __init__(self, vector_store: VectorStore):
         self.vector_store = vector_store
-        self.embedding_dimension = vector_store.embedding_dimension # From vector store
+        self.embedding_dimension = vector_store.embedding_dimension
 
     def _mock_query_embedding(self, query: str) -> np.ndarray:
         """Generates a mock embedding for the query."""
-        # In a real system, this would use the same embedding model as for documents
-        np.random.seed(hash(query) % (2**32 - 1)) # Simple way to get repeatable "mock" embeddings
+        np.random.seed(hash(query) % (2**32 - 1))
         return np.random.rand(self.embedding_dimension)
 
     def _mock_llm_generate_response(self, query: str, context: str) -> str:
-        """
-        Simulates an LLM generating a response, augmented by retrieved context.
-        In reality, the LLM processes a prompt crafted from query and context.
-        """
+        """Simulates an LLM generating a response, augmented by retrieved context."""
         if "no relevant context found" in context.lower():
-            return f"I couldn't find specific information in my knowledge base about '{query}'. Here's a general thought."
+            return f"I couldn't find specific information about '{query}'. Here's a general thought."
         
         return f"Based on the knowledge base: '{context[:100]}...'\n\nAnswer for '{query}': This is a generated response augmented by the retrieved facts."
 
@@ -407,7 +413,7 @@ class RAGPipeline:
         # 3. Prepare context for the LLM
         context_content = [doc.content for doc in relevant_docs]
         context_str = "\n".join(context_content) if context_content else "No relevant context found."
-        print(f"Retrieved Context:\n{context_str[:200]}...") # Print a snippet of context
+        print(f"Retrieved Context:\n{context_str[:200]}...")
         
         # 4. Generate response using the LLM (augmented with context)
         response_text = self._mock_llm_generate_response(query, context_str)
@@ -434,7 +440,6 @@ if __name__ == "__main__":
     
     for content in docs_content:
         doc = Document(content)
-        # In a real system, you'd chunk here if documents are large
         vector_store.add_document(doc)
     
     print(f"Vector store initialized with {len(vector_store.documents)} documents.")
@@ -455,43 +460,47 @@ if __name__ == "__main__":
     print(f"\nResult for 'What is the capital of Australia?':\n{json.dumps(result3, indent=2)}\n")</code></pre>
                 </div>
 
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>
-                            <strong>Enterprise Knowledge Chatbots</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-lightbulb text-purple-500"></i> Use Cases
+                    </h3>
+                    <ul class="space-y-6 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Enterprise Knowledge Chatbots</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Answering employee questions based on internal documentation, HR policies, or product manuals.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">HR Platform Intranet Solution (Merge.dev)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-purple-600 hover:text-purple-800 underline">HR Platform Intranet Solution (Merge.dev)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Customer Support Systems</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Customer Support Systems</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Providing accurate and personalized answers to customer queries by accessing product databases, FAQs, or support tickets.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Customer Support Chatbot (Signity Solutions)</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Customer Support Chatbot (Signity Solutions)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Sales and Marketing Intelligence</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Sales and Marketing Intelligence</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Generating actionable reports or personalized lead recommendations by integrating with CRM and ERP data.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Lead Recommendations (Merge.dev)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Lead Recommendations (Merge.dev)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Domain-Specific Question Answering</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Domain-Specific Question Answering</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Creating AI systems that can answer complex questions in specialized fields like healthcare, legal, or finance, grounded in authoritative sources.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Medical Index Assistant (NVIDIA)</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Medical Index Assistant (NVIDIA)</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-project-diagram text-purple-500"></i> Related Concepts
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
                         <li>Vector Databases for embedding storage</li>
                         <li>Knowledge Base Integration</li>
                         <li>Semantic Search</li>
@@ -501,46 +510,61 @@ if __name__ == "__main__":
             </div>
         </section>
 
-        <section id="a2a">
-            <h2>Agent-to-Agent Protocol (A2A)</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>Google's A2A is an open protocol designed for horizontal integration – secure and standardized communication between diverse AI agents across different platforms and vendors. This protocol allows agents from different platforms and vendors to discover each other's capabilities, exchange messages, and collaborate on tasks. It uses signed messages and capability discovery to ensure secure cross-platform interactions, making it ideal for distributed agent systems and cloud-based AI applications. Note that this is different from local multi-agent frameworks like CrewAI and AutoGen, which focus on coordinating agents within a single system.</p>
+        <!-- Agent-to-Agent Section -->
+        <section id="a2a" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-green-400 to-green-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-green-200">
+                    <i class="fas fa-network-wired text-green-600"></i> Agent-to-Agent Protocol (A2A)
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-green-100 p-10 mb-10 border border-green-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-info-circle text-green-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Google's A2A is an open protocol designed for horizontal integration – secure and standardized communication between diverse AI agents across different platforms and vendors. This protocol allows agents from different platforms and vendors to discover each other's capabilities, exchange messages, and collaborate on tasks. It uses signed messages and capability discovery to ensure secure cross-platform interactions, making it ideal for distributed agent systems and cloud-based AI applications. Note that this is different from local multi-agent frameworks like CrewAI and AutoGen, which focus on coordinating agents within a single system.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
-                    <ul>
-                        <li><strong>Capability Discovery (Agent Cards)</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-puzzle-piece text-green-500"></i> Key Communication Protocols
+                    </h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Capability Discovery (Agent Cards)</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Agents publish public JSON "Agent Cards" (e.g., at /.well-known/agent.json) describing their functionalities, endpoints, security, and data formats.</li>
                                 <li>Client agents dynamically discover and select suitable remote agents based on these cards.</li>
                             </ul>
                         </li>
-                        <li><strong>Task Delegation</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Task Delegation</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>A client agent sends a "Task" (a specific work unit with a unique ID) to a remote agent.</li>
                                 <li>Tasks include metadata and a "message" containing details (text, files, etc.).</li>
                             </ul>
                         </li>
-                        <li><strong>Structured Messaging & Artifacts</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Structured Messaging & Artifacts</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Communication uses signed, structured messages based on a shared schema.</li>
                                 <li>Results are returned as "Artifacts," which can be multi-part (e.g., text, files), crucial for rich data exchange.</li>
                             </ul>
                         </li>
-                        <li><strong>Asynchronous Operations & Notifications</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Asynchronous Operations & Notifications</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Supports long-running tasks, with clients receiving updates via push notifications or Server-Sent Events (SSE).</li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Conceptual Example: A2A Interaction</h3>
-                    <pre><code>import json
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-code text-green-500"></i> Conceptual Example: A2A Interaction
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import json
 import uuid
 from datetime import datetime
 
@@ -557,181 +581,193 @@ class MockA2ARemoteAgent:
             "name": f"{self.agent_id.replace('-', ' ').title()} Agent",
             "capabilities": [{"name": cap, "description": f"Can {cap.replace('_', ' ')} tasks."} for cap in self.capabilities],
             "endpoints": {"api": self.api_url},
-            # ... other standard Agent Card fields
+            "security": {
+                "auth_type": "bearer",
+                "signature_required": True
+            }
         }
 
-    def handle_task_send(self, task: dict) -> dict:
-        """Simulates processing an incoming A2A Task and returning an Artifact."""
-        task_id = task.get("task_id")
-        performative = task.get("message", {}).get("performative")
+    def process_task(self, task: dict) -> dict:
+        """Simulates task processing and returns an artifact."""
+        task_id = task.get("id", str(uuid.uuid4()))
+        capability = task.get("capability", "unknown")
+        message = task.get("message", {})
         
-        print(f"[{self.agent_id}] Processing Task '{task_id}' (Performative: '{performative}')")
-
-        # Simulate simple task execution
-        status = "completed"
-        artifact_content = f"Task '{task_id}' processed by {self.agent_id}. Performative: {performative}."
-
+        # Simulate processing delay and generate response
+        response = f"Processed {capability} task with message: {json.dumps(message)}"
+        
         return {
             "task_id": task_id,
-            "artifact_id": str(uuid.uuid4()),
-            "status": status,
-            "artifacts": [{"type": "text/plain", "content": artifact_content}],
-            "timestamp": datetime.utcnow().isoformat(),
-            "signature": "MOCKED_SIGNATURE" # In reality, cryptographically signed
+            "status": "completed",
+            "artifacts": [{
+                "type": "text",
+                "content": response,
+                "metadata": {
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+            }]
         }
 
-# --- Mock A2A Client (Conceptual) ---
-class MockA2AClient:
-    def __init__(self, client_id: str):
-        self.client_id = client_id
-
-    def discover_agent_card(self, mock_agent_server: MockA2ARemoteAgent) -> dict:
-        """Simulates fetching an Agent Card from a remote agent."""
-        print(f"[{self.client_id}] Discovering agent '{mock_agent_server.agent_id}'...")
-        return mock_agent_server.get_agent_card()
-
-    def send_a2a_task(self, target_api_url: str, task_payload: dict, mock_agent_server: MockA2ARemoteAgent) -> dict:
-        """Simulates sending an A2A Task to a remote agent's API endpoint."""
-        print(f"[{self.client_id}] Sending Task to '{mock_agent_server.agent_id}' at {target_api_url}...")
-        # In a real scenario, this would be an HTTP POST request to target_api_url
-        # For this mock, we directly call the server's handler
-        return mock_agent_server.handle_task_send(task_payload)
-
-# --- Example A2A Workflow ---
-if __name__ == "__main__":
-    # 1. Define a mock remote agent (simulates an independent service)
-    #    In a real system, this agent would be a running web service.
-    remote_flight_agent = MockA2ARemoteAgent(
-        agent_id="flight-booker",
-        capabilities=["book_flight"],
-        api_url="https://api.mock-flight-agent.com/a2a"
-    )
-
-    # 2. Define our client agent (the one initiating the task)
-    my_orchestrator_client = MockA2AClient(client_id="my-travel-orchestrator")
-
-    # --- A2A Communication Flow ---
-
-    # Step A: Client discovers the remote agent's capabilities
-    flight_agent_card = my_orchestrator_client.discover_agent_card(remote_flight_agent)
-    print(f"\n--- Discovered Agent Card ---")
-    print(json.dumps(flight_agent_card, indent=2))
-    print(f"Agent '{flight_agent_card['name']}' has capabilities: {[c['name'] for c in flight_agent_card['capabilities']]}\n")
-
-    # Step B: Client sends a Task to the discovered agent
-    if "book_flight" in [c['name'] for c in flight_agent_card['capabilities']]:
-        task_id = str(uuid.uuid4())
-        task_payload = {
-            "task_id": task_id,
-            "client_id": my_orchestrator_client.client_id,
-            "message": {
-                "type": "request",
-                "performative": "book_flight",
-                "payload": {"origin": "HYD", "destination": "BLR", "date": "2025-07-20"}
-            },
-            "timestamp": datetime.utcnow().isoformat(),
-            "signature": "CLIENT_SIGNED_PAYLOAD" # In reality, cryptographically signed
+# --- Mock A2A Client Agent ---
+class MockA2AClientAgent:
+    def __init__(self, agent_id: str):
+        self.agent_id = agent_id
+        self.discovered_agents = {}
+    
+    def discover_agent(self, remote_agent: MockA2ARemoteAgent) -> None:
+        """Simulates agent discovery process."""
+        agent_card = remote_agent.get_agent_card()
+        self.discovered_agents[agent_card["id"]] = {
+            "card": agent_card,
+            "instance": remote_agent
+        }
+        print(f"Discovered agent: {agent_card['name']}")
+    
+    def delegate_task(self, agent_id: str, capability: str, message: dict) -> dict:
+        """Creates and sends a task to a remote agent."""
+        if agent_id not in self.discovered_agents:
+            raise ValueError(f"Unknown agent: {agent_id}")
+        
+        remote_agent = self.discovered_agents[agent_id]["instance"]
+        task = {
+            "id": str(uuid.uuid4()),
+            "capability": capability,
+            "message": message,
+            "metadata": {
+                "sender": self.agent_id,
+                "timestamp": datetime.utcnow().isoformat()
+            }
         }
         
-        # Send the task and receive the artifact (response)
-        response_artifact = my_orchestrator_client.send_a2a_task(
-            flight_agent_card["endpoints"]["api"],
-            task_payload,
-            remote_flight_agent # Pass the mock server for direct call in this example
-        )
-        print(f"\n--- Received Artifact from Flight Agent ---")
-        print(json.dumps(response_artifact, indent=2))
-        print(f"\nTask Status: {response_artifact['status']}")
-        if response_artifact['artifacts']:
-            print(f"Artifact Content: {response_artifact['artifacts'][0]['content']}")
-    else:
-        print("Flight booking capability not found on the discovered agent.")</code></pre>
+        print(f"\nSending task to {agent_id}:")
+        print(json.dumps(task, indent=2))
+        
+        return remote_agent.process_task(task)
+
+# Example usage
+if __name__ == "__main__":
+    # Create remote agent with capabilities
+    remote_agent = MockA2ARemoteAgent(
+        agent_id="data-processor-001",
+        capabilities=["process_data", "generate_report"],
+        api_url="https://api.example.com/agents/data-processor-001"
+    )
+    
+    # Create client agent
+    client_agent = MockA2AClientAgent(agent_id="client-001")
+    
+    # Discover remote agent
+    client_agent.discover_agent(remote_agent)
+    
+    # Delegate a task
+    result = client_agent.delegate_task(
+        agent_id="data-processor-001",
+        capability="process_data",
+        message={
+            "data_type": "sales_report",
+            "format": "json",
+            "parameters": {"region": "EMEA", "period": "Q3"}
+        }
+    )
+    
+    print("\nReceived result:")
+    print(json.dumps(result, indent=2))</code></pre>
                 </div>
 
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>
-                            <strong>Enterprise Business Process Automation</strong>
-                            <ul>
-                                <li>Linking agents for customer support, inventory management, and finance to automate workflows across different departments.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Connecting Business Operations (Analytics Vidhya)</a></li>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-lightbulb text-green-500"></i> Use Cases
+                    </h3>
+                    <ul class="space-y-6 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Cross-Platform Agent Collaboration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>Enabling secure communication between agents from different vendors or platforms.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-green-600 hover:text-green-800 underline">Multi-Vendor Agent Network (Google)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Inter-Organizational Collaboration</strong>
-                            <ul>
-                                <li>Enabling AI systems from different companies to work together, e.g., a manufacturing agent coordinating with a logistics provider's agent for real-time shipping estimates.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Pure A2A Use Case (DataCamp)</a></li>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Distributed Task Processing</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>Coordinating complex tasks across multiple specialized agents in different locations.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-green-600 hover:text-green-800 underline">Distributed Data Processing (Anthropic)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>AI-Powered Hiring Workflows</strong>
-                            <ul>
-                                <li>A manager's hiring agent orchestrating other specialized agents for resume search, interview scheduling, and background checks.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Making Hiring Easier (Analytics Vidhya)</a></li>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Cloud Service Integration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>Integrating AI agents with various cloud services and APIs securely.</li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-green-600 hover:text-green-800 underline">Cloud Service Orchestration (Microsoft)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Complex IT Helpdesk Resolution</strong>
-                            <ul>
-                                <li>A client agent orchestrating hardware diagnostics, software rollbacks, and device replacements through collaboration with specialized remote agents.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">IT Helpdesk Ticket Resolution (DataCamp)</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>Hybrid AI Architectures</strong>
-                            <ul>
-                                <li>Combining A2A with other protocols like MCP for comprehensive solutions, such as a loan processing agent using MCP for data validation then A2A for risk assessment and compliance agents.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">A2A and MCP Working Together (DataCamp)</a></li>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Enterprise System Integration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>Connecting AI agents with enterprise systems while maintaining security and compliance.</li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-green-600 hover:text-green-800 underline">Enterprise Integration Framework (IBM)</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
-                    <ul>
-                        <li>Agent Cards for capability discovery</li>
-                        <li>Signed Message Exchange</li>
-                        <li>Cross-Platform Security</li>
-                        <li>Internet-Scale Communication</li>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-project-diagram text-green-500"></i> Related Concepts
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
+                        <li>Agent Discovery & Registration</li>
+                        <li>Secure Message Exchange</li>
+                        <li>Distributed Task Management</li>
+                        <li>Cross-Platform Integration</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section id="acp">
-            <h2>Agent Communication Protocol (ACP)</h2>
-            <div class="pattern-content">
-                <div class="pattern-description">
-                    <h3><i class="fas fa-info-circle"></i> Description</h3>
-                    <p>Agent Communication Protocol (ACP) provides a structured framework for agent interactions, focusing on local-first, REST-native communication. It enables secure and efficient dialogue between agents through standardized message formats, event-driven architecture, and metadata management. This protocol is particularly useful for privacy-sensitive scenarios and edge computing applications.</p>
+        <!-- Agent Communication Protocol Section -->
+        <section id="acp" class="mb-20">
+            <div class="mb-8">
+                <h2 class="text-4xl font-extrabold bg-gradient-to-r from-yellow-400 to-yellow-700 bg-clip-text text-transparent flex items-center gap-3 drop-shadow-md pb-2 border-b-2 border-yellow-200">
+                    <i class="fas fa-exchange-alt text-yellow-600"></i> Agent Communication Protocol (ACP)
+                </h2>
+            </div>
+            <div class="content-block-bg rounded-3xl shadow-xl ring-2 ring-yellow-100 p-10 mb-10 border border-yellow-200">
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-info-circle text-yellow-500"></i> Description
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Agent Communication Protocol (ACP) provides a structured framework for agent interactions, focusing on local-first, REST-native communication. It enables secure and efficient dialogue between agents through standardized message formats, event-driven architecture, and metadata management. This protocol is particularly useful for privacy-sensitive scenarios and edge computing applications.</p>
                 </div>
 
-                <div class="pattern-characteristics">
-                    <h3><i class="fas fa-puzzle-piece"></i> Key Communication Protocols</h3>
-                    <ul>
-                        <li><strong>REST-native Messaging</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-puzzle-piece text-yellow-500"></i> Key Communication Protocols
+                    </h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">REST-native Messaging</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Standard HTTP methods for agent communication.</li>
                                 <li>Structured request/response formats for clear interaction patterns.</li>
                             </ul>
                         </li>
-                        <li><strong>Event-Driven Architecture</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Event-Driven Architecture</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Asynchronous communication through event publishing and subscription.</li>
                                 <li>Support for real-time updates and notifications.</li>
                             </ul>
                         </li>
-                        <li><strong>Structured Dialogue</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Structured Dialogue</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Standardized message formats for different types of interactions.</li>
                                 <li>Support for multi-turn conversations and context management.</li>
                             </ul>
                         </li>
-                        <li><strong>Security & Authentication</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Security & Authentication</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Built-in support for authentication and authorization.</li>
                                 <li>Secure message exchange and data protection.</li>
                             </ul>
@@ -739,9 +775,11 @@ if __name__ == "__main__":
                     </ul>
                 </div>
 
-                <div class="pattern-implementation">
-                    <h3><i class="fas fa-code"></i> Conceptual Example: ACP Communication</h3>
-                    <pre><code>from typing import Dict, Any, List
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-code text-yellow-500"></i> Conceptual Example: ACP Communication
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import Dict, Any, List
 import json
 from datetime import datetime
 from enum import Enum
@@ -833,43 +871,47 @@ if __name__ == "__main__":
     agent1.receive_message(request)</code></pre>
                 </div>
 
-                <div class="pattern-use-cases">
-                    <h3><i class="fas fa-lightbulb"></i> Use Cases</h3>
-                    <ul>
-                        <li>
-                            <strong>Local Multi-Agent Orchestration</strong>
-                            <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-lightbulb text-yellow-500"></i> Use Cases
+                    </h3>
+                    <ul class="space-y-6 text-gray-700">
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Local Multi-Agent Orchestration</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Coordinating multiple agents within a single system for complex task execution.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Task Orchestration (Local)</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Task Orchestration (Local)</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Edge Computing Applications</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Edge Computing Applications</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Enabling agent communication in resource-constrained environments.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">IoT Device Management</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">IoT Device Management</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Privacy-Sensitive Scenarios</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Privacy-Sensitive Scenarios</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Secure communication between agents handling sensitive data.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank">Healthcare Data Processing</a></li>
+                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Healthcare Data Processing</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <strong>Peer-to-Peer Agent Interactions</strong>
-                            <ul>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Peer-to-Peer Agent Interactions</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
                                 <li>Direct communication between agents without central coordination.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank">Distributed Task Processing</a></li>
+                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Distributed Task Processing</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
 
-                <div class="pattern-related">
-                    <h3><i class="fas fa-project-diagram"></i> Related Concepts</h3>
-                    <ul>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-project-diagram text-yellow-500"></i> Related Concepts
+                    </h3>
+                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
                         <li>REST-native Communication</li>
                         <li>Event-Driven Architecture</li>
                         <li>Structured Dialogue</li>
@@ -881,4 +923,4 @@ if __name__ == "__main__":
     </div>
     <script src="../js/app.js"></script>
 </body>
-</html> 
+</html>
