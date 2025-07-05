@@ -1,4 +1,4 @@
-logsBucket: gs:// rebootingwithai-cloudbuild-logs
+logsBucket: gs://rebootingwithai-cloudbuild-logs
 
 steps:
 - name: 'gcr.io/cloud-builders/gsutil'
