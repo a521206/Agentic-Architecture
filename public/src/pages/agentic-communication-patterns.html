@@ -110,7 +110,7 @@
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
                         <i class="fas fa-info-circle text-blue-500"></i> Description
                     </h3>
-                    <p class="text-gray-700 leading-relaxed mb-4">Tool calling enables LLM agents to execute functions, from simple calculations to complex API calls. The Model Context Protocol (MCP) is a specific standardization protocol that defines how an LLM agent securely and uniformly accesses and utilizes external tools, APIs, and contextual data. Any function can be registered as a tool, allowing the agent to perform mathematical operations, access external services, or execute code. Frameworks like LangChain and AutoGen make it easy to define and use these tools, whether they're simple utility functions or complex external service integrations.</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">Want your AI agents to do more than just chat? Tool calling enables LLM agents to execute functions, from simple calculations to complex API calls. The Model Context Protocol (MCP) is a lightweight, flexible bridge that makes this possible, simplifying tool integration and letting your agents interact with APIs, databases, or scripts without complex setup. With just a few lines of code, your AI can access live data or trigger real-world actions.</p>
                 </div>
 
                 <div class="mb-10">
@@ -122,6 +122,7 @@
                             <h4 class="font-semibold text-gray-900 mb-2">Function Registration</h4>
                             <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools are registered with metadata describing their purpose, parameters, and return types.</li>
+                                <li>The @mcp.tool() decorator makes functions agent-compatible with structured input validation.</li>
                                 <li>Frameworks provide standardized ways to define and expose tool capabilities.</li>
                             </ul>
                         </li>
@@ -130,6 +131,7 @@
                             <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Agents generate structured requests (typically JSON) specifying the tool and arguments.</li>
                                 <li>Includes parameter validation and type checking before execution.</li>
+                                <li>Pydantic ensures structured input validation for robust tool interactions.</li>
                             </ul>
                         </li>
                         <li class="mb-4">
@@ -137,6 +139,7 @@
                             <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools execute in a controlled environment with proper error handling.</li>
                                 <li>Results are returned in a structured format for agent interpretation.</li>
+                                <li>MCP servers can run locally or be exposed via ngrok for remote access.</li>
                             </ul>
                         </li>
                         <li class="mb-4">
@@ -144,6 +147,7 @@
                             <ul class="list-disc list-inside ml-4 space-y-1">
                                 <li>Tools run with appropriate permissions and resource limits.</li>
                                 <li>Input validation and sanitization before execution.</li>
+                                <li>Authentication, authorization, and sandboxing for secure tool execution.</li>
                             </ul>
                         </li>
                     </ul>
@@ -151,175 +155,147 @@
 
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Conceptual Example: Tool Registration and Execution
+                        <i class="fas fa-code text-blue-500"></i> Step-by-Step: Building a Currency Converter Tool
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import Dict, Any, List
-import json
-from datetime import datetime
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">1. Set Up Your Environment</h4>
+                            <p class="text-gray-700 mb-3">First, create a Python virtual environment and install dependencies:</p>
+                            <pre class="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>pip install fastmcp pydantic crewai python-dotenv</code></pre>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">2. Define Your MCP Tool</h4>
+                            <p class="text-gray-700 mb-3">Create a Python file (e.g., currency_tool.py) for your currency converter. This example uses a mock conversion rate, but you can swap in a real API for live data:</p>
+                            <pre class="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>@mcp.tool()
+async def convert_currency(request: CurrencyConversionInput) -> str:</code></pre>
+                            <p class="text-gray-700 mt-2">The @mcp.tool() decorator makes this function agent-compatible, and pydantic ensures structured input validation.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">3. Run the MCP Server</h4>
+                            <p class="text-gray-700 mb-3">Start your server locally:</p>
+                            <pre class="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>python currency_tool.py</code></pre>
+                            <p class="text-gray-700 mt-2">This launches an MCP server at http://localhost:8000. Your tool is now ready to accept requests!</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">4. Expose Your Server with ngrok</h4>
+                            <p class="text-gray-700 mb-3">To let agents access your tool, we need to expose your local server using ngrok:</p>
+                            <ul class="list-disc list-inside ml-4 space-y-1 text-gray-700">
+                                <li>Install ngrok and authenticate it.</li>
+                                <li>Run: <code class="bg-gray-100 px-1 rounded">ngrok http 8000</code></li>
+                                <li>Copy the generated URL (e.g., https://abc123.ngrok-free.app).</li>
+                            </ul>
+                            <p class="text-gray-700 mt-2 text-sm italic">Tip: ngrok's free tier is great for testing, but for production, consider a paid plan or deploy your server to a cloud provider.</p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-lg text-gray-800 mb-3">5. Connect to CrewAI</h4>
+                            <p class="text-gray-700 mb-3">Integrate your tool with a CrewAI agent:</p>
+                            <pre class="bg-gray-900 text-gray-100 rounded-xl p-4 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>server_config = "https://abc123.ngrok-free.app"  # use ngrok url
 
-class ToolRegistry:
-    """Manages the registration and execution of tools."""
-    
-    def __init__(self):
-        self.tools: Dict[str, Dict[str, Any]] = {}
-    
-    def register_tool(self, name: str, func: callable, description: str, 
-                     parameters: Dict[str, Any]) -> None:
-        """Register a new tool with its metadata."""
-        self.tools[name] = {
-            "function": func,
-            "description": description,
-            "parameters": parameters,
-            "registered_at": datetime.utcnow().isoformat()
-        }
-    
-    def execute_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute a registered tool with the provided arguments."""
-        if tool_name not in self.tools:
-            raise ValueError(f"Tool '{tool_name}' not found")
-        
-        tool = self.tools[tool_name]
-        try:
-            # Validate arguments against parameter schema
-            self._validate_arguments(tool["parameters"], arguments)
-            
-            # Execute the tool
-            result = tool["function"](**arguments)
-            
-            return {
-                "status": "success",
-                "result": result,
-                "executed_at": datetime.utcnow().isoformat()
-            }
-        except Exception as e:
-            return {
-                "status": "error",
-                "error": str(e),
-                "executed_at": datetime.utcnow().isoformat()
-            }
-    
-    def _validate_arguments(self, schema: Dict[str, Any], arguments: Dict[str, Any]) -> None:
-        """Validate arguments against the tool's parameter schema."""
-        for param_name, param_info in schema.items():
-            if param_name not in arguments:
-                if param_info.get("required", True):
-                    raise ValueError(f"Missing required parameter: {param_name}")
-            else:
-                # Type checking would go here
-                pass
-
-# Example tool implementations
-def calculator(expression: str) -> float:
-    """A simple calculator tool that evaluates mathematical expressions."""
-    return eval(expression)
-
-def web_search(query: str) -> str:
-    """Simulates a web search tool."""
-    return f"Search results for: {query}"
-
-# Create and configure the tool registry
-registry = ToolRegistry()
-
-# Register tools
-registry.register_tool(
-    name="calculator",
-    func=calculator,
-    description="Perform basic mathematical calculations",
-    parameters={
-        "expression": {
-            "type": "string",
-            "description": "Mathematical expression to evaluate",
-            "required": True
-        }
-    }
-)
-
-registry.register_tool(
-    name="web_search",
-    func=web_search,
-    description="Search the web for information",
-    parameters={
-        "query": {
-            "type": "string",
-            "description": "Search query",
-            "required": True
-        }
-    }
-)
-
-# Example usage
-if __name__ == "__main__":
-    # Simulate LLM agent generating tool calls
-    tool_calls = [
-        {
-            "tool": "calculator",
-            "arguments": {"expression": "2 + 2 * 3"}
-        },
-        {
-            "tool": "web_search",
-            "arguments": {"query": "latest AI trends"}
-        }
-    ]
-    
-    # Execute each tool call
-    for call in tool_calls:
-        print(f"\nExecuting {call['tool']}...")
-        result = registry.execute_tool(call["tool"], call["arguments"])
-        print(f"Result: {json.dumps(result, indent=2)}")</code></pre>
+with MCPServerAdapter(server_config) as currency_tools:
+    currency_agent = Agent(
+        role="Currency Exchange Expert",
+        goal="Help with currency conversions and exchange rate information",
+        backstory="You're a knowledgeable financial assistant with access to real-time currency conversion tools.",
+        tools=currency_tools,  # <- Pass the list of actual tool instances
+        verbose=False
+    )</code></pre>
+                            <p class="text-gray-700 mt-2">Your agent can now call convert_currency seamlessly!</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-lightbulb text-blue-500"></i> Use Cases
+                        <i class="fas fa-exchange-alt text-blue-500"></i> stdio vs. SSE: Which to Use?
                     </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Customer Support Automation</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Agents retrieve customer details from databases, check order statuses, or initiate refunds by calling internal APIs.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Customer Information Assistant (Dataiku)</a></li>
-                            </ul>
+                    <p class="text-gray-700 mb-4">MCP supports two communication modes for your server:</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                            <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                <i class="fas fa-terminal text-blue-600 mr-2"></i>
+                                stdio
+                            </h4>
+                            <p class="text-blue-700 text-sm">Ideal for local development or CLI-based tools. It uses standard input/output, making it simple and fast for single-machine setups.</p>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-6 border border-purple-200">
+                            <h4 class="font-semibold text-purple-800 mb-2 flex items-center">
+                                <i class="fas fa-globe text-purple-600 mr-2"></i>
+                                SSE (Server-Sent Events)
+                            </h4>
+                            <p class="text-purple-700 text-sm">Best for remote servers or real-time applications. SSE streams data over HTTP, perfect for progressive responses or cloud-hosted tools.</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 mt-4 text-sm italic">Pro Tip: Use stdio for quick prototyping and SSE for production-grade, internet-facing servers.</p>
+                </div>
+
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-shield-alt text-blue-500"></i> Securing Your MCP Implementation
+                    </h3>
+                    <p class="text-gray-700 mb-4">To ensure your MCP server is secure, adopt these best practices:</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Authentication & Authorization:</strong> Use robust mechanisms to verify users and restrict access.
+                            </div>
                         </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Business Workflow Orchestration</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Automating tasks like scheduling meetings, sending calendar invites, or managing CRM records based on natural language commands.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Task Automation (Symflower)</a></li>
-                            </ul>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Session Management:</strong> Use strong, non-deterministic session IDs and consider binding them to user-specific information.
+                            </div>
                         </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Financial Analysis</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Calling APIs to retrieve real-time stock prices, perform currency conversions, or calculate complex financial metrics.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Currency Conversion (Analytics Vidhya)</a></li>
-                            </ul>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Sandboxing:</strong> Isolate MCP servers (local or remote) to limit exposure to untrusted content.
+                            </div>
                         </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Code Generation and Execution</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enabling LLM agents to write and run code to solve problems, perform data analysis, or interact with development tools.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-blue-600 hover:text-blue-800 underline">AI-Powered Coding Assistants (PromptLayer)</a></li>
-                            </ul>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Input Validation:</strong> Validate prompts and verify tool integrity to prevent malicious inputs.
+                            </div>
                         </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">E-commerce Product Management</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Integrating with inventory databases to provide real-time product suggestions, check availability, and manage orders.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-blue-600 hover:text-blue-800 underline">Product Recommendations (Analytics Vidhya)</a></li>
-                            </ul>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Least Privilege:</strong> Grant minimal permissions to MCP components and agents.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>Monitoring & Logging:</strong> Implement systems to detect and log suspicious activities.
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            <div>
+                                <strong>User Confirmation:</strong> Require explicit user approval for sensitive actions triggered by the agent.
+                            </div>
                         </li>
                     </ul>
                 </div>
 
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-project-diagram text-blue-500"></i> Related Concepts
+                        <i class="fas fa-rocket text-blue-500"></i> Next Steps
                     </h3>
-                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li>Function Calling vs Model Context Protocol</li>
-                        <li>Tool Registration & Discovery</li>
-                        <li>Function Execution Context</li>
-                        <li>Error Handling & Validation</li>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-blue-500 mt-1 mr-3"></i>
+                            <div><strong>Enhance Your Tool:</strong> Replace the mock rates with a real API (e.g., exchangerate-api.com).</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right text-blue-500 mt-1 mr-3"></i>
+                            <div><strong>Explore More Tools:</strong> Add more MCP tools for tasks like stock lookups or weather updates.</div>
+                        </li>
                     </ul>
                 </div>
             </div>
