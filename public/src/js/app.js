@@ -291,6 +291,7 @@ if (typeof firebase !== "undefined" && firebase.analytics) {
       target = target.parentNode;
     }
     if (target && target.tagName === 'A' && target.href && target.href.includes('github.com')) {
+      console.log('GitHub link clicked:', target.href); // Add this line
       firebase.analytics().logEvent('github_link_click', { url: target.href });
     }
   }, true);
