@@ -132,11 +132,9 @@ if __name__ == "__main__":
                         <i class="fas fa-lightbulb text-blue-500"></i> Use Cases
                     </h3>
                     <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
-                        <li class="mb-2"><span class="font-bold text-gray-800">Research and Analysis:</span> Break down complex research tasks into sequential steps: data gathering, analysis, and synthesis. This enables systematic processing of information and generation of comprehensive reports. <a href="https://www.analyticsvidhya.com/blog/2023/12/research-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Research Chains</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Content Generation:</span> Create structured content generation pipelines for articles, reports, or documentation. This allows for consistent quality and style across different content types. <a href="https://www.datacamp.com/blog/content-generation-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Content Generation</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Code Generation:</span> Implement multi-step code generation with planning, implementation, and testing phases. This ensures high-quality, well-structured code output. <a href="https://blog.langchain.dev/code-generation-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Explore Code Generation</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Data Processing:</span> Create pipelines for data cleaning, transformation, and analysis. This enables systematic processing of complex datasets. <a href="https://www.analyticsvidhya.com/blog/2023/12/data-processing-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Data Processing</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Decision Support:</span> Build decision-making systems that break down complex decisions into logical steps. This enables transparent and explainable decision processes. <a href="https://www.datacamp.com/blog/decision-support-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Decision Support</a></li>
+                        <li class="mb-2"><span class="font-bold text-gray-800">Research and Analysis:</span> Break down complex research tasks into sequential steps: data gathering, analysis, and synthesis. This enables systematic processing of information and generation of comprehensive reports. <a href="https://blog.devgenius.io/llm-chains-theoretical-overview-5f8fdad3f081" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about LLM Chains</a></li>
+                        <li class="mb-2"><span class="font-bold text-gray-800">Content Generation:</span> Create structured content generation pipelines for articles, reports, or documentation. This allows for consistent quality and style across different content types. <a href="https://ai.plainenglish.io/understanding-the-llm-chain-revolutionizing-language-models-e87bb185fbf6" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about LLM Chains for Content Generation</a></li>
+                        <li class="mb-2"><span class="font-bold text-gray-800">Code Generation:</span> Implement multi-step code generation with planning, implementation, and testing phases. This ensures high-quality, well-structured code output. <a href="https://dev.to/daviducolo/chain-of-llms-a-collaborative-approach-to-ai-problem-solving-533" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Explore Collaborative LLM Chains for Code Generation</a></li>
                     </ul>
                 </div>
             </div>
@@ -159,8 +157,7 @@ if __name__ == "__main__":
                     <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
                         <li><span class="font-bold text-gray-800">Rule-based Routing:</span> Uses predefined rules or conditions to direct inputs to specific handlers.</li>
                         <li><span class="font-bold text-gray-800">LLM-based Classification:</span> Uses a language model to analyze the input and determine the appropriate handler.</li>
-                        <li><span class="font-bold text-gray-800">LangChain Router Chains:</span> LangChain provides specific router chains that use an LLM to classify an input and choose the next chain to execute. <a href="https://python.langchain.com/docs/modules/chains/router" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about LangChain Routers</a>.</li>
-                        <li><span class="font-bold text-gray-800">OpenAI Function Calling:</span> While primarily for tool use, the underlying mechanism of choosing which function to call based on a prompt is a form of routing. <a href="https://platform.openai.com/docs/guides/function-calling" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about OpenAI Function Calling</a>.</li>
+                        <li><span class="font-bold text-gray-800">OpenAI Function Calling:</span> While primarily for tool use, the underlying mechanism of choosing which function to call based on a prompt is a form of routing. <a href="https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about OpenAI Function Calling</a>.</li>
                     </ul>
                 </div>
                 <div class="mb-10">
@@ -204,27 +201,17 @@ result = app.invoke({
                         <li>
                             <strong>Customer Service Automation</strong>
                             <p class="mb-1">Route customer inquiries to specialized agents based on query type (billing, technical support, product information). This ensures each query is handled by the most appropriate agent, improving response quality and efficiency.</p>
-                            <a href="https://www.analyticsvidhya.com/blog/2023/12/agent-routing/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about Customer Service Routing</a>
+                            <a href="https://dev.to/eminencetechnology/langchain-for-llm-application-development-3enj" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about Routing and LLM Chains</a>
                         </li>
                         <li>
                             <strong>Content Moderation</strong>
                             <p class="mb-1">Direct content to different moderation agents based on content type and risk level. This enables efficient content screening and appropriate handling of different types of content violations.</p>
-                            <a href="https://www.datacamp.com/blog/ai-content-moderation" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn about AI Content Moderation</a>
+                            <a href="https://www.cmswire.com/digital-experience/how-ai-is-transforming-content-moderation/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn about AI Content Moderation</a>
                         </li>
                         <li>
                             <strong>Multi-Agent Workflows</strong>
                             <p class="mb-1">Coordinate complex tasks across multiple specialized agents. This allows for sophisticated problem-solving by leveraging the strengths of different agents in a coordinated manner.</p>
                             <a href="https://blog.langchain.dev/langgraph-multi-agent-workflows/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Explore Multi-Agent Workflows</a>
-                        </li>
-                        <li>
-                            <strong>Document Processing</strong>
-                            <p class="mb-1">Route documents to appropriate processing agents based on document type and content. This enables efficient handling of different document formats and processing requirements.</p>
-                            <a href="https://www.analyticsvidhya.com/blog/2023/12/document-processing-agents/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Read about Document Processing</a>
-                        </li>
-                        <li>
-                            <strong>API Gateway</strong>
-                            <p class="mb-1">Route API requests to appropriate microservices or handlers based on request type and parameters. This enables efficient request handling and load distribution across services.</p>
-                            <a href="https://www.datacamp.com/blog/ai-api-gateway" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn about AI API Gateway</a>
                         </li>
                     </ul>
                 </div>
@@ -283,7 +270,7 @@ results = parallel_chain.invoke({"text": "Sample text"})</code></pre>
                         <li>
                             <strong>Data Processing Pipelines</strong>
                             <p class="mb-1">Process large datasets concurrently by splitting them into chunks and processing them in parallel. This significantly reduces processing time for large-scale data operations.</p>
-                            <a href="https://www.analyticsvidhya.com/blog/2023/12/parallel-data-processing/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Read about Parallel Data Processing</a>
+                            <a href="https://python.langchain.com/docs/expression_language/how_to/parallel" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Read about RunnableParallel</a>
                         </li>
                         <li>
                             <strong>API Integration</strong>
@@ -294,16 +281,6 @@ results = parallel_chain.invoke({"text": "Sample text"})</code></pre>
                             <strong>Content Generation</strong>
                             <p class="mb-1">Generate multiple content pieces simultaneously. This enables efficient creation of large content sets while maintaining quality.</p>
                             <a href="https://blog.langchain.dev/parallel-content-generation/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Explore Parallel Content Generation</a>
-                        </li>
-                        <li>
-                            <strong>Model Training</strong>
-                            <p class="mb-1">Train multiple models or hyperparameter combinations in parallel. This accelerates the model development and optimization process.</p>
-                            <a href="https://www.analyticsvidhya.com/blog/2023/12/parallel-model-training/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Read about Parallel Model Training</a>
-                        </li>
-                        <li>
-                            <strong>Real-time Analytics</strong>
-                            <p class="mb-1">Process multiple data streams concurrently for real-time analysis. This enables immediate insights from multiple data sources.</p>
-                            <a href="https://www.datacamp.com/blog/real-time-analytics" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn about Real-time Analytics</a>
                         </li>
                     </ul>
                 </div>
@@ -434,50 +411,94 @@ print("\nReflection:", reflect(user_query))</code></pre>
                         <i class="fas fa-info-circle text-pink-500"></i> Description
                     </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">Planning is a pattern that enables AI agents to create and execute sequences of actions to achieve specific goals. By breaking down complex tasks into manageable steps and considering dependencies and constraints, this pattern enables systematic problem-solving and goal achievement.</p>
+                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing planning systems:</p>
+                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
+                        <li><span class="font-bold text-gray-800">Hierarchical Planning:</span> Breaking down goals into sub-goals and creating hierarchical action plans.</li>
+                        <li><span class="font-bold text-gray-800">Reactive Planning:</span> Adapting plans based on real-time feedback and changing conditions.</li>
+                        <li><span class="font-bold text-gray-800">Constraint-Based Planning:</span> Considering various constraints and dependencies while creating plans.</li>
+                        <li><span class="font-bold text-gray-800">Goal-Oriented Planning:</span> Focusing on achieving specific goals through systematic action sequences.</li>
+                    </ul>
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
-                        <i class="fas fa-code text-pink-500"></i> Minimal Python Example
+                        <i class="fas fa-code text-pink-500"></i> Basic Planning Pseudocode
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Define possible actions
-ACTIONS = [
-    {'name': 'research_market', 'description': 'Research market conditions.'},
-    {'name': 'develop_strategy', 'description': 'Develop business strategy.'},
-    {'name': 'customize_strategy_healthcare', 'description': 'Customize strategy for healthcare.'},
-    {'name': 'organize_team_building', 'description': 'Plan a team-building event.'},
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Simple LLM client mock
+llm = LLM()
+
+# Define actions: what they need and what they produce
+actions = [
+    {
+        'name': 'research_market',
+        'needs': [],
+        'gives': ['market_knowledge'],
+        'description': 'Research market conditions and opportunities'
+    },
+    {
+        'name': 'develop_strategy',
+        'needs': ['market_knowledge'],
+        'gives': ['business_strategy'],
+        'description': 'Develop business strategy based on market research'
+    }
 ]
 
-# Plan using LLM
-def llm_plan(goal, actions):
-    prompt = ChatPromptTemplate.from_template("""
-Goal: {goal}
-Available actions:
-{actions}
+def get_action(name):
+    """Helper to get action by name"""
+    return next((a for a in actions if a['name'] == name), None)
 
-List only the essential action names (comma-separated) to achieve the goal.
-""")
-    actions_as_text = "\n".join(f"- {a['name']}: {a['description']}" for a in actions)
-    response = llm.invoke(prompt.format(goal=goal, actions=actions_as_text)).content.strip()
-    return [step.strip() for step in response.split(",")]
+def suggest_next_action(state, goal_conditions):
+    """Use LLM to suggest the next best action"""
+    prompt = f"""Current state: {state}
+    Goal conditions: {goal_conditions}
+    Available actions: {[a['name'] for a in actions]}
+    Suggest the most appropriate next action:"""
+    
+    action_name = llm.generate(f"suggest_action:{prompt}")
+    return get_action(action_name)
 
-# Execute each step
-def execute_plan(plan, actions):
-    for name in plan:
-        action = next((a for a in actions if a['name'] == name), None)
-        if action:
-            print(f"[EXECUTE] {name}: {action['description']}")
+def plan_actions(goal_conditions, actions, initial_state):
+    plan = []
+    state = set(initial_state)
+    
+    # Let LLM analyze the goal first
+    analysis = llm.generate(f"analyze_state:Goal is {goal_conditions}. Current state is {state}")
+    print(f"LLM Analysis: {analysis}")
 
-# Run example
-if __name__ == "__main__":
-    goal = "Create a business strategy for the healthcare market"
-    print("Goal:", goal)
+    while not all(cond in state for cond in goal_conditions):
+        # Get LLM suggestion for next action
+        suggested_action = suggest_next_action(state, goal_conditions)
+        if not suggested_action:
+            print("No valid action found")
+            break
+            
+        # Check prerequisites
+        prereqs_met = all(p in state for p in suggested_action['needs'])
+        
+        if prereqs_met:
+            plan.append(suggested_action['name'])
+            state.update(suggested_action['gives'])
+            print(f"✅ Added action: {suggested_action['name']}")
+        else:
+            # If prerequisites not met, plan those first
+            print(f"🔍 Planning prerequisites for: {suggested_action['name']}")
+            for prereq in suggested_action['needs']:
+                if prereq not in state:
+                    # Find action that provides this prerequisite
+                    for action in actions:
+                        if prereq in action['gives']:
+                            subplan = plan_actions([prereq], actions, state)
+                            plan.extend(subplan)
+                            state.update(prereq for a in subplan for prereq in get_action(a)['gives'] if get_action(a))
+    
+    return plan
 
-    plan = llm_plan(goal, ACTIONS)
-    print("\nPlanned actions:", plan)
+# Example usage
+initial_state = []
+goal_conditions = ['business_strategy']
 
-    print("\nExecuting...\n")
-    execute_plan(plan, ACTIONS)
-</code></pre>
+print("Starting planning process...")
+plan = plan_actions(goal_conditions, actions, initial_state)
+print("\nFinal Plan:", plan)</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
@@ -536,12 +557,5 @@ if __name__ == "__main__":
         </div>
     </section>
 
-    <!-- Scroll to top button -->
-    <button class="go-to-top" aria-label="Scroll to top">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
-    <!-- JavaScript -->
-    <script src="../js/app.js"></script>
 </body>
 </html>
