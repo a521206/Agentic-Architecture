@@ -1,3 +1,20 @@
+// --- Firebase Analytics Initialization (Centralized) ---
+const firebaseConfig = {
+    apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
+    authDomain: "agentic-architecture-571f9.firebaseapp.com",
+    projectId: "agentic-architecture-571f9",
+    storageBucket: "agentic-architecture-571f9.firebasestorage.app",
+    messagingSenderId: "581221355292",
+    appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
+    measurementId: "G-SWN5EK41WQ"
+  };
+
+// Initialize Firebase only if not already initialized
+if (typeof firebase !== "undefined" && firebase.apps && !firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+}
+// --- End Firebase Analytics Initialization ---
 // Main JavaScript for Agentic Design Patterns
 
 // Pattern Details Data (No changes needed, already good)
