@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Learning Patterns</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom-styles.css">
@@ -25,11 +25,18 @@
         </div>
         
         <!-- Header -->
-        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
-            <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-5 tracking-tight drop-shadow-lg leading-tight">Agentic Learning Patterns</h1>
-            <p class="text-2xl text-blue-700 font-medium opacity-90">Patterns for continuous learning and adaptation in agentic systems</p>
-            <div class="mt-6 max-w-3xl mx-auto bg-white/80 rounded-xl p-6 shadow-lg">
-                <p class="text-gray-700 leading-relaxed">These patterns represent the cutting edge of learning mechanisms in modern agentic systems. While traditional machine learning patterns focus on model training and optimization, these patterns address how agents can learn and adapt in real-time, leveraging the unique capabilities of large language models and modern AI architectures. They are essential for creating truly intelligent and adaptive agentic systems.</p>
+        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-100/60 to-indigo-100/40 pointer-events-none"></div>
+            <div class="relative z-10">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-blue-900 mb-4 tracking-tight drop-shadow-lg leading-tight">
+                    Agentic Learning Patterns
+                </h1>
+                <p class="text-2xl text-blue-700 font-medium opacity-90 mb-4">
+                    Patterns for continuous learning and adaptation in agentic systems
+                </p>
+                <p class="max-w-3xl mx-auto text-lg text-blue-800/90 mb-2">
+                    These patterns represent the cutting edge of learning mechanisms in modern agentic systems. While traditional machine learning patterns focus on model training and optimization, these patterns address how agents can learn and adapt in real-time, leveraging the unique capabilities of large language models and modern AI architectures. They are essential for creating truly intelligent and adaptive agentic systems.
+                </p>
             </div>
         </header>
 
@@ -117,330 +124,89 @@
 
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Implementation
+                        <i class="fas fa-code text-blue-500"></i> Implementation # for In-Context Learning
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using modern TypeScript with decorators and async patterns
-import { OpenAI } from 'openai';
-import { z } from 'zod';
-import { VectorStore } from '@langchain/community/vectorstores';
-import { OpenAIEmbeddings } from '@langchain/openai';
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>examples = [
+    {"input": "Translate 'Hello' to Spanish.", "output": "Hola."},
+    {"input": "What is 2 + 2?", "output": "4."}
+]
 
-// Type definitions
-interface Example {
-    input: string;
-    output: string;
-    reasoning?: string;
-    metadata?: Record<string, any>;
-}
+def generate_prompt(task, examples):
+    prompt = ""
+    for ex in examples:
+        prompt += f"Input: {ex['input']}\nOutput: {ex['output']}\n"
+    prompt += f"Input: {task}\nOutput:"
+    return prompt
 
-// NOTE: @Injectable and @Inject decorators are part of a larger dependency injection framework
-// (like Angular or NestJS) and are not standard TypeScript/JavaScript.
-// For a standalone example, these would need to be removed or replaced with a simpler pattern.
-// This example assumes a context where these decorators are resolved.
+user_task = "Translate 'Goodbye' to French."
+prompt = generate_prompt(user_task, examples)
+llm_response = llm_agent.complete(prompt)
+print(llm_response)</code></pre>
+                </div>
 
-class InContextLearning {
-    private readonly model: OpenAI;
-    private readonly examples: Example[] = [];
-    private readonly maxExamples: number = 5;
-    private readonly vectorStore: VectorStore; // This would typically be initialized here or passed in
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
+                        <i class="fas fa-code text-purple-500"></i> Implementation # for Meta-Learning
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>class MetaLearner:
+    def __init__(self):
+        self.strategies = ["few-shot", "zero-shot"]
+        self.history = []
+    def select_strategy(self, task):
+        # Analyze task and history to pick best strategy
+        return "few-shot" if task.has_examples else "zero-shot"
+    def learn(self, task):
+        strategy = self.select_strategy(task)
+        result = llm_agent.apply_strategy(strategy, task)
+        self.history.append({"task": task, "strategy": strategy, "result": result})
+        return result
 
-    constructor(
-        // Assuming apiKey and vectorStore are passed directly for standalone usage
-        private readonly apiKey: string,
-        vectorStoreInstance: VectorStore // Renamed to avoid conflict with `vectorStore` property
-    ) {
-        this.model = new OpenAI({ apiKey });
-        this.vectorStore = vectorStoreInstance; // Assign the passed instance
-        // Basic initialization for vectorStore if it's not provided externally in a real app
-        // For this example, we'll assume it's provided or mocked.
-        if (!this.vectorStore) {
-            console.warn("VectorStore not provided. In-Context Learning will not perform semantic search for examples.");
-            // Or you could mock it:
-            // this.vectorStore = {
-            //     addDocuments: async (docs) => { console.log("Mock addDocuments", docs); },
-            //     similaritySearch: async (query, options) => { return []; },
-            //     clear: () => {}
-            // } as unknown as VectorStore;
-        }
-    }
-
-    async addExample(example: Example): Promise<void> {
-        if (this.examples.length >= this.maxExamples) {
-            this.examples.shift(); // Remove the oldest example
-        }
-        
-        // Store example in vector store for semantic search
-        if (this.vectorStore) {
-            await this.vectorStore.addDocuments([{
-                pageContent: JSON.stringify(example),
-                metadata: example.metadata || {} // Ensure metadata is an object
-            }]);
-        }
-        
-        this.examples.push(example);
-    }
-
-    async generatePrompt(task: string): Promise<string> {
-        let examplesContent = '';
-        if (this.vectorStore) {
-            // Find most relevant examples using semantic search
-            const relevantExamples = await this.vectorStore.similaritySearch(task, this.maxExamples);
-
-            examplesContent = relevantExamples.map(doc => {
-                const ex = JSON.parse(doc.pageContent) as Example;
-                let prompt = `Input: ${ex.input}\n`;
-                if (ex.reasoning) {
-                    prompt += `Reasoning: ${ex.reasoning}\n`;
-                }
-                prompt += `Output: ${ex.output}\n`;
-                return prompt;
-            }).join('\n');
-        } else {
-            // Fallback to using directly added examples if vector store is not available
-            examplesContent = this.examples.map(ex => {
-                let prompt = `Input: ${ex.input}\n`;
-                if (ex.reasoning) {
-                    prompt += `Reasoning: ${ex.reasoning}\n`;
-                }
-                prompt += `Output: ${ex.output}\n`;
-                return prompt;
-            }).join('\n');
-        }
-
-        return `${examplesContent}\nInput: ${task}\nOutput:`;
-    }
-
-    async learn(task: string): Promise<string | null | undefined> {
-        const prompt = await this.generatePrompt(task);
-        try {
-            const completion = await this.model.chat.completions.create({
-                messages: [{ role: 'user', content: prompt }],
-                model: 'gpt-4-turbo-preview', // Or a suitable Gemini model if targeting Google API
-                temperature: 0.7,
-                max_tokens: 1000
-            });
-            return completion.choices[0].message.content;
-        } catch (error) {
-            console.error("Error during LLM completion:", error);
-            return null; // Or throw the error for upstream handling
-        }
-    }
-
-    async clearExamples(): Promise<void> {
-        this.examples.length = 0;
-        if (this.vectorStore) {
-            // Assuming a clear method exists or manually delete documents
-            // This might depend on the specific VectorStore implementation.
-            // For LangChain's VectorStore, there isn't a generic `clear` method.
-            // You might need to re-initialize the store or delete by ID/filter.
-            // For simplicity in this example, we'll just clear the local array.
-            console.warn("VectorStore clear operation is not generically supported or implemented. Local examples cleared.");
-        }
-    }
-}
-
-// --- Mock Implementations for Demonstration ---
-// In a real application, these would be proper imports and configurations.
-
-// Mock OpenAIEmbeddings for the example
-class MockOpenAIEmbeddings extends OpenAIEmbeddings {
-    async embedDocuments(texts: string[]): Promise<number[][]> {
-        console.log("MockOpenAIEmbeddings: Embedding documents", texts.length);
-        // Simulate embeddings for demonstration
-        return texts.map(text => Array(1536).fill(0).map(() => Math.random()));
-    }
-    async embedQuery(text: string): Promise<number[]> {
-        console.log("MockOpenAIEmbeddings: Embedding query", text);
-        return Array(1536).fill(0).map(() => Math.random());
-    }
-}
-
-// Mock VectorStore for the example
-// This is a minimal mock, a real one would be more complex (e.g., Pinecone, Chroma)
-class MockVectorStore extends VectorStore {
-    lc_namespace: string[] = []; // Required by LangChain's VectorStore abstract class
-    embeddings: MockOpenAIEmbeddings;
-    docs: { pageContent: string, metadata: Record<string, any>, embedding: number[] }[] = [];
-
-    constructor(embeddings: MockOpenAIEmbeddings) {
-        super(embeddings, {}); // Pass an empty object for `dbConfig`
-        this.embeddings = embeddings;
-    }
-
-    async addVectors(
-        vectors: number[][],
-        documents: import("@langchain/core/documents").Document[],
-        options?: Record<string, any> | undefined
-    ): Promise<string[]> {
-        console.log(`MockVectorStore: Adding ${documents.length} documents`);
-        documents.forEach((doc, i) => {
-            this.docs.push({
-                pageContent: doc.pageContent,
-                metadata: doc.metadata,
-                embedding: vectors[i]
-            });
-        });
-        return documents.map((_, i) => `doc-${Date.now()}-${i}`);
-    }
-
-    async similaritySearchVectorWithScore(
-        queryVector: number[],
-        k: number,
-        filter?: Record<string, any> | undefined
-    ): Promise<[import("@langchain/core/documents").Document, number][]> {
-        console.log(`MockVectorStore: Searching for ${k} documents`);
-        if (this.docs.length === 0) {
-            return [];
-        }
-        // Simple mock similarity search: pick random docs
-        const results: [import("@langchain/core/documents").Document, number][] = [];
-        const shuffledDocs = [...this.docs].sort(() => 0.5 - Math.random()); // Shuffle for mock relevance
-        for (let i = 0; i < Math.min(k, shuffledDocs.length); i++) {
-            results.push([
-                {
-                    pageContent: shuffledDocs[i].pageContent,
-                    metadata: shuffledDocs[i].metadata,
-                    // No embedding property here for Document type, but we store it internally
-                },
-                Math.random() * 0.5 + 0.5 // Mock score between 0.5 and 1.0
-            ]);
-        }
-        return results;
-    }
-    
-    // Minimal implementation for abstract methods
-    static fromTexts(
-        texts: string[],
-        metadatas: Record<string, any>[],
-        embeddings: MockOpenAIEmbeddings,
-        dbConfig?: Record<string, any> | undefined
-    ): Promise<MockVectorStore> {
-        const store = new MockVectorStore(embeddings);
-        // This is a simplification; in a real scenario, this would add docs
-        return Promise.resolve(store);
-    }
-    static fromExistingIndex(
-        embeddings: MockOpenAIEmbeddings,
-        dbConfig?: Record<string, any> | undefined
-    ): Promise<MockVectorStore> {
-        const store = new MockVectorStore(embeddings);
-        return Promise.resolve(store);
-    }
-
-    // Add a simple clear method for demonstration purposes
-    clear() {
-        this.docs = [];
-    }
-}
-
-
-// --- Main execution block for demonstration ---
-async function runInContextLearningExample() {
-    const mockApiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual key if running live
-    const mockEmbeddings = new MockOpenAIEmbeddings();
-    const mockVectorStore = new MockVectorStore(mockEmbeddings);
-
-    const learningAgent = new InContextLearning(mockApiKey, mockVectorStore);
-
-    console.log("Adding examples...");
-    await learningAgent.addExample({
-        input: "Translate 'Hello' to Spanish.",
-        output: "Hola.",
-        reasoning: "Common greeting translation."
-    });
-    await learningAgent.addExample({
-        input: "Summarize this: 'The quick brown fox jumps over the lazy dog.'",
-        output: "A fox jumps over a dog.",
-        reasoning: "Extracting key subjects and actions."
-    });
-    await learningAgent.addExample({
-        input: "What is 10 + 5?",
-        output: "15.",
-        reasoning: "Basic arithmetic addition."
-    });
-
-    console.log("\nLearning a new task with examples:");
-    const result1 = await learningAgent.learn("Translate 'Goodbye' to French.");
-    console.log("Result 1 (French):", result1);
-
-    console.log("\nLearning another task:");
-    const result2 = await learningAgent.learn("Summarize this: 'Artificial intelligence is rapidly advancing, transforming various industries.'");
-    console.log("Result 2 (Summary):", result2);
-
-    console.log("\nAttempting a task without strong context:");
-    const result3 = await learningAgent.learn("What is the meaning of life?");
-    console.log("Result 3 (Philosophical):", result3);
-
-    console.log("\nClearing examples...");
-    await learningAgent.clearExamples();
-    console.log("Examples cleared.");
-}
-
-// Call the example function
-// This needs to be wrapped in an async IIFE or called directly from an async context
-// if not in a top-level await environment.
-(async () => {
-    // Check if running in a browser-like environment (for `globalThis.process`)
-    // or if `process` is explicitly defined (like in Node.js)
-    if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-        // Assume browser-like environment where fetch and other globals are available
-        // You might need a global `OpenAI` if running directly in a browser without bundler
-        // For local testing in Node, ensure `npm install openai @langchain/community @langchain/openai`
-        runInContextLearningExample();
-    } else {
-        // Node.js environment, `runInContextLearningExample` is already async and can be called directly.
-        runInContextLearningExample();
-    }
-})();
-
+task = Task(content="Translate 'Hello' to German.", has_examples=True)
+meta_learner = MetaLearner()
+result = meta_learner.learn(task)
+print(result)
 </code></pre>
                 </div>
 
                 <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-lightbulb text-blue-500"></i> Use Cases
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-code text-green-500"></i> Implementation # for Self-Refinement
                     </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Task Adaptation</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Quickly adapt to new tasks without fine-tuning the model. This enables rapid prototyping and testing of new capabilities.</li>
-                                <li><a href="https://arxiv.org/abs/2203.07814" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition-colors duration-200">Read about Task Adaptation</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Rapid Prototyping</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Test and iterate on new agent behaviors quickly by providing examples in the prompt. This accelerates development cycles.</li>
-                                <li><a href="https://www.anthropic.com/index/prompting-and-in-context-learning" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition-colors duration-200">Learn about Rapid Prototyping</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Few-shot Learning</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Learn from a small number of examples for specific tasks. This is particularly useful for domain-specific applications.</li>
-                                <li><a href="https://arxiv.org/abs/2005.14165" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition-colors duration-200">Explore Few-shot Learning</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Dynamic Behavior Modification</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Modify agent behavior in real-time based on user feedback or changing requirements. This enables flexible and adaptive systems.</li>
-                                <li><a href="https://www.anthropic.com/index/claude-2" target="_blank" class="text-blue-600 hover:text-blue-800 underline transition-colors duration-200">Read about Dynamic Behavior</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>def self_refine(task, max_iterations=3, threshold=0.8):
+    output = llm_agent.complete(task)
+    for i in range(max_iterations):
+        critique = llm_agent.critique(task, output)
+        if critique["score"] >= threshold:
+            break
+        output = llm_agent.improve(task, output, critique)
+    return output
+
+result = self_refine("Summarize the benefits of renewable energy.")
+print(result)
+</code></pre>
                 </div>
 
                 <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-project-diagram text-blue-500"></i> Related Patterns
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
+                        <i class="fas fa-code text-yellow-500"></i> Implementation # for Memory-Augmented Learning
                     </h3>
-                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li><strong>Meta-Learning:</strong> For developing effective learning strategies across different tasks</li>
-                        <li><strong>Self-Refinement:</strong> For improving the quality of learned behaviors through self-analysis</li>
-                        <li><strong>Memory-Augmented Learning:</strong> For storing and retrieving relevant examples from past experiences</li>
-                    </ul>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-yellow-700"><code>class Memory:
+    def __init__(self):
+        self.memories = []
+    def store(self, experience):
+        self.memories.append(experience)
+    def retrieve(self, query):
+        # Return most relevant memories (simple match for demo)
+        return [m for m in self.memories if query in m["content"]]
+
+memory = Memory()
+memory.store({"content": "Agent completed task A."})
+memory.store({"content": "User reported error on task B."})
+
+query = "task A"
+relevant = memory.retrieve(query)
+print(relevant)
+</code></pre>
                 </div>
             </div>
         </section>
@@ -504,388 +270,34 @@ async function runInContextLearningExample() {
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
                         <i class="fas fa-code text-purple-500"></i> Implementation
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Modern TypeScript implementation with dependency injection and async patterns
-import { OpenAI } from 'openai';
-import { z } from 'zod';
-import { VectorStore } from '@langchain/community/vectorstores';
-import { OpenAIEmbeddings } from '@langchain/openai';
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Meta-Learning
 
-// Type definitions
-interface Task {
-    id: string;
-    type: string;
-    content: string;
-    metadata?: Record<string, any>;
-}
+class MetaLearner:
+    def __init__(self):
+        self.strategies = ["few-shot", "zero-shot"]
+        self.history = []
+    def select_strategy(self, task):
+        # Analyze task and history to pick best strategy
+        return "few-shot" if task.has_examples else "zero-shot"
+    def learn(self, task):
+        strategy = self.select_strategy(task)
+        result = llm_agent.apply_strategy(strategy, task)
+        self.history.append({"task": task, "strategy": strategy, "result": result})
+        return result
 
-interface LearningStrategy {
-    name: string;
-    apply: (examples: any[], taskContent: string) => Promise<any>; // Added taskContent
-    evaluate: (result: any) => Promise<number>;
-}
-
-// NOTE: @Injectable and @Inject decorators are part of a larger dependency injection framework
-// (like Angular or NestJS) and are not standard TypeScript/JavaScript.
-// For a standalone example, these would need to be removed or replaced with a simpler pattern.
-// This example assumes a context where these decorators are resolved.
-
-class MetaLearning {
-    private readonly model: OpenAI;
-    private readonly vectorStore: VectorStore;
-    private readonly strategies: Map<string, LearningStrategy>;
-    private readonly taskHistory: Task[] = [];
-
-    private readonly metaParameters = {
-        learningRate: 0.01,
-        adaptationThreshold: 0.8,
-        strategySelectionCriteria: 'performance',
-        maxHistorySize: 1000
-    };
-
-    constructor(
-        // Assuming apiKey and vectorStore are passed directly for standalone usage
-        private readonly apiKey: string,
-        vectorStoreInstance: VectorStore
-    ) {
-        this.model = new OpenAI({ apiKey });
-        this.vectorStore = vectorStoreInstance;
-        this.strategies = new Map();
-        this.initializeStrategies();
-
-        if (!this.vectorStore) {
-            console.warn("VectorStore not provided. Meta-Learning will not store or retrieve task history for strategy selection.");
-        }
-    }
-
-    private initializeStrategies(): void {
-        // Mock implementation for Few-shot Learning
-        this.strategies.set('few-shot', {
-            name: 'Few-shot Learning',
-            apply: async (examples, taskContent) => {
-                const prompt = this.createFewShotPrompt(examples, taskContent);
-                console.log("Applying Few-shot strategy with prompt:\n", prompt);
-                try {
-                    const completion = await this.model.chat.completions.create({
-                        messages: [{ role: 'user', content: prompt }],
-                        model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                        temperature: 0.7
-                    });
-                    return completion.choices[0].message.content;
-                } catch (error) {
-                    console.error("Error in few-shot application:", error);
-                    return null;
-                }
-            },
-            evaluate: async (result) => {
-                // Mock evaluation logic - in a real system, this would be based on actual task success
-                console.log("Evaluating few-shot result.");
-                return result ? (Math.random() * 0.3 + 0.7) : 0.2; // Mock score between 0.7 and 1.0, or low if null
-            }
-        });
-
-        // Mock implementation for Zero-shot Learning
-        this.strategies.set('zero-shot', {
-            name: 'Zero-shot Learning',
-            apply: async (examples, taskContent) => {
-                const prompt = `Solve the following task: ${taskContent}`;
-                console.log("Applying Zero-shot strategy with prompt:\n", prompt);
-                 try {
-                    const completion = await this.model.chat.completions.create({
-                        messages: [{ role: 'user', content: prompt }],
-                        model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                        temperature: 0.5
-                    });
-                    return completion.choices[0].message.content;
-                } catch (error) {
-                    console.error("Error in zero-shot application:", error);
-                    return null;
-                }
-            },
-            evaluate: async (result) => {
-                // Mock evaluation logic
-                console.log("Evaluating zero-shot result.");
-                return result ? (Math.random() * 0.2 + 0.5) : 0.1; // Mock score between 0.5 and 0.7, or low if null
-            }
-        });
-    }
-
-    async learn(task: Task, examples: any[]): Promise<any> {
-        console.log(`\nMeta-Learning for task: ${task.content}`);
-        const strategy = await this.selectStrategy(task);
-        console(`Selected strategy: ${strategy.name}`);
-        const result = await strategy.apply(examples, task.content);
-        const performance = await strategy.evaluate(result);
-        
-        console.log(`Performance for task: ${performance}`);
-        await this.updateMetaParameters(performance);
-        await this.storeTaskHistory(task, strategy, performance);
-        
-        return result;
-    }
-
-    private async selectStrategy(task: Task): Promise<LearningStrategy> {
-        if (!this.vectorStore || this.taskHistory.length === 0) {
-            // If no history or vector store, default to a strategy
-            return this.strategies.get('few-shot') || Array.from(this.strategies.values())[0];
-        }
-
-        // Find similar tasks from history
-        const queryEmbedding = await this.vectorStore.embeddings.embedQuery(task.content);
-        const similarTasks = await this.vectorStore.similaritySearchVectorWithScore(queryEmbedding, 5);
-
-        // Analyze task type and select appropriate strategy using LLM
-        const prompt = `Analyze the following new task and its similarity to past tasks to determine the best learning strategy.
-        Provide only the strategy name (e.g., 'few-shot' or 'zero-shot').
-
-        New Task: ${task.content}
-        
-        Similar Past Tasks and their observed performance:
-        ${similarTasks.map(([doc, score]) => {
-            const historyEntry = JSON.parse(doc.pageContent);
-            return `- Task: ${historyEntry.task.content}, Strategy Used: ${historyEntry.strategy}, Performance: ${historyEntry.performance}`;
-        }).join('\n')}
-
-        Consider:
-        1. How complex is the new task?
-        2. Are the available examples (if any) sufficient for few-shot?
-        3. What strategies performed best on similar past tasks?
-        `;
-
-        try {
-            const analysis = await this.model.chat.completions.create({
-                messages: [{ role: 'user', content: prompt }],
-                model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                temperature: 0.1, // Keep temperature low for deterministic output
-                max_tokens: 20
-            });
-            const suggestedStrategyName = analysis.choices[0].message.content?.trim().toLowerCase();
-            
-            // Validate and return suggested strategy, fallback if invalid
-            if (suggestedStrategyName && this.strategies.has(suggestedStrategyName)) {
-                return this.strategies.get(suggestedStrategyName)!;
-            }
-            console.warn(`LLM suggested invalid strategy: ${suggestedStrategyName}. Falling back to 'few-shot'.`);
-            return this.strategies.get('few-shot') || Array.from(this.strategies.values())[0];
-
-        } catch (error) {
-            console.error("Error analyzing task type for strategy selection:", error);
-            return this.strategies.get('few-shot') || Array.from(this.strategies.values())[0]; // Fallback
-        }
-    }
-
-    private async updateMetaParameters(performance: number): Promise<void> {
-        // Simple mock of meta-parameter update logic
-        if (performance > this.metaParameters.adaptationThreshold) {
-            this.metaParameters.learningRate *= 0.9;
-            console.log("Learning rate decreased due to good performance.");
-        } else {
-            this.metaParameters.learningRate *= 1.1;
-            console.log("Learning rate increased due to lower performance.");
-        }
-        // In a real system, this would involve updating a meta-model or similar
-    }
-
-    private async storeTaskHistory(task: Task, strategy: LearningStrategy, performance: number): Promise<void> {
-        const historyEntry = {
-            task,
-            strategy: strategy.name,
-            performance,
-            timestamp: new Date().toISOString()
-        };
-
-        if (this.vectorStore) {
-             await this.vectorStore.addDocuments([{
-                pageContent: JSON.stringify(historyEntry),
-                metadata: { type: 'task_history', task_id: task.id, strategy_name: strategy.name }
-            }]);
-            this.taskHistory.push(task); // Keep a local reference if needed
-            if (this.taskHistory.length > this.metaParameters.maxHistorySize) {
-                this.taskHistory.shift(); // Simple local cleanup
-                // In a real vector store, you'd manage eviction based on strategy
-            }
-        } else {
-            console.warn("VectorStore not available, task history not stored persistently.");
-        }
-    }
-
-    private createFewShotPrompt(examples: any[], taskContent: string): string {
-        const exampleString = examples.map(ex => {
-            return `Input: ${ex.input}\nOutput: ${ex.output}`;
-        }).join('\n\n');
-        return `Given the following examples, complete the new task:\n\n${exampleString}\n\nNew Input: ${taskContent}\nOutput:`;
-    }
-}
-
-// --- Mock Implementations for Demonstration ---
-// These mocks are simplified for the example to run without full external dependencies.
-
-// Mock OpenAIEmbeddings
-class MockOpenAIEmbeddingsForMeta extends OpenAIEmbeddings {
-    async embedDocuments(texts: string[]): Promise<number[][]> {
-        // console.log("MockOpenAIEmbeddingsForMeta: Embedding documents", texts.length);
-        return texts.map(text => Array(1536).fill(0).map(() => Math.random()));
-    }
-    async embedQuery(text: string): Promise<number[]> {
-        // console.log("MockOpenAIEmbeddingsForMeta: Embedding query", text);
-        return Array(1536).fill(0).map(() => Math.random());
-    }
-}
-
-// Mock VectorStore
-class MockVectorStoreForMeta extends VectorStore {
-    lc_namespace: string[] = [];
-    embeddings: MockOpenAIEmbeddingsForMeta;
-    docs: { pageContent: string, metadata: Record<string, any>, embedding: number[] }[] = [];
-
-    constructor(embeddings: MockOpenAIEmbeddingsForMeta) {
-        super(embeddings, {});
-        this.embeddings = embeddings;
-    }
-
-    async addVectors(
-        vectors: number[][],
-        documents: import("@langchain/core/documents").Document[],
-        options?: Record<string, any> | undefined
-    ): Promise<string[]> {
-        documents.forEach((doc, i) => {
-            this.docs.push({
-                pageContent: doc.pageContent,
-                metadata: doc.metadata,
-                embedding: vectors[i]
-            });
-        });
-        return documents.map((_, i) => `doc-${Date.now()}-${i}`);
-    }
-
-    async similaritySearchVectorWithScore(
-        queryVector: number[],
-        k: number,
-        filter?: Record<string, any> | undefined
-    ): Promise<[import("@langchain/core/documents").Document, number][]> {
-        if (this.docs.length === 0) {
-            return [];
-        }
-        // Simple mock similarity search: return first k docs as "similar"
-        const results: [import("@langchain/core/documents").Document, number][] = [];
-        for (let i = 0; i < Math.min(k, this.docs.length); i++) {
-            results.push([
-                { pageContent: this.docs[i].pageContent, metadata: this.docs[i].metadata },
-                Math.random() * 0.2 + 0.8 // Mock score between 0.8 and 1.0
-            ]);
-        }
-        return results;
-    }
-    
-    static fromTexts(
-        texts: string[],
-        metadatas: Record<string, any>[],
-        embeddings: MockOpenAIEmbeddingsForMeta,
-        dbConfig?: Record<string, any> | undefined
-    ): Promise<MockVectorStoreForMeta> {
-        const store = new MockVectorStoreForMeta(embeddings);
-        return Promise.resolve(store);
-    }
-    static fromExistingIndex(
-        embeddings: MockOpenAIEmbeddingsForMeta,
-        dbConfig?: Record<string, any> | undefined
-    ): Promise<MockVectorStoreForMeta> {
-        const store = new MockVectorStoreForMeta(embeddings);
-        return Promise.resolve(store);
-    }
-}
-
-// --- Main execution block for demonstration ---
-async function runMetaLearningExample() {
-    const mockApiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual key if running live
-    const mockEmbeddings = new MockOpenAIEmbeddingsForMeta();
-    const mockVectorStore = new MockVectorStoreForMeta(mockEmbeddings);
-
-    const metaLearningAgent = new MetaLearning(mockApiKey, mockVectorStore);
-
-    // Simulate some past tasks for meta-learning to have history
-    console.log("Simulating past tasks for meta-learning history...");
-    await metaLearningAgent.learn(
-        { id: "task-001", type: "translation", content: "Translate 'Hello' to German." },
-        [{ input: "Hello", output: "Hallo" }]
-    );
-    await metaLearningAgent.learn(
-        { id: "task-002", type: "summarization", content: "Summarize a short paragraph about AI." },
-        [{ input: "AI is a field...", output: "Summary..." }]
-    );
-    await metaLearningAgent.learn(
-        { id: "task-003", type: "translation", content: "Translate 'Thank you' to Japanese." },
-        [{ input: "Thank you", output: "Arigato" }]
-    );
-
-    console.log("\nLearning a new translation task:");
-    const result1 = await metaLearningAgent.learn(
-        { id: "task-004", type: "translation", content: "Translate 'Please' to Italian." },
-        [{ input: "Please", output: "Per favore" }] // Provide an example, meta-learning decides if it's used
-    );
-    console.log("Result 1 (Italian Translation):", result1);
-
-    console.log("\nLearning a new summarization task (zero-shot potential):");
-    const result2 = await metaLearningAgent.learn(
-        { id: "task-005", type: "summarization", content: "Provide a concise summary of quantum computing." },
-        [] // No explicit examples provided, encouraging zero-shot
-    );
-    console.log("Result 2 (Quantum Computing Summary):", result2);
-}
-
-// Call the example function
-(async () => {
-    // Check if running in a browser-like environment or Node.js
-    if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-        runMetaLearningExample();
-    } else {
-        runMetaLearningExample();
-    }
-})();
+task = Task(content="Translate 'Hello' to German.", has_examples=True)
+meta_learner = MetaLearner()
+result = meta_learner.learn(task)
+print(result)
 </code></pre>
                 </div>
 
                 <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-                        <i class="fas fa-lightbulb text-purple-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Few-shot Learning</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Learn new tasks with minimal examples by leveraging meta-learned strategies. This enables efficient adaptation to new scenarios.</li>
-                                <li><a href="https://arxiv.org/abs/1703.03400" target="_blank" class="text-purple-600 hover:text-purple-800 underline transition-colors duration-200">Read about Few-shot Learning</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Rapid Task Adaptation</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Quickly adapt to new tasks by applying learned strategies. This reduces the time needed for task mastery.</li>
-                                <li><a href="https://www.anthropic.com/index/meta-learning" target="_blank" class="text-purple-600 hover:text-purple-800 underline transition-colors duration-200">Learn about Task Adaptation</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Multi-agent Coordination</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enable agents to learn effective coordination strategies. This improves collaboration in complex systems.</li>
-                                <li><a href="https://arxiv.org/abs/2003.02979" target="_blank" class="text-purple-600 hover:text-purple-800 underline transition-colors duration-200">Explore Multi-agent Learning</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Transfer Learning Optimization</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Optimize the transfer of knowledge between related tasks. This enhances learning efficiency across domains.</li>
-                                <li><a href="https://www.anthropic.com/index/transfer-learning" target="_blank" class="text-purple-600 hover:text-purple-800 underline transition-colors duration-200">Read about Transfer Learning</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-                        <i class="fas fa-project-diagram text-purple-500"></i> Related Patterns
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
+                        <i class="fas fa-project-diagram text-green-500"></i> Related Patterns
                     </h3>
                     <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li><strong>In-Context Learning:</strong> For example-based adaptation</li>
+                        <li><strong>In-Context Learning:</strong> For example-based learning</li>
                         <li><strong>Self-Refinement:</strong> For performance improvement</li>
                         <li><strong>Memory-Augmented Learning:</strong> For experience storage</li>
                     </ul>
@@ -952,300 +364,20 @@ async function runMetaLearningExample() {
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
                         <i class="fas fa-code text-green-500"></i> Implementation
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Modern TypeScript implementation with dependency injection and async patterns
-import { OpenAI } from 'openai';
-import { z } from 'zod';
-import { VectorStore } from '@langchain/community/vectorstores';
-import { OpenAIEmbeddings } from '@langchain/openai';
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Self-Refinement
 
-// Type definitions
-interface Critique {
-    score: number;
-    feedback: string;
-    improvements: string[];
-    metrics: Record<string, number>;
-}
+def self_refine(task, max_iterations=3, threshold=0.8):
+    output = llm_agent.complete(task)
+    for i in range(max_iterations):
+        critique = llm_agent.critique(task, output)
+        if critique["score"] >= threshold:
+            break
+        output = llm_agent.improve(task, output, critique)
+    return output
 
-interface RefinementResult {
-    finalOutput: string | null | undefined;
-    iterations: number;
-    critiqueHistory: Critique[];
-    metrics: Record<string, number>;
-}
-
-// NOTE: @Injectable and @Inject decorators are part of a larger dependency injection framework
-// (like Angular or NestJS) and are not standard TypeScript/JavaScript.
-// For a standalone example, these would need to be removed or replaced with a simpler pattern.
-// This example assumes a context where these decorators are resolved.
-
-class SelfRefinement {
-    private readonly model: OpenAI;
-    private readonly vectorStore: VectorStore;
-    private readonly maxIterations: number = 3;
-    private readonly qualityThreshold: number = 0.8;
-    private readonly critiqueHistory: Critique[] = [];
-
-    constructor(
-        // Assuming apiKey and vectorStore are passed directly for standalone usage
-        private readonly apiKey: string,
-        vectorStoreInstance: VectorStore
-    ) {
-        this.model = new OpenAI({ apiKey });
-        this.vectorStore = vectorStoreInstance;
-
-        if (!this.vectorStore) {
-            console.warn("VectorStore not provided. Self-Refinement will not persist critique history.");
-        }
-    }
-
-    async refine(task: string): Promise<RefinementResult> {
-        let currentOutput: string | null | undefined = await this.model.chat.completions.create({
-            messages: [{ role: 'user', content: task }],
-            model: 'gpt-4-turbo-preview' // Or a suitable Gemini model
-        }).then(res => res.choices[0].message.content);
-
-        let iteration = 0;
-        const metrics: Record<string, number> = {};
-        this.critiqueHistory.length = 0; // Clear history for new refinement process
-
-        while (iteration < this.maxIterations && currentOutput !== null && currentOutput !== undefined) {
-            console.log(`\n--- Refinement Iteration ${iteration + 1} ---`);
-            console.log("Current output preview:", currentOutput.substring(0, 100) + "...");
-
-            const critique = await this.selfCritique(task, currentOutput); // Pass task context to critique
-            metrics[`iteration_${iteration}_score`] = critique.score;
-            this.critiqueHistory.push(critique);
-
-            console.log("Critique score:", critique.score);
-            console.log("Critique feedback:", critique.feedback);
-
-            if (this.isSatisfactory(critique)) {
-                console.log("Output satisfactory. Breaking refinement loop.");
-                break;
-            }
-
-            console.log("Improving output...");
-            currentOutput = await this.improveOutput(task, currentOutput, critique); // Pass task context
-            iteration++;
-        }
-
-        return {
-            finalOutput: currentOutput,
-            iterations: iteration,
-            critiqueHistory: this.critiqueHistory,
-            metrics
-        };
-    }
-
-    private async selfCritique(task: string, output: string): Promise<Critique> {
-        const critiquePrompt = `You are an AI assistant tasked with critically evaluating responses for a given task.
-        Evaluate the following output for the task: "${task}"
-
-        Output:
-        "${output}"
-
-        Provide a detailed critique in JSON format with the following structure,
-        including a composite 'score' from 0-1, 'feedback', 'improvements' as a list of concrete actions,
-        and specific 'metrics' (e.g., accuracy, completeness, clarity) scored from 0-1.
-
-        Example JSON structure:
-        {
-          "score": 0.85,
-          "feedback": "The summary is mostly accurate but lacks specific examples.",
-          "improvements": ["Add specific examples of AI applications.", "Elaborate on the ethical implications."],
-          "metrics": {
-            "accuracy": 0.9,
-            "completeness": 0.7,
-            "clarity": 0.8
-          }
-        }`;
-
-        try {
-            const completion = await this.model.chat.completions.create({
-                messages: [{ role: 'user', content: critiquePrompt }],
-                model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                temperature: 0.3,
-                response_format: { type: "json_object" } // Request JSON output
-            });
-            const content = completion.choices[0].message.content;
-            if (content) {
-                return this.parseCritique(content);
-            } else {
-                throw new Error("No content received for critique.");
-            }
-        } catch (error) {
-            console.error("Error during self-critique:", error);
-            // Fallback to a default critique on error
-            return {
-                score: 0.1,
-                feedback: `Failed to generate critique: ${error instanceof Error ? error.message : String(error)}.`,
-                improvements: ["Check API key and network connection.", "Simplify the task."],
-                metrics: { accuracy: 0.1, completeness: 0.1, clarity: 0.1 }
-            };
-        }
-    }
-
-    private isSatisfactory(critique: Critique): boolean {
-        return critique.score >= this.qualityThreshold;
-    }
-
-    private async improveOutput(task: string, originalOutput: string, critique: Critique): Promise<string | null | undefined> {
-        const improvementPrompt = `You are an AI assistant tasked with improving responses based on critique.
-        Task: "${task}"
-        Original Output:
-        "${originalOutput}"
-
-        Critique:
-        Feedback: ${critique.feedback}
-        Improvements needed: ${critique.improvements.join(', ')}
-        Metrics to improve: ${Object.entries(critique.metrics)
-            .map(([k, v]) => `${k}: ${v.toFixed(2)}`) // Format metrics for prompt
-            .join(', ')}
-
-        Based on the critique, provide an improved version of the original output. Focus on directly addressing the suggested improvements.`;
-
-        try {
-            const completion = await this.model.chat.completions.create({
-                messages: [{ role: 'user', content: improvementPrompt }],
-                model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                temperature: 0.7
-            });
-            return completion.choices[0].message.content;
-        } catch (error) {
-            console.error("Error during output improvement:", error);
-            return originalOutput; // Return original output if improvement fails
-        }
-    }
-
-    private parseCritique(critiqueText: string): Critique {
-        const schema = z.object({
-            score: z.number().min(0).max(1),
-            feedback: z.string(),
-            improvements: z.array(z.string()),
-            metrics: z.record(z.number().min(0).max(1))
-        });
-
-        try {
-            const parsed = JSON.parse(critiqueText);
-            return schema.parse(parsed);
-        } catch (error) {
-            console.error("Failed to parse critique JSON:", error);
-            // Fallback to basic parsing with a low score if structured output fails
-            return {
-                score: 0.2, // Low score indicating parsing failure or poor quality
-                feedback: `Could not parse structured critique. Raw: ${critiqueText.substring(0, 200)}...`,
-                improvements: ["Ensure LLM response is valid JSON.", "Refine critique prompt for consistent output."],
-                metrics: { parse_error: 1, accuracy: 0, completeness: 0, clarity: 0 }
-            };
-        }
-    }
-}
-
-// --- Mock Implementations for Demonstration ---
-// These mocks are simplified for the example to run without full external dependencies.
-
-// Mock OpenAIEmbeddings for SelfRefinement
-class MockOpenAIEmbeddingsForSR extends OpenAIEmbeddings {
-    async embedDocuments(texts: string[]): Promise<number[][]> {
-        return texts.map(text => Array(1536).fill(0).map(() => Math.random()));
-    }
-    async embedQuery(text: string): Promise<number[]> {
-        return Array(1536).fill(0).map(() => Math.random());
-    }
-}
-
-// Mock VectorStore for SelfRefinement (not strictly used by SelfRefinement itself, but passed for consistency)
-class MockVectorStoreForSR extends VectorStore {
-    lc_namespace: string[] = [];
-    embeddings: MockOpenAIEmbeddingsForSR;
-    docs: { pageContent: string, metadata: Record<string, any>, embedding: number[] }[] = [];
-
-    constructor(embeddings: MockOpenAIEmbeddingsForSR) {
-        super(embeddings, {});
-        this.embeddings = embeddings;
-    }
-
-    async addVectors(vectors: number[][], documents: any[], options?: any): Promise<string[]> { return []; }
-    async similaritySearchVectorWithScore(queryVector: number[], k: number, filter?: any): Promise<any[]> { return []; }
-    static fromTexts(texts: string[], metadatas: any[], embeddings: MockOpenAIEmbeddingsForSR, dbConfig?: any): Promise<MockVectorStoreForSR> {
-        return Promise.resolve(new MockVectorStoreForSR(embeddings));
-    }
-    static fromExistingIndex(embeddings: MockOpenAIEmbeddingsForSR, dbConfig?: any): Promise<MockVectorStoreForSR> {
-        return Promise.resolve(new MockVectorStoreForSR(embeddings));
-    }
-}
-
-// --- Main execution block for demonstration ---
-async function runSelfRefinementExample() {
-    const mockApiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual key if running live
-    const mockEmbeddings = new MockOpenAIEmbeddingsForSR();
-    const mockVectorStore = new MockVectorStoreForSR(mockEmbeddings);
-
-    const refinementAgent = new SelfRefinement(mockApiKey, mockVectorStore);
-
-    const taskToRefine = "Write a concise, factual summary of the benefits of renewable energy, focusing on economic and environmental impacts. Avoid jargon.";
-    console.log("Starting self-refinement process for task:\n", taskToRefine);
-
-    const result = await refinementAgent.refine(taskToRefine);
-
-    console.log("\n--- Self-Refinement Results ---");
-    console.log("Final Output:\n", result.finalOutput);
-    console.log("\nTotal Iterations:", result.iterations);
-    console.log("\nCritique History:");
-    result.critiqueHistory.forEach((critique, index) => {
-        console.log(`Iteration ${index + 1} Critique (Score: ${critique.score.toFixed(2)}):`);
-        console.log(`  Feedback: ${critique.feedback}`);
-        console.log(`  Improvements: ${critique.improvements.join('; ')}`);
-        console.log(`  Metrics: ${JSON.stringify(critique.metrics)}`);
-    });
-    console.log("\nFinal Metrics:", result.metrics);
-}
-
-// Call the example function
-(async () => {
-    if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-        runSelfRefinementExample();
-    } else {
-        runSelfRefinementExample();
-    }
-})();
+result = self_refine("Summarize the benefits of renewable energy.")
+print(result)
 </code></pre>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-                        <i class="fas fa-lightbulb text-green-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Code Generation Refinement</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Improve generated code through self-critique and iteration. This ensures higher quality and more reliable code.</li>
-                                <li><a href="https://arxiv.org/abs/2303.08774" target="_blank" class="text-green-600 hover:text-green-800 underline transition-colors duration-200">Read about Code Generation</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Content Quality Improvement</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enhance the quality of generated content through self-analysis. This leads to more polished and professional outputs.</li>
-                                <li><a href="https://www.anthropic.com/index/content-generation" target="_blank" class="text-green-600 hover:text-green-800 underline transition-colors duration-200">Learn about Content Quality</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Error Correction</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Identify and fix errors through self-critique. This improves reliability and accuracy.</li>
-                                <li><a href="https://arxiv.org/abs/2303.08774" target="_blank" class="text-green-600 hover:text-green-800 underline transition-colors duration-200">Explore Error Correction</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Performance Optimization</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Optimize system performance through continuous self-improvement. This leads to better efficiency and effectiveness.</li>
-                                <li><a href="https://www.anthropic.com/index/performance-optimization" target="_blank" class="text-green-600 hover:text-green-800 underline transition-colors duration-200">Read about Performance Optimization</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
 
                 <div class="mb-10">
@@ -1320,441 +452,25 @@ async function runSelfRefinementExample() {
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
                         <i class="fas fa-code text-yellow-500"></i> Implementation
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Modern TypeScript implementation with dependency injection and async patterns
-import { OpenAI } from 'openai';
-import { z } from 'zod';
-import { VectorStore } from '@langchain/community/vectorstores';
-import { OpenAIEmbeddings } from '@langchain/openai';
-// import { Redis } from 'ioredis'; // Uncomment if using Redis; not used in mock for simplicity
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-yellow-700"><code># Python Pseudocode for Memory-Augmented Learning
 
-// Type definitions
-interface Experience {
-    id: string;
-    type: 'episodic' | 'semantic';
-    content: string;
-    timestamp?: number;
-    concepts?: string[];
-    metadata?: Record<string, any>;
-}
+class Memory:
+    def __init__(self):
+        self.memories = []
+    def store(self, experience):
+        self.memories.append(experience)
+    def retrieve(self, query):
+        # Return most relevant memories (simple match for demo)
+        return [m for m in self.memories if query in m["content"]]
 
-interface MemoryConfig {
-    maxEpisodicMemories: number;
-    maxSemanticMemories: number;
-    relevanceThreshold: number;
-    embeddingModel: string;
-}
+memory = Memory()
+memory.store({"content": "Agent completed task A."})
+memory.store({"content": "User reported error on task B."})
 
-// NOTE: @Injectable and @Inject decorators are part of a larger dependency injection framework
-// (like Angular or NestJS) and are not standard TypeScript/JavaScript.
-// For a standalone example, these would need to be removed or replaced with a simpler pattern.
-// This example assumes a context where these decorators are resolved.
-
-class MemoryAugmentedLearning {
-    private readonly model: OpenAI;
-    private readonly vectorStore: VectorStore;
-    // private readonly redis: Redis; // Uncomment if using Redis
-    private readonly config: MemoryConfig;
-
-    constructor(
-        // Assuming apiKey, vectorStore and config are passed directly for standalone usage
-        private readonly apiKey: string,
-        vectorStoreInstance: VectorStore,
-        // redisClient: Redis, // Uncomment if using Redis
-        memoryConfig: MemoryConfig
-    ) {
-        this.model = new OpenAI({ apiKey });
-        this.vectorStore = vectorStoreInstance;
-        // this.redis = redisClient; // Uncomment if using Redis
-        this.config = memoryConfig;
-
-        if (!this.vectorStore) {
-            console.warn("VectorStore not provided. Memory-Augmented Learning will not function correctly without a vector store.");
-        }
-        // if (!this.redis) {
-        //     console.warn("Redis client not provided. Memory-Augmented Learning will not use Redis for quick access.");
-        // }
-    }
-
-    async storeExperience(experience: Experience): Promise<void> {
-        if (!this.vectorStore) {
-            console.error("Cannot store experience: VectorStore is not initialized.");
-            return;
-        }
-
-        // Generate embedding for the experience
-        const embedding = await this.generateEmbedding(experience.content);
-        
-        // Store in vector database
-        await this.vectorStore.addDocuments([{
-            pageContent: experience.content,
-            metadata: {
-                ...experience.metadata,
-                id: experience.id, // Ensure ID is passed to metadata for retrieval/deletion
-                type: experience.type,
-                timestamp: experience.timestamp || Date.now(),
-                concepts: experience.concepts || []
-            },
-            embedding: embedding // LangChain addDocuments usually handles embedding if embeddings client is passed, but good to be explicit for mock
-        }]);
-
-        // Store in Redis for quick access (conceptual, as Redis is mocked out)
-        // const key = `experience:${experience.id}`;
-        // await this.redis.set(key, JSON.stringify(experience));
-        
-        // Update memory limits (conceptual, as Redis and full vector store management are mocked out)
-        // await this.enforceMemoryLimits(experience.type); 
-        console.log(`Stored experience ID: ${experience.id}, Type: ${experience.type}`);
-    }
-
-    async retrieveRelevantMemories(query: string, options: {
-        limit?: number;
-        type?: 'episodic' | 'semantic' | 'both';
-        timeRange?: { start: number; end: number };
-    } = {}): Promise<Experience[]> {
-        if (!this.vectorStore) {
-            console.error("Cannot retrieve memories: VectorStore is not initialized.");
-            return [];
-        }
-
-        const { limit = 5, type = 'both', timeRange } = options;
-
-        // Generate query embedding
-        const queryEmbedding = await this.generateEmbedding(query);
-
-        // Search vector store
-        // The filter argument for similaritySearchWithScore might vary based on actual VectorStore implementation.
-        // For simplicity in this mock, we'll just apply filters post-retrieval if possible.
-        const results = await this.vectorStore.similaritySearchWithScore(query, limit * 2); // Fetch more to filter
-
-        // Filter and transform results
-        return results
-            .filter(([doc, score]) => {
-                const docType = doc.metadata?.type;
-                const docTimestamp = doc.metadata?.timestamp;
-
-                const typeMatches = (type === 'both' || docType === type);
-                const timeMatches = !timeRange || (docTimestamp && docTimestamp >= timeRange.start && docTimestamp <= timeRange.end);
-                
-                return score >= this.config.relevanceThreshold && typeMatches && timeMatches;
-            })
-            .slice(0, limit)
-            .map(([doc, _]) => this.transformToExperience(doc));
-    }
-
-    private async generateEmbedding(text: string): Promise<number[]> {
-        try {
-            const response = await this.model.embeddings.create({
-                model: this.config.embeddingModel,
-                input: text
-            });
-            return response.data[0].embedding;
-        } catch (error) {
-            console.error("Error generating embedding:", error);
-            return Array(1536).fill(0); // Return a zero vector or handle error appropriately
-        }
-    }
-
-    // This method is conceptual without a real Redis or advanced vector store management
-    // private async enforceMemoryLimits(type: 'episodic' | 'semantic'): Promise<void> {
-    //     const maxMemories = type === 'episodic' 
-    //         ? this.config.maxEpisodicMemories 
-    //         : this.config.maxSemanticMemories;
-
-    //     const keys = await this.redis.keys(`experience:${type}:*`);
-    //     if (keys.length > maxMemories) {
-    //         const toRemove = keys.length - maxMemories;
-    //         const oldestKeys = await this.redis.zrange(
-    //             `timeline:${type}`,
-    //             0,
-    //             toRemove - 1
-    //         );
-    //         await this.redis.del(...oldestKeys);
-    //     }
-    // }
-
-    // Removed buildFilter as it's handled inline in retrieveRelevantMemories filter
-    // private buildFilter(type: 'episodic' | 'semantic' | 'both', timeRange?: { start: number; end: number }) { ... }
-
-    private transformToExperience(doc: any): Experience {
-        return {
-            id: doc.metadata.id,
-            type: doc.metadata.type,
-            content: doc.pageContent,
-            timestamp: doc.metadata.timestamp,
-            concepts: doc.metadata.concepts,
-            metadata: doc.metadata
-        };
-    }
-
-    async extractConcepts(experience: Experience): Promise<string[]> {
-        const prompt = `Extract key concepts (as a JSON array of strings) from the following experience:
-        "${experience.content}"
-        Example: ["concept1", "concept2"]`;
-
-        try {
-            const response = await this.model.chat.completions.create({
-                messages: [{ role: 'user', content: prompt }],
-                model: 'gpt-4-turbo-preview', // Or a suitable Gemini model
-                temperature: 0.3,
-                response_format: { type: "json_object" }
-            });
-            const content = response.choices[0].message.content;
-            if (content) {
-                // Assuming the LLM correctly returns a JSON string like '["concept1", "concept2"]'
-                const parsed = JSON.parse(content);
-                return Array.isArray(parsed) ? parsed : [];
-            }
-            return [];
-        } catch (error) {
-            console.error("Error extracting concepts:", error);
-            return [];
-        }
-    }
-}
-
-// --- Mock Implementations for Demonstration ---
-// These mocks are simplified for the example to run without full external dependencies.
-
-// Mock OpenAIEmbeddings for MemoryAugmentedLearning
-class MockOpenAIEmbeddingsForMAL extends OpenAIEmbeddings {
-    async embedDocuments(texts: string[]): Promise<number[][]> {
-        return texts.map(text => Array(1536).fill(0).map(() => Math.random()));
-    }
-    async embedQuery(text: string): Promise<number[]> {
-        return Array(1536).fill(0).map(() => Math.random());
-    }
-}
-
-// Mock VectorStore for MemoryAugmentedLearning
-class MockVectorStoreForMAL extends VectorStore {
-    lc_namespace: string[] = [];
-    embeddings: MockOpenAIEmbeddingsForMAL;
-    docs: { pageContent: string, metadata: Record<string, any>, embedding: number[] }[] = [];
-
-    constructor(embeddings: MockOpenAIEmbeddingsForMAL) {
-        super(embeddings, {});
-        this.embeddings = embeddings;
-    }
-
-    async addVectors(
-        vectors: number[][],
-        documents: import("@langchain/core/documents").Document[],
-        options?: Record<string, any> | undefined
-    ): Promise<string[]> {
-        documents.forEach((doc, i) => {
-            this.docs.push({
-                pageContent: doc.pageContent,
-                metadata: doc.metadata,
-                embedding: vectors[i] // Store the embedding passed
-            });
-        });
-        return documents.map((_, i) => `doc-${Date.now()}-${i}`);
-    }
-    
-    // Adjusted similaritySearchWithScore to use actual embeddings and calculate score
-    async similaritySearchWithScore(
-        query: string, // Changed to string for direct embedding by MockOpenAIEmbeddingsForMAL
-        k: number,
-        filter?: Record<string, any> | undefined
-    ): Promise<[import("@langchain/core/documents").Document, number][]> {
-        const queryVector = await this.embeddings.embedQuery(query);
-        
-        if (this.docs.length === 0) {
-            return [];
-        }
-
-        const scores: [import("@langchain/core/documents").Document, number][] = [];
-        for (const docEntry of this.docs) {
-            const docVector = docEntry.embedding;
-            // Calculate cosine similarity
-            const dotProduct = docVector.reduce((sum, val, i) => sum + val * queryVector[i], 0);
-            const magnitudeA = Math.sqrt(docVector.reduce((sum, val) => sum + val * val, 0));
-            const magnitudeB = Math.sqrt(queryVector.reduce((sum, val) => sum + val * val, 0));
-            
-            let similarity = 0;
-            if (magnitudeA > 0 && magnitudeB > 0) {
-                similarity = dotProduct / (magnitudeA * magnitudeB);
-            }
-            
-            scores.push([
-                { pageContent: docEntry.pageContent, metadata: docEntry.metadata },
-                similarity
-            ]);
-        }
-
-        // Sort by similarity and take top k
-        return scores.sort((a, b) => b[1] - a[1]).slice(0, k);
-    }
-    
-    // Keep these methods as they are abstract in VectorStore
-    static fromTexts(texts: string[], metadatas: Record<string, any>[], embeddings: MockOpenAIEmbeddingsForMAL, dbConfig?: Record<string, any>): Promise<MockVectorStoreForMAL> {
-        const store = new MockVectorStoreForMAL(embeddings);
-        // Simulate adding documents
-        texts.forEach((text, i) => {
-            store.addDocuments([{ pageContent: text, metadata: metadatas[i] || {} }]);
-        });
-        return Promise.resolve(store);
-    }
-    static fromExistingIndex(embeddings: MockOpenAIEmbeddingsForMAL, dbConfig?: Record<string, any>): Promise<MockVectorStoreForMAL> {
-        return Promise.resolve(new MockVectorStoreForMAL(embeddings));
-    }
-
-    async addDocuments(documents: import("@langchain/core/documents").Document[]): Promise<void> {
-        const vectors = await this.embeddings.embedDocuments(documents.map(d => d.pageContent));
-        await this.addVectors(vectors, documents);
-    }
-}
-
-// Mock Redis client for demonstration purposes
-class MockRedis {
-    private db: Map<string, string> = new Map();
-    private zsets: Map<string, Map<string, number>> = new Map(); // For sorted sets
-
-    async set(key: string, value: string): Promise<"OK"> {
-        this.db.set(key, value);
-        console.log(`MockRedis: SET ${key}`);
-        return "OK";
-    }
-
-    async get(key: string): Promise<string | null> {
-        const value = this.db.get(key);
-        console.log(`MockRedis: GET ${key}`);
-        return value === undefined ? null : value;
-    }
-
-    async keys(pattern: string): Promise<string[]> {
-        const keys = Array.from(this.db.keys()).filter(key => {
-            // Simple glob-like matching for '*'
-            const regex = new RegExp('^' + pattern.replace(/\*/g, '.*') + '$');
-            return regex.test(key);
-        });
-        console.log(`MockRedis: KEYS ${pattern} -> ${keys.length} results`);
-        return keys;
-    }
-
-    async zadd(key: string, score: number, member: string): Promise<number> {
-        if (!this.zsets.has(key)) {
-            this.zsets.set(key, new Map());
-        }
-        const zset = this.zsets.get(key)!;
-        zset.set(member, score);
-        console.log(`MockRedis: ZADD ${key} ${score} ${member}`);
-        return 1; // Assuming one member added
-    }
-
-    async zrange(key: string, start: number, stop: number): Promise<string[]> {
-        const zset = this.zsets.get(key);
-        if (!zset) return [];
-        const sortedMembers = Array.from(zset.entries()).sort((a, b) => a[1] - b[1]);
-        const result = sortedMembers.slice(start, stop + 1).map(([member, _]) => member);
-        console.log(`MockRedis: ZRANGE ${key} ${start} ${stop} -> ${result.length} results`);
-        return result;
-    }
-
-    async del(...keys: string[]): Promise<number> {
-        let deletedCount = 0;
-        for (const key of keys) {
-            if (this.db.delete(key)) {
-                deletedCount++;
-            }
-            if (this.zsets.delete(key)) { // Also check if it's a zset key
-                deletedCount++;
-            }
-        }
-        console.log(`MockRedis: DEL ${keys.join(',')} -> ${deletedCount} deleted`);
-        return deletedCount;
-    }
-}
-
-
-// --- Main execution block for demonstration ---
-async function runMemoryAugmentedLearningExample() {
-    const mockApiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual key if running live
-    const mockEmbeddings = new MockOpenAIEmbeddingsForMAL();
-    const mockVectorStore = new MockVectorStoreForMAL(mockEmbeddings);
-    const mockRedisClient = new MockRedis(); // Initialize mock Redis
-
-    const memoryConfig: MemoryConfig = {
-        maxEpisodicMemories: 10,
-        maxSemanticMemories: 5,
-        relevanceThreshold: 0.7,
-        embeddingModel: "text-embedding-ada-002" // Example embedding model
-    };
-
-    const learningAgent = new MemoryAugmentedLearning(mockApiKey, mockVectorStore, /*mockRedisClient,*/ memoryConfig); // Pass mockRedisClient if Redis is active
-
-    console.log("Storing some episodic experiences...");
-    const now = Date.now();
-    await learningAgent.storeExperience({ id: "e1", type: "episodic", content: "Agent performed task A successfully.", timestamp: now - 3600000 }); // 1 hour ago
-    await learningAgent.storeExperience({ id: "e2", type: "episodic", content: "User reported error on task B.", timestamp: now - 1800000 }); // 30 mins ago
-    await learningAgent.storeExperience({ id: "e3", type: "episodic", content: "Agent completed data analysis for C.", timestamp: now - 600000 }); // 10 mins ago
-
-    console.log("\nStoring some semantic knowledge...");
-    await learningAgent.storeExperience({ id: "s1", type: "semantic", content: "Definition of RAG: Retrieval Augmented Generation.", concepts: ["RAG", "LLM"] });
-    await learningAgent.storeExperience({ id: "s2", type: "semantic", content: "Benefits of cloud computing include scalability and cost-efficiency.", concepts: ["Cloud Computing", "Scalability"] });
-
-    console.log("\nRetrieving relevant memories for query: 'How to improve LLM accuracy?' (both types)...");
-    const relevantMemories1 = await learningAgent.retrieveRelevantMemories("How to improve LLM accuracy?");
-    console.log("Relevant Memories (both):", relevantMemories1.map(m => ({ id: m.id, content: m.content.substring(0, 50) + "..." })));
-
-    console.log("\nRetrieving episodic memories for query: 'What happened recently?' (episodic type, last 2 hours)...");
-    const relevantMemories2 = await learningAgent.retrieveRelevantMemories("What happened recently?", {
-        limit: 2,
-        type: "episodic",
-        timeRange: { start: now - 7200000, end: now }
-    });
-    console.log("Relevant Memories (episodic, recent):", relevantMemories2.map(m => ({ id: m.id, content: m.content.substring(0, 50) + "..." })));
-
-    console.log("\nExtracting concepts from an experience...");
-    const concepts = await learningAgent.extractConcepts({ id: "temp", type: "semantic", content: "Quantum entanglement is a phenomenon where two particles are linked, and the state of one instantly affects the other, regardless of distance." });
-    console.log("Extracted Concepts:", concepts);
-}
-
-// Call the example function
-(async () => {
-    if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-        runMemoryAugmentedLearningExample();
-    } else {
-        runMemoryAugmentedLearningExample();
-    }
-})();
+query = "task A"
+relevant = memory.retrieve(query)
+print(relevant)
 </code></pre>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
-                        <i class="fas fa-lightbulb text-yellow-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Continual Learning</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enable continuous learning from new experiences without retraining. This maintains up-to-date knowledge and capabilities.</li>
-                                <li><a href="https://arxiv.org/abs/2002.12411" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline transition-colors duration-200">Read about Continual Learning</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Experience Reuse</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Leverage past experiences to improve future performance. This enhances efficiency and effectiveness.</li>
-                                <li><a href="https://www.anthropic.com/index/experience-reuse" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline transition-colors duration-200">Learn about Experience Reuse</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Knowledge Accumulation</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Build and maintain a growing knowledge base. This enables more informed decision-making.</li>
-                                <li><a href="https://arxiv.org/abs/2002.12411" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline transition-colors duration-200">Explore Knowledge Accumulation</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Context-aware Responses</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Generate responses based on relevant past experiences. This improves relevance and accuracy.</li>
-                                <li><a href="https://www.anthropic.com/index/context-awareness" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline transition-colors duration-200">Read about Context Awareness</a></li>
-                            </ul>
-                        </li>
-                    </ul>
                 </div>
 
                 <div class="mb-10">

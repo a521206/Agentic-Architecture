@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comparative Analysis and Pattern Interrelationships</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/custom-styles.css">
@@ -69,7 +69,7 @@
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
             <i class="fas fa-info-circle text-blue-500"></i> Description
           </h3>
-          <p class="text-gray-700 leading-relaxed">This pattern describes how different agentic patterns can be organized into a <strong>hierarchical structure</strong>, where higher-level agents orchestrate and manage the operations of lower-level, specialized agents. This interrelationship enables the creation of highly complex systems by delegating tasks and maintaining clear lines of responsibility, facilitating modularity and scalability.</p>
+          <p class="text-gray-700 leading-relaxed">Layering and Hierarchy shows how agentic patterns like Workflow, Planning, and Multi-Agent Collaboration can be organized in a clear structure. Higher-level agents coordinate specialized agents, making systems modular, scalable, and easier to manage. This section highlights how these patterns work together in layered agentic systems.</p>
         </div>
 
         <div class="mb-10">
@@ -86,97 +86,43 @@
 
         <div class="mb-10">
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-            <i class="fas fa-code text-blue-500"></i> Implementation
+            <i class="fas fa-code text-blue-500"></i> Implementation (Pseudocode)
           </h3>
-          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>class HierarchicalSystem {
-    constructor() {
-        this.planningAgent = new PlanningAgent(); // Assuming PlanningAgent is defined elsewhere
-        this.specializedAgents = new Map();
-        // Example: Add a mock specialized agent
-        this.specializedAgents.set('data_processing', { 
-            execute: async (step) => { 
-                console.log(`Processing data for step: ${step.id}`); 
-                return `Processed data for ${step.id}`; 
-            }
-        });
-        this.specializedAgents.set('report_generation', { 
-            execute: async (step) => { 
-                console.log(`Generating report for step: ${step.id}`); 
-                return `Report generated for ${step.id}`; 
-            }
-        });
-    }
+          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Layering and Hierarchy
 
-    async executeTask(task) {
-        console.log(`Executing main task: ${task.name}`);
-        // Mocking PlanningAgent.createPlan
-        const plan = await (async () => {
-            console.log(`Planning for task: ${task.name}`);
-            return {
-                steps: [
-                    { id: 'step1_data', type: 'data_processing', input: task.data },
-                    { id: 'step2_report', type: 'report_generation', input: 'processed_data' }
-                ]
-            };
-        })();
+class PlanningAgent:
+    def create_plan(self, task):
+        # Use LLM to break down the task into steps
+        return ["data_processing", "report_generation"]
+    def synthesize_results(self, results):
+        # Combine results from specialized agents
+        return f"Final result: {results}"
 
-        const results = new Map();
-        
-        for (const step of plan.steps) {
-            const agent = this.specializedAgents.get(step.type);
-            if (agent) {
-                const stepResult = await agent.execute(step);
-                results.set(step.id, stepResult);
-                console.log(`Step ${step.id} (${step.type}) completed with result: ${stepResult}`);
-            } else {
-                console.error(`No specialized agent found for type: ${step.type}`);
-            }
-        }
-        
-        // Mocking PlanningAgent.synthesizeResults
-        const finalResult = await (async () => {
-            console.log(`Synthesizing results: ${JSON.stringify(Array.from(results.entries()))}`);
-            return `Task ${task.name} completed. Final results: ${Array.from(results.values()).join(', ')}`;
-        })();
+class SpecializedAgent:
+    def __init__(self, capability):
+        self.capability = capability
+    def execute(self, step):
+        # Perform the step (could call a tool, API, or LLM)
+        return f"{self.capability} done for {step}"
 
-        return finalResult;
-    }
+# System setup
+planning_agent = PlanningAgent()
+specialized_agents = {
+    "data_processing": SpecializedAgent("Data Processing"),
+    "report_generation": SpecializedAgent("Report Generation")
 }
 
-// Mock PlanningAgent for the example
-class PlanningAgent {
-    async createPlan(task) {
-        console.log(`PlanningAgent creating plan for: ${task.name}`);
-        // In a real scenario, this would use an LLM or complex logic
-        return {
-            steps: [
-                { id: 'subtask1', type: 'data_processing', data: 'initial_data' },
-                { id: 'subtask2', type: 'report_generation', data: 'intermediate_data' }
-            ]
-        };
-    }
+def execute_task(task):
+    plan = planning_agent.create_plan(task)
+    results = {}
+    for step in plan:
+        agent = specialized_agents[step]
+        results[step] = agent.execute(step)
+    return planning_agent.synthesize_results(results)
 
-    async synthesizeResults(results) {
-        console.log('PlanningAgent synthesizing results...');
-        // In a real scenario, this would combine results into a coherent final output
-        return `Final synthesized result: ${JSON.stringify(Array.from(results.entries()))}`;
-    }
-}
-
-// Example Usage
-async function runHierarchicalSystemExample() {
-    console.log("Starting HierarchicalSystem Example...");
-    const system = new HierarchicalSystem();
-    const result = await system.executeTask({ name: 'Generate Quarterly Report', data: 'Q1_sales_data' });
-    console.log("Overall Task Result:", result);
-}
-
-// Execute the example
-if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-    runHierarchicalSystemExample(); // Browser environment
-} else {
-    runHierarchicalSystemExample(); // Node.js environment
-}
+# Example usage
+result = execute_task("Generate Quarterly Report")
+print(result)
 </code></pre>
         </div>
 
@@ -218,7 +164,7 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
             <i class="fas fa-info-circle text-purple-500"></i> Description
           </h3>
-          <p class="text-gray-700 leading-relaxed">This section explores the crucial <strong>relationships and dependencies</strong> between different agentic patterns. Understanding these interdependencies is vital because patterns rarely operate in isolation; instead, they combine and rely on each other to form sophisticated, synergistic systems, enabling capabilities greater than the sum of their individual parts.</p>
+          <p class="text-gray-700 leading-relaxed">Interdependencies focus on how agentic patterns connect and support each other. Most systems use several patterns together—like Planning, Tool Use, and Reflection—to build more capable agents. This section explains how combining patterns leads to stronger, more flexible agentic systems.</p>
         </div>
 
         <div class="mb-10">
@@ -235,84 +181,39 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
 
         <div class="mb-10">
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-            <i class="fas fa-code text-purple-500"></i> Implementation
+            <i class="fas fa-code text-purple-500"></i> Implementation (Pseudocode)
           </h3>
-          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>class PatternOrchestrator {
-    constructor() {
-        this.patterns = new Map(); // Maps pattern IDs to pattern instances
-        this.dependencies = new Map(); // Maps pattern IDs to their dependency IDs
-    }
+          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Pattern Interdependencies
 
-    addPattern(patternId, patternInstance, dependencies = []) {
-        this.patterns.set(patternId, patternInstance);
-        this.dependencies.set(patternId, dependencies);
-    }
+class Pattern:
+    def __init__(self, id):
+        self.id = id
+    def execute(self, context):
+        # Use LLM/tool to process context
+        return {f"{self.id}_output": f"processed_{context.get('input_data', 'default')}"}
 
-    async executePattern(patternId, initialContext = {}) {
-        const pattern = this.patterns.get(patternId);
-        if (!pattern) {
-            throw new Error(`Pattern with ID ${patternId} not found.`);
-        }
+class PatternOrchestrator:
+    def __init__(self):
+        self.patterns = {}
+        self.dependencies = {}
+    def add_pattern(self, pattern_id, pattern, dependencies=None):
+        self.patterns[pattern_id] = pattern
+        self.dependencies[pattern_id] = dependencies or []
+    def execute_pattern(self, pattern_id, context=None):
+        context = context or {}
+        dep_results = {}
+        for dep_id in self.dependencies.get(pattern_id, []):
+            dep_results.update(self.execute_pattern(dep_id, context))
+        current_context = {**context, **dep_results}
+        return self.patterns[pattern_id].execute(current_context)
 
-        const deps = this.dependencies.get(patternId) || [];
-        
-        // Recursively execute dependencies first
-        const depResults = {};
-        for (const depId of deps) {
-            depResults[depId] = await this.executePattern(depId, initialContext); // Pass context down
-        }
-        
-        // Merge dependency results into the context for the current pattern
-        const currentContext = { ...initialContext, ...depResults };
-
-        console.log(`Executing pattern '${patternId}' with context:`, currentContext);
-        // Assuming each pattern has an 'execute' method that takes a context
-        const result = await pattern.execute(currentContext);
-        console.log(`Pattern '${patternId}' completed with result:`, result);
-        return result;
-    }
-}
-
-// Mock Pattern classes for demonstration
-class MockPattern {
-    constructor(id) {
-        this.id = id;
-    }
-    async execute(context) {
-        // Simulate some work based on context
-        await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async operation
-        return { [`${this.id}_output`]: `processed_${context.input_data || 'default'}` };
-    }
-}
-
-// Example Usage
-async function runInterdependenciesExample() {
-    console.log("Starting Interdependencies Example...");
-    const orchestrator = new PatternOrchestrator();
-
-    // Define patterns and their dependencies
-    const dataPrepPattern = new MockPattern('data_preparation');
-    const analysisPattern = new MockPattern('data_analysis');
-    const reportGenPattern = new MockPattern('report_generation');
-
-    orchestrator.addPattern('data_preparation', dataPrepPattern);
-    orchestrator.addPattern('data_analysis', analysisPattern, ['data_preparation']); // Analysis depends on data_preparation
-    orchestrator.addPattern('report_generation', reportGenPattern, ['data_analysis']); // Report depends on data_analysis
-
-    try {
-        const finalResult = await orchestrator.executePattern('report_generation', { input_data: 'raw_sales_records' });
-        console.log("Final Orchestration Result:", finalResult);
-    } catch (error) {
-        console.error("Orchestration failed:", error);
-    }
-}
-
-// Execute the example
-if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-    runInterdependenciesExample(); // Browser environment
-} else {
-    runInterdependenciesExample(); // Node.js environment
-}
+# Example usage
+orchestrator = PatternOrchestrator()
+orchestrator.add_pattern('data_preparation', Pattern('data_preparation'))
+orchestrator.add_pattern('data_analysis', Pattern('data_analysis'), ['data_preparation'])
+orchestrator.add_pattern('report_generation', Pattern('report_generation'), ['data_analysis'])
+result = orchestrator.execute_pattern('report_generation', {'input_data': 'raw_sales_records'})
+print(result)
 </code></pre>
         </div>
 
@@ -354,7 +255,7 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
             <i class="fas fa-info-circle text-green-500"></i> Description
           </h3>
-          <p class="text-gray-700 leading-relaxed">This section provides a <strong>comparative analysis of fundamental approaches</strong> to agent decision-making and problem-solving. Understanding the differences between patterns like <strong>ReAct</strong> and <strong>Plan-and-Execute</strong> is crucial for selecting the most appropriate cognitive foundation for an agent, balancing reactivity with structured foresight.</p>
+          <p class="text-gray-700 leading-relaxed">Core Reasoning compares key decision-making patterns in agentic systems, such as ReAct and Plan-and-Execute. Each approach has its strengths and best use cases. This section shows how reasoning patterns can be chosen or combined to help agents solve problems more effectively.</p>
         </div>
 
         <div class="mb-10">
@@ -371,134 +272,43 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
 
         <div class="mb-10">
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-            <i class="fas fa-code text-green-500"></i> Implementation
+            <i class="fas fa-code text-green-500"></i> Implementation (Pseudocode)
           </h3>
-          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>class ReasoningAgent {
-    constructor(strategy) {
-        this.strategy = strategy;
-        this.state = { history: [] }; // Initialize state with history
-        console.log(`Agent initialized with strategy: ${this.strategy}`);
-    }
+          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Core Reasoning
 
-    async think(input) {
-        console.log(`Thinking with input: ${input}`);
-        this.state.history.push({ type: 'input', value: input });
+class ReasoningAgent:
+    def __init__(self, strategy):
+        self.strategy = strategy
+        self.history = []
+    def think(self, input):
+        self.history.append({"input": input})
+        if self.strategy == "react":
+            return self.react_reasoning(input)
+        elif self.strategy == "plan-and-execute":
+            return self.plan_and_execute(input)
+        else:
+            raise ValueError("Unknown strategy")
+    def react_reasoning(self, input):
+        # Loop: generate thought, select action, execute, observe
+        for _ in range(3):
+            thought = f"Thinking about {input}"
+            action = f"Act on {thought}"
+            observation = f"Observed result for {action}"
+            self.history.append({"thought": thought, "action": action, "observation": observation})
+        return "final answer"
+    def plan_and_execute(self, input):
+        plan = [f"Step 1 for {input}", f"Step 2 for {input}"]
+        self.history.append({"plan": plan})
+        result = input
+        for step in plan:
+            result = f"Executed {step}"
+            self.history.append({"step": step, "result": result})
+        return result
 
-        let result;
-        switch(this.strategy) {
-            case 'react':
-                result = await this.reactReasoning(input);
-                break;
-            case 'plan-and-execute':
-                result = await this.planAndExecute(input);
-                break;
-            default:
-                throw new Error('Unknown reasoning strategy');
-        }
-        this.state.history.push({ type: 'output', value: result });
-        return result;
-    }
-
-    async reactReasoning(currentInput) {
-        let input = currentInput;
-        let iteration = 0;
-        const maxIterations = 5; // Prevent infinite loops in mock
-        console.log("Starting ReAct reasoning...");
-
-        while (!this.isComplete(input) && iteration < maxIterations) {
-            const thought = await this.generateThought(input);
-            console.log(`ReAct Iteration ${iteration}: Thought - ${thought.newThought}`);
-            this.state.history.push({ type: 'thought', value: thought.newThought });
-
-            const action = await this.selectAction(thought);
-            console(`ReAct Iteration ${iteration}: Action - ${action.actionType}, Query: ${action.query}`);
-            this.state.history.push({ type: 'action', value: action });
-
-            input = await this.executeAction(action);
-            console.log(`ReAct Iteration ${iteration}: Observation - ${input.result}`);
-            this.state.history.push({ type: 'observation', value: input.result });
-            iteration++;
-        }
-        console.log("ReAct reasoning complete.");
-        return input;
-    }
-
-    // Mock functions for ReAct
-    async generateThought(input) { 
-        return { newThought: `Considering '${input.result || input}'. What's next?` }; 
-    }
-    async selectAction(thought) { 
-        if (thought.newThought.includes('final answer')) {
-            return { actionType: 'finish', result: thought.newThought.replace('final answer: ', '') };
-        }
-        return { actionType: 'search_tool', query: `info on ${thought.newThought}` }; 
-    }
-    async executeAction(action) { 
-        if (action.actionType === 'finish') {
-            return { result: action.result };
-        }
-        return { result: `Executed ${action.actionType} with query '${action.query}'. Result: Data from external source.` }; 
-    }
-    isComplete(input) { 
-        return input.result && input.result.startsWith('final answer:'); 
-    }
-
-    async planAndExecute(input) {
-        console.log("Starting Plan-and-Execute reasoning...");
-        // Step 1: Planning
-        const plan = await this.createPlan(input);
-        console.log(`Plan generated: ${JSON.stringify(plan.steps)}`);
-        this.state.history.push({ type: 'plan', value: plan.steps });
-
-        // Step 2: Execution
-        let currentResult = input;
-        for (const step of plan.steps) {
-            console.log(`Executing plan step: ${step.description}`);
-            this.state.history.push({ type: 'plan_step', value: step });
-            currentResult = await this.performStep(step, currentResult);
-            console.log(`Result after step: ${currentResult}`);
-        }
-        console.log("Plan-and-Execute reasoning complete.");
-        return currentResult;
-    }
-
-    // Mock functions for Plan-and-Execute
-    async createPlan(input) {
-        return {
-            steps: [
-                { id: 'p1', description: `Understand ${input}`, action: 'read_docs' },
-                { id: 'p2', description: `Analyze ${input}`, action: 'analyze_info' },
-                { id: 'p3', description: `Synthesize ${input}`, action: 'generate_summary' }
-            ]
-        };
-    }
-    async performStep(step, currentResult) {
-        await new Promise(resolve => setTimeout(resolve, 50)); // Simulate work
-        return `Result of '${step.description}' on '${currentResult}'`;
-    }
-}
-
-// Example Usage
-async function runReasoningAgentExample() {
-    console.log("--- ReAct Agent Example ---");
-    const reactAgent = new ReasoningAgent('react');
-    const reactResult = await reactAgent.think({ content: 'How to make a great coffee?' });
-    console.log("Final ReAct Result:", reactResult);
-    console.log("ReAct Agent History:", reactAgent.state.history);
-
-    console.log("\n--- Plan-and-Execute Agent Example ---");
-    const planExecuteAgent = new ReasoningAgent('plan-and-execute');
-    const planExecuteResult = await planExecuteAgent.think('Develop a marketing strategy for a new product.');
-    console.log("Final Plan-and-Execute Result:", planExecuteResult);
-    console.log("Plan-and-Execute Agent History:", planExecuteAgent.state.history);
-}
-
-// Execute the example
-if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-    runReasoningAgentExample(); // Browser environment
-} else {
-    runReasoningAgentExample(); // Node.js environment
-}
+# Example usage
+agent = ReasoningAgent("react")
+result = agent.think("How to make coffee?")
+print(result)
 </code></pre>
         </div>
 
@@ -540,7 +350,7 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
             <i class="fas fa-info-circle text-yellow-500"></i> Description
           </h3>
-          <p class="text-gray-700 leading-relaxed">This pattern explores the <strong>inherent trade-offs and dynamic balance</strong> between flexibility and structure in agentic system design. It analyzes how different architectural choices influence an agent's ability to adapt to unforeseen circumstances (flexibility) versus its adherence to predefined workflows and predictability (structure), ultimately impacting reliability and maintainability.</p>
+          <p class="text-gray-700 leading-relaxed">Flexibility vs Structure explores how agentic systems balance adaptability with predictability. By comparing flexible and structured patterns, this section shows how agents can be designed to handle both change and routine tasks, using the right mix for each situation.</p>
         </div>
 
         <div class="mb-10">
@@ -557,71 +367,31 @@ if (typeof globalThis.process === 'undefined' || !globalThis.process.versions ||
 
         <div class="mb-10">
           <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
-            <i class="fas fa-code text-yellow-500"></i> Implementation
+            <i class="fas fa-code text-yellow-500"></i> Implementation (Pseudocode)
           </h3>
-          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>class AdaptiveSystem {
-    constructor(config) {
-        this.flexibilityLevel = config.flexibilityLevel; // e.g., 0.8 for high flexibility
-        this.structureLevel = config.structureLevel;   // e.g., 0.2 for low structure
-        this.flexibilityThreshold = config.flexibilityThreshold || 0.5; // Threshold for switching behavior
-        console.log(`AdaptiveSystem initialized: Flexibility=${this.flexibilityLevel}, Structure=${this.structureLevel}`);
-    }
+          <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Flexibility vs Structure
 
-    async handleRequest(request) {
-        console.log(`Handling request with uncertainty: ${request.uncertainty}`);
-        if (this.requiresFlexibility(request)) {
-            console.log("--> Request requires flexibility. Handling with flexible approach...");
-            return this.flexibleHandler(request);
-        } else {
-            console.log("--> Request is straightforward. Handling with structured approach...");
-            return this.structuredHandler(request);
-        }
-    }
+class AdaptiveSystem:
+    def __init__(self, flexibility_level, structure_level, threshold=0.5):
+        self.flexibility_level = flexibility_level
+        self.structure_level = structure_level
+        self.threshold = threshold
+    def handle_request(self, request):
+        if request["uncertainty"] > self.threshold:
+            return self.flexible_handler(request)
+        else:
+            return self.structured_handler(request)
+    def flexible_handler(self, request):
+        # Use LLM for dynamic problem-solving
+        return {"status": "flexible_handled", "result": f"Dynamically handled: {request['query']}"}
+    def structured_handler(self, request):
+        # Use rules or fixed pipeline
+        return {"status": "structured_handled", "result": f"Structuredly handled: {request['query']}"}
 
-    requiresFlexibility(request) {
-        // Example logic: if uncertainty in request is above a threshold, requires flexibility
-        return request.uncertainty > this.flexibilityThreshold;
-    }
-
-    async flexibleHandler(request) {
-        // Simulate a flexible, adaptive process (e.g., using LLM for dynamic problem-solving)
-        await new Promise(resolve => setTimeout(resolve, 150));
-        const dynamicResult = `Dynamically handled: ${request.query}. Adapting to new info.`;
-        return { status: 'flexible_handled', data: { query: request.query, result: dynamicResult } };
-    }
-
-    async structuredHandler(request) {
-        // Simulate a structured, predefined process (e.g., rule-based or fixed pipeline)
-        await new Promise(resolve => setTimeout(resolve, 50));
-        const fixedResult = `Structuredly handled: ${request.query}. Following standard procedure.`;
-        return { status: 'structured_handled', data: { query: request.query, result: fixedResult } };
-    }
-}
-
-// Example Usage
-async function runAdaptiveSystemExample() {
-    console.log("Starting AdaptiveSystem Example...");
-    const system = new AdaptiveSystem({ flexibilityLevel: 0.7, structureLevel: 0.3, flexibilityThreshold: 0.6 });
-
-    // Scenario 1: High uncertainty request
-    const highUncertaintyRequest = { query: 'Solve this ambiguous complex problem.', uncertainty: 0.8 };
-    let result = await system.handleRequest(highUncertaintyRequest);
-    console.log("Result for High Uncertainty Request:", result);
-
-    console.log("\n");
-
-    // Scenario 2: Low uncertainty request
-    const lowUncertaintyRequest = { query: 'Process standard user registration.', uncertainty: 0.3 };
-    result = await system.handleRequest(lowUncertaintyRequest);
-    console.log("Result for Low Uncertainty Request:", result);
-}
-
-// Execute the example
-if (typeof globalThis.process === 'undefined' || !globalThis.process.versions || !globalThis.process.versions.node) {
-    runAdaptiveSystemExample(); // Browser environment
-} else {
-    runAdaptiveSystemExample(); // Node.js environment
-}
+# Example usage
+system = AdaptiveSystem(0.7, 0.3, threshold=0.6)
+result = system.handle_request({"query": "Solve ambiguous problem", "uncertainty": 0.8})
+print(result)
 </code></pre>
         </div>
 
