@@ -99,6 +99,29 @@ body {
     border: 1px solid #e2e8f0; /* ring-1 ring-gray-200 */
 }
 
+/* Styles from agentic-core-patterns.html */
+.header-gradient {
+    background: linear-gradient(135deg, #e0f2fe, #dbeafe);
+}
+
+.section-header-gradient {
+    background: -webkit-linear-gradient(45deg, #3b82f6, #6366f1);
+    background: linear-gradient(45deg, #3b82f6, #6366f1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content-block-bg {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
 .impact-matrix th, .impact-matrix td {
     padding: 1rem; /* p-4 */
     text-align: left; /* text-left */

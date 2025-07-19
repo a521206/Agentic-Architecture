@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Core Patterns</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/custom-styles.css">
@@ -78,152 +78,54 @@
                         <li><span class="font-bold text-gray-800">LangChain:</span> A popular library for building applications with LLMs. LangChain provides a comprehensive set of tools for building complex chains, including state management, memory, and integrations with other services.</li>
                     </ul>
                 </div>
+
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Option 1: Implementation using DSPy Modules
-                    </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import dspy
-from dspy.teleprompt import BootstrapFewShot
-from dspy.evaluate import Evaluate
-from typing import List, Dict
-
-# Define the signature for our chain
-class ResearchChain(dspy.Signature):
-    """Research a topic and generate a summary."""
-    topic: str = dspy.InputField()
-    research: str = dspy.OutputField(desc="Research findings")
-    summary: str = dspy.OutputField(desc="Concise summary")
-
-# Define the modules in our chain
-class ResearchModule(dspy.Module):
-    def __init__(self):
-        super().__init__()
-        self.research = dspy.ChainOfThought("topic -> research")
-    
-    def forward(self, topic: str) -> str:
-        return self.research(topic=topic)
-
-class SummaryModule(dspy.Module):
-    def __init__(self):
-        super().__init__()
-        self.summarize = dspy.ChainOfThought("research -> summary")
-    
-    def forward(self, research: str) -> str:
-        return self.summarize(research=research)
-
-# Compose the chain
-class ResearchPipeline(dspy.Module):
-    def __init__(self):
-        super().__init__()
-        self.research = ResearchModule()
-        self.summarize = SummaryModule()
-    
-    def forward(self, topic: str) -> Dict[str, str]:
-        research = self.research(topic)
-        summary = self.summarize(research)
-        return {"research": research, "summary": summary}
-
-# Example usage
-if __name__ == "__main__":
-    # Configure DSPy
-    dspy.configure(lm=dspy.OpenAI())
-    
-    # Create and compile the pipeline
-    pipeline = ResearchPipeline()
-    
-    # Example topics
-    topics = [
-        "The impact of AI on healthcare",
-        "Sustainable energy solutions",
-        "Future of remote work"
-    ]
-    
-    # Process each topic
-    for topic in topics:
-        print(f"\nResearching: {topic}")
-        result = pipeline(topic)
-        print(f"Research: {result['research']}")
-        print(f"Summary: {result['summary']}")</code></pre>
-                </div>
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Option 2: Simplified DSPy Implementation
-                    </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import dspy
-
-# Configure DSPy
-dspy.configure(lm=dspy.OpenAI())
-
-# Define the prompts
-research_prompt = dspy.Predict("topic -> research")
-summary_prompt = dspy.Predict("research -> summary")
-
-# Chain the prompts
-def research_and_summarize(topic: str) -> str:
-    research = research_prompt(topic=topic).research
-    summary = summary_prompt(research=research).summary
-    return summary
-
-# Example usage
-if __name__ == "__main__":
-    # Example topics
-    topics = [
-        "The impact of AI on healthcare",
-        "Sustainable energy solutions",
-        "Future of remote work"
-    ]
-
-    # Process each topic
-    for topic in topics:
-        print(f"\nResearching: {topic}")
-        summary = research_and_summarize(topic)
-        print(f"Summary: {summary}")</code></pre>
-                </div>
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Option 3: Basic Python Implementation
+                        <i class="fas fa-code text-blue-500"></i> Basic Python Implementation
                     </h3>
                     <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from openai import OpenAI
 
-# Configure OpenAI client
+# Initialize client
 client = OpenAI()
 
-def research_topic(topic: str) -> str:
-    """Generates research findings for a given topic."""
-    response = client.chat.completions.create(
+def analyze_sales_call(transcript: str) -> dict:
+    """Analyze a sales call transcript using prompt chaining."""
+    # Step 1: Summarize the call
+    summary = client.chat.completions.create(
         model="gpt-4-turbo-preview",
-        messages=[{"role": "user", "content": f"Research the following topic: {topic}"}]
-    )
-    return response.choices[0].message.content
-
-def summarize_text(text: str) -> str:
-    """Summarizes a given text."""
-    response = client.chat.completions.create(
+        messages=[{"role": "user", "content": f"Summarize this sales call:\n{transcript}"}]
+    ).choices[0].message.content
+    
+    # Step 2: Extract key insights
+    insights = client.chat.completions.create(
         model="gpt-4-turbo-preview",
-        messages=[{"role": "user", "content": f"Summarize the following text: {text}"}]
-    )
-    return response.choices[0].message.content
-
-# Chain the functions
-def research_and_summarize(topic: str) -> str:
-    research = research_topic(topic)
-    summary = summarize_text(research)
-    return summary
+        messages=[{"role": "user", "content": f"Extract key insights from this summary:\n{summary}"}]
+    ).choices[0].message.content
+    
+    # Step 3: Generate next steps
+    next_steps = client.chat.completions.create(
+        model="gpt-4-turbo-preview",
+        messages=[{"role": "user", "content": f"Based on these insights, suggest next steps:\n{insights}"}]
+    ).choices[0].message.content
+    
+    return {
+        "summary": summary,
+        "insights": insights,
+        "next_steps": next_steps
+    }
 
 # Example usage
 if __name__ == "__main__":
-    # Example topics
-    topics = [
-        "The impact of AI on healthcare",
-        "Sustainable energy solutions",
-        "Future of remote work"
-    ]
-
-    # Process each topic
-    for topic in topics:
-        print(f"\nResearching: {topic}")
-        summary = research_and_summarize(topic)
-        print(f"Summary: {summary}")</code></pre>
+    # This would typically come from an audio file
+    sample_transcript = """
+    [Sales Rep] Thanks for joining us today. How can we help you?
+    [Customer] We're looking to improve our team's productivity...
+    """
+    
+    result = analyze_sales_call(sample_transcript)
+    print(f"Summary: {result['summary']}")
+    print(f"\nKey Insights: {result['insights']}")
+    print(f"\nNext Steps: {result['next_steps']}")</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
@@ -234,7 +136,7 @@ if __name__ == "__main__":
                         <li class="mb-2"><span class="font-bold text-gray-800">Content Generation:</span> Create structured content generation pipelines for articles, reports, or documentation. This allows for consistent quality and style across different content types. <a href="https://www.datacamp.com/blog/content-generation-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Content Generation</a></li>
                         <li class="mb-2"><span class="font-bold text-gray-800">Code Generation:</span> Implement multi-step code generation with planning, implementation, and testing phases. This ensures high-quality, well-structured code output. <a href="https://blog.langchain.dev/code-generation-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Explore Code Generation</a></li>
                         <li class="mb-2"><span class="font-bold text-gray-800">Data Processing:</span> Create pipelines for data cleaning, transformation, and analysis. This enables systematic processing of complex datasets. <a href="https://www.analyticsvidhya.com/blog/2023/12/data-processing-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Data Processing</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Decision Support:</span> Build decision-making systems that break down complex decisions into logical steps. This enables transparent and explainable decision processes. <a href="https://www.datacamp.com/blog/decision-support-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Decision Support</a></li>
+                        <li class="mb-2"><span class="font-bold text-gray-800">Decision Support:</span> Build decision-making systems that break down complex decisions into logical steps. This enables transparent and explainable decision processes. <a href="httpshttps://www.datacamp.com/blog/decision-support-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Decision Support</a></li>
                     </ul>
                 </div>
             </div>
@@ -266,118 +168,32 @@ if __name__ == "__main__":
                         <i class="fas fa-code text-purple-500"></i> Implementation using LangGraph
                     </h3>
                     <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import Dict, List, Any, TypedDict, Annotated
-from langchain_core.messages import BaseMessage, HumanMessage
-from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, END
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.agents import AgentExecutor, create_openai_functions_agent
-from langchain.tools import tool
+# 1. Define agent functions
+def support_agent(state):
+    return {"messages": [{"role": "assistant", "content": "I'll help with your support request."}]}
 
-# Define tools for each agent
-@tool
-def check_order_status(order_id: str) -> str:
-    """Check the status of an order."""
-    return f"Order {order_id} is in transit"
+def order_agent(state):
+    return {"messages": [{"role": "assistant", "content": "Let me check your order status..."}]}
 
-@tool
-def get_product_info(product: str) -> str:
-    """Get information about a product."""
-    return f"Product {product} is available in stock"
+def product_agent(state):
+    return {"messages": [{"role": "assistant", "content": "Here's information about the product..."}]}
 
-# Create specialized agents
-def create_agent(name: str, system_prompt: str, tools: List = None):
-    llm = ChatOpenAI(temperature=0)
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        MessagesPlaceholder(variable_name="messages"),
-        MessagesPlaceholder(variable_name="agent_scratchpad")
-    ])
-    return create_openai_functions_agent(llm, tools or [], prompt)
+# 2. Router function
+def router(state):
+    """Routes messages to the appropriate agent"""
+    last_message = state["messages"][-1]["content"]
+    if "order" in last_message.lower():
+        return "order_agent"
+    elif "product" in last_message.lower():
+        return "product_agent"
+    return "support_agent"
 
-# Create the supervisor agent
-supervisor = create_agent(
-    "supervisor",
-    """You are a supervisor agent that routes queries to specialized agents.
-    Choose the most appropriate agent based on the query content.
-    Available agents: customer_support, order_status, product_info""",
-    [check_order_status, get_product_info]
-)
-
-# Create specialized agents
-agents = {
-    "customer_support": create_agent(
-        "customer_support",
-        "You are a customer support agent. Help customers with their inquiries.",
-        [check_order_status, get_product_info]
-    ),
-    "order_status": create_agent(
-        "order_status",
-        "You are an order status specialist. Help customers track their orders.",
-        [check_order_status]
-    ),
-    "product_info": create_agent(
-        "product_info",
-        "You are a product specialist. Provide detailed product information.",
-        [get_product_info]
-    )
-}
-
-# Create the workflow
-def create_workflow():
-    # Define the state
-    class AgentState(TypedDict):
-        messages: List[BaseMessage]
-        next: str
-        agent_scratchpad: List[BaseMessage]
-
-    # Create the graph
-    workflow = StateGraph(AgentState)
-    
-    # Add nodes for each agent
-    for name, agent in agents.items():
-        workflow.add_node(name, AgentExecutor(agent=agent, tools=agent.tools))
-    
-    # Add supervisor node
-    workflow.add_node("supervisor", AgentExecutor(agent=supervisor, tools=supervisor.tools))
-    
-    # Define the router
-    def router(state: AgentState) -> str:
-        if not state["messages"]:
-            return END
-        return state["next"] or "supervisor"
-    
-    # Add edges
-    workflow.add_conditional_edges(
-        "supervisor",
-        router,
-        {name: name for name in agents.keys()} | {END: END}
-    )
-    
-    for name in agents.keys():
-        workflow.add_edge(name, "supervisor")
-    
-    workflow.set_entry_point("supervisor")
-    return workflow.compile()
-
-# Example usage
-if __name__ == "__main__":
-    app = create_workflow()
-    
-    # Example queries
-    queries = [
-        "What's the status of order #12345?",
-        "Tell me about the new iPhone features",
-        "I need help with a return"
-    ]
-    
-    for query in queries:
-        print(f"\nProcessing: {query}")
-        result = app.invoke({
-            "messages": [HumanMessage(content=query)],
-            "next": "",
-            "agent_scratchpad": []
-        })
-        print(f"Response: {result['messages'][-1].content}")</code></pre>
+# 3. Example usage
+app = create_workflow()
+result = app.invoke({
+    "messages": [{"role": "user", "content": "What's my order status?"}],
+    "next": ""
+})</code></pre>
                 </div>
 
                 <div>
@@ -430,116 +246,34 @@ if __name__ == "__main__":
                     <p class="text-gray-700 leading-relaxed mb-4">Parallelization is a pattern that enables concurrent execution of multiple tasks or agents, significantly improving performance and throughput. This pattern is particularly useful for tasks that can be executed independently or when dealing with multiple data sources or processing streams.</p>
                     <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing parallelization:</p>
                     <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
-                        <li><span class="font-bold text-gray-800">Async/Await:</span> Python's asyncio for concurrent execution of I/O-bound tasks.</li>
-                        <li><span class="font-bold text-gray-800">Threading:</span> For CPU-bound tasks that can benefit from parallel execution.</li>
-                        <li><span class="font-bold text-gray-800">Process Pooling:</span> For true parallel execution across multiple CPU cores.</li>
-                        <li><span class="font-bold text-gray-800">Distributed Processing:</span> For scaling across multiple machines or services.</li>
+                        <li><span class="font-bold text-gray-800">LangChain's RunnableParallel:</span> Simplifies running multiple chains in parallel and combining their outputs, ideal for independent AI operations. <a href="https://python.langchain.com/docs/expression_language/how_to/parallel" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Read about RunnableParallel</a></li>
+                        <li><span class="font-bold text-gray-800">Async/Await:</span> Python's asyncio for concurrent execution of I/O-bound tasks. <a href="https://docs.python.org/3/library/asyncio.html" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Python asyncio docs</a></li>
+                        <li><span class="font-bold text-gray-800">Threading:</span> For CPU-bound tasks that can benefit from parallel execution. <a href="https://docs.python.org/3/library/threading.html" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Python threading docs</a></li>
+                        <li><span class="font-bold text-gray-800">Process Pooling:</span> For true parallel execution across multiple CPU cores. <a href="https://docs.python.org/3/library/multiprocessing.html" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Python multiprocessing docs</a></li>
+                        <li><span class="font-bold text-gray-800">Distributed Processing:</span> For scaling across multiple machines or services. <a href="https://docs.ray.io/en/latest/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Ray distributed computing</a></li>
                     </ul>
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-                        <i class="fas fa-code text-green-500"></i> Implementation using asyncio and ProcessPoolExecutor
+                        <i class="fas fa-code text-green-500"></i> Implementation using LangChain's RunnableParallel
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import asyncio
-from typing import List, Dict, Any
-from concurrent.futures import ProcessPoolExecutor
-from dataclasses import dataclass
-from openai import AsyncOpenAI
-import time
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># 1. Define processing chains
+summary_chain = ChatPromptTemplate.from_template(
+    "Summarize this: {text}"
+) | model
 
-@dataclass
-class Task:
-    """Represents a task to be processed."""
-    id: str
-    content: str
-    priority: int = 1
+sentiment_chain = ChatPromptTemplate.from_template(
+    "Analyze sentiment: {text}"
+) | model
 
-class ParallelProcessor:
-    def __init__(self, api_key: str, max_workers: int = 4):
-        self.client = AsyncOpenAI(api_key=api_key)
-        self.max_workers = max_workers
-        self.process_pool = ProcessPoolExecutor(max_workers=max_workers)
-    
-    async def process_task(self, task: Task) -> Dict[str, Any]:
-        """Process a single task asynchronously."""
-        try:
-            # Simulate different processing times based on priority
-            await asyncio.sleep(1 / task.priority)
-            
-            # Process the task using OpenAI
-            response = await self.client.chat.completions.create(
-                model="gpt-4-turbo-preview",
-                messages=[{"role": "user", "content": task.content}]
-            )
-            
-            return {
-                "task_id": task.id,
-                "result": response.choices[0].message.content,
-                "status": "completed"
-            }
-        except Exception as e:
-            return {
-                "task_id": task.id,
-                "error": str(e),
-                "status": "failed"
-            }
-    
-    async def process_batch(self, tasks: List[Task]) -> List[Dict[str, Any]]:
-        """Process multiple tasks concurrently."""
-        # Create tasks for concurrent execution
-        async_tasks = [self.process_task(task) for task in tasks]
-        
-        # Execute tasks concurrently and gather results
-        results = await asyncio.gather(*async_tasks)
-        return results
-    
-    def process_cpu_bound(self, data: List[Any]) -> List[Any]:
-        """Process CPU-bound tasks using process pool."""
-        with ProcessPoolExecutor(max_workers=self.max_workers) as executor:
-            results = list(executor.map(self._cpu_bound_task, data))
-        return results
-    
-    def _cpu_bound_task(self, data: Any) -> Any:
-        """Example CPU-bound task."""
-        # Simulate CPU-intensive processing
-        time.sleep(0.1)
-        return data * 2
+# 2. Run in parallel
+parallel_chain = RunnableParallel(
+    summary=summary_chain,
+    sentiment=sentiment_chain
+)
 
-async def main():
-    # Initialize processor
-    processor = ParallelProcessor(api_key="your-api-key")
-    
-    # Example tasks
-    tasks = [
-        Task("1", "Analyze this text: AI is transforming industries", 2),
-        Task("2", "Summarize: Machine learning applications", 1),
-        Task("3", "Generate ideas for: Future of work", 3),
-        Task("4", "Evaluate: Impact of automation", 2)
-    ]
-    
-    # Process tasks concurrently
-    print("Processing tasks concurrently...")
-    start_time = time.time()
-    results = await processor.process_batch(tasks)
-    end_time = time.time()
-    
-    print(f"\nProcessed {len(results)} tasks in {end_time - start_time:.2f} seconds")
-    for result in results:
-        print(f"\nTask {result['task_id']}:")
-        print(f"Status: {result['status']}")
-        if result['status'] == 'completed':
-            print(f"Result: {result['result']}")
-        else:
-            print(f"Error: {result['error']}")
-    
-    # Example of CPU-bound processing
-    print("\nProcessing CPU-bound tasks...")
-    data = list(range(10))
-    results = processor.process_cpu_bound(data)
-    print(f"Results: {results}")
-
-if __name__ == "__main__":
-    asyncio.run(main())</code></pre>
+# 3. Execute with input
+results = parallel_chain.invoke({"text": "Sample text"})</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
@@ -599,167 +333,58 @@ if __name__ == "__main__":
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
-                        <i class="fas fa-code text-yellow-500"></i> Implementation using OpenAI API
+                        <i class="fas fa-code text-yellow-500"></i> Implementation Pseudocode
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import List, Dict, Any, Optional
-from dataclasses import dataclass
-from datetime import datetime
-from openai import OpenAI
-import json
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700 mb-6"><code># Pseudocode for a reflection loop
+response = generate_answer(user_query)
 
-@dataclass
-class Reflection:
-    """Represents a reflection on a task or interaction."""
-    task_id: str
-    original_output: str
-    evaluation: Dict[str, Any]
-    improvements: List[str]
-    timestamp: datetime = datetime.now()
+for _ in range(max_reflections):
+    critique = reflect_on(response)  # could be same or different LLM
+    if critique.suggests_improvement:
+        response = improve_answer(response, critique)
+    else:
+        break  # No more improvements, or max attempts reached
 
-class ReflectiveAgent:
-    def __init__(self, api_key: str):
-        self.client = OpenAI(api_key=api_key)
-        self.memory: List[Reflection] = []
+return response</code></pre>
+
+                    <h4 class="font-bold text-xl mb-3 mt-6 text-yellow-600">Memory-Based Learning Example</h4>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Pseudocode for Memory System with Reflection
+
+# 1. Basic Memory Storage
+memory = [
+    {
+        'input': "How to reset password?",
+        'output': "Click 'Forgot Password'",
+        'feedback': "Worked!"
+    },
+    {
+        'input': "Help me login",
+        'output': "Enter username/password",
+        'feedback': "Too vague"
+    }
+]
+
+def find_similar(query):
+    """Find most relevant memory for the query"""
+    # In practice, use vector similarity or LLM
+    return memory[0]  # Simplified for example
+
+def reflect(query):
+    """Analyze past interactions to improve responses"""
+    similar = find_similar(query)
+    return f"""
+    Based on similar past interaction:
+    Input: {similar['input']}
+    Response: {similar['output']}
+    Feedback: {similar['feedback']}
     
-    def _evaluate_output(self, task: str, output: str) -> Dict[str, Any]:
-        """Evaluate the quality and correctness of an output."""
-        prompt = f"""Evaluate the following output for the task: {task}
+    Suggestion: Be more specific in responses
+    """
 
-Output: {output}
-
-Provide a detailed evaluation in JSON format with the following structure:
-{{
-    "accuracy": float,  # 0-1 score
-    "completeness": float,  # 0-1 score
-    "relevance": float,  # 0-1 score
-    "strengths": [string],
-    "weaknesses": [string]
-}}"""
-
-        response = self.client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
-        )
-        
-        return json.loads(response.choices[0].message.content)
-    
-    def _generate_improvements(self, task: str, output: str, evaluation: Dict[str, Any]) -> List[str]:
-        """Generate specific improvements based on evaluation."""
-        prompt = f"""Based on the following evaluation, suggest specific improvements for the output:
-
-Task: {task}
-Output: {output}
-Evaluation: {json.dumps(evaluation, indent=2)}
-
-Provide a list of concrete improvements in JSON format:
-{{
-    "improvements": [string]
-}}"""
-
-        response = self.client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
-        )
-        
-        return json.loads(response.choices[0].message.content)["improvements"]
-    
-    def _apply_improvements(self, task: str, output: str, improvements: List[str]) -> str:
-        """Apply the suggested improvements to the output."""
-        prompt = f"""Improve the following output based on these suggestions:
-
-Task: {task}
-Original Output: {output}
-Improvements: {json.dumps(improvements, indent=2)}
-
-Provide an improved version of the output that addresses all the suggestions."""
-
-        response = self.client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        
-        return response.choices[0].message.content
-    
-    def process_with_reflection(self, task: str, initial_output: str) -> Dict[str, Any]:
-        """Process a task with reflection and improvement."""
-        # Evaluate the output
-        evaluation = self._evaluate_output(task, initial_output)
-        
-        # Generate improvements
-        improvements = self._generate_improvements(task, initial_output, evaluation)
-        
-        # Apply improvements
-        improved_output = self._apply_improvements(task, initial_output, improvements)
-        
-        # Store reflection
-        reflection = Reflection(
-            task_id=task,
-            original_output=initial_output,
-            evaluation=evaluation,
-            improvements=improvements
-        )
-        self.memory.append(reflection)
-        
-        return {
-            "original_output": initial_output,
-            "evaluation": evaluation,
-            "improvements": improvements,
-            "improved_output": improved_output
-        }
-    
-    def get_learning_insights(self) -> Dict[str, Any]:
-        """Analyze past reflections to generate learning insights."""
-        if not self.memory:
-            return {"message": "No reflections available for analysis"}
-        
-        # Prepare reflection history
-        history = "\n".join([
-            f"Task: {r.task_id}\n"
-            f"Evaluation: {json.dumps(r.evaluation, indent=2)}\n"
-            f"Improvements: {json.dumps(r.improvements, indent=2)}\n"
-            for r in self.memory[-5:]  # Analyze last 5 reflections
-        ])
-        
-        prompt = f"""Analyze the following reflection history and provide insights:
-
-{history}
-
-Provide insights in JSON format:
-{{
-    "common_improvements": [string],
-    "performance_trends": [string],
-    "recommendations": [string]
-}}"""
-
-        response = self.client.chat.completions.create(
-            model="gpt-4-turbo-preview",
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"}
-        )
-        
-        return json.loads(response.choices[0].message.content)
-
-# Example usage
-if __name__ == "__main__":
-    agent = ReflectiveAgent(api_key="your-api-key")
-    
-    # Example task
-    task = "Explain the concept of machine learning to a beginner"
-    initial_output = """Machine learning is when computers learn from data. They can make predictions and decisions without being explicitly programmed."""
-    
-    # Process with reflection
-    result = agent.process_with_reflection(task, initial_output)
-    
-    print("Original Output:", result["original_output"])
-    print("\nEvaluation:", json.dumps(result["evaluation"], indent=2))
-    print("\nImprovements:", json.dumps(result["improvements"], indent=2))
-    print("\nImproved Output:", result["improved_output"])
-    
-    # Get learning insights
-    insights = agent.get_learning_insights()
-    print("\nLearning Insights:", json.dumps(insights, indent=2))</code></pre>
+# Example Usage
+user_query = "I forgot my password"
+print("Similar response:", find_similar(user_query)['output'])
+print("\nReflection:", reflect(user_query))</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
@@ -819,209 +444,84 @@ if __name__ == "__main__":
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
-                        <i class="fas fa-code text-pink-500"></i> Implementation using OpenAI API and NetworkX
+                        <i class="fas fa-code text-pink-500"></i> Basic Planning Pseudocode
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import List, Dict, Any, Optional, Set
-from dataclasses import dataclass
-from openai import OpenAI
-import json
-from datetime import datetime
-import networkx as nx
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Simple LLM client mock
+llm = LLM()
 
-@dataclass
-class Action:
-    """Represents a single action in a plan."""
-    name: str
-    description: str
-    prerequisites: Set[str]
-    effects: Set[str]
-    duration: int  # in minutes
-    resources: Dict[str, Any]
+# Define actions: what they need and what they produce
+actions = [
+    {
+        'name': 'research_market',
+        'needs': [],
+        'gives': ['market_knowledge'],
+        'description': 'Research market conditions and opportunities'
+    },
+    {
+        'name': 'develop_strategy',
+        'needs': ['market_knowledge'],
+        'gives': ['business_strategy'],
+        'description': 'Develop business strategy based on market research'
+    }
+]
 
-@dataclass
-class Goal:
-    """Represents a goal to be achieved."""
-    name: str
-    description: str
-    conditions: Set[str]
-    priority: int
+def get_action(name):
+    """Helper to get action by name"""
+    return next((a for a in actions if a['name'] == name), None)
 
-class Planner:
-    def __init__(self, api_key: str):
-        self.client = OpenAI(api_key=api_key)
-        self.actions: Dict[str, Action] = {}
-        self.goals: List[Goal] = []
-        self.plan_graph = nx.DiGraph()
+def suggest_next_action(state, goal_conditions):
+    """Use LLM to suggest the next best action"""
+    prompt = f"""Current state: {state}
+    Goal conditions: {goal_conditions}
+    Available actions: {[a['name'] for a in actions]}
+    Suggest the most appropriate next action:"""
     
-    def add_action(self, action: Action):
-        """Add an action to the planner's knowledge base."""
-        self.actions[action.name] = action
-        self.plan_graph.add_node(action.name, **action.__dict__)
-    
-    def add_goal(self, goal: Goal):
-        """Add a goal to be achieved."""
-        self.goals.append(goal)
-    
-    def _create_action_graph(self) -> nx.DiGraph:
-        """Create a graph of actions and their dependencies."""
-        graph = nx.DiGraph()
-        
-        # Add all actions as nodes
-        for action in self.actions.values():
-            graph.add_node(action.name, **action.__dict__)
-        
-        # Add edges based on prerequisites and effects
-        for action in self.actions.values():
-            for prereq in action.prerequisites:
-                # Find actions that produce this prerequisite
-                for other_action in self.actions.values():
-                    if prereq in other_action.effects:
-                        graph.add_edge(other_action.name, action.name)
-        
-        return graph
-    
-    async def generate_plan(self, initial_state: Set[str]) -> Dict[str, Any]:
-        """Generate a plan to achieve the goals from the initial state."""
-        # Create action graph
-        action_graph = self._create_action_graph()
-        
-        # Sort goals by priority
-        sorted_goals = sorted(self.goals, key=lambda g: g.priority, reverse=True)
-        
-        # Generate plan for each goal
-        plan = []
-        current_state = initial_state.copy()
-        
-        for goal in sorted_goals:
-            # Find actions needed to achieve goal
-            needed_conditions = goal.conditions - current_state
-            if not needed_conditions:
-                continue
-            
-            # Use LLM to select actions
-            prompt = f"""Given the following:
-Current state: {current_state}
-Needed conditions: {needed_conditions}
-Available actions: {json.dumps([a.__dict__ for a in self.actions.values()], indent=2)}
+    action_name = llm.generate(f"suggest_action:{prompt}")
+    return get_action(action_name)
 
-Select the best sequence of actions to achieve the needed conditions.
-Consider dependencies, resources, and efficiency."""
-
-            response = await self.client.chat.completions.create(
-                model="gpt-4-turbo-preview",
-                messages=[{"role": "user", "content": prompt}]
-            )
-            
-            # Parse selected actions
-            selected_actions = json.loads(response.choices[0].message.content)
-            
-            # Add actions to plan
-            for action_name in selected_actions:
-                action = self.actions[action_name]
-                plan.append({
-                    "action": action_name,
-                    "description": action.description,
-                    "duration": action.duration,
-                    "resources": action.resources
-                })
-                current_state.update(action.effects)
-        
-        return {
-            "goals": [g.__dict__ for g in sorted_goals],
-            "plan": plan,
-            "final_state": current_state
-        }
+def plan_actions(goal_conditions, actions, initial_state):
+    plan = []
+    state = set(initial_state)
     
-    async def execute_plan(self, plan: Dict[str, Any]) -> Dict[str, Any]:
-        """Execute a generated plan and track progress."""
-        execution_log = []
-        current_state = set()
+    # Let LLM analyze the goal first
+    analysis = llm.generate(f"analyze_state:Goal is {goal_conditions}. Current state is {state}")
+    print(f"LLM Analysis: {analysis}")
+
+    while not all(cond in state for cond in goal_conditions):
+        # Get LLM suggestion for next action
+        suggested_action = suggest_next_action(state, goal_conditions)
+        if not suggested_action:
+            print("No valid action found")
+            break
+            
+        # Check prerequisites
+        prereqs_met = all(p in state for p in suggested_action['needs'])
         
-        for step in plan["plan"]:
-            action = self.actions[step["action"]]
-            
-            # Check prerequisites
-            if not action.prerequisites.issubset(current_state):
-                execution_log.append({
-                    "step": step["action"],
-                    "status": "failed",
-                    "reason": "Prerequisites not met",
-                    "missing": list(action.prerequisites - current_state)
-                })
-                continue
-            
-            # Execute action
-            execution_log.append({
-                "step": step["action"],
-                "status": "executed",
-                "start_time": datetime.now().isoformat(),
-                "duration": step["duration"],
-                "resources_used": step["resources"]
-            })
-            
-            # Update state
-            current_state.update(action.effects)
-        
-        return {
-            "execution_log": execution_log,
-            "final_state": current_state,
-            "success": all(log["status"] == "executed" for log in execution_log)
-        }
+        if prereqs_met:
+            plan.append(suggested_action['name'])
+            state.update(suggested_action['gives'])
+            print(f"✅ Added action: {suggested_action['name']}")
+        else:
+            # If prerequisites not met, plan those first
+            print(f"🔍 Planning prerequisites for: {suggested_action['name']}")
+            for prereq in suggested_action['needs']:
+                if prereq not in state:
+                    # Find action that provides this prerequisite
+                    for action in actions:
+                        if prereq in action['gives']:
+                            subplan = plan_actions([prereq], actions, state)
+                            plan.extend(subplan)
+                            state.update(prereq for a in subplan for prereq in get_action(a)['gives'] if get_action(a))
+    
+    return plan
 
 # Example usage
-async def main():
-    # Initialize planner
-    planner = Planner(api_key="your-api-key")
-    
-    # Define actions
-    planner.add_action(Action(
-        name="research_market",
-        description="Research market conditions and opportunities",
-        prerequisites=set(),
-        effects={"market_knowledge"},
-        duration=120,
-        resources={"researcher": 1}
-    ))
-    
-    planner.add_action(Action(
-        name="develop_strategy",
-        description="Develop business strategy based on market research",
-        prerequisites={"market_knowledge"},
-        effects={"business_strategy"},
-        duration=180,
-        resources={"strategist": 1}
-    ))
-    
-    planner.add_action(Action(
-        name="create_implementation_plan",
-        description="Create detailed implementation plan",
-        prerequisites={"business_strategy"},
-        effects={"implementation_plan"},
-        duration=90,
-        resources={"planner": 1}
-    ))
-    
-    # Define goals
-    planner.add_goal(Goal(
-        name="market_entry",
-        description="Successfully enter a new market",
-        conditions={"market_knowledge", "business_strategy", "implementation_plan"},
-        priority=1
-    ))
-    
-    # Generate and execute plan
-    initial_state = set()
-    plan = await planner.generate_plan(initial_state)
-    print("\nGenerated Plan:")
-    print(json.dumps(plan, indent=2))
-    
-    execution_result = await planner.execute_plan(plan)
-    print("\nExecution Result:")
-    print(json.dumps(execution_result, indent=2))
+initial_state = []
+goal_conditions = ['business_strategy']
 
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(main())</code></pre>
+print("Starting planning process...")
+plan = plan_actions(goal_conditions, actions, initial_state)
+print("\nFinal Plan:", plan)</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
@@ -1058,6 +558,27 @@ if __name__ == "__main__":
             </div>
         </section>
     </div>
-    <script src="../js/app.js"></script>
+
+    <!-- Working Examples Section -->
+    <section id="working-examples" class="mb-20">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-extrabold section-header-gradient inline-block pb-2">
+                <i class="fas fa-laptop-code text-indigo-600"></i> Working Examples
+            </h2>
+            <p class="text-gray-600 mt-4 text-lg mb-8">
+                Explore practical implementations of these agentic patterns in our GitHub repository. 
+                The repository includes examples for all the patterns discussed above, complete with 
+                detailed documentation and setup instructions.
+            </p>
+            <a href="https://github.com/a521206/simple-agent-examples" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               class="inline-flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                <i class="fab fa-github text-xl mr-2"></i>
+                View on GitHub
+            </a>
+        </div>
+    </section>
+
 </body>
 </html>
