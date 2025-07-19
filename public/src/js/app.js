@@ -281,3 +281,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigationManager = new NavigationManager();
     navigationManager.init();
 });
+
+// Track GitHub link clicks for analytics
+if (typeof firebase !== "undefined" && firebase.analytics) {
+  document.addEventListener('click', function(e) {
+    let target = e.target;
+    // Traverse up to anchor if icon or span is clicked
+    while (target && target.tagName !== 'A' && target !== document) {
+      target = target.parentNode;
+    }
+    if (target && target.tagName === 'A' && target.href && target.href.includes('github.com')) {
+      firebase.analytics().logEvent('github_link_click', { url: target.href });
+    }
+  }, true);
+}
