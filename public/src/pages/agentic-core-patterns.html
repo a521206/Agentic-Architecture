@@ -71,17 +71,16 @@
                         <i class="fas fa-info-circle text-blue-500"></i> Description
                     </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">Prompt Chaining is a pattern that breaks down complex tasks into a sequence of smaller, focused prompts. Each prompt in the chain builds upon the results of previous prompts, creating a structured flow of information and reasoning. This pattern is particularly useful for complex tasks that require multiple steps of processing or reasoning.</p>
-                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing prompt chaining:</p>
+                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing prompt chaining, each with its own trade-offs:</p>
                     <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
-                        <li><span class="font-bold text-gray-800">Sequential Chains:</span> Linear sequence of prompts where each step depends on the previous one.</li>
-                        <li><span class="font-bold text-gray-800">Conditional Chains:</span> Branches based on intermediate results or conditions.</li>
-                        <li><span class="font-bold text-gray-800">DSPy Modules:</span> Stanford's DSPy provides a declarative way to compose complex chains with automatic optimization. <a href="https://github.com/stanfordnlp/dspy" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about DSPy</a>.</li>
-                        <li><span class="font-bold text-gray-800">LangChain Sequential Chains:</span> LangChain's implementation of sequential prompt chains with built-in memory and state management. <a href="https://python.langchain.com/docs/modules/chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about LangChain Chains</a>.</li>
+                        <li><span class="font-bold text-gray-800">Basic Python Functions:</span> The most straightforward approach, chaining functions that call an LLM API. This method is easy to understand and implement, but lacks the advanced features of specialized libraries, such as automatic optimization and state management.</li>
+                        <li><span class="font-bold text-gray-800">DSPy:</span> A framework from Stanford that provides a more declarative way to define and optimize prompt chains. DSPy separates the logic of the program (the modules) from the parameters (the prompts and model configurations), which allows for automatic optimization of the prompts.</li>
+                        <li><span class="font-bold text-gray-800">LangChain:</span> A popular library for building applications with LLMs. LangChain provides a comprehensive set of tools for building complex chains, including state management, memory, and integrations with other services.</li>
                     </ul>
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-code text-blue-500"></i> Implementation using DSPy
+                        <i class="fas fa-code text-blue-500"></i> Option 1: Implementation using DSPy Modules
                     </h3>
                     <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import dspy
 from dspy.teleprompt import BootstrapFewShot
@@ -145,6 +144,86 @@ if __name__ == "__main__":
         result = pipeline(topic)
         print(f"Research: {result['research']}")
         print(f"Summary: {result['summary']}")</code></pre>
+                </div>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-code text-blue-500"></i> Option 2: Simplified DSPy Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import dspy
+
+# Configure DSPy
+dspy.configure(lm=dspy.OpenAI())
+
+# Define the prompts
+research_prompt = dspy.Predict("topic -> research")
+summary_prompt = dspy.Predict("research -> summary")
+
+# Chain the prompts
+def research_and_summarize(topic: str) -> str:
+    research = research_prompt(topic=topic).research
+    summary = summary_prompt(research=research).summary
+    return summary
+
+# Example usage
+if __name__ == "__main__":
+    # Example topics
+    topics = [
+        "The impact of AI on healthcare",
+        "Sustainable energy solutions",
+        "Future of remote work"
+    ]
+
+    # Process each topic
+    for topic in topics:
+        print(f"\nResearching: {topic}")
+        summary = research_and_summarize(topic)
+        print(f"Summary: {summary}")</code></pre>
+                </div>
+                <div class="mb-10">
+                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
+                        <i class="fas fa-code text-blue-500"></i> Option 3: Basic Python Implementation
+                    </h3>
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from openai import OpenAI
+
+# Configure OpenAI client
+client = OpenAI()
+
+def research_topic(topic: str) -> str:
+    """Generates research findings for a given topic."""
+    response = client.chat.completions.create(
+        model="gpt-4-turbo-preview",
+        messages=[{"role": "user", "content": f"Research the following topic: {topic}"}]
+    )
+    return response.choices[0].message.content
+
+def summarize_text(text: str) -> str:
+    """Summarizes a given text."""
+    response = client.chat.completions.create(
+        model="gpt-4-turbo-preview",
+        messages=[{"role": "user", "content": f"Summarize the following text: {text}"}]
+    )
+    return response.choices[0].message.content
+
+# Chain the functions
+def research_and_summarize(topic: str) -> str:
+    research = research_topic(topic)
+    summary = summarize_text(research)
+    return summary
+
+# Example usage
+if __name__ == "__main__":
+    # Example topics
+    topics = [
+        "The impact of AI on healthcare",
+        "Sustainable energy solutions",
+        "Future of remote work"
+    ]
+
+    # Process each topic
+    for topic in topics:
+        print(f"\nResearching: {topic}")
+        summary = research_and_summarize(topic)
+        print(f"Summary: {summary}")</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
