@@ -136,7 +136,7 @@ if __name__ == "__main__":
                         <li class="mb-2"><span class="font-bold text-gray-800">Content Generation:</span> Create structured content generation pipelines for articles, reports, or documentation. This allows for consistent quality and style across different content types. <a href="https://www.datacamp.com/blog/content-generation-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Content Generation</a></li>
                         <li class="mb-2"><span class="font-bold text-gray-800">Code Generation:</span> Implement multi-step code generation with planning, implementation, and testing phases. This ensures high-quality, well-structured code output. <a href="https://blog.langchain.dev/code-generation-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Explore Code Generation</a></li>
                         <li class="mb-2"><span class="font-bold text-gray-800">Data Processing:</span> Create pipelines for data cleaning, transformation, and analysis. This enables systematic processing of complex datasets. <a href="https://www.analyticsvidhya.com/blog/2023/12/data-processing-chains/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Data Processing</a></li>
-                        <li class="mb-2"><span class="font-bold text-gray-800">Decision Support:</span> Build decision-making systems that break down complex decisions into logical steps. This enables transparent and explainable decision processes. <a href="httpshttps://www.datacamp.com/blog/decision-support-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Decision Support</a></li>
+                        <li class="mb-2"><span class="font-bold text-gray-800">Decision Support:</span> Build decision-making systems that break down complex decisions into logical steps. This enables transparent and explainable decision processes. <a href="https://www.datacamp.com/blog/decision-support-chains" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Decision Support</a></li>
                     </ul>
                 </div>
             </div>
@@ -434,94 +434,50 @@ print("\nReflection:", reflect(user_query))</code></pre>
                         <i class="fas fa-info-circle text-pink-500"></i> Description
                     </h3>
                     <p class="text-gray-700 leading-relaxed mb-4">Planning is a pattern that enables AI agents to create and execute sequences of actions to achieve specific goals. By breaking down complex tasks into manageable steps and considering dependencies and constraints, this pattern enables systematic problem-solving and goal achievement.</p>
-                    <p class="text-gray-700 leading-relaxed mt-2">There are several approaches to implementing planning systems:</p>
-                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-2">
-                        <li><span class="font-bold text-gray-800">Hierarchical Planning:</span> Breaking down goals into sub-goals and creating hierarchical action plans.</li>
-                        <li><span class="font-bold text-gray-800">Reactive Planning:</span> Adapting plans based on real-time feedback and changing conditions.</li>
-                        <li><span class="font-bold text-gray-800">Constraint-Based Planning:</span> Considering various constraints and dependencies while creating plans.</li>
-                        <li><span class="font-bold text-gray-800">Goal-Oriented Planning:</span> Focusing on achieving specific goals through systematic action sequences.</li>
-                    </ul>
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
-                        <i class="fas fa-code text-pink-500"></i> Basic Planning Pseudocode
+                        <i class="fas fa-code text-pink-500"></i> Minimal Python Example
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Simple LLM client mock
-llm = LLM()
-
-# Define actions: what they need and what they produce
-actions = [
-    {
-        'name': 'research_market',
-        'needs': [],
-        'gives': ['market_knowledge'],
-        'description': 'Research market conditions and opportunities'
-    },
-    {
-        'name': 'develop_strategy',
-        'needs': ['market_knowledge'],
-        'gives': ['business_strategy'],
-        'description': 'Develop business strategy based on market research'
-    }
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Define possible actions
+ACTIONS = [
+    {'name': 'research_market', 'description': 'Research market conditions.'},
+    {'name': 'develop_strategy', 'description': 'Develop business strategy.'},
+    {'name': 'customize_strategy_healthcare', 'description': 'Customize strategy for healthcare.'},
+    {'name': 'organize_team_building', 'description': 'Plan a team-building event.'},
 ]
 
-def get_action(name):
-    """Helper to get action by name"""
-    return next((a for a in actions if a['name'] == name), None)
+# Plan using LLM
+def llm_plan(goal, actions):
+    prompt = ChatPromptTemplate.from_template("""
+Goal: {goal}
+Available actions:
+{actions}
 
-def suggest_next_action(state, goal_conditions):
-    """Use LLM to suggest the next best action"""
-    prompt = f"""Current state: {state}
-    Goal conditions: {goal_conditions}
-    Available actions: {[a['name'] for a in actions]}
-    Suggest the most appropriate next action:"""
-    
-    action_name = llm.generate(f"suggest_action:{prompt}")
-    return get_action(action_name)
+List only the essential action names (comma-separated) to achieve the goal.
+""")
+    actions_as_text = "\n".join(f"- {a['name']}: {a['description']}" for a in actions)
+    response = llm.invoke(prompt.format(goal=goal, actions=actions_as_text)).content.strip()
+    return [step.strip() for step in response.split(",")]
 
-def plan_actions(goal_conditions, actions, initial_state):
-    plan = []
-    state = set(initial_state)
-    
-    # Let LLM analyze the goal first
-    analysis = llm.generate(f"analyze_state:Goal is {goal_conditions}. Current state is {state}")
-    print(f"LLM Analysis: {analysis}")
+# Execute each step
+def execute_plan(plan, actions):
+    for name in plan:
+        action = next((a for a in actions if a['name'] == name), None)
+        if action:
+            print(f"[EXECUTE] {name}: {action['description']}")
 
-    while not all(cond in state for cond in goal_conditions):
-        # Get LLM suggestion for next action
-        suggested_action = suggest_next_action(state, goal_conditions)
-        if not suggested_action:
-            print("No valid action found")
-            break
-            
-        # Check prerequisites
-        prereqs_met = all(p in state for p in suggested_action['needs'])
-        
-        if prereqs_met:
-            plan.append(suggested_action['name'])
-            state.update(suggested_action['gives'])
-            print(f"✅ Added action: {suggested_action['name']}")
-        else:
-            # If prerequisites not met, plan those first
-            print(f"🔍 Planning prerequisites for: {suggested_action['name']}")
-            for prereq in suggested_action['needs']:
-                if prereq not in state:
-                    # Find action that provides this prerequisite
-                    for action in actions:
-                        if prereq in action['gives']:
-                            subplan = plan_actions([prereq], actions, state)
-                            plan.extend(subplan)
-                            state.update(prereq for a in subplan for prereq in get_action(a)['gives'] if get_action(a))
-    
-    return plan
+# Run example
+if __name__ == "__main__":
+    goal = "Create a business strategy for the healthcare market"
+    print("Goal:", goal)
 
-# Example usage
-initial_state = []
-goal_conditions = ['business_strategy']
+    plan = llm_plan(goal, ACTIONS)
+    print("\nPlanned actions:", plan)
 
-print("Starting planning process...")
-plan = plan_actions(goal_conditions, actions, initial_state)
-print("\nFinal Plan:", plan)</code></pre>
+    print("\nExecuting...\n")
+    execute_plan(plan, ACTIONS)
+</code></pre>
                 </div>
                 <div>
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-pink-700">
