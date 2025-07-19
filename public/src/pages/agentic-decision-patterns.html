@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Decision Patterns</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/custom-styles.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
     <div class="max-w-6xl mx-auto px-4 py-8">
@@ -66,135 +67,36 @@
                         <li><span class="font-bold text-gray-800">Forward Chaining:</span> Rules are evaluated in sequence, with each rule potentially triggering other rules.</li>
                         <li><span class="font-bold text-gray-800">Backward Chaining:</span> Rules are evaluated in reverse, starting from the goal and working backwards.</li>
                         <li><span class="font-bold text-gray-800">Drools:</span> A popular open-source business rule management system that provides a powerful rule engine with complex event processing. <a href="https://www.drools.org/" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Read about Drools</a></li>
-                        <li><span class="font-bold text-gray-800">Easy Rules:</span> A simple rules engine for Java that makes it easy to implement business rules. <a href="https://github.com/j-easy/easy-rules" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn about Easy Rules</a></li>
                     </ul>
                 </div>
                 <div class="mb-10">
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
                         <i class="fas fa-code text-blue-500"></i> Implementation using Drools
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Drools for Rule Engine implementation
-package com.example.rules;
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Rule Engine
 
-import org.drools.core.event.DefaultAgendaEventListener;
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.rule.FactHandle;
+class LoanApplication:
+    def __init__(self):
+        self.status = None
+        self.reason = None
+    def approve(self, reason):
+        self.status = "APPROVED"
+        self.reason = reason
+    def reject(self, reason):
+        self.status = "REJECTED"
+        self.reason = reason
 
-public class RuleEngine {
-    private final KieContainer kieContainer;
-    private KieSession kieSession;
-    
-    public RuleEngine() {
-        KieServices kieServices = KieServices.Factory.get();
-        this.kieContainer = kieServices.getKieClasspathContainer();
-    }
-    
-    public void initialize() {
-        this.kieSession = kieContainer.newKieSession();
-        // Add event listener for rule execution tracking
-        kieSession.addEventListener(new DefaultAgendaEventListener() {
-            @Override
-            public void afterMatchFired(org.kie.api.event.rule.AfterMatchFiredEvent event) {
-                System.out.println("Rule fired: " + event.getMatch().getRule().getName());
-            }
-        });
-    }
-    
-    public void addFact(Object fact) {
-        if (kieSession != null) {
-            kieSession.insert(fact);
-        }
-    }
-    
-    public void executeRules() {
-        if (kieSession != null) {
-            kieSession.fireAllRules();
-        }
-    }
-    
-    public void dispose() {
-        if (kieSession != null) {
-            kieSession.dispose();
-        }
-    }
-}
+def rule_engine(facts, application):
+    if facts["creditScore"] < 600:
+        application.reject("Low credit score")
+    elif facts["creditScore"] >= 700 and facts["amount"] <= 100000:
+        application.approve("Good credit score and reasonable amount")
 
-// Example usage
-public class RuleEngineExample {
-    public static void main(String[] args) {
-        // Create rule engine instance
-        RuleEngine engine = new RuleEngine();
-        engine.initialize();
-        
-        // Create and add facts
-        Customer customer = new Customer("John Doe", 25, 750);
-        LoanApplication application = new LoanApplication(50000, 36);
-        
-        engine.addFact(customer);
-        engine.addFact(application);
-        
-        // Execute rules
-        engine.executeRules();
-        
-        // Cleanup
-        engine.dispose();
-    }
-}
-
-// Example DRL file (loan_rules.drl)
-/*
-package com.example.rules
-
-import com.example.model.Customer
-import com.example.model.LoanApplication
-
-rule "High Risk Customer"
-    when
-        $customer : Customer(creditScore < 600)
-        $application : LoanApplication()
-    then
-        $application.setStatus("REJECTED");
-        $application.setReason("Low credit score");
-end
-
-rule "Approved Loan"
-    when
-        $customer : Customer(creditScore >= 700)
-        $application : LoanApplication(amount <= 100000)
-    then
-        $application.setStatus("APPROVED");
-        $application.setReason("Good credit score and reasonable amount");
-end
-*/</code></pre>
-                </div>
-                <div>
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-blue-700">
-                        <i class="fas fa-tasks text-blue-500"></i> Use Cases
-                    </h3>
-                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
-                        <li>
-                            <strong>Business Rules</strong>
-                            <p class="mb-1">Implement complex business logic and decision-making processes</p>
-                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
-                        </li>
-                        <li>
-                            <strong>Workflow Management</strong>
-                            <p class="mb-1">Manage complex workflows and business processes</p>
-                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
-                        </li>
-                        <li>
-                            <strong>Policy Enforcement</strong>
-                            <p class="mb-1">Enforce business policies and compliance rules</p>
-                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
-                        </li>
-                        <li>
-                            <strong>Decision Support</strong>
-                            <p class="mb-1">Provide decision support for complex scenarios</p>
-                            <a href="https://www.drools.org/learn/documentation.html" target="_blank" class="underline text-blue-600 hover:text-blue-800 transition-colors duration-200">Learn more about Drools</a>
-                        </li>
-                    </ul>
+facts = {"creditScore": 750, "amount": 50000}
+application = LoanApplication()
+rule_engine(facts, application)
+print(application.status, application.reason)
+</code></pre>
                 </div>
             </div>
         </section>
@@ -225,122 +127,34 @@ end
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
                         <i class="fas fa-code text-purple-500"></i> Implementation using Stable Baselines3
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Stable Baselines3 for Reinforcement Learning implementation
-import gym
-import numpy as np
-from stable_baselines3 import PPO
-from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
-from stable_baselines3.common.callbacks import EvalCallback
-from stable_baselines3.common.monitor import Monitor
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Reinforcement Learning
 
-class ReinforcementSystem:
-    def __init__(self, env_name, model_type='PPO'):
-        self.env_name = env_name
-        self.model_type = model_type
-        self.model = None
-        self.env = None
-        self.eval_env = None
-        
-    def create_env(self):
-        """Create and wrap the environment"""
-        env = gym.make(self.env_name)
-        env = Monitor(env)
-        env = DummyVecEnv([lambda: env])
-        env = VecNormalize(env, norm_obs=True, norm_reward=True)
-        return env
-    
-    def initialize(self):
-        """Initialize the RL system"""
-        self.env = self.create_env()
-        self.eval_env = self.create_env()
-        
-        if self.model_type == 'PPO':
-            self.model = PPO(
-                'MlpPolicy',
-                self.env,
-                learning_rate=3e-4,
-                n_steps=2048,
-                batch_size=64,
-                n_epochs=10,
-                gamma=0.99,
-                gae_lambda=0.95,
-                clip_range=0.2,
-                verbose=1
-            )
-    
-    def train(self, total_timesteps=1000000):
-        """Train the RL agent"""
-        eval_callback = EvalCallback(
-            self.eval_env,
-            best_model_save_path='./best_model',
-            log_path='./logs/',
-            eval_freq=10000,
-            deterministic=True,
-            render=False
-        )
-        
-        self.model.learn(
-            total_timesteps=total_timesteps,
-            callback=eval_callback
-        )
-    
-    def predict(self, observation):
-        """Make predictions using the trained model"""
-        action, _states = self.model.predict(observation, deterministic=True)
-        return action
-    
+class Agent:
+    def select_action(self, state):
+        # Choose action based on policy
+        pass
+    def learn(self, state, action, reward, next_state, done):
+        # Update policy
+        pass
     def save(self, path):
-        """Save the trained model"""
-        self.model.save(path)
-    
-    def load(self, path):
-        """Load a trained model"""
-        self.model = PPO.load(path)
+        # Save model
+        pass
 
-# Example usage
-if __name__ == "__main__":
-    # Create and train the RL system
-    rl_system = ReinforcementSystem('CartPole-v1')
-    rl_system.initialize()
-    rl_system.train(total_timesteps=100000)
-    
-    # Test the trained agent
-    obs = rl_system.env.reset()
-    for _ in range(1000):
-        action = rl_system.predict(obs)
-        obs, reward, done, info = rl_system.env.step(action)
-        if done:
-            obs = rl_system.env.reset()
-    
-    # Save the trained model
-    rl_system.save('cartpole_model')</code></pre>
-                </div>
-                <div>
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-                        <i class="fas fa-tasks text-purple-500"></i> Use Cases
-                    </h3>
-                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
-                        <li>
-                            <strong>Game Playing</strong>
-                            <p class="mb-1">Learn optimal strategies for games and puzzles</p>
-                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
-                        </li>
-                        <li>
-                            <strong>Robotics Control</strong>
-                            <p class="mb-1">Control robots and autonomous systems</p>
-                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
-                        </li>
-                        <li>
-                            <strong>Resource Optimization</strong>
-                            <p class="mb-1">Optimize resource allocation and scheduling</p>
-                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
-                        </li>
-                        <li>
-                            <strong>Adaptive Systems</strong>
-                            <p class="mb-1">Build systems that adapt to changing conditions</p>
-                            <a href="https://stable-baselines3.readthedocs.io/" target="_blank" class="underline text-purple-600 hover:text-purple-800 transition-colors duration-200">Learn more about Stable Baselines3</a>
-                        </li>
-                    </ul>
+env = create_environment()
+agent = Agent()
+num_episodes = 100
+
+for episode in range(num_episodes):
+    state = env.reset()
+    done = False
+    while not done:
+        action = agent.select_action(state)
+        next_state, reward, done, info = env.step(action)
+        agent.learn(state, action, reward, next_state, done)
+        state = next_state
+
+agent.save('model_path')
+</code></pre>
                 </div>
             </div>
         </section>
@@ -371,186 +185,20 @@ if __name__ == "__main__":
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
                         <i class="fas fa-code text-green-500"></i> Implementation using Neo4j
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>// Using Neo4j for Expert System implementation
-from neo4j import GraphDatabase
-from typing import List, Dict, Any
-import json
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Python Pseudocode for Expert System
 
-class ExpertSystem:
-    def __init__(self, uri: str, user: str, password: str):
-        self.driver = GraphDatabase.driver(uri, auth=(user, password))
-        self.knowledge_base = {}
-        self.rules = []
-        
-    def close(self):
-        """Close the database connection"""
-        self.driver.close()
-    
-    def add_knowledge(self, domain: str, facts: Dict[str, Any]):
-        """Add domain knowledge to the system"""
-        with self.driver.session() as session:
-            # Create domain node
-            session.run(
-                "MERGE (d:Domain {name: $domain})",
-                domain=domain
-            )
-            
-            # Add facts as nodes and relationships
-            for fact_type, fact_data in facts.items():
-                for fact in fact_data:
-                    session.run(
-                        """
-                        MATCH (d:Domain {name: $domain})
-                        MERGE (f:Fact {type: $type, data: $data})
-                        MERGE (d)-[:HAS_FACT]->(f)
-                        """,
-                        domain=domain,
-                        type=fact_type,
-                        data=json.dumps(fact)
-                    )
-    
-    def add_rule(self, rule: Dict[str, Any]):
-        """Add a rule to the system"""
-        self.rules.append(rule)
-        with self.driver.session() as session:
-            session.run(
-                """
-                CREATE (r:Rule {
-                    name: $name,
-                    conditions: $conditions,
-                    actions: $actions
-                })
-                """,
-                name=rule['name'],
-                conditions=json.dumps(rule['conditions']),
-                actions=json.dumps(rule['actions'])
-            )
-    
-    def query_knowledge(self, domain: str, query: str) -> List[Dict[str, Any]]:
-        """Query the knowledge base"""
-        with self.driver.session() as session:
-            result = session.run(
-                """
-                MATCH (d:Domain {name: $domain})-[:HAS_FACT]->(f:Fact)
-                WHERE f.type = $type
-                RETURN f.data as data
-                """,
-                domain=domain,
-                type=query
-            )
-            return [record["data"] for record in result]
-    
-    def infer(self, domain: str, facts: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Make inferences based on current facts"""
-        with self.driver.session() as session:
-            # Add current facts
-            self.add_knowledge(domain, {"current": [facts]})
-            
-            # Apply rules
-            results = []
-            for rule in self.rules:
-                if self._evaluate_conditions(rule['conditions'], facts):
-                    results.extend(rule['actions'])
-            
-            return results
-    
-    def _evaluate_conditions(self, conditions: List[Dict[str, Any]], facts: Dict[str, Any]) -> bool:
-        """Evaluate rule conditions against current facts"""
-        for condition in conditions:
-            if not self._check_condition(condition, facts):
-                return False
-        return True
-    
-    def _check_condition(self, condition: Dict[str, Any], facts: Dict[str, Any]) -> bool:
-        """Check if a single condition is satisfied"""
-        field = condition['field']
-        operator = condition['operator']
-        value = condition['value']
-        
-        if field not in facts:
-            return False
-            
-        fact_value = facts[field]
-        
-        if operator == 'equals':
-            return fact_value == value
-        elif operator == 'greater_than':
-            return fact_value > value
-        elif operator == 'less_than':
-            return fact_value < value
-        elif operator == 'contains':
-            return value in fact_value
-        
-        return False
+knowledge_base = {"symptoms": ["fever", "cough"]}
+rules = [
+    {"if": ["fever", "cough"], "then": "flu"},
+    {"if": ["cough"], "then": "cold"}
+]
 
-# Example usage
-if __name__ == "__main__":
-    # Initialize expert system
-    expert = ExpertSystem("bolt://localhost:7687", "neo4j", "password")
-    
-    # Add domain knowledge
-    medical_knowledge = {
-        "symptoms": [
-            {"name": "fever", "severity": "high"},
-            {"name": "cough", "severity": "moderate"}
-        ],
-        "conditions": [
-            {"name": "flu", "symptoms": ["fever", "cough"]},
-            {"name": "cold", "symptoms": ["cough"]}
-        ]
-    }
-    expert.add_knowledge("medical", medical_knowledge)
-    
-    # Add rules
-    expert.add_rule({
-        "name": "flu_diagnosis",
-        "conditions": [
-            {"field": "temperature", "operator": "greater_than", "value": 38},
-            {"field": "has_cough", "operator": "equals", "value": True}
-        ],
-        "actions": [
-            {"diagnosis": "flu", "confidence": 0.8},
-            {"recommendation": "rest and fluids"}
-        ]
-    })
-    
-    # Make inference
-    current_symptoms = {
-        "temperature": 39,
-        "has_cough": True
-    }
-    results = expert.infer("medical", current_symptoms)
-    print("Diagnosis results:", results)
-    
-    # Close connection
-    expert.close()</code></pre>
-                </div>
-                <div>
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-                        <i class="fas fa-tasks text-green-500"></i> Use Cases
-                    </h3>
-                    <ul class="list-disc list-inside text-gray-700 ml-6 mt-4 space-y-3">
-                        <li>
-                            <strong>Diagnostic Systems</strong>
-                            <p class="mb-1">Diagnose problems and provide solutions</p>
-                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
-                        </li>
-                        <li>
-                            <strong>Medical Diagnosis</strong>
-                            <p class="mb-1">Assist in medical diagnosis and treatment</p>
-                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
-                        </li>
-                        <li>
-                            <strong>Technical Support</strong>
-                            <p class="mb-1">Provide technical support and troubleshooting</p>
-                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
-                        </li>
-                        <li>
-                            <strong>Decision Support</strong>
-                            <p class="mb-1">Support complex decision-making processes</p>
-                            <a href="https://neo4j.com/docs/" target="_blank" class="underline text-green-600 hover:text-green-800 transition-colors duration-200">Learn more about Neo4j</a>
-                        </li>
-                    </ul>
+facts = ["fever", "cough"]
+for rule in rules:
+    if all(symptom in facts for symptom in rule["if"]):
+        diagnosis = rule["then"]
+        print(f"Diagnosis: {diagnosis}")
+</code></pre>
                 </div>
             </div>
         </section>

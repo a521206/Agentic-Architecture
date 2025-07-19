@@ -4,25 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agentic Communication Patterns</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">    
-    <link rel="stylesheet" href="/public/src/css/custom-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/custom-styles.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 pattern-page">
     <div class="max-w-6xl mx-auto px-4 py-8">
         <!-- Navigation -->
-        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3">
-            <a href="agentic-workflow-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
-                <i class="fas fa-arrow-left mr-2"></i> Previous: Workflow
-            </a>
-            <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300">
-                <i class="fas fa-home mr-2"></i> Home
-            </a>
-            <a href="agentic-decision-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200">
-                Next: Decision <i class="fas fa-arrow-right ml-2"></i>
-            </a>
-        </div>
+        <nav class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3 w-full">
+            <div class="flex flex-1 justify-start w-full md:w-auto gap-3">
+                <a href="agentic-workflow-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200 text-base">
+                    <i class="fas fa-arrow-left mr-2"></i> Previous: Workflow
+                </a>
+            </div>
+            <div class="flex flex-1 justify-center w-full md:w-auto gap-3">
+                <a href="../../index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300 text-base">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="https://github.com/a521206/simple-agent-examples" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="inline-flex items-center justify-center py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-md hover:shadow-lg text-base">
+                    <i class="fab fa-github text-lg mr-2"></i>
+                    GitHub
+                </a>
+            </div>
+            <div class="flex flex-1 justify-end w-full md:w-auto gap-3">
+                <a href="agentic-decision-patterns.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200 text-base">
+                    Next: Decision <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </nav>
         
         <!-- Header -->
         <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300 transform transition-all duration-500 hover:scale-[1.01] hover:shadow-3xl">
@@ -276,198 +289,31 @@ with MCPServerAdapter(server_config) as currency_tools:
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
                         <i class="fas fa-code text-purple-500"></i> Implementation Example
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import numpy as np
-from typing import List, Dict, Any
-from dataclasses import dataclass
-from datetime import datetime
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Pseudocode for RAG (Retrieval Augmented Generation) Pipeline
 
-@dataclass
-class Document:
-    """Represents a document in the knowledge base."""
-    content: str
-    embedding: np.ndarray = None
-    metadata: Dict[str, Any] = None
+# 1. Store documents with embeddings in a vector store
+vector_store = VectorStore()
+for doc in documents:
+    embedding = embed(doc)
+    vector_store.add(doc, embedding)
 
-class VectorStore:
-    """Simple vector store for document embeddings and similarity search."""
-    def __init__(self, embedding_dimension: int = 128):
-        self.documents: List[Document] = []
-        self.embeddings: np.ndarray = None
-        self.embedding_dimension = embedding_dimension
-    
-    def _mock_document_embedding(self, document: Document) -> np.ndarray:
-        """
-        Generates a mock embedding for a document.
-        In a real system, this would use a proper embedding model.
-        """
-        np.random.seed(hash(document.content) % (2**32 - 1))
-        return np.random.rand(self.embedding_dimension)
-    
-    def add_document(self, document: Document) -> None:
-        """Adds a document to the vector store."""
-        # Generate embedding
-        document.embedding = self._mock_document_embedding(document)
-        
-        # Add to documents list
-        self.documents.append(document)
-        
-        # Update embeddings matrix
-        if self.embeddings is None:
-            self.embeddings = document.embedding.reshape(1, -1)
-        else:
-            self.embeddings = np.vstack([self.embeddings, document.embedding])
-    
-    def search(self, query_embedding: np.ndarray, top_k: int = 3) -> List[Document]:
-        """
-        Performs similarity search using cosine similarity.
-        Returns top-k most similar documents.
-        """
-        if len(self.documents) == 0:
-            return []
-        
-        # Calculate dot products
-        dot_products = np.dot(self.embeddings, query_embedding)
-        
-        # Calculate magnitudes (denominators for cosine similarity)
-        doc_magnitudes = np.linalg.norm(self.embeddings, axis=1)
-        query_magnitude = np.linalg.norm(query_embedding)
-        
-        # Avoid division by zero
-        similarities = np.zeros_like(dot_products)
-        non_zero_denominators = (doc_magnitudes * query_magnitude) != 0
-        similarities[non_zero_denominators] = dot_products[non_zero_denominators] / (
-            doc_magnitudes[non_zero_denominators] * query_magnitude
-        )
-        
-        # Get indices of top-k most similar documents
-        top_indices = np.argsort(similarities)[::-1][:top_k]
-        
-        return [self.documents[i] for i in top_indices]
-
-class RAGPipeline:
-    """Implements the RAG pipeline for question answering."""
-    def __init__(self, vector_store: VectorStore):
-        self.vector_store = vector_store
-        self.embedding_dimension = vector_store.embedding_dimension
-
-    def _mock_query_embedding(self, query: str) -> np.ndarray:
-        """Generates a mock embedding for the query."""
-        np.random.seed(hash(query) % (2**32 - 1))
-        return np.random.rand(self.embedding_dimension)
-
-    def _mock_llm_generate_response(self, query: str, context: str) -> str:
-        """Simulates an LLM generating a response, augmented by retrieved context."""
-        if "no relevant context found" in context.lower():
-            return f"I couldn't find specific information about '{query}'. Here's a general thought."
-        
-        return f"Based on the knowledge base: '{context[:100]}...'\n\nAnswer for '{query}': This is a generated response augmented by the retrieved facts."
-
-    def process_query(self, query: str, top_k: int = 3) -> Dict[str, Any]:
-        """Processes a query through the RAG pipeline."""
-        print(f"\n--- Processing Query: '{query}' ---")
-        
-        # 1. Generate query embedding
-        query_embedding = self._mock_query_embedding(query)
-        
-        # 2. Retrieve relevant documents
-        relevant_docs = self.vector_store.search(query_embedding, top_k=top_k)
-        
-        # 3. Prepare context for the LLM
-        context_content = [doc.content for doc in relevant_docs]
-        context_str = "\n".join(context_content) if context_content else "No relevant context found."
-        print(f"Retrieved Context:\n{context_str[:200]}...")
-        
-        # 4. Generate response using the LLM (augmented with context)
-        response_text = self._mock_llm_generate_response(query, context_str)
-        
-        return {
-            "query": query,
-            "retrieved_context": context_str,
-            "response": response_text,
-            "timestamp": datetime.utcnow().isoformat()
-        }
+# 2. When a query comes in:
+def process_query(query):
+    # a. Embed the query
+    query_embedding = embed(query)
+    # b. Retrieve top-k similar documents
+    relevant_docs = vector_store.search(query_embedding, top_k)
+    # c. Concatenate retrieved docs as context
+    context = join([doc.content for doc in relevant_docs])
+    # d. Pass query and context to LLM
+generated_response = llm_generate(query, context)
+    # e. Return the response
+    return generated_response
 
 # Example usage
-if __name__ == "__main__":
-    # 1. Create a VectorStore and add documents
-    vector_store = VectorStore()
-    
-    docs_content = [
-        "Retrieval-Augmented Generation (RAG) is an AI framework that combines information retrieval with generative LLMs. It improves factual accuracy.",
-        "RAG helps LLMs access up-to-date facts, reducing hallucinations and enhancing response quality.",
-        "Vector databases store document embeddings and enable semantic search for efficient retrieval in RAG systems.",
-        "Fine-tuning an LLM involves retraining the model, which is different from RAG where external context is injected without retraining.",
-        "The Eiffel Tower is a landmark in Paris, France. It was built for the 1889 World's Fair."
-    ]
-    
-    for content in docs_content:
-        doc = Document(content)
-        vector_store.add_document(doc)
-    
-    print(f"Vector store initialized with {len(vector_store.documents)} documents.")
-    
-    # 2. Create and run RAG pipeline
-    rag_pipeline = RAGPipeline(vector_store)
-
-    # Example 1: Relevant query
-    result1 = rag_pipeline.process_query("How does RAG improve LLMs?")
-    print(f"\nResult for 'How does RAG improve LLMs?':\n{json.dumps(result1, indent=2)}\n")
-
-    # Example 2: Query for unrelated content
-    result2 = rag_pipeline.process_query("Tell me about the Eiffel Tower.")
-    print(f"\nResult for 'Tell me about the Eiffel Tower.':\n{json.dumps(result2, indent=2)}\n")
-
-    # Example 3: Query with no matching relevant content
-    result3 = rag_pipeline.process_query("What is the capital of Australia?")
-    print(f"\nResult for 'What is the capital of Australia?':\n{json.dumps(result3, indent=2)}\n")</code></pre>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-                        <i class="fas fa-lightbulb text-purple-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Enterprise Knowledge Chatbots</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Answering employee questions based on internal documentation, HR policies, or product manuals.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-purple-600 hover:text-purple-800 underline">HR Platform Intranet Solution (Merge.dev)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Customer Support Systems</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Providing accurate and personalized answers to customer queries by accessing product databases, FAQs, or support tickets.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Customer Support Chatbot (Signity Solutions)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Sales and Marketing Intelligence</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Generating actionable reports or personalized lead recommendations by integrating with CRM and ERP data.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Lead Recommendations (Merge.dev)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Domain-Specific Question Answering</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Creating AI systems that can answer complex questions in specialized fields like healthcare, legal, or finance, grounded in authoritative sources.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-purple-600 hover:text-purple-800 underline">Medical Index Assistant (NVIDIA)</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-purple-700">
-                        <i class="fas fa-project-diagram text-purple-500"></i> Related Concepts
-                    </h3>
-                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li>Vector Databases for embedding storage</li>
-                        <li>Knowledge Base Integration</li>
-                        <li>Semantic Search</li>
-                        <li>Context Window Management</li>
-                    </ul>
+response = process_query("What is RAG?")
+print(response)
+</code></pre>
                 </div>
             </div>
         </section>
@@ -526,162 +372,35 @@ if __name__ == "__main__":
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
                         <i class="fas fa-code text-green-500"></i> Conceptual Example: A2A Interaction
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>import json
-import uuid
-from datetime import datetime
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Pseudocode for A2A (Agent-to-Agent) Interaction
 
-# --- Mock A2A Remote Agent Server (Conceptual) ---
-class MockA2ARemoteAgent:
-    def __init__(self, agent_id: str, capabilities: list, api_url: str):
-        self.agent_id = agent_id
-        self.api_url = api_url
+# 1. Remote agent publishes its capabilities (agent card)
+remote_agent_card = {
+    "id": "data-processor-001",
+    "capabilities": ["process_data", "generate_report"],
+    "api_url": "https://api.example.com/agents/data-processor-001"
+}
 
-    def get_agent_card(self) -> dict:
-        """Simulates serving the Agent Card for discovery."""
-        return {
-            "id": self.agent_id,
-            "name": f"{self.agent_id.replace('-', ' ').title()} Agent",
-            "capabilities": [{"name": cap, "description": f"Can {cap.replace('_', ' ')} tasks."} for cap in self.capabilities],
-            "endpoints": {"api": self.api_url},
-            "security": {
-                "auth_type": "bearer",
-                "signature_required": True
-            }
-        }
+# 2. Client agent discovers remote agent
+client_agent.discover(remote_agent_card)
 
-    def process_task(self, task: dict) -> dict:
-        """Simulates task processing and returns an artifact."""
-        task_id = task.get("id", str(uuid.uuid4()))
-        capability = task.get("capability", "unknown")
-        message = task.get("message", {})
-        
-        # Simulate processing delay and generate response
-        response = f"Processed {capability} task with message: {json.dumps(message)}"
-        
-        return {
-            "task_id": task_id,
-            "status": "completed",
-            "artifacts": [{
-                "type": "text",
-                "content": response,
-                "metadata": {
-                    "timestamp": datetime.utcnow().isoformat()
-                }
-            }]
-        }
+# 3. Client agent delegates a task to the remote agent
+task = {
+    "id": generate_unique_id(),
+    "capability": "process_data",
+    "message": {
+        "data_type": "sales_report",
+        "format": "json",
+        "parameters": {"region": "EMEA", "period": "Q3"}
+    },
+    "metadata": {"sender": client_agent.id, "timestamp": now()}
+}
 
-# --- Mock A2A Client Agent ---
-class MockA2AClientAgent:
-    def __init__(self, agent_id: str):
-        self.agent_id = agent_id
-        self.discovered_agents = {}
-    
-    def discover_agent(self, remote_agent: MockA2ARemoteAgent) -> None:
-        """Simulates agent discovery process."""
-        agent_card = remote_agent.get_agent_card()
-        self.discovered_agents[agent_card["id"]] = {
-            "card": agent_card,
-            "instance": remote_agent
-        }
-        print(f"Discovered agent: {agent_card['name']}")
-    
-    def delegate_task(self, agent_id: str, capability: str, message: dict) -> dict:
-        """Creates and sends a task to a remote agent."""
-        if agent_id not in self.discovered_agents:
-            raise ValueError(f"Unknown agent: {agent_id}")
-        
-        remote_agent = self.discovered_agents[agent_id]["instance"]
-        task = {
-            "id": str(uuid.uuid4()),
-            "capability": capability,
-            "message": message,
-            "metadata": {
-                "sender": self.agent_id,
-                "timestamp": datetime.utcnow().isoformat()
-            }
-        }
-        
-        print(f"\nSending task to {agent_id}:")
-        print(json.dumps(task, indent=2))
-        
-        return remote_agent.process_task(task)
+result = remote_agent.process_task(task)
 
-# Example usage
-if __name__ == "__main__":
-    # Create remote agent with capabilities
-    remote_agent = MockA2ARemoteAgent(
-        agent_id="data-processor-001",
-        capabilities=["process_data", "generate_report"],
-        api_url="https://api.example.com/agents/data-processor-001"
-    )
-    
-    # Create client agent
-    client_agent = MockA2AClientAgent(agent_id="client-001")
-    
-    # Discover remote agent
-    client_agent.discover_agent(remote_agent)
-    
-    # Delegate a task
-    result = client_agent.delegate_task(
-        agent_id="data-processor-001",
-        capability="process_data",
-        message={
-            "data_type": "sales_report",
-            "format": "json",
-            "parameters": {"region": "EMEA", "period": "Q3"}
-        }
-    )
-    
-    print("\nReceived result:")
-    print(json.dumps(result, indent=2))</code></pre>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-                        <i class="fas fa-lightbulb text-green-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Cross-Platform Agent Collaboration</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enabling secure communication between agents from different vendors or platforms.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-green-600 hover:text-green-800 underline">Multi-Vendor Agent Network (Google)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Distributed Task Processing</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Coordinating complex tasks across multiple specialized agents in different locations.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-green-600 hover:text-green-800 underline">Distributed Data Processing (Anthropic)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Cloud Service Integration</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Integrating AI agents with various cloud services and APIs securely.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-green-600 hover:text-green-800 underline">Cloud Service Orchestration (Microsoft)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Enterprise System Integration</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Connecting AI agents with enterprise systems while maintaining security and compliance.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-green-600 hover:text-green-800 underline">Enterprise Integration Framework (IBM)</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-green-700">
-                        <i class="fas fa-project-diagram text-green-500"></i> Related Concepts
-                    </h3>
-                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li>Agent Discovery & Registration</li>
-                        <li>Secure Message Exchange</li>
-                        <li>Distributed Task Management</li>
-                        <li>Cross-Platform Integration</li>
-                    </ul>
+# 4. Client agent receives the result
+print(result)
+</code></pre>
                 </div>
             </div>
         </section>
@@ -734,6 +453,14 @@ if __name__ == "__main__":
                                 <li>Secure message exchange and data protection.</li>
                             </ul>
                         </li>
+                        <li class="mb-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Message Performative Semantics (FIPA-inspired)</h4>
+                            <ul class="list-disc list-inside ml-4 space-y-2">
+                                <li>Messages include a <strong>performative</strong> field to indicate intent, such as: <code>inform</code>, <code>request</code>, <code>agree</code>, <code>refuse</code>, <code>propose</code>, <code>inform-result</code>.</li>
+                                <li>This helps agents interpret the purpose of a message and respond appropriately.</li>
+                                <li>Example: <code>message_type="request"  # message.performative = "request"</code></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
 
@@ -741,144 +468,51 @@ if __name__ == "__main__":
                     <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
                         <i class="fas fa-code text-yellow-500"></i> Conceptual Example: ACP Communication
                     </h3>
-                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code>from typing import Dict, Any, List
-import json
-from datetime import datetime
-from enum import Enum
-
-class MessageType(Enum):
-    REQUEST = "request"
-    RESPONSE = "response"
-    EVENT = "event"
-    NOTIFICATION = "notification"
-
-class ACPMessage:
-    """Represents a message in the Agent Communication Protocol."""
-    def __init__(self, 
-                 message_type: MessageType,
-                 content: Dict[str, Any],
-                 sender_id: str,
-                 recipient_id: str = None):
-        self.message_type = message_type
-        self.content = content
-        self.sender_id = sender_id
-        self.recipient_id = recipient_id
-        self.timestamp = datetime.utcnow().isoformat()
-        self.message_id = f"{sender_id}_{self.timestamp}"
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """Convert message to dictionary format."""
-        return {
-            "message_id": self.message_id,
-            "type": self.message_type.value,
-            "content": self.content,
-            "sender": self.sender_id,
-            "recipient": self.recipient_id,
-            "timestamp": self.timestamp
-        }
+                    <pre class="bg-gray-900 text-gray-100 rounded-xl p-6 overflow-x-auto text-sm font-mono shadow-inner border border-gray-700"><code># Pseudocode for ACP (Agent Communication Protocol) Communication
 
 class ACPAgent:
-    """Implements an agent using the ACP protocol."""
-    def __init__(self, agent_id: str):
-        self.agent_id = agent_id
-        self.message_handlers: Dict[MessageType, List[callable]] = {
-            msg_type: [] for msg_type in MessageType
-        }
-    
-    def register_handler(self, message_type: MessageType, handler: callable) -> None:
-        """Register a handler for a specific message type."""
-        self.message_handlers[message_type].append(handler)
-    
-    def send_message(self, message: ACPMessage) -> None:
-        """Send a message to another agent."""
-        # In a real implementation, this would use HTTP or another transport
-        print(f"Sending message: {json.dumps(message.to_dict(), indent=2)}")
-    
-    def receive_message(self, message: ACPMessage) -> None:
-        """Process an incoming message."""
-        print(f"Received message: {json.dumps(message.to_dict(), indent=2)}")
-        
-        # Call registered handlers
-        for handler in self.message_handlers[message.message_type]:
+    def __init__(self, id):
+        self.id = id
+        self.handlers = {}
+    def register_handler(self, message_type, handler):
+        self.handlers[message_type] = handler
+    def receive_message(self, message):
+        # Auto-dispatch based on performative / type
+        handler = self.handlers.get(getattr(message, 'performative', None) or message.message_type)
+        if handler:
             handler(message)
 
-# Example usage
-if __name__ == "__main__":
-    # Create agents
-    agent1 = ACPAgent("agent1")
-    agent2 = ACPAgent("agent2")
-    
-    # Register message handlers
-    def handle_request(message: ACPMessage) -> None:
-        print(f"Agent {agent1.agent_id} handling request: {message.content}")
-        # Send response
-        response = ACPMessage(
-            message_type=MessageType.RESPONSE,
-            content={"status": "success", "data": "Request processed"},
-            sender_id=agent1.agent_id,
-            recipient_id=message.sender_id
-        )
-        agent1.send_message(response)
-    
-    agent1.register_handler(MessageType.REQUEST, handle_request)
-    
-    # Send a request
-    request = ACPMessage(
-        message_type=MessageType.REQUEST,
-        content={"action": "process_data", "data": "sample data"},
-        sender_id=agent2.agent_id,
-        recipient_id=agent1.agent_id
+# 1. Define two agents with unique IDs
+agent1 = ACPAgent("agent1")
+agent2 = ACPAgent("agent2")
+
+# 2. Register a handler for request messages on agent1
+def handle_request(message):
+    # Process the request and prepare a response
+    response = ACPMessage(
+        message_type="response",
+        performative="inform-result",  # FIPA-inspired performative
+        content={"status": "success", "data": "Request processed"},
+        sender_id=agent1.id,
+        recipient_id=message.sender_id
     )
-    agent2.send_message(request)
-    agent1.receive_message(request)</code></pre>
-                </div>
+    agent1.send_message(response)
 
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
-                        <i class="fas fa-lightbulb text-yellow-500"></i> Use Cases
-                    </h3>
-                    <ul class="space-y-6 text-gray-700">
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Local Multi-Agent Orchestration</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Coordinating multiple agents within a single system for complex task execution.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Task Orchestration (Local)</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Edge Computing Applications</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Enabling agent communication in resource-constrained environments.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">IoT Device Management</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Privacy-Sensitive Scenarios</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Secure communication between agents handling sensitive data.</li>
-                                <li>Example: <a href="https://www.analyticsvidhya.com/blog/2025/04/agent-to-agent-protocol/" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Healthcare Data Processing</a></li>
-                            </ul>
-                        </li>
-                        <li class="mb-4">
-                            <h4 class="font-semibold text-gray-900 mb-2">Peer-to-Peer Agent Interactions</h4>
-                            <ul class="list-disc list-inside ml-4 space-y-2">
-                                <li>Direct communication between agents without central coordination.</li>
-                                <li>Example: <a href="https://www.datacamp.com/blog/a2a-agent2agent" target="_blank" class="text-yellow-600 hover:text-yellow-800 underline">Distributed Task Processing</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+agent1.register_handler("request", handle_request)
 
-                <div class="mb-10">
-                    <h3 class="font-bold text-2xl mb-4 flex items-center gap-2 text-yellow-700">
-                        <i class="fas fa-project-diagram text-yellow-500"></i> Related Concepts
-                    </h3>
-                    <ul class="list-disc list-inside ml-4 space-y-2 text-gray-700">
-                        <li>REST-native Communication</li>
-                        <li>Event-Driven Architecture</li>
-                        <li>Structured Dialogue</li>
-                        <li>Local-First Design</li>
-                    </ul>
+# 3. agent2 sends a request message to agent1
+request = ACPMessage(
+    message_type="request",
+    performative="request",  # FIPA-inspired performative
+    content={"action": "process_data", "data": "sample data"},
+    sender_id=agent2.id,
+    recipient_id=agent1.id
+)
+agent2.send_message(request)
+
+# 4. agent1 receives and handles the request
+agent1.receive_message(request)
+</code></pre>
                 </div>
             </div>
         </section>
