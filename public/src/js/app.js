@@ -6,7 +6,7 @@ const firebaseConfig = {
     storageBucket: "agentic-architecture-571f9.firebasestorage.app",
     messagingSenderId: "581221355292",
     appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
-    measurementId: "G-SWN5EK41WQ"
+    measurementId: "G-VX6J4D9ECW"
   };
 
 // Initialize Firebase only if not already initialized
