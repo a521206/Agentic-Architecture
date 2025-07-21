@@ -10,31 +10,23 @@ function createHeader() {
                     <div class="flex flex-col md:flex-row items-center gap-4 text-sm text-gray-600">
                         <div class="flex items-center gap-2">
                             <i class="fas fa-envelope text-blue-600"></i>
-                            <a href="mailto:contact@terragonlabs.com" class="hover:text-blue-600 transition-colors">
-                                contact@terragonlabs.com
+                            <a href="mailto:vishal.agrawal@gmail.com" class="hover:text-blue-600 transition-colors">
+                                vishal.agrawal@gmail.com
                             </a>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-phone text-blue-600"></i>
-                            <span>+1 (555) 123-4567</span>
                         </div>
                     </div>
                     
                     <!-- Social Media Links -->
                     <div class="flex items-center gap-4">
-                        <a href="https://github.com/terragonlabs" target="_blank" rel="noopener noreferrer" 
+                        <a href="https://github.com/a521206/simple-agent-examples" target="_blank" rel="noopener noreferrer" 
                            class="text-gray-600 hover:text-blue-600 transition-colors text-lg">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://linkedin.com/company/terragonlabs" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.linkedin.com/in/vishalagrawal1999/" target="_blank" rel="noopener noreferrer"
                            class="text-gray-600 hover:text-blue-600 transition-colors text-lg">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="https://twitter.com/terragonlabs" target="_blank" rel="noopener noreferrer"
-                           class="text-gray-600 hover:text-blue-600 transition-colors text-lg">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://youtube.com/@terragonlabs" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.youtube.com/@RebootingwithAI" target="_blank" rel="noopener noreferrer"
                            class="text-gray-600 hover:text-blue-600 transition-colors text-lg">
                             <i class="fab fa-youtube"></i>
                         </a>
@@ -55,46 +47,12 @@ function createFooter() {
                     <!-- Copyright Information -->
                     <div class="text-center md:text-left">
                         <p class="text-gray-300 text-sm">
-                            © ${currentYear} Terragon Labs. All rights reserved.
+                            © ${currentYear} [Vishal Agrawal] Content licensed under CC BY 4.0.
                         </p>
                         <p class="text-gray-400 text-xs mt-1">
                             Enterprise Agentic Architecture Patterns
                         </p>
                     </div>
-                    
-                    <!-- Additional Links -->
-                    <div class="flex flex-col md:flex-row items-center gap-6 text-sm">
-                        <div class="flex items-center gap-4">
-                            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                                Privacy Policy
-                            </a>
-                            <a href="#" class="text-gray-300 hover:text-white transition-colors">
-                                Terms of Service
-                            </a>
-                            <a href="mailto:contact@terragonlabs.com" class="text-gray-300 hover:text-white transition-colors">
-                                Contact Us
-                            </a>
-                        </div>
-                        
-                        <!-- Social Media (Footer) -->
-                        <div class="flex items-center gap-3">
-                            <a href="https://github.com/terragonlabs" target="_blank" rel="noopener noreferrer"
-                               class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="https://linkedin.com/company/terragonlabs" target="_blank" rel="noopener noreferrer"
-                               class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fab fa-linkedin"></i>
-                            </a>
-                            <a href="https://twitter.com/terragonlabs" target="_blank" rel="noopener noreferrer"
-                               class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="https://youtube.com/@terragonlabs" target="_blank" rel="noopener noreferrer"
-                               class="text-gray-400 hover:text-white transition-colors">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
