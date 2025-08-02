@@ -1,32 +1,22 @@
 // Common Header and Footer Components for RebootingwithAI
 
-// Get current page path for navigation highlighting
+// Get current page for navigation highlighting
 function getCurrentPage() {
     const path = window.location.pathname;
-    const page = path.split('/').pop() || 'index.html';
-    return page;
+    return path.split('/').pop() || 'index.html';
 }
 
 // Check if we're on the home page
 function isHomePage() {
-    const currentPage = getCurrentPage();
-    return currentPage === 'index.html' || currentPage === '';
-}
-
-// Get relative path to root based on current page location - DEPRECATED
-// Use absolute paths instead for consistency
-function getRelativePath() {
-    return '';
+    return getCurrentPage() === 'index.html' || window.location.pathname === '/';
 }
 
 // Common Header Component
 function createHeader() {
     const currentPage = getCurrentPage();
     const isHome = isHomePage();
-    const basePath = getRelativePath();
-    console.log('Current basePath:', basePath, 'Current path:', window.location.pathname);
 
-    // Navigation links with absolute paths
+    // Navigation links
     const navLinks = [
         {
             href: '/',
@@ -68,16 +58,16 @@ function createHeader() {
         </div>
     `;
 
-    // Determine active link
-    function getActiveClass(linkId) {
-        if (currentPage === 'index.html' || currentPage === '') {
-            return linkId === 'home' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
-        } else if (currentPage === 'learning-hub.html') {
-            return linkId === 'agentic' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
-        } else if (currentPage.includes('about')) {
-            return linkId === 'about' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
-        }
-        return 'text-gray-700 hover:text-blue-600';
+    // Set active link based on current page
+    function getActiveClass(link) {
+        const activeMap = {
+            'index.html': 'home',
+            '': 'home',
+            'learning-hub.html': 'agentic',
+            'about.html': 'about'
+        };
+        const activeId = activeMap[currentPage] || currentPage.split('.')[0];
+        return link.id === activeId ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
     }
 
     return `
@@ -109,16 +99,11 @@ function createHeader() {
                     
                     <!-- Mobile menu button -->
                     <div class="md:hidden">
-                        <button type="button" onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                            <span class="sr-only">Open main menu</span>
-                            <i class="fas fa-bars h-6 w-6"></i>
-                        </button>
-                    </div>
-
-                    <!-- Mobile menu button -->
-                    <div class="md:hidden">
-                        <button type="button" class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600" onclick="toggleMobileMenu()">
-                            <i class="fas fa-bars text-xl"></i>
+                        <button type="button" 
+                                onclick="toggleMobileMenu()" 
+                                class="text-gray-700 hover:text-blue-600 focus:outline-none focus:text-blue-600"
+                                aria-label="Toggle menu">
+                            <i class="fas fa-bars text-2xl"></i>
                         </button>
                     </div>
                 </div>
@@ -141,7 +126,6 @@ function createHeader() {
 // Common Footer Component
 function createFooter() {
     const currentYear = new Date().getFullYear();
-    const basePath = getRelativePath();
 
     return `
         <footer class="bg-gray-900 text-white py-12">
