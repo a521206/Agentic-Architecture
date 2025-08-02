@@ -3,206 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RebootingwithAI - My personal journey through the AI revolution, exploring enterprise architecture, intelligent systems, and the future of autonomous agents.">
-    <meta name="keywords" content="RebootingwithAI, agentic architecture, enterprise AI, intelligent systems, AI journey, architectural patterns, personal blog">
+    <meta name="description" content="RebootingwithAI - My personal journey through the AI revolution, exploring enterprise architecture and intelligent systems.">
     <meta name="author" content="RebootingwithAI">
-    <meta property="og:title" content="RebootingwithAI - My Journey Through the AI Revolution">
-    <meta property="og:description" content="Join me as I explore, learn, and share insights about artificial intelligence, enterprise architecture, and agentic systems.">
-    <meta property="og:type" content="website">
     <title>RebootingwithAI - My Journey Through the AI Revolution</title>
-    
-    <!-- External Dependencies -->
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Custom Styles -->
     <link rel="stylesheet" href="src/css/custom-styles.css">
     <link rel="stylesheet" href="src/css/index-styles.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center animate-fade-in-up">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
-                    <span class="text-yellow-300">RebootingwithAI</span><br>
-                    My Journey Through the<br>
-                    AI Revolution
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">
-                    Join me as I explore, learn, and share insights about artificial intelligence, enterprise architecture, and the future of intelligent systems.
-                </p>
+    <section id="home" class="hero-gradient text-white py-20 md:py-28 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+                <span class="text-yellow-300 block mb-2">RebootingwithAI</span>
+                <span class="text-white text-3xl md:text-4xl lg:text-5xl font-bold">My Journey Through the AI Revolution</span>
+            </h1>
+            <p class="text-lg md:text-xl lg:text-2xl mb-10 max-w-3xl mx-auto opacity-90 leading-relaxed">
+                Exploring artificial intelligence, enterprise architecture, and intelligent systems.
+            </p>
 
-                <!-- Personal Journey Stats -->
-                <div class="flex flex-wrap justify-center gap-8 mb-10">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-300" data-stat="hero-blog-count">Loading...</div>
-                        <div class="text-sm opacity-80">Blog Posts</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-300" data-stat="years-journey">3+</div>
-                        <div class="text-sm opacity-80">Years Journey</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-300" data-stat="hero-news-count">Loading...</div>
-                        <div class="text-sm opacity-80">Case Studies</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-300" data-stat="key-offering">1</div>
-                        <div class="text-sm opacity-80">Key Offering</div>
-                    </div>
+            <div class="flex justify-center gap-8 mb-12">
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-yellow-300 mb-1">3+</div>
+                    <div class="text-sm opacity-80">Blog Posts</div>
                 </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-yellow-300 mb-1">3+</div>
+                    <div class="text-sm opacity-80">Years Journey</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl md:text-3xl font-bold text-yellow-300 mb-1">5+</div>
+                    <div class="text-sm opacity-80">Case Studies</div>
+                </div>
+            </div>
 
-                <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="learning-hub.html" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 transition-colors shadow-lg">
-                        <i class="fas fa-network-wired mr-2"></i>
-                        Explore Agentic Architecture
-                    </a>
-                    <a href="#blog" class="inline-flex items-center px-8 py-3 border-2 border-white text-base font-medium rounded-md text-white hover:bg-white hover:text-blue-600 transition-colors">
-                        <i class="fas fa-blog mr-2"></i>
-                        Read My Blog
-                    </a>
-                </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="learning-hub.html" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-network-wired mr-2"></i>
+                    Explore Agentic Architecture
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Blog Section -->
-    <section id="blog" class="py-16 bg-white">
+    <!-- Content Hub Section -->
+    <section id="content-hub" class="py-16 md:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">My Blog</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Deep dives into AI, enterprise architecture, and my journey building intelligent systems.
-                    Technical insights, lessons learned, and practical guidance from real-world implementations.
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Content Hub</h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+                    Technical insights, case studies, and industry analysis from my AI journey.
                 </p>
             </div>
 
-            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-8 md:p-12">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-blog text-3xl text-blue-600 mr-3"></i>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">Latest Posts</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Technical Deep Dives & Insights</h3>
-                        <p class="text-gray-600 mb-6">
-                            From scaling agentic systems to security considerations, I share practical insights
-                            from my hands-on experience building enterprise AI solutions.
-                        </p>
-                        <div class="space-y-3 mb-6">
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Real-world case studies and lessons learned</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Technical architecture patterns and best practices</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Industry analysis with personal commentary</span>
-                            </div>
-                        </div>
-                        <a href="src/pages/blog/index.html" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            Read My Blog Posts
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Blog Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="text-center">
+                        <i class="fas fa-blog text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">My Blogs</h3>
+                        <p class="text-gray-600 mb-4">Deep dives into AI implementation, enterprise architecture patterns, and system design.</p>
+                        <a href="src/pages/blog/index.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            Read Posts <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
+                </div>
+
+                <!-- News Card -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div class="text-center">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg">
-                            <div class="text-4xl text-blue-600 mb-4">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="text-3xl font-bold text-gray-900 mb-2" data-stat="blog-count">Loading...</div>
-                            <div class="text-gray-600 mb-4">Blog Posts Written</div>
-                            <div class="text-sm text-gray-500">
-                                Covering AI, enterprise architecture, and system design
-                            </div>
-                        </div>
+                        <i class="fas fa-newspaper text-4xl text-purple-600 mb-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Industry Analysis</h3>
+                        <p class="text-gray-600 mb-4">Technical commentary on AI trends, enterprise solutions, and architectural patterns.</p>
+                        <a href="src/pages/news/index.html" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            View Reports <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- News & Insights Section -->
-    <section id="news" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What I'm Watching</h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Industry developments I'm tracking, with my analysis and commentary on the latest trends in AI and enterprise architecture.
-                </p>
-            </div>
-
-            <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-8 md:p-12">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <div class="flex items-center mb-4">
-                            <i class="fas fa-newspaper text-3xl text-blue-600 mr-3"></i>
-                            <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full">Industry Analysis</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">News & My Take</h3>
-                        <p class="text-gray-600 mb-6">
-                            I curate and analyze the most important developments in AI, enterprise architecture,
-                            and autonomous systems, providing my perspective based on real-world experience.
-                        </p>
-                        <div class="space-y-3 mb-6">
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Breaking news with technical analysis</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Industry trends and their implications</span>
-                            </div>
-                            <div class="flex items-center text-gray-700">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                                <span>Personal commentary and insights</span>
-                            </div>
-                        </div>
-                        <a href="src/pages/news/index.html" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            Read My Analysis
-                        </a>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-white rounded-2xl p-6 shadow-lg">
-                            <div class="text-4xl text-blue-600 mb-4">
-                                <i class="fas fa-eye"></i>
-                            </div>
-                            <div class="text-3xl font-bold text-gray-900 mb-2" data-stat="news-count">Loading...</div>
-                            <div class="text-gray-600 mb-4">Industry Reports Analyzed</div>
-                            <div class="text-sm text-gray-500">
-                                Tracking AI trends, enterprise adoption, and market developments
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-            <div class="text-center mt-12">
-                <div class="bg-blue-50 rounded-2xl p-8 max-w-2xl mx-auto">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Stay Updated</h3>
-                    <p class="text-gray-600 mb-6">
-                        Get notified about my latest blog posts, insights on Agentic Architecture, and industry analysis.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="https://www.youtube.com/@RebootingwithAI" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                            <i class="fab fa-youtube mr-2"></i>
-                            Subscribe to Updates
-                        </a>
-                        <a href="mailto:vishal.agrawal@gmail.com?subject=Collaboration Inquiry" class="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-colors">
-                            <i class="fas fa-handshake mr-2"></i>
-                            Collaboration Inquiry
-                        </a>
-                    </div>
-                </div>
+    <!-- Connect Section -->
+    <section id="connect" class="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Let's Connect</h2>
+            <p class="text-xl text-gray-600 mb-8">
+                Follow my journey and collaborate on AI and enterprise architecture projects.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://www.youtube.com/@RebootingwithAI" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all duration-300 shadow-md hover:shadow-lg">
+                    <i class="fab fa-youtube mr-2"></i>
+                    YouTube Channel
+                </a>
+                <a href="mailto:vishalagrawal@gmail.com" class="inline-flex items-center px-6 py-3 border-2 border-gray-600 text-gray-600 rounded-lg hover:bg-gray-600 hover:text-white transition-all duration-300">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Email Me
+                </a>
             </div>
         </div>
     </section>
@@ -210,8 +110,8 @@
     <div data-footer-placeholder></div>
 
     <!-- Back to Top Button -->
-    <button class="go-to-top" onclick="scrollToTop()" aria-label="Back to top">
-        <i class="fas fa-arrow-up"></i>
+    <button class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 invisible hover:opacity-100 hover:visible" onclick="scrollToTop()" aria-label="Back to top">
+        <i class="fas fa-arrow-up text-xl"></i>
     </button>
 
     <!-- Scripts -->
@@ -221,8 +121,6 @@
     <script src="src/js/app.js"></script>
     
     <script>
-        // Mobile menu toggle is now handled by common-components.js
-        
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -236,7 +134,7 @@
                 }
             });
         });
-        
+
         // Back to top functionality
         function scrollToTop() {
             window.scrollTo({
@@ -244,138 +142,39 @@
                 behavior: 'smooth'
             });
         }
-        
+
         // Show/hide back to top button
         window.addEventListener('scroll', function() {
-            const backToTopButton = document.querySelector('.go-to-top');
+            const backToTopButton = document.querySelector('button[onclick="scrollToTop()"]');
             if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('visible');
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
             } else {
-                backToTopButton.classList.remove('visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
             }
         });
-        
-        // Add animation classes on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-fade-in-up');
-                }
-            });
-        }, observerOptions);
-        
-        // Update statistics dynamically
+
+        // Simple statistics update
         async function updateStatistics() {
             try {
-                // First try to load from stats.json
-                let stats = null;
-                try {
-                    const statsResponse = await fetch('src/data/stats.json');
-                    stats = await statsResponse.json();
-                } catch (e) {
-                    console.log('Stats file not found, counting dynamically');
-                }
-
-                let blogCount = 3; // Default fallback
-                let newsCount = 5; // Default fallback
-
-                if (stats) {
-                    // Use stats from JSON file
-                    blogCount = stats.blog.count;
-                    newsCount = stats.news.count;
-                } else {
-                    // Count dynamically by checking directory contents
-                    try {
-                        // Count blog posts by trying to fetch known blog files
-                        const blogFiles = [
-                            'src/pages/blog/scaling-agentic-systems-lessons-field.html',
-                            'src/pages/blog/security-considerations-agentic-architectures.html',
-                            'src/pages/blog/utcp-dns-agentic-world.html'
-                        ];
-
-                        let validBlogCount = 0;
-                        for (const file of blogFiles) {
-                            try {
-                                const response = await fetch(file, { method: 'HEAD' });
-                                if (response.ok) validBlogCount++;
-                            } catch (e) {
-                                // File doesn't exist, skip
-                            }
-                        }
-                        blogCount = Math.max(validBlogCount, 3);
-
-                        // Count news articles by trying to fetch known news files
-                        const newsFiles = [
-                            'src/pages/news/major-tech-giant-ai-agent-framework.html',
-                            'src/pages/news/agentic-system-adoption-study.html',
-                            'src/pages/news/cloud-providers-agentic-standards-consortium.html',
-                            'src/pages/news/multi-agent-coordination-breakthrough.html',
-                            'src/pages/news/global-agentic-architecture-summit-2024.html'
-                        ];
-
-                        let validNewsCount = 0;
-                        for (const file of newsFiles) {
-                            try {
-                                const response = await fetch(file, { method: 'HEAD' });
-                                if (response.ok) validNewsCount++;
-                            } catch (e) {
-                                // File doesn't exist, skip
-                            }
-                        }
-                        newsCount = Math.max(validNewsCount, 5);
-
-                    } catch (e) {
-                        console.log('Dynamic counting failed, using defaults');
+                const statsResponse = await fetch('src/data/stats.json');
+                const stats = await statsResponse.json();
+                
+                const elements = document.querySelectorAll('[data-stat]');
+                elements.forEach(el => {
+                    const stat = el.getAttribute('data-stat');
+                    if (stats[stat]) {
+                        el.textContent = stats[stat] + '+';
                     }
-                }
-
-                // Update all statistics elements
-                const updateStat = (selector, value, suffix = '+') => {
-                    const element = document.querySelector(`[data-stat="${selector}"]`);
-                    if (element) {
-                        element.textContent = value + suffix;
-                    }
-                };
-
-                updateStat('hero-blog-count', blogCount);
-                updateStat('hero-news-count', newsCount);
-                updateStat('blog-count', blogCount);
-                updateStat('news-count', newsCount);
-
-                console.log(`Statistics updated: ${blogCount} blog posts, ${newsCount} news articles`);
-
-            } catch (error) {
-                console.log('Statistics update failed, using fallback values:', error);
-                // Final fallback values
-                const fallbacks = {
-                    'hero-blog-count': '3+',
-                    'hero-news-count': '5+',
-                    'blog-count': '3+',
-                    'news-count': '5+'
-                };
-
-                Object.entries(fallbacks).forEach(([key, value]) => {
-                    const element = document.querySelector(`[data-stat="${key}"]`);
-                    if (element) element.textContent = value;
                 });
+            } catch (error) {
+                console.log('Using fallback statistics');
             }
         }
 
-        // Observe sections for animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Update statistics when page loads
-            updateStatistics();
-        });
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', updateStatistics);
     </script>
 </body>
 </html>
