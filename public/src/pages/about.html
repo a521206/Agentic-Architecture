@@ -3,84 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Vishal Agrawal</title>
+    <title>About Vishal Agrawal - Technology Executive</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/custom-styles.css">
-    <link rel="stylesheet" href="../css/about-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/index-styles.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
-    <!-- Common header will be inserted here by common-components.js -->
-    <div class="container mx-auto px-4 py-8">
-        <div id="about-content" class="mt-8">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">Vishal Agrawal</h1>
-                <p class="text-xl text-gray-600 mb-6">Technology Executive & Strategic Leader</p>
-                
-                <!-- About My Journey -->
-                <div class="max-w-3xl mx-auto mt-8 text-lg text-gray-700 leading-relaxed">
-                    <p class="mb-4">
-                        <span class="block text-2xl font-semibold text-gray-800 mb-2">About My Journey</span>
-                        Discover my insights, explore my key offering in Agentic Architecture, and follow along as I navigate the evolving AI landscape.
-                    </p>
-                </div>
-            </div>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-4">Vishal Agrawal</h1>
+            <p class="text-xl mb-2">Technology Executive & Strategic Leader</p>
+            <p class="text-lg opacity-90">25+ Years Driving Innovation in AI & Technology</p>
+        </div>
+    </section>
 
-        <!-- Main Content -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
-            <div class="p-8">
-                <!-- Profile Summary -->
-                <section>
-                    <h2>Professional Profile</h2>
-                    <p>
-                        Vishal Agrawal is a seasoned technology executive with over 20 years of experience driving strategic, tactical, and operational technology initiatives. He specializes in delivering complex technology solutions across product portfolios, including application development, user experience, and hosting/cloud services. He has led geographically distributed teams in the EMEA and APAC regions.
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-16">
+        <!-- Professional Summary -->
+        <section class="mb-16">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">Professional Profile</h2>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <p class="text-lg text-gray-700 leading-relaxed mb-6">
+                        Seasoned technology executive with over 20 years of experience driving strategic, tactical, and operational technology initiatives. Specializing in delivering complex technology solutions across product portfolios, including application development, user experience, and hosting/cloud services.
                     </p>
                     
-                    <ul>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Proven expertise in building agile ecosystems and modernizing technology solutions.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Demonstrated ability to lead large-scale projects with a global footprint.</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Passionate about leveraging technology to solve complex business challenges.</span>
-                        </li>
-                    </ul>
-                </section>
-
-                <!-- Current Role -->
-                <section>
-                    <h2>Current Role</h2>
-                    <div class="bg-blue-50">
-                        <h3>S&P Global</h3>
-                        <p>
-                            At S&P Global, my focus is on leveraging AI-based machine learning to transform and automate data collection processes. These modernization projects contribute significantly to strategic business objectives.
-                        </p>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">25+</div>
+                            <div class="text-gray-600">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600 mb-2">Global</div>
+                            <div class="text-gray-600">Leadership</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600 mb-2">AI/ML</div>
+                            <div class="text-gray-600">Expertise</div>
+                        </div>
                     </div>
-                </section>
-
-                <!-- Previous Experience -->
-                <section>
-                    <h2>Previous Experience</h2>
-                    <div class="bg-gray-50">
-                        <h3>Senior Executive Vice President, Broadridge</h3>
-                        <p>
-                            Previously, as Senior Executive Vice President at Broadridge, I co-led an array of technology projects that supported $70M in business revenue, while managing teams across multiple regions. I excel at delivering complex technology solutions across product portfolios, including application development, user experience, and hosting/cloud services.
-                        </p>
-                    </div>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
 
-    <!-- Common footer will be inserted here by common-components.js -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+        <!-- Key Expertise -->
+        <section class="mb-16">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-8">Key Expertise</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-600">Strategic Leadership</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Technology strategy & roadmap development</li>
+                            <li>• Digital transformation initiatives</li>
+                            <li>• Global team leadership & management</li>
+                            <li>• Cross-functional collaboration</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-600">Technical Excellence</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>• Agentic Architecture & AI solutions</li>
+                            <li>• Cloud & distributed systems</li>
+                            <li>• Application development & UX</li>
+                            <li>• Modern technology stacks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="mb-16">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-8">Let's Connect</h2>
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <p class="text-lg text-gray-700 mb-6">
+                        Ready to discuss how technology can transform your business? Let's explore the possibilities together.
+                    </p>
+                    <a href="mailto:vishal@rebootingwithai.com" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                        Get In Touch
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 [Vishal Agrawal] Content licensed under CC BY 4.0.</p>
+        </div>
+    </footer>
+
     <script src="../js/common-components.js"></script>
-    <script src="../js/app.js"></script>
 </body>
 </html>
