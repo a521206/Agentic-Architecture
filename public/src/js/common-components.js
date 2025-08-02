@@ -13,46 +13,51 @@ function isHomePage() {
     return currentPage === 'index.html' || currentPage === '';
 }
 
-// Get relative path to root based on current page location - DEPRECATED
-// Use absolute paths instead for consistency
-function getRelativePath() {
-    return '';
+// Simple function to get base path for links
+function getBasePath() {
+    const path = window.location.pathname;
+    // For root or public directory, use root path
+    if (path === '/' || path.startsWith('/public/')) {
+        return '/';
+    }
+    // For subdirectories, use relative path
+    return '../';
 }
 
 // Common Header Component
 function createHeader() {
     const currentPage = getCurrentPage();
     const isHome = isHomePage();
-    const basePath = getRelativePath();
+    const basePath = getBasePath();
     console.log('Current basePath:', basePath, 'Current path:', window.location.pathname);
 
-    // Navigation links with absolute paths
+    // Navigation links
     const navLinks = [
         {
-            href: '/public/',
+            href: `${basePath}index.html`,
             text: 'Home',
             id: 'home'
         },
         {
-            href: '/public//src/pages/blog/index.html',
+            href: `${basePath}src/pages/blog/`,
             text: 'Blog',
             id: 'blog'
         },
         {
-            href: '/public//learning-hub.html',
+            href: `${basePath}learning-hub.html`,
             text: 'Agentic Architecture',
             id: 'agentic'
         },
         {
-            href: '/public//src/pages/news/index.html',
+            href: `${basePath}src/pages/news/`,
             text: 'News & Insights',
             id: 'news'
         },
         {
-            href: '/public//src/pages/about.html',
+            href: `${basePath}src/pages/about.html`,
             text: 'About',
             id: 'about'
-        },
+        }
     ];
 
     // Contact information
@@ -86,7 +91,7 @@ function createHeader() {
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <!-- Logo -->
                     <div class="flex-shrink-0">
-                        <a href="/public" class="text-xl font-bold text-gray-900">
+                        <a href="${basePath}index.html" class="text-xl font-bold text-gray-900">
                             <i class="fas fa-brain text-blue-600 mr-2"></i>
                             RebootingwithAI
                         </a>
@@ -133,7 +138,7 @@ function createHeader() {
                         `).join('')}
                     </div>
                 </div>
-            </nav>
+            </div>
         </header>
     `;
 }
