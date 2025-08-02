@@ -1,0 +1,117 @@
+/* Custom styles for index.html */
+
+/* Body and typography */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Gradient backgrounds */
+.hero-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.community-gradient {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+/* Horizontal scroll for news items */
+.horizontal-scroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Custom scrollbar for horizontal-scroll */
+.horizontal-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #a0aec0 #edf2f7;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+    background: #edf2f7;
+    border-radius: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+    background-color: #a0aec0;
+    border-radius: 4px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+}
+
+/* Responsive iframe container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Custom styles for the back to top button */
+.go-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(37, 99, 235, 0.9);
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 50;
+}
+
+.go-to-top:hover {
+    background: rgba(29, 78, 216, 0.95);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+}
+
+.go-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}

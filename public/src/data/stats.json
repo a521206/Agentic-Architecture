@@ -1,0 +1,17 @@
+{
+  "blog": {
+    "count": 3,
+    "lastUpdated": "2024-01-15"
+  },
+  "news": {
+    "count": 5,
+    "lastUpdated": "2024-01-15"
+  },
+  "journey": {
+    "years": 3,
+    "startDate": "2021-01-01"
+  },
+  "keyOfferings": 1,
+  "totalViews": 10000,
+  "subscribers": 250
+}
