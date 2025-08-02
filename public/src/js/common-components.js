@@ -13,51 +13,46 @@ function isHomePage() {
     return currentPage === 'index.html' || currentPage === '';
 }
 
-// Simple function to get base path for links
-function getBasePath() {
-    const path = window.location.pathname;
-    // For root or public directory, use root path
-    if (path === '/' || path.startsWith('/public/')) {
-        return '/';
-    }
-    // For subdirectories, use relative path
-    return '../';
+// Get relative path to root based on current page location - DEPRECATED
+// Use absolute paths instead for consistency
+function getRelativePath() {
+    return '';
 }
 
 // Common Header Component
 function createHeader() {
     const currentPage = getCurrentPage();
     const isHome = isHomePage();
-    const basePath = getBasePath();
+    const basePath = getRelativePath();
     console.log('Current basePath:', basePath, 'Current path:', window.location.pathname);
 
-    // Navigation links
+    // Navigation links with absolute paths
     const navLinks = [
         {
-            href: `${basePath}index.html`,
+            href: '/',
             text: 'Home',
             id: 'home'
         },
         {
-            href: `${basePath}src/pages/blog/`,
+            href: '/src/pages/blog/index.html',
             text: 'Blog',
             id: 'blog'
         },
         {
-            href: `${basePath}learning-hub.html`,
+            href: '/learning-hub.html',
             text: 'Agentic Architecture',
             id: 'agentic'
         },
         {
-            href: `${basePath}src/pages/news/`,
+            href: '/src/pages/news/index.html',
             text: 'News & Insights',
             id: 'news'
         },
         {
-            href: `${basePath}src/pages/about.html`,
+            href: '/src/pages/about.html',
             text: 'About',
             id: 'about'
-        }
+        },
     ];
 
     // Contact information
@@ -91,7 +86,7 @@ function createHeader() {
                 <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                     <!-- Logo -->
                     <div class="flex-shrink-0">
-                        <a href="${basePath}index.html" class="text-xl font-bold text-gray-900">
+                        <a href="" class="text-xl font-bold text-gray-900">
                             <i class="fas fa-brain text-blue-600 mr-2"></i>
                             RebootingwithAI
                         </a>
@@ -138,7 +133,7 @@ function createHeader() {
                         `).join('')}
                     </div>
                 </div>
-            </div>
+            </nav>
         </header>
     `;
 }
