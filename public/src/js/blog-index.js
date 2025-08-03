@@ -182,8 +182,8 @@ class BlogIndex {
                 // We need to modify toggleLike in blog-interactions.js to accept a postId parameter.
                 await this.blogInteractionsInstance.toggleLike(postId); // Pass postId here
 
-                // Re-fetch and update the stats for the specific post after like/unlike
-                await this.updatePostStats(postId); 
+                // Re-fetch and update the stats for all posts after like/unlike
+                await this.updateAllPostStats();
 
                 // Immediate visual feedback (animation)
                 button.style.transform = 'scale(1.1)';

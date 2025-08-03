@@ -1,7 +1,8 @@
 // app.js
 
-// Import Firebase Analytics from your centralized config file
+// Import Firebase Analytics and logEvent function from the modular SDK
 import { analytics } from './firebase-config.js';
+import { logEvent } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js';
 
 // Import the BlogInteractions class directly
 import { BlogInteractions } from './blog-interactions.js';
@@ -15,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (analytics) {
             console.log('Firebase Analytics initialized successfully and ready for use.');
 
-            analytics.logEvent('page_view', {
+            // Use the imported logEvent function with the analytics instance
+            logEvent(analytics, 'page_view', {
                 page_path: window.location.pathname,
                 page_location: window.location.href,
                 page_title: document.title
@@ -28,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (target && target.tagName === 'A' && target.href && target.href.includes('github.com')) {
                     console.log('GitHub link clicked:', target.href);
-                    analytics.logEvent('github_link_click', { url: target.href });
+                    logEvent(analytics, 'github_link_click', { url: target.href });
                 }
             }, true); 
         } else {
@@ -306,18 +308,35 @@ class NavigationManager {
     // Statistics update functionality (from main.js)
     async updateStatistics() {
         try {
-            const statsResponse = await fetch('src/data/stats.json');
+            // Use a path relative to the root of the website
+            const statsResponse = await fetch('/src/data/stats.json');
+            
+            if (!statsResponse.ok) {
+                throw new Error(`HTTP error! status: ${statsResponse.status}`);
+            }
+            
             const stats = await statsResponse.json();
-
             const elements = document.querySelectorAll('[data-stat]');
+            
             elements.forEach(el => {
                 const stat = el.getAttribute('data-stat');
                 if (stats[stat]) {
-                    el.textContent = stats[stat] + '+';
+                    // Check if the stat exists in the JSON structure
+                    const value = stats[stat].count || stats[stat];
+                    el.textContent = value + (el.hasAttribute('data-add-plus') ? '+' : '');
                 }
             });
         } catch (error) {
+            console.warn('Could not load statistics:', error.message);
             console.log('Using fallback statistics');
+            
+            // Set fallback values if needed
+            const elements = document.querySelectorAll('[data-stat]');
+            elements.forEach(el => {
+                if (!el.textContent.trim()) {
+                    el.textContent = '0' + (el.hasAttribute('data-add-plus') ? '+' : '');
+                }
+            });
         }
     }
 
