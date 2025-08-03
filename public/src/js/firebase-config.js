@@ -4,16 +4,15 @@
  */
 
 // Firebase configuration object
-// Replace these values with your actual Firebase project configuration
 const firebaseConfig = {
-    apiKey: "your-api-key-here",
-    authDomain: "your-project-id.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project-id.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "your-app-id-here",
-    measurementId: "your-measurement-id"
-};
+    apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
+    authDomain: "agentic-architecture-571f9.firebaseapp.com",
+    projectId: "agentic-architecture-571f9",
+    storageBucket: "agentic-architecture-571f9.firebasestorage.app",
+    messagingSenderId: "581221355292",
+    appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
+    measurementId: "G-VX6J4D9ECW"
+  };
 
 // Initialize Firebase
 function initializeFirebase() {
