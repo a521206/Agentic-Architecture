@@ -6,6 +6,9 @@ import { initCommonComponents } from './common-components.js';
 // Import the BlogInteractions class directly
 import { BlogInteractions } from './blog-interactions.js'; // Ensure this path is correct
 
+// Import Firestore functions
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+
 /**
  * Blog Index Page JavaScript
  * Handles blog index specific functionality including stats updates and like interactions
