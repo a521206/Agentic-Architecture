@@ -1,4 +1,4 @@
-// Common Header and Footer Components for RebootingwithAI
+// common-components.js
 
 // Get current page for navigation highlighting
 function getCurrentPage() {
@@ -35,9 +35,13 @@ function createHeader() {
             'learning-hub.html': 'agentic',
             'about.html': 'about',
             'blog': 'blog', // Simplified id for blog
-            'news': 'news'   // Simplified id for news
+            'news': 'news'  // Simplified id for news
         };
         const activeId = activeMap[currentPage] || currentPage.split('.')[0];
+        // Special handling for blog and news pages to match their 'id'
+        if (currentPage.includes('blog')) return linkId === 'blog' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
+        if (currentPage.includes('news')) return linkId === 'news' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
+        
         return linkId === activeId ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
     }
     
@@ -172,10 +176,13 @@ function toggleMobileMenu() {
     }
 }
 
-// Make toggleMobileMenu globally available
+// Make toggleMobileMenu globally available (needed for inline onclick in HTML)
 window.toggleMobileMenu = toggleMobileMenu;
 
-// Function to initialize header and footer
+/**
+ * Function to initialize header and footer.
+ * This function is exported to be called by other modules.
+ */
 function initCommonComponents() {
     const headerPlaceholder = document.getElementById('header-placeholder');
     if (headerPlaceholder) {
@@ -187,36 +194,26 @@ function initCommonComponents() {
         footerPlaceholder.outerHTML = createFooter();
     }
 
-    // Add event listener to close mobile menu
+    // Add event listener to close mobile menu when clicking outside
     const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu) {
-        const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
-        
+    const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]'); // Get the button that opens/closes it
+
+    if (mobileMenu && menuButton) {
         document.addEventListener('click', function(e) {
-            // Check if the click is outside the menu and the button
-            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
-                mobileMenu.classList.add('hidden');
+            // Check if the mobile menu is open AND the click is outside the menu and the menu button
+            if (!mobileMenu.classList.contains('hidden') && 
+                !mobileMenu.contains(e.target) && 
+                !menuButton.contains(e.target)) {
+                
+                mobileMenu.classList.add('hidden'); // Hide the menu
             }
         });
     }
 }
 
 // Initialize components when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCommonComponents);
-} else {
-    initCommonComponents();
-}
+// This ensures that the placeholders exist before we try to replace them.
+document.addEventListener('DOMContentLoaded', initCommonComponents);
 
-// Export functions for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        createHeader,
-        createFooter,
-        initCommonComponents,
-        toggleMobileMenu
-    };
-}
-
-// Ensure initCommonComponents is available as an ES6 module export
+// Export initCommonComponents for use in other ES Module scripts
 export { initCommonComponents };
