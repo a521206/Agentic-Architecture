@@ -568,15 +568,46 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
-
+    <script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js",
+            "firebase/analytics": "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js",
+            "firebase/firestore": "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
+        }
+    }
+    </script>
+    
     <!-- Application Scripts -->
-    <script src="../../js/common-components.js"></script>
+    <script type="module" src="../../js/common-components.js"></script>
     <script type="module" src="../../js/blog-interactions.js"></script>
-    <script src="../../js/app.js"></script>
+    <script type="module" src="../../js/app.js"></script>
+    
+    <!-- Initialize Blog Interactions -->
+    <script type="module">
+        import { BlogInteractions } from '../../js/blog-interactions.js';
+        
+        // Initialize blog interactions when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.blogInteractions = new BlogInteractions();
+            
+            // Expose toggleComments function to global scope for HTML onclick
+            window.toggleComments = function() {
+                const container = document.getElementById('comments-container');
+                const toggleBtn = document.querySelector('.comment-toggle-btn span');
+                if (container && toggleBtn) {
+                    if (container.classList.contains('open')) {
+                        container.classList.remove('open');
+                        toggleBtn.textContent = 'Comment';
+                    } else {
+                        container.classList.add('open');
+                        toggleBtn.textContent = 'Hide Comments';
+                    }
+                }
+            };
+        });
+    </script>
 </body>
 </html>

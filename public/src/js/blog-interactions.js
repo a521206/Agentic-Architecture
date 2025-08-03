@@ -1,9 +1,7 @@
 // blog-interactions.js
 
-// Import Firebase service instances (db, auth) from your centralized config file
+// Import Firebase service instances and functions from the modular SDK
 import { db, auth } from './firebase-config.js';
-
-// Import specific Firestore functions from the modular SDK
 import { 
     serverTimestamp, 
     collection, 
@@ -15,11 +13,13 @@ import {
     onSnapshot, 
     query, 
     orderBy,
-    updateDoc // Added updateDoc as it's commonly used for partial updates
-} from "firebase/firestore"; 
+    updateDoc
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
 
-// Import specific Auth functions from the modular SDK
-import { onAuthStateChanged, signInAnonymously } from "firebase/auth"; 
+import { 
+    onAuthStateChanged, 
+    signInAnonymously 
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js'; 
 
 /**
  * Blog Interactions System
