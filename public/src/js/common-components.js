@@ -217,3 +217,6 @@ if (typeof module !== 'undefined' && module.exports) {
         toggleMobileMenu
     };
 }
+
+// Ensure initCommonComponents is available as an ES6 module export
+export { initCommonComponents };
