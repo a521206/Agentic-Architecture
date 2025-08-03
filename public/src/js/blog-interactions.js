@@ -261,31 +261,17 @@ export class BlogInteractions { // Export the class directly
      * Binds all necessary DOM event listeners for interactions.
      */
     bindEvents() {
-        document.addEventListener('click', async (e) => {
-            if (e.target.closest('.like-btn')) {
-                e.preventDefault();
-                await this.toggleLike();
-            } else if (e.target.closest('.comment-submit-btn')) {
-                e.preventDefault();
-                await this.handleCommentSubmit();
-            } else if (e.target.closest('.comment-delete-btn')) {
-                e.preventDefault();
-                const commentId = e.target.closest('.comment-delete-btn').dataset.commentId;
-                await this.deleteComment(commentId);
-            } else if (e.target.closest('.comment-like-btn')) {
-                e.preventDefault();
-                const commentId = e.target.closest('.comment-like-btn').dataset.commentId;
-                await this.toggleCommentLike(commentId);
-            }
-        });
+        // Use event delegation with a single click handler
+        document.body.addEventListener('click', this.handleClick.bind(this));
 
+        // Character counter for comment input
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('comment-input')) {
                 const counter = document.querySelector('.character-counter .current-count');
                 const counterContainer = document.querySelector('.character-counter');
                 const length = e.target.value.length;
 
-                if (counter) {
+                if (counter && counterContainer) {
                     counter.textContent = length;
                     counterContainer.classList.remove('warning', 'error');
                     if (length > 400) {
@@ -299,12 +285,56 @@ export class BlogInteractions { // Export the class directly
             }
         });
 
+        // Handle Ctrl+Enter for comment submission
         document.addEventListener('keydown', async (e) => {
             if (e.target.classList.contains('comment-input') && e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
                 await this.handleCommentSubmit();
             }
         });
+    }
+
+    /**
+     * Handles click events for the blog interactions
+     * @private
+     */
+    handleClick(e) {
+        // Handle like button click
+        if (e.target.closest('.like-btn')) {
+            e.preventDefault();
+            this.toggleLike();
+            return;
+        }
+        
+        // Handle comment submit button click
+        if (e.target.closest('.comment-submit-btn')) {
+            e.preventDefault();
+            this.handleCommentSubmit();
+            return;
+        }
+        
+        // Handle comment delete button click
+        if (e.target.closest('.comment-delete-btn')) {
+            e.preventDefault();
+            const commentId = e.target.closest('.comment-delete-btn').dataset.commentId;
+            this.deleteComment(commentId);
+            return;
+        }
+        
+        // Handle comment like button click
+        if (e.target.closest('.comment-like-btn')) {
+            e.preventDefault();
+            const commentId = e.target.closest('.comment-like-btn').dataset.commentId;
+            this.toggleCommentLike(commentId);
+            return;
+        }
+        
+        // Handle comment toggle button click
+        if (e.target.closest('.comment-toggle-btn') || e.target.closest('.comment-toggle-btn *')) {
+            e.preventDefault();
+            this.toggleComments();
+            return;
+        }
     }
 
     /**
