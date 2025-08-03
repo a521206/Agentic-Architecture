@@ -103,15 +103,23 @@ class BlogInteractions {
     }
 
     // Get current user (simple implementation - can be enhanced)
-    getCurrentUser() {
-        let user = localStorage.getItem('blog-user');
-        if (!user) {
-            // Generate a simple user ID
-            user = 'user_' + Math.random().toString(36).substring(2, 11);
-            localStorage.setItem('blog-user', user);
+    async getCurrentUser() {
+            if (this.currentUser) {
+                return this.currentUser;
+            }
+
+            try {
+                // Sign in anonymously
+                const userCredential = await firebase.auth().signInAnonymously();
+                this.currentUser = userCredential.user.uid;
+                console.log('Signed in anonymously with UID:', this.currentUser);
+                return this.currentUser;
+            } catch (error) {
+                console.error('Anonymous authentication failed:', error);
+                // Handle error, e.g., by disabling interaction buttons
+                return null;
+            }
         }
-        return user;
-    }
 
     // Get post ID from current page
     getPostId() {
@@ -173,24 +181,6 @@ class BlogInteractions {
 
         this.showFeedback('Comment added successfully!');
         return true;
-    }
-
-    // Delete comment (only by author)
-    async deleteComment(postId, commentId) {
-        const postData = this.getPostData(postId);
-        const commentIndex = postData.comments.findIndex(c => c.id === commentId);
-
-        if (commentIndex > -1) {
-            const comment = postData.comments[commentIndex];
-            if (comment.userId === this.currentUser) {
-                postData.comments.splice(commentIndex, 1);
-                await this.saveData();
-                this.updateCommentsUI(postId);
-                this.showFeedback('Comment deleted');
-                return true;
-            }
-        }
-        return false;
     }
 
     // Toggle like on comment
@@ -511,9 +501,16 @@ window.toggleComments = function() {
 };
 
 // Global function to initialize interactions on any page
-window.initBlogInteractions = function() {
+window.initBlogInteractions = async function() {
     if (!window.blogInteractions) {
-        window.blogInteractions = new BlogInteractions();
+        // Create the instance
+        window.blogInteractions = new BlogInteractions(db, /* postId */);
+        
+        // Wait for the anonymous user to be ready
+        await window.blogInteractions.getCurrentUser();
+        
+        // Now that the user is authenticated, we can listen for data
+        window.blogInteractions.init();
     }
 };
 
