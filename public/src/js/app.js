@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const blogInteractions = new BlogInteractions();
     
     // Only expose in development for debugging
-    if (process.env.NODE_ENV === 'development') {
+    if (window.location.hostname === 'localhost' || window.location.hostname.endsWith('.local')) {
         window.__blogInteractions = blogInteractions;
     }
 });
