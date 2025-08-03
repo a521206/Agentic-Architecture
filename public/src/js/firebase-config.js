@@ -5,16 +5,10 @@
  * Firebase is initialized in the HTML file and made available via window.firebaseServices.
  */
 
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
-    authDomain: "agentic-architecture-571f9.firebaseapp.com",
-    projectId: "agentic-architecture-571f9",
-    storageBucket: "agentic-architecture-571f9.firebasestorage.app",
-    messagingSenderId: "581221355292",
-    appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
-    measurementId: "G-VX6J4D9ECW"
-};
+// Import Firebase services
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
 
 // Export functions that other modules might expect
 export function initializeFirebase() {
@@ -28,19 +22,19 @@ export function initializeFirebase() {
 
 // Export services if available, otherwise null
 export const isFirebaseReady = !!window.firebaseServices;
-export const db = window.firebaseServices?.db || null;
-export const auth = window.firebaseServices?.auth || null;
-export const analytics = window.firebaseServices?.analytics || null;
 
-// Initialize Firebase when the script loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Wait for Firebase SDK to load
-    if (typeof firebase !== 'undefined') {
-        initializeFirebase();
-    } else {
-        console.warn('Firebase SDK not loaded');
+export const getFirebaseServices = () => {
+    if (window.firebaseServices) {
+        return window.firebaseServices;
     }
-});
+    console.warn('Firebase services not yet initialized');
+    return { db: null, auth: null, analytics: null };
+};
+
+// Export services
+export const { db, auth, analytics } = getFirebaseServices();
 
 // Export for use in other modules
-window.initializeFirebase = initializeFirebase;
+if (typeof window !== 'undefined') {
+    window.initializeFirebase = initializeFirebase;
+}
