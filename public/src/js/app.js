@@ -7,8 +7,8 @@ import { logEvent } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-an
 // Import the BlogInteractions class directly
 import { BlogInteractions } from './blog-interactions.js';
 
-// Import common components initialization
-import { initCommonComponents } from './common-components.js';
+// Import CommonComponents class
+import { CommonComponents } from './common-components.js';
 
 // --- Firebase Analytics Initialization and Event Tracking ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,12 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Initialize Common Components and Blog Interactions for this specific page ---
-    initCommonComponents(); // Initialize header/footer etc.
+    const commonComponents = new CommonComponents();
+    commonComponents.init(); // Initialize header/footer etc.
 
     // Initialize BlogInteractions for the current blog post page
     // The constructor and init() method of BlogInteractions will handle
     // authentication, data fetching, and real-time listeners for this post.
-    window.blogInteractions = new BlogInteractions();
+    const blogInteractions = new BlogInteractions();
+    
+    // Only expose in development for debugging
+    if (process.env.NODE_ENV === 'development') {
+        window.__blogInteractions = blogInteractions;
+    }
 });
 // --- End Firebase Analytics Initialization ---
 
