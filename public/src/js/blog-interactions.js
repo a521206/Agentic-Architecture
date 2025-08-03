@@ -40,6 +40,11 @@ export class BlogInteractions { // Export the class directly
             comments: []
         };
 
+        // Bind methods that will be used as event handlers
+        this.toggleComments = this.toggleComments.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+
         this.init(); // Call init in constructor
     }
 
@@ -329,8 +334,9 @@ export class BlogInteractions { // Export the class directly
             return;
         }
         
-        // Handle comment toggle button click
-        if (e.target.closest('.comment-toggle-btn') || e.target.closest('.comment-toggle-btn *')) {
+        // Handle comment toggle button click using data-action
+        const toggleBtn = e.target.closest('[data-action="toggle-comments"]');
+        if (toggleBtn) {
             e.preventDefault();
             this.toggleComments();
             return;
@@ -559,12 +565,36 @@ export class BlogInteractions { // Export the class directly
         });
     }
 
+    /**
+     * Toggles the comments section visibility and ensures comments are loaded
+     */
+    toggleComments() {
+        const container = document.getElementById('comments-container');
+        const toggleBtn = document.querySelector('.comment-toggle-btn span');
+        const commentsList = document.querySelector('.comments-list');
+
+        if (container && toggleBtn) {
+            if (container.classList.contains('open')) {
+                container.classList.remove('open');
+                toggleBtn.textContent = 'Comment';
+            } else {
+                container.classList.add('open');
+                toggleBtn.textContent = 'Hide Comments';
+                
+                // Ensure comments are loaded when the container is opened
+                if (commentsList && commentsList.children.length === 0) {
+                    this.updateCommentsUI();
+                }
+            }
+        }
+    }
+
     // Static methods for generating HTML (unchanged as they are pure HTML strings)
     static generateInteractionsHTML(postId = null) {
         const id = postId || 'current-post';
         return `
             <!-- Blog Interactions Section -->
-            <div class="blog-interactions bg-white rounded-2xl shadow-lg p-6 mt-8">
+            <div class="blog-interactions bg-white rounded-2xl shadow-lg p-6 mt-8" data-blog-interactions>
                 <!-- Engagement Stats -->
                 <div class="engagement-stats">
                     <div class="engagement-stat">
@@ -585,7 +615,7 @@ export class BlogInteractions { // Export the class directly
                         <i class="far fa-heart"></i>
                         <span>Like</span>
                     </button>
-                    <button class="comment-toggle-btn text-gray-500 hover:text-blue-600" onclick="toggleComments()">
+                    <button class="comment-toggle-btn text-gray-500 hover:text-blue-600" data-action="toggle-comments">
                         <i class="far fa-comment"></i>
                         <span>Comment</span>
                     </button>
@@ -643,22 +673,10 @@ export class BlogInteractions { // Export the class directly
     }
 }
 
-// Global function for toggling comments visibility (used by onclick in HTML)
-window.toggleComments = function() {
-    const container = document.getElementById('comments-container');
-    const toggleBtn = document.querySelector('.comment-toggle-btn span');
-
-    if (container.classList.contains('open')) {
-        container.classList.remove('open');
-        toggleBtn.textContent = 'Comment';
-    } else {
-        container.classList.add('open');
-        toggleBtn.textContent = 'Hide Comments';
-    }
-};
-
-// Initialize when DOM is loaded (for character counter, not the main BlogInteractions class itself)
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Create a single instance of BlogInteractions
+    const blogInteractions = new BlogInteractions();
     // Character counter for comment input
     document.addEventListener('input', (e) => {
         if (e.target.classList.contains('comment-input')) {

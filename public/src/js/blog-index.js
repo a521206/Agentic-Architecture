@@ -1,10 +1,7 @@
 // blog-index.js
 
-// Import common components initialization
-import { initCommonComponents } from './common-components.js';
-
-// Import the BlogInteractions class directly
-import { BlogInteractions } from './blog-interactions.js'; // Ensure this path is correct
+// Import the BlogInteractions class
+import { BlogInteractions } from './blog-interactions.js';
 
 // Import Firestore functions
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
@@ -15,14 +12,25 @@ import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase
  */
 class BlogIndex {
     constructor() {
+        // Store post IDs that should be tracked on the index page
         this.postIds = [
             'scaling-agentic-systems-lessons-field',
             'security-considerations-agentic-architectures',
             'utcp-dns-agentic-world'
         ];
-        // Store the instance of BlogInteractions
-        this.blogInteractionsInstance = null; 
-        this.init();
+        
+        // Store the BlogInteractions instance
+        this.blogInteractionsInstance = null;
+        
+        // Bind methods to maintain correct 'this' context
+        this.handleLikeClick = this.handleLikeClick.bind(this);
+        this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+        this.handleWindowFocus = this.handleWindowFocus.bind(this);
+        
+        // Initialize when the instance is created
+        this.init().catch(error => {
+            console.error('Failed to initialize BlogIndex:', error);
+        });
     }
 
     /**
@@ -45,40 +53,58 @@ class BlogIndex {
     /**
      * Updates stats (likes and comments) for all posts displayed on the index page.
      */
+    /**
+     * Updates stats (likes and comments) for all posts displayed on the index page
+     */
     async updateAllPostStats() {
         if (!this.blogInteractionsInstance) {
             console.warn('Cannot update post stats: BlogInteractions instance is not available.');
             return;
         }
 
-        // Fetch and update stats for each post concurrently
-        const updatePromises = this.postIds.map(async postId => {
-            try {
-                // Use the getPostStats method from the BlogInteractions instance
-                const stats = await this.blogInteractionsInstance.getPostStats(postId);
+        if (!this.postIds.length) {
+            console.debug('No post IDs to update');
+            return;
+        }
 
-                // Update like counts
-                const likeDisplays = document.querySelectorAll(`[data-post-id="${postId}"] .like-count-display`);
-                likeDisplays.forEach(display => {
-                    display.textContent = stats.likes;
-                });
-
-                // Update comment counts
-                const commentDisplays = document.querySelectorAll(`[data-post-id="${postId}"] .comment-count-display`);
-                commentDisplays.forEach(display => {
-                    display.textContent = stats.comments;
-                });
-
-                // Update like button states based on the current user's likes
-                // This requires checking the current user's like status for this specific post.
-                this.updateLikeButtonState(postId);
-
-            } catch (error) {
-                console.error(`Failed to update stats for post ${postId}:`, error);
-                // Optionally, display a fallback or error message on the UI
+        try {
+            // Process posts in batches to avoid overwhelming the browser
+            const BATCH_SIZE = 3; // Adjust based on performance needs
+            
+            for (let i = 0; i < this.postIds.length; i += BATCH_SIZE) {
+                const batch = this.postIds.slice(i, i + BATCH_SIZE);
+                await Promise.all(batch.map(async postId => {
+                    try {
+                        const stats = await this.blogInteractionsInstance.getPostStats(postId);
+                        this.updatePostUI(postId, stats);
+                        await this.updateLikeButtonState(postId);
+                    } catch (error) {
+                        console.error(`Failed to update stats for post ${postId}:`, error);
+                        // Update UI to show error state if needed
+                    }
+                }));
             }
+        } catch (error) {
+            console.error('Error in updateAllPostStats:', error);
+            throw error; // Re-throw to allow callers to handle the error
+        }
+    }
+    
+    /**
+     * Updates the UI for a single post with the latest stats
+     * @param {string} postId - The ID of the post to update
+     * @param {Object} stats - The post statistics (likes, comments)
+     */
+    updatePostUI(postId, stats) {
+        // Update like counts
+        document.querySelectorAll(`[data-post-id="${postId}"] .like-count-display`).forEach(display => {
+            display.textContent = stats.likes || '0';
         });
-        await Promise.all(updatePromises);
+
+        // Update comment counts
+        document.querySelectorAll(`[data-post-id="${postId}"] .comment-count-display`).forEach(display => {
+            display.textContent = stats.comments || '0';
+        });
     }
 
     /**
@@ -86,83 +112,66 @@ class BlogIndex {
      * This needs to check if the current user has liked this specific post.
      * @param {string} postId - The ID of the post.
      */
-    updateLikeButtonState(postId) {
-        if (!this.blogInteractionsInstance || !this.blogInteractionsInstance.currentUser) {
+    /**
+     * Updates the visual state of the like button for a specific post
+     * @param {string} postId - The ID of the post to update
+     */
+    async updateLikeButtonState(postId) {
+        if (!this.blogInteractionsInstance?.currentUser) {
             // Cannot determine like state without a user or initialized instance
             return;
         }
 
-        // The BlogInteractions instance's postDataCache holds data for the *current* page.
-        // For the index page, we need to know if the *current user* has liked *each* post displayed.
-        // This means we need to fetch the like status for each post individually if not already in cache.
-        // However, the `getPostStats` already fetches the count. To get *if the user liked it*,
-        // we'd need to query the `likes` subcollection for the current user's UID for each post.
-        // A simpler approach for the index page is to rely on the `getPostStats` to just show count,
-        // and let the individual blog post page handle the "liked" state.
-        // If you absolutely need the "liked" state on the index page, you'd need to extend
-        // `getPostStats` to also return `isLikedByCurrentUser` or perform another query.
-
-        // For now, let's assume `blogInteractionsInstance.getPostData()` is only relevant for the *current* page.
-        // To accurately reflect the like status on the index page, we'd need to query each post's likes subcollection
-        // for the current user's UID. This can become chatty.
-
-        // A more efficient way for the index page to show if *current user* liked it:
-        // When `getPostStats` is called, it could also fetch `postDocRef.collection('likes').doc(this.blogInteractionsInstance.currentUser).get()`
-        // and return a boolean `isLikedByCurrentUser`.
-
-        // Since `getPostStats` currently only returns `likes` and `comments` counts,
-        // and `postDataCache` is for the *current single blog post*,
-        // we need to adapt this or accept that the index page buttons won't show "liked" state
-        // unless they are on the actual blog post page.
-
-        // Let's modify `getPostStats` in `blog-interactions.js` to also return `isLikedByCurrentUser`.
-        // Assuming `getPostStats` now returns `{ likes: count, comments: count, isLikedByCurrentUser: boolean }`
-
-        // This function will be called after `updatePostStats` which awaits `getPostStats`.
-        // So, we need to access the `isLikedByCurrentUser` from the `stats` object.
-        // However, `updatePostStats` passes `stats` to `likeDisplays` and `commentDisplays`,
-        // but `updateLikeButtonState` is called separately.
-
-        // Re-thinking: The `updateLikeUI` in `blog-interactions.js` already handles the button state
-        // for the *current* page's post. For the index page, we need to explicitly check.
-
-        // Let's make `updateLikeButtonState` fetch the specific post's data for the current user.
-        // This will make it work, but be aware it adds a read for each post on the index page.
         const buttons = document.querySelectorAll(`[data-post-id="${postId}"].like-btn-simple`);
-        buttons.forEach(async button => { // Make this async to await Firestore call
-            const icon = button.querySelector('i');
-            try {
-                // Fetch the specific like document for this post and current user
-                const likeDocRef = doc(this.blogInteractionsInstance.db, 'posts', postId, 'likes', this.blogInteractionsInstance.currentUser);
-                const likeDoc = await getDoc(likeDocRef);
-                const isLiked = likeDoc.exists();
+        if (!buttons.length) return;
 
-                if (isLiked) {
-                    button.classList.add('text-blue-600');
-                    button.classList.remove('text-gray-500');
-                    if (icon) {
-                        icon.classList.remove('far');
-                        icon.classList.add('fas');
-                    }
-                } else {
-                    button.classList.remove('text-blue-600');
-                    button.classList.add('text-gray-500');
-                    if (icon) {
-                        icon.classList.remove('fas');
-                        icon.classList.add('far');
-                    }
-                }
-            } catch (error) {
-                console.error(`Error updating like button state for post ${postId}:`, error);
-                // Fallback to default state if error
-                button.classList.remove('text-blue-600', 'liked');
-                button.classList.add('text-gray-500');
-                if (icon) {
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                }
-            }
-        });
+        try {
+            // Check if the current user has liked this post
+            const likeDocRef = doc(
+                this.blogInteractionsInstance.db, 
+                'posts', 
+                postId, 
+                'likes', 
+                this.blogInteractionsInstance.currentUser.uid
+            );
+            
+            const likeDoc = await getDoc(likeDocRef);
+            const isLiked = likeDoc.exists();
+            
+            // Update all like buttons for this post
+            buttons.forEach(button => {
+                this.updateLikeButtonUI(button, isLiked);
+            });
+            
+        } catch (error) {
+            console.error(`Error updating like button state for post ${postId}:`, error);
+            // Fallback to default state for all buttons if there's an error
+            buttons.forEach(button => {
+                this.updateLikeButtonUI(button, false);
+            });
+        }
+    }
+    
+    /**
+     * Updates the UI of a like button based on its liked state
+     * @param {HTMLElement} button - The like button element
+     * @param {boolean} isLiked - Whether the post is liked by the current user
+     */
+    updateLikeButtonUI(button, isLiked) {
+        const icon = button.querySelector('i');
+        if (!icon) return;
+        
+        // Toggle button classes based on like state
+        button.classList.toggle('text-blue-600', isLiked);
+        button.classList.toggle('text-gray-500', !isLiked);
+        
+        // Toggle icon classes based on like state
+        icon.classList.toggle('fas', isLiked);
+        icon.classList.toggle('far', !isLiked);
+        
+        // Update ARIA attributes for accessibility
+        button.setAttribute('aria-pressed', isLiked ? 'true' : 'false');
+        button.setAttribute('title', isLiked ? 'Unlike this post' : 'Like this post');
     }
 
 
@@ -171,55 +180,80 @@ class BlogIndex {
      * Toggles the like status and triggers UI updates.
      * @param {HTMLElement} button - The clicked like button element.
      */
-    async handleLikeClick(button) {
+    /**
+     * Handles click events on like buttons using event delegation
+     * @param {Event} event - The click event
+     */
+    async handleLikeClick(event) {
+        // Find the closest like button ancestor of the clicked element
+        const button = event.target.closest('.like-btn-simple');
+        if (!button) return; // Not a like button click
+               
+        event.preventDefault();
+        
         const postId = button.dataset.postId;
+        if (!postId || !this.blogInteractionsInstance) return;
 
-        if (postId && this.blogInteractionsInstance) {
-            try {
-                // Call the toggleLike method on the BlogInteractions instance
-                // We need to pass the postId to toggleLike if it's not the current page's postId
-                // The toggleLike method in blog-interactions.js is currently designed for the *current* page's postId.
-                // We need to modify toggleLike in blog-interactions.js to accept a postId parameter.
-                await this.blogInteractionsInstance.toggleLike(postId); // Pass postId here
-
-                // Re-fetch and update the stats for all posts after like/unlike
-                await this.updateAllPostStats();
-
-                // Immediate visual feedback (animation)
-                button.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    button.style.transform = 'scale(1)';
-                }, 150);
-            } catch (error) {
-                console.error(`Error handling like for post ${postId}:`, error);
-                this.blogInteractionsInstance.showFeedback('Failed to like post. Please try again.');
-            }
+        try {
+            // Toggle the like status for this post
+            await this.blogInteractionsInstance.toggleLike(postId);
+            
+            // Re-fetch and update the stats for all posts after like/unlike
+            await this.updateAllPostStats();
+            
+            // Add visual feedback
+            const originalTransform = button.style.transform;
+            button.style.transform = 'scale(1.1)';
+            
+            // Reset animation after a short delay
+            setTimeout(() => {
+                button.style.transform = originalTransform || '';
+            }, 150);
+            
+        } catch (error) {
+            console.error(`Error handling like for post ${postId}:`, error);
+            this.blogInteractionsInstance.showFeedback('Failed to like post. Please try again.');
         }
     }
 
     /**
      * Binds all necessary DOM event listeners for the blog index page.
      */
+    /**
+     * Handles visibility change events to refresh stats when the page becomes visible
+     */
+    handleVisibilityChange() {
+        if (!document.hidden && this.blogInteractionsInstance) {
+            this.updateAllPostStats().catch(console.error);
+        }
+    }
+
+    /**
+     * Handles window focus events to refresh stats when the window regains focus
+     */
+    handleWindowFocus() {
+        if (this.blogInteractionsInstance) {
+            this.updateAllPostStats().catch(console.error);
+        }
+    }
+
+    /**
+     * Binds all necessary DOM event listeners for the blog index page
+     */
     bindEvents() {
-        document.addEventListener('click', async (e) => {
-            if (e.target.closest('.like-btn-simple')) {
-                e.preventDefault();
-                const button = e.target.closest('.like-btn-simple');
-                await this.handleLikeClick(button);
-            }
-        });
-
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && this.blogInteractionsInstance) {
-                this.updateAllPostStats();
-            }
-        });
-
-        window.addEventListener('focus', () => {
-            if (this.blogInteractionsInstance) {
-                this.updateAllPostStats();
-            }
-        });
+        // Use event delegation for like buttons
+        document.body.addEventListener('click', this.handleLikeClick);
+        
+        // Add visibility and focus event listeners
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
+        window.addEventListener('focus', this.handleWindowFocus);
+        
+        // Cleanup function to be called when needed
+        this.cleanup = () => {
+            document.body.removeEventListener('click', this.handleLikeClick);
+            document.removeEventListener('visibilitychange', this.handleVisibilityChange);
+            window.removeEventListener('focus', this.handleWindowFocus);
+        };
     }
 
     /**
@@ -254,7 +288,15 @@ class BlogIndex {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.blogIndex = new BlogIndex();
+    // Create an instance of BlogIndex without exposing it globally
+    const blogIndex = new BlogIndex();
+    
+    // Store the instance in a non-global way if needed for debugging
+    if (process.env.NODE_ENV === 'development') {
+        // Only expose in development for debugging
+        window.__blogIndex = blogIndex;
+    }
 });
 
+export { BlogIndex };
 // No module.exports for ES Modules in browser
