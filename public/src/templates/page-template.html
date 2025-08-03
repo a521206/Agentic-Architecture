@@ -75,27 +75,5 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
     <script src="../js/common-components.js"></script>
     <script src="../js/app.js"></script>
-    
-    <script>
-        // Page-specific JavaScript goes here
-        
-        // Back to top functionality
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Show/hide back to top button
-        window.addEventListener('scroll', function() {
-            const backToTopButton = document.querySelector('.go-to-top');
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        });
-    </script>
 </body>
 </html>

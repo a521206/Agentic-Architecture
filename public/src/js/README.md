@@ -103,13 +103,16 @@ Use specific placeholders for precise control:
 ```
 src/
 ├── js/
-│   ├── common-components.js    # Main components file
-│   ├── app.js                  # Additional functionality
-│   └── README.md               # This documentation
+│   ├── common-components.js    # Header/footer components
+│   ├── app.js                  # Main application functionality
+│   ├── blog-interactions.js    # Blog like/comment system
+│   ├── blog-index.js          # Blog index functionality
+│   ├── firebase-config.js     # Firebase configuration
+│   └── README.md              # This documentation
 ├── templates/
-│   └── page-template.html      # Template for new pages
+│   └── page-template.html     # Template for new pages
 └── css/
-    └── custom-styles.css       # Shared styles
+    └── custom-styles.css      # Shared styles
 ```
 
 ## Customization

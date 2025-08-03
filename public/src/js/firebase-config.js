@@ -1,17 +1,12 @@
-/**
- * Firebase Configuration and Initialization
- *
- * This module provides access to Firebase services throughout the application.
- * Firebase is initialized here with the provided configuration.
- */
-// Import the functions you need from the SDKs you need
+// firebase-config.js
+
+// Import necessary functions from the modern Firebase modular SDKs
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
   authDomain: "agentic-architecture-571f9.firebaseapp.com",
@@ -22,47 +17,19 @@ const firebaseConfig = {
   measurementId: "G-VX6J4D9ECW"
 };
 
-// Initialize Firebase
+// Initialize the Firebase app
 const app = initializeApp(firebaseConfig);
-// Export analytics from Firebase initialization
+
+// Initialize and export the services you need
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 export const analytics = getAnalytics(app);
 
-// Import Firebase services
-// Export functions that other modules might expect
-export function initializeFirebase() {
-    if (window.firebaseServices) {
-        return window.firebaseServices;
-    }
-    
-    console.warn('Firebase not initialized in window.firebaseServices');
-    return { db: null, auth: null, analytics: null };
-}
-
-// Export services if available, otherwise null
-export const isFirebaseReady = !!window.firebaseServices;
-
-export const getFirebaseServices = () => {
-    if (window.firebaseServices) {
-        return window.firebaseServices;
-    }
-    console.warn('Firebase services not yet initialized');
-    return { db: null, auth: null, analytics: null };
-};
-
-// Export services
-export const { db } = getFirebaseServices();
-export const auth = window.firebaseServices?.auth || null;
-
-// Export for destructuring in imports
-export default {
-    db,
-    auth,
-    analytics,
-    initializeFirebase,
-    isFirebaseReady
-};
-
-// Export for use in other modules
-if (typeof window !== 'undefined') {
-    window.initializeFirebase = initializeFirebase;
-}
+// This function is no longer needed with modular imports, but if you want one
+// to centralize service access, this is how you would write it.
+export const getFirebaseServices = () => ({
+  app,
+  db,
+  auth,
+  analytics
+});

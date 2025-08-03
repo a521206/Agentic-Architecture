@@ -1,17 +1,21 @@
-// --- Firebase Analytics Initialization (Centralized) ---
-// Firebase initialization is now handled by the main script in the HTML
-// We'll use the global firebaseServices object
+// app.js
+import { analytics } from './firebase-config.js';
 
+// --- Firebase Analytics Initialization and Event Tracking ---
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Initialize Analytics if available
-        if (window.firebaseServices && window.firebaseServices.analytics) {
-            const { analytics } = window.firebaseServices;
-            console.log('Firebase Analytics initialized successfully');
+        // Check if analytics object is available (it should be, if firebase-config.js loaded correctly)
+        if (analytics) {
+            console.log('Firebase Analytics initialized successfully and ready for use.');
+
             // Log page view
-            analytics.logEvent('page_view');
-            
-            // Track GitHub link clicks
+            analytics.logEvent('page_view', {
+                page_path: window.location.pathname,
+                page_location: window.location.href,
+                page_title: document.title
+            });
+
+            // Track GitHub link clicks using a single, consolidated event listener
             document.addEventListener('click', function(e) {
                 let target = e.target;
                 // Traverse up to anchor if icon or span is clicked
@@ -22,15 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('GitHub link clicked:', target.href);
                     analytics.logEvent('github_link_click', { url: target.href });
                 }
-            }, true);
+            }, true); // Use capture phase to ensure clicks are caught early
         } else {
-            console.warn('Firebase Analytics not available');
+            console.warn('Firebase Analytics object not available. Check firebase-config.js initialization.');
         }
     } catch (error) {
-        console.error('Error initializing Firebase Analytics:', error);
+        console.error('Error setting up Firebase Analytics event listeners:', error);
     }
 });
 // --- End Firebase Analytics Initialization ---
+
+
 // Main JavaScript for Agentic Design Patterns
 
 // Pattern Details Data (No changes needed, already good)
@@ -66,8 +72,6 @@ const utils = {
         sections: () => document.querySelectorAll('section[id]'),
         fadeElements: () => document.querySelectorAll('.fade-in'),
         tables: () => document.querySelectorAll('table'),
-        // Responsive image handling will be primarily via CSS, removing JS image selector
-        // images: () => document.querySelectorAll('.pattern-image'),
         interactiveHeaders: () => document.querySelectorAll('.interactive-header')
     },
 
@@ -119,7 +123,6 @@ class NavigationManager {
         if (this.tables.length > 0) {
             this.setupResponsiveTables();
         }
-        // Removed setupResponsiveImages - handled by CSS
 
         // Initialize page-specific functionality
         if (utils.isPatternPage()) {
@@ -284,7 +287,26 @@ class NavigationManager {
     }
 
     initMainPage() {
-        // Add any main page specific initialization here
+        // Initialize statistics update for main page
+        this.updateStatistics();
+    }
+
+    // Statistics update functionality (from main.js)
+    async updateStatistics() {
+        try {
+            const statsResponse = await fetch('src/data/stats.json');
+            const stats = await statsResponse.json();
+
+            const elements = document.querySelectorAll('[data-stat]');
+            elements.forEach(el => {
+                const stat = el.getAttribute('data-stat');
+                if (stats[stat]) {
+                    el.textContent = stats[stat] + '+';
+                }
+            });
+        } catch (error) {
+            console.log('Using fallback statistics');
+        }
     }
 
     initPatternPage() {
@@ -297,18 +319,3 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigationManager = new NavigationManager();
     navigationManager.init();
 });
-
-// Track GitHub link clicks for analytics
-if (typeof firebase !== "undefined" && firebase.analytics) {
-  document.addEventListener('click', function(e) {
-    let target = e.target;
-    // Traverse up to anchor if icon or span is clicked
-    while (target && target.tagName !== 'A' && target !== document) {
-      target = target.parentNode;
-    }
-    if (target && target.tagName === 'A' && target.href && target.href.includes('github.com')) {
-      console.log('GitHub link clicked:', target.href); // Add this line
-      firebase.analytics().logEvent('github_link_click', { url: target.href });
-    }
-  }, true);
-}
