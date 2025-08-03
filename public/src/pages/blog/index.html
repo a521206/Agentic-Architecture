@@ -4,38 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Agentic Architecture</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN for JIT mode with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-      /* Custom font-family added directly to body for simplicity */
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-    </style>
+    <!-- Blog Interactions CSS -->
+    <link rel="stylesheet" href="../../css/blog-interactions.css">
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <!-- Header Placeholder - common-components.js will inject content here -->
     <div id="header-placeholder"></div>
 
-    <div class="max-w-6xl mx-auto px-4 py-12">
-        <header class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Agentic Architecture Blog</h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+    <!-- Page Header / Hero Section -->
+    <header class="bg-gradient-to-r from-purple-700 to-blue-800 text-white py-20 md:py-28 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+                Agentic Architecture Blog
+            </h1>
+            <p class="text-lg md:text-xl lg:text-2xl opacity-90 max-w-2xl mx-auto">
                 Insights, updates, and thought leadership on autonomous agent systems and their applications.
             </p>
-        </header>
+        </div>
+    </header>
 
-        <div class="max-w-3xl mx-auto space-y-8">
+    <!-- Main Content - News Grid -->
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             <article class="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col hover:shadow-2xl transition duration-300">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-gray-500">1 week ago</span>
+                    <span class="text-sm text-gray-500">August 3, 2025</span>
                     <button class="text-gray-400 hover:text-gray-600 focus:outline-none">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
                 </div>
                 
                 <a href="scaling-agentic-systems-lessons-field.html" class="block">
-                    <img src="https://source.unsplash.com/random/800x400/?technology,ai" alt="Scaling Agentic Systems" class="w-full h-48 md:h-64 object-cover rounded-xl mb-6">
                 </a>
 
                 <div class="flex flex-col flex-grow">
@@ -46,25 +53,29 @@
                         Exploring how self-governing AI systems are revolutionizing business operations and decision-making processes.
                     </p>
                     <div class="flex flex-wrap gap-2 text-sm">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#AgenticAI</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#EnterpriseTech</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#Scaling</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#AI</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Enterprise</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Automation</span>
                     </div>
                     <div class="flex items-center text-sm text-gray-500 mt-4">
                         <span class="mr-4"><i class="fas fa-clock mr-1"></i> 5 min read</span>
-                        <span><i class="fas fa-thumbs-up mr-1"></i> 42</span>
-                        <span class="ml-4"><i class="fas fa-comment mr-1"></i> 12</span>
+                        <span class="post-stats" data-post-id="scaling-agentic-systems-lessons-field">
+                            <i class="fas fa-heart mr-1"></i> <span class="like-count-display">0</span>
+                        </span>
+                        <span class="ml-4 post-stats" data-post-id="scaling-agentic-systems-lessons-field">
+                            <i class="fas fa-comment mr-1"></i> <span class="comment-count-display">0</span>
+                        </span>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                     <div class="flex items-center gap-4">
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
-                            <i class="far fa-thumbs-up mr-2 text-lg"></i> Like
+                        <button class="like-btn-simple flex items-center text-gray-500 hover:text-blue-600 transition-colors" data-post-id="scaling-agentic-systems-lessons-field">
+                            <i class="far fa-heart mr-2 text-lg"></i> Like
                         </button>
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
+                        <a href="scaling-agentic-systems-lessons-field.html#comments-container" class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
                             <i class="far fa-comment mr-2 text-lg"></i> Comment
-                        </button>
+                        </a>
                     </div>
                     <a href="scaling-agentic-systems-lessons-field.html" class="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
                         Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
@@ -72,16 +83,16 @@
                 </div>
             </article>
 
+            <!-- News Article 2 -->
             <article class="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col hover:shadow-2xl transition duration-300">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-gray-500">5 days ago</span>
+                    <span class="text-sm text-gray-500">July 28, 2025</span>
                     <button class="text-gray-400 hover:text-gray-600 focus:outline-none">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
                 </div>
                 
                 <a href="security-considerations-agentic-architectures.html" class="block">
-                    <img src="https://source.unsplash.com/random/800x400/?security,cyber" alt="Security in Agentic Architectures" class="w-full h-48 md:h-64 object-cover rounded-xl mb-6">
                 </a>
 
                 <div class="flex flex-col flex-grow">
@@ -92,25 +103,29 @@
                         Essential security patterns and best practices for protecting autonomous systems in enterprise environments. Learn how to implement robust security measures for your agentic systems.
                     </p>
                     <div class="flex flex-wrap gap-2 text-sm">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#CyberSecurity</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#AgenticAI</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#BestPractices</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Cybersecurity</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#AI Ethics</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#DataPrivacy</span>
                     </div>
                     <div class="flex items-center text-sm text-gray-500 mt-4">
                         <span class="mr-4"><i class="fas fa-clock mr-1"></i> 4 min read</span>
-                        <span><i class="fas fa-thumbs-up mr-1"></i> 28</span>
-                        <span class="ml-4"><i class="fas fa-comment mr-1"></i> 7</span>
+                        <span class="post-stats" data-post-id="security-considerations-agentic-architectures">
+                            <i class="fas fa-heart mr-1"></i> <span class="like-count-display">0</span>
+                        </span>
+                        <span class="ml-4 post-stats" data-post-id="security-considerations-agentic-architectures">
+                            <i class="fas fa-comment mr-1"></i> <span class="comment-count-display">0</span>
+                        </span>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                     <div class="flex items-center gap-4">
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
-                            <i class="far fa-thumbs-up mr-2 text-lg"></i> Like
+                        <button class="like-btn-simple flex items-center text-gray-500 hover:text-blue-600 transition-colors" data-post-id="security-considerations-agentic-architectures">
+                            <i class="far fa-heart mr-2 text-lg"></i> Like
                         </button>
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
+                        <a href="security-considerations-agentic-architectures.html#comments-container" class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
                             <i class="far fa-comment mr-2 text-lg"></i> Comment
-                        </button>
+                        </a>
                     </div>
                     <a href="security-considerations-agentic-architectures.html" class="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
                         Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
@@ -118,9 +133,10 @@
                 </div>
             </article>
 
+            <!-- News Article 3 -->
             <article class="bg-white rounded-2xl shadow-xl p-6 md:p-8 flex flex-col hover:shadow-2xl transition duration-300">
                 <div class="flex justify-between items-center mb-4">
-                    <span class="text-sm text-gray-500">2 days ago</span>
+                    <span class="text-sm text-gray-500">July 20, 2025</span>
                     <button class="text-gray-400 hover:text-gray-600 focus:outline-none">
                         <i class="fas fa-ellipsis-h"></i>
                     </button>
@@ -128,7 +144,7 @@
                 
                 <div class="w-full aspect-video overflow-hidden rounded-xl mb-6">
                     <a href="utcp-dns-agentic-world.html" class="block h-full">
-                        <img src="images/mcpvsupcp.png" alt="UTCP and DNS in an Agentic World" class="w-full h-full object-cover">
+                        <!-- Image would go here -->
                     </a>
                 </div>
 
@@ -140,26 +156,29 @@
                         Exploring the future of network protocols in the age of autonomous agents. How UTCP and DNS are evolving to meet the demands of agentic systems.
                     </p>
                     <div class="flex flex-wrap gap-2 text-sm">
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#Networking</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#UTCP</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#DNS</span>
-                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full font-medium">#AgenticAI</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Cloud</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Architecture</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-medium">#Scalability</span>
                     </div>
                     <div class="flex items-center text-sm text-gray-500 mt-4">
                         <span class="mr-4"><i class="fas fa-clock mr-1"></i> 6 min read</span>
-                        <span><i class="fas fa-thumbs-up mr-1"></i> 35</span>
-                        <span class="ml-4"><i class="fas fa-comment mr-1"></i> 8</span>
+                        <span class="post-stats" data-post-id="utcp-dns-agentic-world">
+                            <i class="fas fa-heart mr-1"></i> <span class="like-count-display">0</span>
+                        </span>
+                        <span class="ml-4 post-stats" data-post-id="utcp-dns-agentic-world">
+                            <i class="fas fa-comment mr-1"></i> <span class="comment-count-display">0</span>
+                        </span>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                     <div class="flex items-center gap-4">
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
-                            <i class="far fa-thumbs-up mr-2 text-lg"></i> Like
+                        <button class="like-btn-simple flex items-center text-gray-500 hover:text-blue-600 transition-colors" data-post-id="utcp-dns-agentic-world">
+                            <i class="far fa-heart mr-2 text-lg"></i> Like
                         </button>
-                        <button class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
+                        <a href="utcp-dns-agentic-world.html#comments-container" class="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
                             <i class="far fa-comment mr-2 text-lg"></i> Comment
-                        </button>
+                        </a>
                     </div>
                     <a href="utcp-dns-agentic-world.html" class="flex items-center text-blue-600 font-semibold hover:text-blue-800 transition-colors">
                         Read More <i class="fas fa-arrow-right ml-2 text-sm"></i>
@@ -167,12 +186,23 @@
                 </div>
             </article>
 
-            </div>
+            <!-- Add more news articles here following the same structure -->
         </div>
-    </div>
+    </main>
 
+    <!-- Footer Placeholder - common-components.js will inject content here -->
     <div id="footer-placeholder"></div>
 
-    <script src="../../../src/js/common-components.js"></script>
+    <!-- Scripts -->
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="../../js/firebase-config.js"></script>
+    <script src="../../js/common-components.js"></script>
+    <script src="../../js/blog-interactions.js"></script>
+    <script src="../../js/blog-index.js"></script>
 </body>
 </html>

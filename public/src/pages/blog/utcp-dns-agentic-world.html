@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/custom-styles.css">
+    <link rel="stylesheet" href="../../css/blog-interactions.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -18,26 +19,9 @@
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
+    <div id="header-placeholder"></div>
+
     <div class="max-w-4xl mx-auto px-4 py-8">
-        <!-- Navigation -->
-        <nav class="flex flex-col md:flex-row justify-between items-center mb-10 gap-3 w-full">
-            <div class="flex flex-1 justify-start w-full md:w-auto gap-3">
-                <a href="../../../index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200 text-base">
-                    <i class="fas fa-arrow-left mr-2"></i> Back to Home
-                </a>
-            </div>
-            <div class="flex flex-1 justify-center w-full md:w-auto gap-3">
-                <a href="index.html" class="inline-flex items-center text-gray-700 hover:text-blue-700 font-semibold py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 shadow-sm border border-gray-300 text-base">
-                    <i class="fas fa-blog mr-2"></i> Blog Home
-                </a>
-            </div>
-            <div class="flex flex-1 justify-end w-full md:w-auto gap-3">
-                <a href="../../../index.html#blog" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold py-2 px-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition duration-300 shadow-sm border border-blue-200 text-base">
-                    More Posts <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </nav>
-        
         <!-- Article Header -->
         <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300">
             <div class="flex items-center justify-center mb-4">
@@ -46,15 +30,6 @@
                 <span class="text-gray-600 text-sm">January 15, 2024</span>
             </div>
             <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6 tracking-tight leading-tight">UTCP: The DNS of the Agentic World</h1>
-            <div class="flex items-center justify-center mt-6">
-                <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-lg font-semibold mr-3">
-                    VA
-                </div>
-                <div class="text-left">
-                    <div class="font-semibold text-blue-800">Vishal Agrawal</div>
-                    <div class="text-sm text-blue-600">Enterprise AI Architect</div>
-                </div>
-            </div>
         </header>
 
         <div id="feature-image">
@@ -259,42 +234,82 @@
             </div>
         </article>
 
-        <!-- Author Bio -->
-        <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
-            <div class="flex items-center mb-4">
-                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
-                    VA
+        <!-- Blog Interactions Section -->
+        <div class="blog-interactions bg-white rounded-2xl shadow-lg p-6 mt-8">
+            <!-- Engagement Stats -->
+            <div class="engagement-stats">
+                <div class="engagement-stat">
+                    <i class="fas fa-heart"></i>
+                    <span class="like-count">0</span>
+                    <span>likes</span>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-gray-900">Vishal Agrawal</h3>
-                    <p class="text-gray-600">Enterprise AI Architect & Community Lead</p>
+                <div class="engagement-stat">
+                    <i class="fas fa-comment"></i>
+                    <span class="comment-count">0</span>
+                    <span>comments</span>
                 </div>
             </div>
-            <p class="text-gray-700 leading-relaxed">
-                Vishal is an enterprise AI architect with over a decade of experience in building scalable systems. He leads the Agentic Architecture community and is passionate about bridging the gap between cutting-edge AI research and practical enterprise implementations.
-            </p>
-        </div>
 
-        <!-- Related Posts -->
-        <div class="bg-white rounded-2xl shadow-lg p-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">Related Posts</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <a href="../agentic-core-patterns.html" class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-                    <h4 class="font-semibold text-gray-900 mb-2">Core Agentic Design Patterns</h4>
-                    <p class="text-gray-600 text-sm">Explore fundamental patterns for building robust, scalable agentic systems.</p>
-                </a>
-                <a href="../best-practices-for-enterprise-implementation.html" class="block bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-                    <h4 class="font-semibold text-gray-900 mb-2">Enterprise Implementation Best Practices</h4>
-                    <p class="text-gray-600 text-sm">Strategic guidance for successfully implementing agentic systems at scale.</p>
-                </a>
+            <!-- Interaction Buttons -->
+            <div class="interaction-buttons">
+                <button class="like-btn text-gray-500 hover:text-blue-600">
+                    <i class="far fa-heart"></i>
+                    <span>Like</span>
+                </button>
+                <button class="comment-toggle-btn text-gray-500 hover:text-blue-600" onclick="toggleComments()">
+                    <i class="far fa-comment"></i>
+                    <span>Comment</span>
+                </button>
+            </div>
+
+            <!-- Comments Container -->
+            <div class="comments-container" id="comments-container">
+                <!-- Comment Form -->
+                <div class="comment-form">
+                    <h4 class="text-lg font-semibold text-gray-900 mb-4">Leave a Comment</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="comment-author" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" id="comment-author" class="comment-author-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name" maxlength="50">
+                        </div>
+                        <div>
+                            <label for="comment-text" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                            <textarea id="comment-text" class="comment-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share your thoughts..." rows="4" maxlength="500"></textarea>
+                            <div class="character-counter">
+                                <span class="current-count">0</span>/500 characters
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <p class="text-sm text-gray-500">Press Ctrl+Enter to submit quickly</p>
+                            <button class="comment-submit-btn bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Post Comment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comments List -->
+                <div class="comments-list">
+                    <!-- Comments will be dynamically loaded here -->
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Footer Placeholder - common-components.js will inject content here -->
+    <div id="footer-placeholder"></div>
+
     <!-- Scripts -->
+    <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="../../js/firebase-config.js"></script>
     <script src="../../js/common-components.js"></script>
+    <script src="../../js/blog-interactions.js"></script>
     <script src="../../js/app.js"></script>
 </body>
 </html>
