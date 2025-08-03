@@ -6,10 +6,6 @@
  */
 
 // Import Firebase services
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getAnalytics } from 'firebase/analytics';
-
 // Export functions that other modules might expect
 export function initializeFirebase() {
     if (window.firebaseServices) {
@@ -32,7 +28,8 @@ export const getFirebaseServices = () => {
 };
 
 // Export services
-export const { db, auth, analytics } = getFirebaseServices();
+export const { db, analytics } = getFirebaseServices();
+export const auth = window.firebaseServices?.auth || null;
 
 // Export for use in other modules
 if (typeof window !== 'undefined') {

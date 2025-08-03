@@ -467,15 +467,7 @@
     <!-- Application Scripts -->
     <script src="../../js/firebase-config.js"></script>
     <script src="../../js/common-components.js"></script>
-    <script src="../../js/blog-interactions.js"></script>
+    <script type="module" src="../../js/blog-interactions.js"></script>
     <script src="../../js/app.js"></script>
-
-    <script>
-        // Initialize blog interactions when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            // The blog-interactions.js will automatically initialize
-            console.log('Blog interactions initialized for:', window.location.pathname);
-        });
-    </script>
 </body>
 </html>

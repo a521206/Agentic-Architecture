@@ -151,7 +151,7 @@ class BlogInteractions {
 
         try {
             // Sign in anonymously
-            const userCredential = await firebase.auth().signInAnonymously();
+            const userCredential = await this.auth.signInAnonymously();
             this.currentUser = userCredential.user.uid;
             console.log('Signed in anonymously with UID:', this.currentUser);
             return this.currentUser;
