@@ -12,42 +12,75 @@ const firebaseConfig = {
     messagingSenderId: "581221355292",
     appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
     measurementId: "G-VX6J4D9ECW"
-  };
+};
 
-// Initialize Firebase
+// Initialize Firebase services
+let firebaseInitialized = false;
+let db = null;
+let auth = null;
+let analytics = null;
+
+/**
+ * Initialize Firebase services
+ * @returns {Object} Object containing initialized Firebase services
+ */
 function initializeFirebase() {
+    if (firebaseInitialized) {
+        return { db, auth, analytics };
+    }
+
     try {
-        // Check if Firebase is already initialized
+        // Initialize Firebase if not already initialized
         if (firebase.apps.length === 0) {
+            // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
-            console.log('Firebase initialized successfully');
+            
+            // Initialize services
+            db = firebase.firestore();
+            auth = firebase.auth();
+            analytics = firebase.analytics();
+            
+            // Configure Firestore settings
+            db.settings({
+                cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+                experimentalAutoDetectLongPolling: true,
+                experimentalForceLongPolling: false
+            });
+
+            // Enable offline persistence
+            db.enablePersistence({
+                synchronizeTabs: true
+            }).catch((err) => {
+                if (err.code === 'failed-precondition') {
+                    console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
+                } else if (err.code === 'unimplemented') {
+                    console.warn('The current browser does not support all of the features required to enable persistence');
+                }
+            });
+
+            firebaseInitialized = true;
+            console.log('Firebase services initialized successfully');
+        } else {
+            // Use existing Firebase app
+            db = firebase.firestore();
+            auth = firebase.auth();
+            analytics = firebase.analytics();
+            firebaseInitialized = true;
         }
 
-        // Initialize Firestore
-        const db = firebase.firestore();
-        
-        // Configure Firestore settings for better performance
-        db.settings({
-            cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED
-        });
-
-        // Enable offline persistence
-        db.enablePersistence({
-            synchronizeTabs: true
-        }).catch((err) => {
-            if (err.code === 'failed-precondition') {
-                console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
-            } else if (err.code === 'unimplemented') {
-                console.warn('The current browser does not support all of the features required to enable persistence');
-            }
-        });
-
-        console.log('Firestore configured successfully');
-        return db;
+        return { db, auth, analytics };
     } catch (error) {
         console.error('Error initializing Firebase:', error);
-        return null;
+        return { db: null, auth: null, analytics: null };
     }
+}
+
+/**
+ * Check if Firebase is ready
+ * @returns {boolean} True if Firebase is ready to use
+ */
+function isFirebaseReady() {
+    return firebaseInitialized && db !== null;
 }
 
 // Initialize Firebase when the script loads

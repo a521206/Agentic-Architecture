@@ -1,3 +1,6 @@
+// Import Firebase configuration
+import { initializeFirebase, isFirebaseReady, db, auth } from './firebase-config.js';
+
 /**
  * Blog Interactions System
  * Handles likes, comments, and engagement for blog posts
@@ -22,49 +25,27 @@ class BlogInteractions {
         this.updateUI();
     }
 
-    // Initialize Firebase/Firestore
+    // Initialize Firebase/Firestore using the centralized configuration
     async initFirebase() {
         try {
-            // Check if Firebase is available
-            if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
-                // Enable offline persistence
-                this.db = firebase.firestore();
-                await this.db.enablePersistence({
-                    synchronizeTabs: true
-                }).catch(err => {
-                    if (err.code === 'failed-precondition') {
-                        console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
-                    } else if (err.code === 'unimplemented') {
-                        console.warn('The current browser does not support all of the features required to enable persistence');
-                    }
-                });
-
-                // Configure Firestore settings
-                this.db.settings({
-                    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
-                    experimentalAutoDetectLongPolling: true,
-                    experimentalForceLongPolling: false
-                });
-
-                // Test the connection
-                await this.db.collection('test-connection').doc('test').get();
-                
+            // Initialize Firebase services
+            const { db: firestoreDb, auth: firebaseAuth } = initializeFirebase();
+            
+            if (firestoreDb && firebaseAuth) {
+                this.db = firestoreDb;
+                this.auth = firebaseAuth;
                 this.isFirebaseReady = true;
-                console.log('Firebase Firestore initialized successfully');
+                console.log('Firebase services initialized successfully');
+                
+                // Set up auth state observer
+                this.setupAuthStateObserver();
             } else {
-                console.warn('Firebase not available, falling back to localStorage');
+                console.warn('Firebase initialization failed. Falling back to localStorage.');
                 this.isFirebaseReady = false;
             }
         } catch (error) {
             console.error('Error initializing Firebase:', error);
             this.isFirebaseReady = false;
-            
-            // Log specific error details
-            if (error.code === 'permission-denied') {
-                console.error('Firebase Permission Denied. Check your security rules.');
-            } else if (error.code === 'unavailable') {
-                console.error('Firebase service is unavailable. Check your internet connection.');
-            }
         }
     }
 
@@ -164,22 +145,51 @@ class BlogInteractions {
 
     // Get current user (simple implementation - can be enhanced)
     async getCurrentUser() {
-            if (this.currentUser) {
-                return this.currentUser;
-            }
-
-            try {
-                // Sign in anonymously
-                const userCredential = await firebase.auth().signInAnonymously();
-                this.currentUser = userCredential.user.uid;
-                console.log('Signed in anonymously with UID:', this.currentUser);
-                return this.currentUser;
-            } catch (error) {
-                console.error('Anonymous authentication failed:', error);
-                // Handle error, e.g., by disabling interaction buttons
-                return null;
-            }
+        if (this.currentUser) {
+            return this.currentUser;
         }
+
+        try {
+            // Sign in anonymously
+            const userCredential = await firebase.auth().signInAnonymously();
+            this.currentUser = userCredential.user.uid;
+            console.log('Signed in anonymously with UID:', this.currentUser);
+            return this.currentUser;
+        } catch (error) {
+            console.error('Anonymous authentication failed:', error);
+            // Handle error, e.g., by disabling interaction buttons
+            return null;
+        }
+    }
+
+    // Set up authentication state observer
+    setupAuthStateObserver() {
+        if (!this.auth) return;
+        
+        this.auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                this.currentUser = {
+                    id: user.uid,
+                    name: user.displayName || 'Anonymous',
+                    email: user.email,
+                    isAuthenticated: true
+                };
+                console.log('User is signed in:', this.currentUser);
+            } else {
+                // User is signed out
+                const anonymousUser = this.getCurrentUser();
+                this.currentUser = {
+                    ...anonymousUser,
+                    isAuthenticated: false
+                };
+                console.log('User is signed out, using anonymous user');
+            }
+            
+            // Update UI to reflect authentication state
+            this.updateUI();
+        });
+    }
 
     // Get post ID from current page
     getPostId() {

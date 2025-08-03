@@ -1,19 +1,25 @@
 // --- Firebase Analytics Initialization (Centralized) ---
-const firebaseConfig = {
-    apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
-    authDomain: "agentic-architecture-571f9.firebaseapp.com",
-    projectId: "agentic-architecture-571f9",
-    storageBucket: "agentic-architecture-571f9.firebasestorage.app",
-    messagingSenderId: "581221355292",
-    appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
-    measurementId: "G-VX6J4D9ECW"
-  };
+// Firebase initialization is now handled by firebase-config.js
+// We'll import and use the centralized Firebase configuration
+import { initializeFirebase, analytics } from './firebase-config.js';
 
-// Initialize Firebase only if not already initialized
-if (typeof firebase !== "undefined" && firebase.apps && !firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-}
+// Initialize Firebase and get analytics instance
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // Initialize Firebase services
+        const { analytics: analyticsInstance } = initializeFirebase();
+        
+        if (analyticsInstance) {
+            console.log('Firebase Analytics initialized successfully');
+            // Log page view
+            analyticsInstance.logEvent('page_view');
+        } else {
+            console.warn('Firebase Analytics not available');
+        }
+    } catch (error) {
+        console.error('Error initializing Firebase Analytics:', error);
+    }
+});
 // --- End Firebase Analytics Initialization ---
 // Main JavaScript for Agentic Design Patterns
 

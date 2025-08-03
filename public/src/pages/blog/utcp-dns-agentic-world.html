@@ -301,15 +301,16 @@
     <div id="footer-placeholder"></div>
 
     <!-- Scripts -->
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK (Load first) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
 
-    <!-- Application Scripts -->
-    <script src="../../js/firebase-config.js"></script>
+    <!-- Application Scripts (Load after Firebase) -->
+    <script src="../../js/firebase-config.js" type="module"></script>
     <script src="../../js/common-components.js"></script>
-    <script src="../../js/blog-interactions.js"></script>
+    <script src="../../js/blog-interactions.js" type="module"></script>
     <script src="../../js/app.js"></script>
 </body>
 </html>
