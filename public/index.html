@@ -7,15 +7,23 @@
     <meta name="author" content="RebootingwithAI">
     <title>RebootingwithAI - My Journey Through the AI Revolution</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Updated Tailwind CSS CDN for JIT mode -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/custom-styles.css">
-    <link rel="stylesheet" href="src/css/index-styles.css">
+    <style>
+      /* Apply Inter font globally */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+<body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header Placeholder - common-components.js will inject content here -->
+    <div id="header-placeholder"></div>
+
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient text-white py-20 md:py-28 lg:py-32">
+    <section id="home" class="bg-gradient-to-br from-blue-700 to-purple-800 text-white py-20 md:py-28 lg:py-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
                 <span class="text-yellow-300 block mb-2">RebootingwithAI</span>
@@ -61,7 +69,7 @@
 
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Blog Card -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div class="text-center">
                         <i class="fas fa-blog text-4xl text-blue-600 mb-4"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">My Blogs</h3>
@@ -73,7 +81,7 @@
                 </div>
 
                 <!-- News Card -->
-                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <div class="text-center">
                         <i class="fas fa-newspaper text-4xl text-purple-600 mb-4"></i>
                         <h3 class="text-2xl font-bold text-gray-900 mb-3">Industry Analysis</h3>
@@ -107,10 +115,10 @@
         </div>
     </section>
 
-    <div data-footer-placeholder></div>
+    <div id="footer-placeholder"></div>
 
     <!-- Back to Top Button -->
-    <button class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 invisible hover:opacity-100 hover:visible" onclick="scrollToTop()" aria-label="Back to top">
+    <button class="fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 invisible" onclick="scrollToTop()" aria-label="Back to top">
         <i class="fas fa-arrow-up text-xl"></i>
     </button>
 
