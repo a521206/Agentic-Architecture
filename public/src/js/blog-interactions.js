@@ -28,7 +28,7 @@ class BlogInteractions {
     // Initialize Firebase/Firestore using the centralized configuration
     async initFirebase() {
         try {
-            // Initialize Firebase services
+            // Get services from firebase-config
             const { db: firestoreDb, auth: firebaseAuth } = initializeFirebase();
             
             if (firestoreDb && firebaseAuth) {

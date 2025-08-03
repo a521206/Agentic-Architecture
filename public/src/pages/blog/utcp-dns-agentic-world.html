@@ -300,17 +300,70 @@
     <!-- Footer Placeholder - common-components.js will inject content here -->
     <div id="footer-placeholder"></div>
 
-    <!-- Scripts -->
     <!-- Firebase SDK (Load first) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
 
-    <!-- Application Scripts (Load after Firebase) -->
-    <script src="../../js/firebase-config.js" type="module"></script>
-    <script src="../../js/common-components.js"></script>
-    <script src="../../js/blog-interactions.js" type="module"></script>
-    <script src="../../js/app.js"></script>
+    <!-- Initialize Firebase -->
+    <script>
+        // Wait for all Firebase scripts to load
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Initialize Firebase
+                const firebaseConfig = {
+                    apiKey: "AIzaSyDMlyvJlwmsh7S7mfGPQHlQ-EfZc0qc8E4",
+                    authDomain: "agentic-architecture-571f9.firebaseapp.com",
+                    projectId: "agentic-architecture-571f9",
+                    storageBucket: "agentic-architecture-571f9.firebasestorage.app",
+                    messagingSenderId: "581221355292",
+                    appId: "1:581221355292:web:eaf254cc9d0a5b2ada34d9",
+                    measurementId: "G-VX6J4D9ECW"
+                };
+                
+                // Initialize Firebase
+                const app = firebase.initializeApp(firebaseConfig);
+                
+                // Initialize services
+                const db = firebase.firestore();
+                const auth = firebase.auth();
+                const analytics = firebase.analytics();
+                
+                // Configure Firestore
+                db.settings({
+                    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+                    experimentalAutoDetectLongPolling: true,
+                    experimentalForceLongPolling: false
+                });
+                
+                // Make services available globally
+                window.firebaseServices = { db, auth, analytics };
+                
+                console.log('Firebase initialized successfully');
+                
+                // Load other scripts after Firebase is initialized
+                loadScript('../../js/common-components.js')
+                    .then(() => loadScript('../../js/blog-interactions.js', 'module'))
+                    .then(() => loadScript('../../js/app.js', 'module'))
+                    .catch(error => console.error('Error loading scripts:', error));
+                
+            } catch (error) {
+                console.error('Error initializing Firebase:', error);
+            }
+        });
+        
+        // Helper function to load scripts
+        function loadScript(src, type = '') {
+            return new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                if (type) script.type = type;
+                script.onload = resolve;
+                script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+                document.body.appendChild(script);
+            });
+        }
+    </script>
 </body>
 </html>

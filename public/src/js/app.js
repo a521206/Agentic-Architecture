@@ -1,18 +1,28 @@
 // --- Firebase Analytics Initialization (Centralized) ---
-// Firebase initialization is now handled by firebase-config.js
-// We'll import and use the centralized Firebase configuration
-import { initializeFirebase, analytics } from './firebase-config.js';
+// Firebase initialization is now handled by the main script in the HTML
+// We'll use the global firebaseServices object
 
-// Initialize Firebase and get analytics instance
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Initialize Firebase services
-        const { analytics: analyticsInstance } = initializeFirebase();
-        
-        if (analyticsInstance) {
+        // Initialize Analytics if available
+        if (window.firebaseServices && window.firebaseServices.analytics) {
+            const { analytics } = window.firebaseServices;
             console.log('Firebase Analytics initialized successfully');
             // Log page view
-            analyticsInstance.logEvent('page_view');
+            analytics.logEvent('page_view');
+            
+            // Track GitHub link clicks
+            document.addEventListener('click', function(e) {
+                let target = e.target;
+                // Traverse up to anchor if icon or span is clicked
+                while (target && target.tagName !== 'A' && target !== document) {
+                    target = target.parentNode;
+                }
+                if (target && target.tagName === 'A' && target.href && target.href.includes('github.com')) {
+                    console.log('GitHub link clicked:', target.href);
+                    analytics.logEvent('github_link_click', { url: target.href });
+                }
+            }, true);
         } else {
             console.warn('Firebase Analytics not available');
         }
