@@ -2,7 +2,7 @@
 
 // Import Firebase services from your centralized config file
 import { db, auth } from './firebase-config.js';
-import { serverTimestamp } from "firebase/firestore"; // Import specific Firestore functions
+import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /**
  * Blog Interactions System
