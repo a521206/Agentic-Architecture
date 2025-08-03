@@ -2,7 +2,7 @@
 
 // Import Firebase services from your centralized config file
 import { db, auth } from './firebase-config.js';
-import { serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { serverTimestamp, collection, doc, getDoc, getDocs, setDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /**
  * Blog Interactions System
@@ -93,10 +93,10 @@ class BlogInteractions {
             return;
         }
 
-        const postDocRef = this.db.collection('posts').doc(this.postId);
+        const postDocRef = doc(this.db, 'posts', this.postId);
 
         // Listen for real-time changes to the 'likes' subcollection
-        postDocRef.collection('likes').onSnapshot(snapshot => {
+        onSnapshot(collection(postDocRef, 'likes'), snapshot => {
             // Map documents to their IDs (which are the user UIDs who liked)
             const likes = snapshot.docs.map(doc => doc.id); 
             this.postDataCache.likes = likes;
@@ -107,7 +107,7 @@ class BlogInteractions {
         });
 
         // Listen for real-time changes to the 'comments' subcollection, ordered by timestamp
-        postDocRef.collection('comments').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
+        onSnapshot(query(collection(postDocRef, 'comments'), orderBy('timestamp', 'desc')), snapshot => {
             // Map documents to their data, including their Firestore document ID
             const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             this.postDataCache.comments = comments;
@@ -149,7 +149,7 @@ class BlogInteractions {
             return;
         }
 
-        const likeDocRef = this.db.collection('posts').doc(this.postId).collection('likes').doc(this.currentUser);
+        const likeDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'likes'), this.currentUser);
 
         try {
             const likeDoc = await likeDocRef.get();
@@ -187,7 +187,7 @@ class BlogInteractions {
         }
 
         try {
-            await this.db.collection('posts').doc(this.postId).collection('comments').add({
+            await setDoc(doc(collection(doc(this.db, 'posts', this.postId), 'comments'), Date.now().toString()), {
                 text: commentText.trim(),
                 author: authorName.trim() || 'Anonymous',
                 userId: this.currentUser, // Store the Firebase UID
@@ -216,7 +216,7 @@ class BlogInteractions {
             return false;
         }
 
-        const commentDocRef = this.db.collection('posts').doc(this.postId).collection('comments').doc(commentId);
+        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
 
         try {
             const doc = await commentDocRef.get();
@@ -248,7 +248,7 @@ class BlogInteractions {
             return;
         }
 
-        const commentDocRef = this.db.collection('posts').doc(this.postId).collection('comments').doc(commentId);
+        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
 
         try {
             const commentDoc = await commentDocRef.get();
@@ -544,16 +544,16 @@ class BlogInteractions {
             return Promise.resolve({ likes: 0, comments: 0 });
         }
 
-        const postDocRef = this.db.collection('posts').doc(postId);
+        const postDocRef = doc(this.db, 'posts', postId);
         
         return new Promise(async (resolve, reject) => {
             try {
                 // Fetch likes count
-                const likesSnapshot = await postDocRef.collection('likes').get();
+                const likesSnapshot = await getDocs(collection(postDocRef, 'likes'));
                 const likesCount = likesSnapshot.size;
 
                 // Fetch comments count
-                const commentsSnapshot = await postDocRef.collection('comments').get();
+                const commentsSnapshot = await getDocs(collection(postDocRef, 'comments'));
                 const commentsCount = commentsSnapshot.size;
 
                 resolve({ likes: likesCount, comments: commentsCount });
