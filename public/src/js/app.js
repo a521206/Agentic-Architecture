@@ -1,24 +1,28 @@
 // app.js
+
+// Import Firebase Analytics from your centralized config file
 import { analytics } from './firebase-config.js';
+
+// Import the BlogInteractions class directly
+import { BlogInteractions } from './blog-interactions.js';
+
+// Import common components initialization
+import { initCommonComponents } from './common-components.js';
 
 // --- Firebase Analytics Initialization and Event Tracking ---
 document.addEventListener('DOMContentLoaded', () => {
     try {
-        // Check if analytics object is available (it should be, if firebase-config.js loaded correctly)
         if (analytics) {
             console.log('Firebase Analytics initialized successfully and ready for use.');
 
-            // Log page view
             analytics.logEvent('page_view', {
                 page_path: window.location.pathname,
                 page_location: window.location.href,
                 page_title: document.title
             });
 
-            // Track GitHub link clicks using a single, consolidated event listener
             document.addEventListener('click', function(e) {
                 let target = e.target;
-                // Traverse up to anchor if icon or span is clicked
                 while (target && target.tagName !== 'A' && target !== document) {
                     target = target.parentNode;
                 }
@@ -26,13 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('GitHub link clicked:', target.href);
                     analytics.logEvent('github_link_click', { url: target.href });
                 }
-            }, true); // Use capture phase to ensure clicks are caught early
+            }, true); 
         } else {
             console.warn('Firebase Analytics object not available. Check firebase-config.js initialization.');
         }
     } catch (error) {
         console.error('Error setting up Firebase Analytics event listeners:', error);
     }
+
+    // --- Initialize Common Components and Blog Interactions for this specific page ---
+    initCommonComponents(); // Initialize header/footer etc.
+
+    // Initialize BlogInteractions for the current blog post page
+    // The constructor and init() method of BlogInteractions will handle
+    // authentication, data fetching, and real-time listeners for this post.
+    window.blogInteractions = new BlogInteractions();
 });
 // --- End Firebase Analytics Initialization ---
 

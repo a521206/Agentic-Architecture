@@ -1,15 +1,32 @@
 // blog-interactions.js
 
-// Import Firebase services from your centralized config file
+// Import Firebase service instances (db, auth) from your centralized config file
 import { db, auth } from './firebase-config.js';
-import { serverTimestamp, FieldValue } from "firebase/firestore"; // Import specific Firestore functions
+
+// Import specific Firestore functions from the modular SDK
+import { 
+    serverTimestamp, 
+    collection, 
+    doc, 
+    getDoc, 
+    getDocs, 
+    setDoc, 
+    deleteDoc, 
+    onSnapshot, 
+    query, 
+    orderBy,
+    updateDoc // Added updateDoc as it's commonly used for partial updates
+} from "firebase/firestore"; 
+
+// Import specific Auth functions from the modular SDK
+import { onAuthStateChanged, signInAnonymously } from "firebase/auth"; 
 
 /**
  * Blog Interactions System
  * Handles likes, comments, and engagement for blog posts
  * Uses Cloud Firestore for data persistence.
  */
-class BlogInteractions {
+export class BlogInteractions { // Export the class directly
     constructor() {
         this.db = db; // Firestore instance
         this.auth = auth; // Auth instance
@@ -18,13 +35,12 @@ class BlogInteractions {
         this.isAuthReady = false; // Flag to indicate if auth state is known
 
         // Local cache for post data, updated by Firestore listeners
-        // This will store the actual likes (array of user UIDs) and comments (array of comment objects)
         this.postDataCache = {
             likes: [],
             comments: []
         };
 
-        this.init();
+        this.init(); // Call init in constructor
     }
 
     /**
@@ -32,17 +48,10 @@ class BlogInteractions {
      * Ensures user authentication, sets up Firestore listeners, and binds events.
      */
     async init() {
-        // Ensure user is authenticated before setting up listeners
-        // This makes sure this.currentUser is populated with a UID
-        await this.ensureAuthenticatedUser();
-
-        // Set up real-time listeners for the current post's data
-        this.listenForPostData();
-        
+        await this.ensureAuthenticatedUser(); // Ensure user is authenticated
+        this.listenForPostData(); // Set up real-time listeners
         this.bindEvents(); // Bind DOM events
-        // Initial UI update. This will be quickly overwritten by the listeners
-        // once data arrives from Firestore.
-        this.updateUI(); 
+        this.updateUI(); // Initial UI update
     }
 
     /**
@@ -53,28 +62,23 @@ class BlogInteractions {
      */
     async ensureAuthenticatedUser() {
         return new Promise(resolve => {
-            // onAuthStateChanged is the recommended way to get the current user.
-            // It fires once on page load (with current user or null) and then again on any auth state change.
-            this.auth.onAuthStateChanged(async (user) => {
+            onAuthStateChanged(this.auth, async (user) => { 
                 if (user) {
-                    // User is signed in (could be anonymous or another provider)
                     this.currentUser = user.uid;
                     console.log('User is signed in with UID:', this.currentUser);
                     this.isAuthReady = true;
                     resolve();
                 } else {
-                    // No user signed in, attempt anonymous sign-in
                     try {
-                        const userCredential = await this.auth.signInAnonymously();
+                        const userCredential = await signInAnonymously(this.auth); 
                         this.currentUser = userCredential.user.uid;
                         console.log('Signed in anonymously with UID:', this.currentUser);
                         this.isAuthReady = true;
                         resolve();
                     } catch (error) {
                         console.error('Anonymous authentication failed:', error);
-                        this.currentUser = null; // Explicitly set to null if auth fails
+                        this.currentUser = null; 
                         this.isAuthReady = true;
-                        // Even if auth fails, resolve so the app can continue (perhaps with disabled interaction features)
                         resolve();
                     }
                 }
@@ -87,31 +91,26 @@ class BlogInteractions {
      * Updates `postDataCache` and triggers UI updates on data changes.
      */
     listenForPostData() {
-        // Ensure Firestore instance and Post ID are available
         if (!this.db || !this.postId) {
             console.warn("Firestore or Post ID not ready for listening. Interactions might not be real-time.");
             return;
         }
 
-        const postDocRef = this.db.collection('posts').doc(this.postId);
+        const postDocRef = doc(this.db, 'posts', this.postId);
 
-        // Listen for real-time changes to the 'likes' subcollection
-        postDocRef.collection('likes').onSnapshot(snapshot => {
-            // Map documents to their IDs (which are the user UIDs who liked)
+        onSnapshot(collection(postDocRef, 'likes'), snapshot => {
             const likes = snapshot.docs.map(doc => doc.id); 
             this.postDataCache.likes = likes;
-            this.updateLikeUI(); // Update UI for likes
+            this.updateLikeUI(); 
         }, error => {
             console.error("Error listening to likes:", error);
             this.showFeedback('Failed to load likes. Please refresh.');
         });
 
-        // Listen for real-time changes to the 'comments' subcollection, ordered by timestamp
-        postDocRef.collection('comments').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
-            // Map documents to their data, including their Firestore document ID
+        onSnapshot(query(collection(postDocRef, 'comments'), orderBy('timestamp', 'desc')), snapshot => {
             const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             this.postDataCache.comments = comments;
-            this.updateCommentsUI(); // Update UI for comments
+            this.updateCommentsUI(); 
         }, error => {
             console.error("Error listening to comments:", error);
             this.showFeedback('Failed to load comments. Please refresh.');
@@ -125,12 +124,11 @@ class BlogInteractions {
     getPostId() {
         const path = window.location.pathname;
         const filename = path.split('/').pop().replace('.html', '');
-        return filename || 'unknown-post'; // Fallback for root or unexpected paths
+        return filename || 'unknown-post'; 
     }
 
     /**
      * Gets the current post data from the local cache.
-     * This cache is kept in sync by the Firestore `onSnapshot` listeners.
      * @returns {object} The cached post data (likes and comments).
      */
     getPostData() {
@@ -139,44 +137,38 @@ class BlogInteractions {
 
     /**
      * Toggles the like status for the current post.
-     * Creates or deletes a like document in Firestore.
      * @returns {Promise<void>}
      */
     async toggleLike() {
-        // Ensure user is authenticated before allowing interaction
         if (!this.isAuthReady || !this.currentUser) {
             this.showFeedback('Please wait for authentication or sign in to like posts.');
             return;
         }
 
-        const likeDocRef = this.db.collection('posts').doc(this.postId).collection('likes').doc(this.currentUser);
+        const likeDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'likes'), this.currentUser);
 
         try {
-            const likeDoc = await likeDocRef.get();
-            if (likeDoc.exists) {
-                await likeDocRef.delete(); // User has liked, so unlike
+            const likeDoc = await getDoc(likeDocRef); 
+            if (likeDoc.exists()) { 
+                await deleteDoc(likeDocRef); 
                 this.showFeedback('Like removed!');
             } else {
-                await likeDocRef.set({
-                    timestamp: serverTimestamp() // Use Firestore server timestamp
-                }); // User has not liked, so like
+                await setDoc(likeDocRef, { 
+                    timestamp: serverTimestamp() 
+                }); 
                 this.showFeedback('Post liked!');
             }
         } catch (error) {
             console.error('Error toggling like:', error);
             this.showFeedback('Failed to update like. Please check console for details.');
         }
-        // UI will be automatically updated by the onSnapshot listener for likes
     }
 
     /**
      * Adds a new comment to the current post.
-     * @param {string} commentText - The text of the comment.
-     * @param {string} [authorName='Anonymous'] - The author's name.
      * @returns {Promise<boolean>} True if comment was added, false otherwise.
      */
     async addComment(commentText, authorName = 'Anonymous') {
-        // Ensure user is authenticated and comment text is not empty
         if (!this.isAuthReady || !this.currentUser) {
             this.showFeedback('Please wait for authentication or sign in to comment.');
             return false;
@@ -187,12 +179,12 @@ class BlogInteractions {
         }
 
         try {
-            await this.db.collection('posts').doc(this.postId).collection('comments').add({
+            await setDoc(doc(collection(doc(this.db, 'posts', this.postId), 'comments'), Date.now().toString()), { 
                 text: commentText.trim(),
                 author: authorName.trim() || 'Anonymous',
-                userId: this.currentUser, // Store the Firebase UID
-                timestamp: serverTimestamp(), // Use Firestore server timestamp
-                likes: [] // Initialize comment likes as an empty array
+                userId: this.currentUser, 
+                timestamp: serverTimestamp(), 
+                likes: [] 
             });
             this.showFeedback('Comment added successfully!');
             return true;
@@ -201,13 +193,10 @@ class BlogInteractions {
             this.showFeedback('Failed to add comment. Please check console for details.');
             return false;
         }
-        // UI will be automatically updated by the onSnapshot listener for comments
     }
 
     /**
      * Deletes a comment from the current post.
-     * Only allows deletion if the current user is the author of the comment.
-     * @param {string} commentId - The ID of the comment document to delete.
      * @returns {Promise<boolean>} True if comment was deleted, false otherwise.
      */
     async deleteComment(commentId) {
@@ -216,12 +205,12 @@ class BlogInteractions {
             return false;
         }
 
-        const commentDocRef = this.db.collection('posts').doc(this.postId).collection('comments').doc(commentId);
+        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
 
         try {
-            const doc = await commentDocRef.get();
-            if (doc.exists && doc.data().userId === this.currentUser) {
-                await commentDocRef.delete();
+            const commentDoc = await getDoc(commentDocRef); 
+            if (commentDoc.exists() && commentDoc.data().userId === this.currentUser) {
+                await deleteDoc(commentDocRef); 
                 this.showFeedback('Comment deleted!');
                 return true;
             } else {
@@ -233,13 +222,10 @@ class BlogInteractions {
             this.showFeedback('Failed to delete comment. Please check console for details.');
             return false;
         }
-        // UI will be automatically updated by the onSnapshot listener for comments
     }
 
     /**
      * Toggles the like status for a specific comment.
-     * Updates the 'likes' array within the comment document in Firestore.
-     * @param {string} commentId - The ID of the comment to like/unlike.
      * @returns {Promise<void>}
      */
     async toggleCommentLike(commentId) {
@@ -248,36 +234,33 @@ class BlogInteractions {
             return;
         }
 
-        const commentDocRef = this.db.collection('posts').doc(this.postId).collection('comments').doc(commentId);
+        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
 
         try {
-            const commentDoc = await commentDocRef.get();
-            if (commentDoc.exists) {
-                const currentLikes = commentDoc.data().likes || []; // Ensure it's an array
+            const commentDoc = await getDoc(commentDocRef); 
+            if (commentDoc.exists()) {
+                const currentLikes = commentDoc.data().likes || []; 
                 const userIndex = currentLikes.indexOf(this.currentUser);
                 
                 let newLikes;
                 if (userIndex > -1) {
-                    newLikes = currentLikes.filter(uid => uid !== this.currentUser); // User has liked, so remove
+                    newLikes = currentLikes.filter(uid => uid !== this.currentUser); 
                 } else {
-                    newLikes = [...currentLikes, this.currentUser]; // User has not liked, so add
+                    newLikes = [...currentLikes, this.currentUser]; 
                 }
                 
-                await commentDocRef.update({ likes: newLikes });
+                await updateDoc(commentDocRef, { likes: newLikes }); 
             }
         } catch (error) {
             console.error('Error toggling comment like:', error);
             this.showFeedback('Failed to update comment like. Please try again.');
         }
-        // UI will be automatically updated by the onSnapshot listener for comments
     }
 
     /**
      * Binds all necessary DOM event listeners for interactions.
-     * Uses event delegation for efficiency.
      */
     bindEvents() {
-        // Event delegation for all interaction buttons (like, comment submit, delete, comment like)
         document.addEventListener('click', async (e) => {
             if (e.target.closest('.like-btn')) {
                 e.preventDefault();
@@ -296,7 +279,6 @@ class BlogInteractions {
             }
         });
 
-        // Character counter for comment input
         document.addEventListener('input', (e) => {
             if (e.target.classList.contains('comment-input')) {
                 const counter = document.querySelector('.character-counter .current-count');
@@ -310,13 +292,13 @@ class BlogInteractions {
                         counterContainer.classList.add('warning');
                     }
                     if (length >= 500) {
+                        e.target.value = e.target.value.substring(0, 500); 
                         counterContainer.classList.add('error');
                     }
                 }
             }
         });
 
-        // Comment form enter key (Ctrl+Enter to submit)
         document.addEventListener('keydown', async (e) => {
             if (e.target.classList.contains('comment-input') && e.key === 'Enter' && e.ctrlKey) {
                 e.preventDefault();
@@ -338,8 +320,8 @@ class BlogInteractions {
             const authorName = authorInput ? authorInput.value : 'Anonymous';
             
             if (await this.addComment(commentText, authorName)) {
-                commentInput.value = ''; // Clear comment input
-                if (authorInput) authorInput.value = ''; // Clear author input
+                commentInput.value = ''; 
+                if (authorInput) authorInput.value = ''; 
             }
         }
     }
@@ -355,7 +337,6 @@ class BlogInteractions {
         const likeBtn = document.querySelector('.like-btn');
         const likeCountDisplay = document.querySelector('.like-count');
         
-        // Update the main like button on the blog post page
         if (likeBtn) {
             const icon = likeBtn.querySelector('i');
             if (isLiked) {
@@ -379,7 +360,6 @@ class BlogInteractions {
             likeCountDisplay.textContent = likeCount;
         }
 
-        // Update like counts and button states for simple like buttons on the index page
         const simpleLikeDisplays = document.querySelectorAll(`[data-post-id="${this.postId}"] .like-count-display`);
         simpleLikeDisplays.forEach(display => {
             display.textContent = likeCount;
@@ -422,7 +402,6 @@ class BlogInteractions {
             commentsContainer.innerHTML = this.renderComments(comments);
         }
 
-        // Update comment counts for simple comment displays on the index page
         const simpleCommentDisplays = document.querySelectorAll(`[data-post-id="${this.postId}"] .comment-count-display`);
         simpleCommentDisplays.forEach(display => {
             display.textContent = comments.length;
@@ -431,7 +410,6 @@ class BlogInteractions {
 
     /**
      * Renders the HTML for comments based on the provided comments array.
-     * @param {Array<object>} comments - An array of comment objects.
      * @returns {string} The HTML string for the comments list.
      */
     renderComments(comments) {
@@ -440,10 +418,8 @@ class BlogInteractions {
         }
         
         return comments.map(comment => {
-            // Ensure comment.userId is used for comparison
             const isOwner = this.currentUser && comment.userId === this.currentUser;
             const isLiked = this.currentUser && (comment.likes || []).includes(this.currentUser);
-            // Convert Firestore Timestamp to JavaScript Date for getTimeAgo
             const timeAgo = this.getTimeAgo(comment.timestamp ? comment.timestamp.toDate() : new Date()); 
             
             return `
@@ -474,7 +450,6 @@ class BlogInteractions {
 
     /**
      * Updates all UI elements on the page.
-     * This method is now primarily a wrapper to trigger sub-UI updates.
      */
     updateUI() {
         this.updateLikeUI();
@@ -483,7 +458,6 @@ class BlogInteractions {
 
     /**
      * Displays a temporary feedback message to the user.
-     * @param {string} message - The message to display.
      */
     showFeedback(message) {
         let feedback = document.querySelector('.blog-feedback');
@@ -503,8 +477,6 @@ class BlogInteractions {
 
     /**
      * Calculates and returns a human-readable "time ago" string.
-     * @param {Date} date - The date object to calculate from.
-     * @returns {string} The time ago string.
      */
     getTimeAgo(date) {
         const now = new Date();
@@ -522,8 +494,6 @@ class BlogInteractions {
 
     /**
      * Escapes HTML entities in a string to prevent XSS attacks.
-     * @param {string} text - The text to escape.
-     * @returns {string} The HTML-escaped string.
      */
     escapeHtml(text) {
         const div = document.createElement('div');
@@ -533,9 +503,6 @@ class BlogInteractions {
 
     /**
      * Gets the current like and comment counts for a given post ID.
-     * This method is used by the index page to display stats without loading all data.
-     * It performs a one-time fetch, not a real-time listen.
-     * @param {string} postId - The ID of the post.
      * @returns {Promise<object>} A promise that resolves with an object containing likes and comments count.
      */
     getPostStats(postId) {
@@ -544,16 +511,14 @@ class BlogInteractions {
             return Promise.resolve({ likes: 0, comments: 0 });
         }
 
-        const postDocRef = this.db.collection('posts').doc(postId);
+        const postDocRef = doc(this.db, 'posts', postId);
         
         return new Promise(async (resolve, reject) => {
             try {
-                // Fetch likes count
-                const likesSnapshot = await postDocRef.collection('likes').get();
+                const likesSnapshot = await getDocs(collection(postDocRef, 'likes'));
                 const likesCount = likesSnapshot.size;
 
-                // Fetch comments count
-                const commentsSnapshot = await postDocRef.collection('comments').get();
+                const commentsSnapshot = await getDocs(collection(postDocRef, 'comments'));
                 const commentsCount = commentsSnapshot.size;
 
                 resolve({ likes: likesCount, comments: commentsCount });
@@ -662,15 +627,6 @@ window.toggleComments = function() {
     }
 };
 
-// Global function to initialize blog interactions on any page
-// This function will be called from other scripts (e.g., index-init.js or the individual blog post page script)
-window.initBlogInteractions = async function() {
-    if (!window.blogInteractions) {
-        window.blogInteractions = new BlogInteractions();
-    }
-    // No need to await getCurrentUser or init() here, as it's done in the constructor of BlogInteractions
-};
-
 // Initialize when DOM is loaded (for character counter, not the main BlogInteractions class itself)
 document.addEventListener('DOMContentLoaded', () => {
     // Character counter for comment input
@@ -696,8 +652,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-// Export for use in other scripts (e.g., for testing or if bundled)
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = BlogInteractions;
-}
