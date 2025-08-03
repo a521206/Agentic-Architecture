@@ -27,7 +27,28 @@ class BlogInteractions {
         try {
             // Check if Firebase is available
             if (typeof firebase !== 'undefined' && firebase.apps.length > 0) {
+                // Enable offline persistence
                 this.db = firebase.firestore();
+                await this.db.enablePersistence({
+                    synchronizeTabs: true
+                }).catch(err => {
+                    if (err.code === 'failed-precondition') {
+                        console.warn('Multiple tabs open, persistence can only be enabled in one tab at a time.');
+                    } else if (err.code === 'unimplemented') {
+                        console.warn('The current browser does not support all of the features required to enable persistence');
+                    }
+                });
+
+                // Configure Firestore settings
+                this.db.settings({
+                    cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+                    experimentalAutoDetectLongPolling: true,
+                    experimentalForceLongPolling: false
+                });
+
+                // Test the connection
+                await this.db.collection('test-connection').doc('test').get();
+                
                 this.isFirebaseReady = true;
                 console.log('Firebase Firestore initialized successfully');
             } else {
@@ -37,6 +58,13 @@ class BlogInteractions {
         } catch (error) {
             console.error('Error initializing Firebase:', error);
             this.isFirebaseReady = false;
+            
+            // Log specific error details
+            if (error.code === 'permission-denied') {
+                console.error('Firebase Permission Denied. Check your security rules.');
+            } else if (error.code === 'unavailable') {
+                console.error('Firebase service is unavailable. Check your internet connection.');
+            }
         }
     }
 
@@ -71,25 +99,55 @@ class BlogInteractions {
     }
 
     // Save data to Firestore or localStorage fallback
-    async saveData() {
+    async saveData(retryCount = 0) {
+        const MAX_RETRIES = 3;
+        const RETRY_DELAY_MS = 1000; // 1 second
+
         if (this.isFirebaseReady) {
             try {
                 // Save each post's data as a separate document
                 const batch = this.db.batch();
+                const collectionRef = this.db.collection('blog-interactions');
 
                 for (const [postId, postData] of Object.entries(this.data)) {
-                    const docRef = this.db.collection('blog-interactions').doc(postId);
+                    const docRef = collectionRef.doc(postId);
                     batch.set(docRef, {
                         ...postData,
                         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                    });
+                    }, { merge: true });
                 }
 
-                await batch.commit();
+                // Add timeout for the operation
+                const timeoutPromise = new Promise((_, reject) => {
+                    setTimeout(() => reject(new Error('Firestore operation timed out')), 10000);
+                });
+
+                // Race between the batch commit and the timeout
+                await Promise.race([
+                    batch.commit(),
+                    timeoutPromise
+                ]);
+                
                 console.log('Data saved to Firestore');
-                return;
+                return true;
             } catch (error) {
                 console.error('Error saving to Firestore:', error);
+                
+                // If it's a network error and we have retries left, try again
+                if (error.code === 'unavailable' && retryCount < MAX_RETRIES) {
+                    console.log(`Retrying save (${retryCount + 1}/${MAX_RETRIES})...`);
+                    await new Promise(resolve => setTimeout(resolve, RETRY_DELAY_MS * (retryCount + 1)));
+                    return this.saveData(retryCount + 1);
+                }
+                
+                // Log specific error details
+                if (error.code === 'permission-denied') {
+                    console.error('Firestore Permission Denied. Check your security rules.');
+                } else if (error.code === 'resource-exhausted') {
+                    console.error('Firestore quota exceeded. Please check your Firebase usage.');
+                }
+                
+                // Fall through to localStorage fallback
             }
         }
 
@@ -97,8 +155,10 @@ class BlogInteractions {
         try {
             localStorage.setItem(this.storageKey, JSON.stringify(this.data));
             console.log('Data saved to localStorage (fallback)');
+            return true;
         } catch (error) {
             console.error('Error saving to localStorage:', error);
+            return false;
         }
     }
 
