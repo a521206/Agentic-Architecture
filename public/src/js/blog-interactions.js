@@ -1,5 +1,5 @@
 // Import Firebase configuration
-import { initializeFirebase, isFirebaseReady, db, auth } from './firebase-config.js';
+import firebaseServices from './firebase-config.js';
 
 /**
  * Blog Interactions System
@@ -28,8 +28,8 @@ class BlogInteractions {
     // Initialize Firebase/Firestore using the centralized configuration
     async initFirebase() {
         try {
-            // Get services from firebase-config
-            const { db: firestoreDb, auth: firebaseAuth } = initializeFirebase();
+            // Use services from firebase-config default export
+            const { db: firestoreDb, auth: firebaseAuth } = firebaseServices;
             
             if (firestoreDb && firebaseAuth) {
                 this.db = firestoreDb;
@@ -151,7 +151,7 @@ class BlogInteractions {
 
         try {
             // Sign in anonymously
-            const userCredential = await this.auth.signInAnonymously();
+            const userCredential = await firebaseServices.auth.signInAnonymously();
             this.currentUser = userCredential.user.uid;
             console.log('Signed in anonymously with UID:', this.currentUser);
             return this.currentUser;
