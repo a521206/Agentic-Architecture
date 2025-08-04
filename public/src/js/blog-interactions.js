@@ -36,14 +36,11 @@ export class BlogInteractions { // Export the class directly
 
         // Local cache for post data, updated by Firestore listeners
         this.postDataCache = {
-            likes: [],
-            comments: []
+            likes: []
         };
 
         // Bind methods that will be used as event handlers
-        this.toggleComments = this.toggleComments.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
 
         this.init(); // Call init in constructor
     }
@@ -111,15 +108,6 @@ export class BlogInteractions { // Export the class directly
             console.error("Error listening to likes:", error);
             this.showFeedback('Failed to load likes. Please refresh.');
         });
-
-        onSnapshot(query(collection(postDocRef, 'comments'), orderBy('timestamp', 'desc')), snapshot => {
-            const comments = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            this.postDataCache.comments = comments;
-            this.updateCommentsUI(); 
-        }, error => {
-            console.error("Error listening to comments:", error);
-            this.showFeedback('Failed to load comments. Please refresh.');
-        });
     }
 
     /**
@@ -169,98 +157,7 @@ export class BlogInteractions { // Export the class directly
         }
     }
 
-    /**
-     * Adds a new comment to the current post.
-     * @returns {Promise<boolean>} True if comment was added, false otherwise.
-     */
-    async addComment(commentText, authorName = 'Anonymous') {
-        if (!this.isAuthReady || !this.currentUser) {
-            this.showFeedback('Please wait for authentication or sign in to comment.');
-            return false;
-        }
-        if (!commentText.trim()) {
-            this.showFeedback('Comment cannot be empty.');
-            return false;
-        }
 
-        try {
-            await setDoc(doc(collection(doc(this.db, 'posts', this.postId), 'comments'), Date.now().toString()), { 
-                text: commentText.trim(),
-                author: authorName.trim() || 'Anonymous',
-                userId: this.currentUser, 
-                timestamp: serverTimestamp(), 
-                likes: [] 
-            });
-            this.showFeedback('Comment added successfully!');
-            return true;
-        } catch (error) {
-            console.error('Error adding comment:', error);
-            this.showFeedback('Failed to add comment. Please check console for details.');
-            return false;
-        }
-    }
-
-    /**
-     * Deletes a comment from the current post.
-     * @returns {Promise<boolean>} True if comment was deleted, false otherwise.
-     */
-    async deleteComment(commentId) {
-        if (!this.isAuthReady || !this.currentUser) {
-            this.showFeedback('Please wait for authentication to delete comments.');
-            return false;
-        }
-
-        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
-
-        try {
-            const commentDoc = await getDoc(commentDocRef); 
-            if (commentDoc.exists() && commentDoc.data().userId === this.currentUser) {
-                await deleteDoc(commentDocRef); 
-                this.showFeedback('Comment deleted!');
-                return true;
-            } else {
-                this.showFeedback('You can only delete your own comments.');
-                return false;
-            }
-        } catch (error) {
-            console.error('Error deleting comment:', error);
-            this.showFeedback('Failed to delete comment. Please check console for details.');
-            return false;
-        }
-    }
-
-    /**
-     * Toggles the like status for a specific comment.
-     * @returns {Promise<void>}
-     */
-    async toggleCommentLike(commentId) {
-        if (!this.isAuthReady || !this.currentUser) {
-            this.showFeedback('Please wait for authentication to like comments.');
-            return;
-        }
-
-        const commentDocRef = doc(collection(doc(this.db, 'posts', this.postId), 'comments'), commentId);
-
-        try {
-            const commentDoc = await getDoc(commentDocRef); 
-            if (commentDoc.exists()) {
-                const currentLikes = commentDoc.data().likes || []; 
-                const userIndex = currentLikes.indexOf(this.currentUser);
-                
-                let newLikes;
-                if (userIndex > -1) {
-                    newLikes = currentLikes.filter(uid => uid !== this.currentUser); 
-                } else {
-                    newLikes = [...currentLikes, this.currentUser]; 
-                }
-                
-                await updateDoc(commentDocRef, { likes: newLikes }); 
-            }
-        } catch (error) {
-            console.error('Error toggling comment like:', error);
-            this.showFeedback('Failed to update comment like. Please try again.');
-        }
-    }
 
     /**
      * Binds all necessary DOM event listeners for interactions.
@@ -268,35 +165,6 @@ export class BlogInteractions { // Export the class directly
     bindEvents() {
         // Use event delegation with a single click handler
         document.body.addEventListener('click', this.handleClick.bind(this));
-
-        // Character counter for comment input
-        document.addEventListener('input', (e) => {
-            if (e.target.classList.contains('comment-input')) {
-                const counter = document.querySelector('.character-counter .current-count');
-                const counterContainer = document.querySelector('.character-counter');
-                const length = e.target.value.length;
-
-                if (counter && counterContainer) {
-                    counter.textContent = length;
-                    counterContainer.classList.remove('warning', 'error');
-                    if (length > 400) {
-                        counterContainer.classList.add('warning');
-                    }
-                    if (length >= 500) {
-                        e.target.value = e.target.value.substring(0, 500); 
-                        counterContainer.classList.add('error');
-                    }
-                }
-            }
-        });
-
-        // Handle Ctrl+Enter for comment submission
-        document.addEventListener('keydown', async (e) => {
-            if (e.target.classList.contains('comment-input') && e.key === 'Enter' && e.ctrlKey) {
-                e.preventDefault();
-                await this.handleCommentSubmit();
-            }
-        });
     }
 
     /**
@@ -305,40 +173,15 @@ export class BlogInteractions { // Export the class directly
      */
     handleClick(e) {
         // Handle like button click
-        if (e.target.closest('.like-btn')) {
+        const likeBtn = e.target.closest('.like-btn');
+        if (likeBtn) {
             e.preventDefault();
+            // Update current post ID from the clicked button's data attribute
+            const postId = likeBtn.dataset.postId;
+            if (postId) {
+                this.postId = postId;
+            }
             this.toggleLike();
-            return;
-        }
-        
-        // Handle comment submit button click
-        if (e.target.closest('.comment-submit-btn')) {
-            e.preventDefault();
-            this.handleCommentSubmit();
-            return;
-        }
-        
-        // Handle comment delete button click
-        if (e.target.closest('.comment-delete-btn')) {
-            e.preventDefault();
-            const commentId = e.target.closest('.comment-delete-btn').dataset.commentId;
-            this.deleteComment(commentId);
-            return;
-        }
-        
-        // Handle comment like button click
-        if (e.target.closest('.comment-like-btn')) {
-            e.preventDefault();
-            const commentId = e.target.closest('.comment-like-btn').dataset.commentId;
-            this.toggleCommentLike(commentId);
-            return;
-        }
-        
-        // Handle comment toggle button click using data-action
-        const toggleBtn = e.target.closest('[data-action="toggle-comments"]');
-        if (toggleBtn) {
-            e.preventDefault();
-            this.toggleComments();
             return;
         }
     }
@@ -347,20 +190,7 @@ export class BlogInteractions { // Export the class directly
      * Handles the submission of a new comment from the form.
      * @returns {Promise<void>}
      */
-    async handleCommentSubmit() {
-        const commentInput = document.querySelector('.comment-input');
-        const authorInput = document.querySelector('.comment-author-input');
-        
-        if (commentInput) {
-            const commentText = commentInput.value;
-            const authorName = authorInput ? authorInput.value : 'Anonymous';
-            
-            if (await this.addComment(commentText, authorName)) {
-                commentInput.value = ''; 
-                if (authorInput) authorInput.value = ''; 
-            }
-        }
-    }
+
 
     /**
      * Updates the UI elements related to post likes.
@@ -422,74 +252,13 @@ export class BlogInteractions { // Export the class directly
         });
     }
 
-    /**
-     * Updates the UI elements related to post comments.
-     */
-    updateCommentsUI() {
-        const comments = this.postDataCache.comments;
-        const commentsContainer = document.querySelector('.comments-list');
-        const commentCountDisplay = document.querySelector('.comment-count');
-        
-        if (commentCountDisplay) {
-            commentCountDisplay.textContent = comments.length;
-        }
-        
-        if (commentsContainer) {
-            commentsContainer.innerHTML = this.renderComments(comments);
-        }
 
-        const simpleCommentDisplays = document.querySelectorAll(`[data-post-id="${this.postId}"] .comment-count-display`);
-        simpleCommentDisplays.forEach(display => {
-            display.textContent = comments.length;
-        });
-    }
-
-    /**
-     * Renders the HTML for comments based on the provided comments array.
-     * @returns {string} The HTML string for the comments list.
-     */
-    renderComments(comments) {
-        if (comments.length === 0) {
-            return '<p class="text-gray-500 text-center py-4">No comments yet. Be the first to comment!</p>';
-        }
-        
-        return comments.map(comment => {
-            const isOwner = this.currentUser && comment.userId === this.currentUser;
-            const isLiked = this.currentUser && (comment.likes || []).includes(this.currentUser);
-            const timeAgo = this.getTimeAgo(comment.timestamp ? comment.timestamp.toDate() : new Date()); 
-            
-            return `
-                <div class="comment bg-gray-50 rounded-lg p-4 mb-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                                ${this.escapeHtml(comment.author.charAt(0).toUpperCase())}
-                            </div>
-                            <div>
-                                <span class="font-semibold text-gray-900">${this.escapeHtml(comment.author)}</span>
-                                <span class="text-gray-500 text-sm ml-2">${timeAgo}</span>
-                            </div>
-                        </div>
-                        ${isOwner ? `<button class="comment-delete-btn text-red-500 hover:text-red-700 text-sm" data-comment-id="${comment.id}"><i class="fas fa-trash"></i></button>` : ''}
-                    </div>
-                    <p class="text-gray-700 mb-3">${this.escapeHtml(comment.text)}</p>
-                    <div class="flex items-center gap-4">
-                        <button class="comment-like-btn flex items-center gap-1 text-sm ${isLiked ? 'text-blue-600' : 'text-gray-500'} hover:text-blue-600" data-comment-id="${comment.id}">
-                            <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i>
-                            <span>${(comment.likes || []).length}</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
 
     /**
      * Updates all UI elements on the page.
      */
     updateUI() {
         this.updateLikeUI();
-        this.updateCommentsUI();
     }
 
     /**
@@ -544,7 +313,7 @@ export class BlogInteractions { // Export the class directly
     getPostStats(postId) {
         if (!this.db) {
             console.warn("Firestore not initialized for getting post stats.");
-            return Promise.resolve({ likes: 0, comments: 0 });
+            return Promise.resolve({ likes: 0 });
         }
 
         const postDocRef = doc(this.db, 'posts', postId);
@@ -554,10 +323,7 @@ export class BlogInteractions { // Export the class directly
                 const likesSnapshot = await getDocs(collection(postDocRef, 'likes'));
                 const likesCount = likesSnapshot.size;
 
-                const commentsSnapshot = await getDocs(collection(postDocRef, 'comments'));
-                const commentsCount = commentsSnapshot.size;
-
-                resolve({ likes: likesCount, comments: commentsCount });
+                resolve({ likes: likesCount });
             } catch (error) {
                 console.error(`Error fetching stats for post ${postId}:`, error);
                 reject(error);
@@ -565,29 +331,7 @@ export class BlogInteractions { // Export the class directly
         });
     }
 
-    /**
-     * Toggles the comments section visibility and ensures comments are loaded
-     */
-    toggleComments() {
-        const container = document.getElementById('comments-container');
-        const toggleBtn = document.querySelector('.comment-toggle-btn span');
-        const commentsList = document.querySelector('.comments-list');
 
-        if (container && toggleBtn) {
-            if (container.classList.contains('open')) {
-                container.classList.remove('open');
-                toggleBtn.textContent = 'Comment';
-            } else {
-                container.classList.add('open');
-                toggleBtn.textContent = 'Hide Comments';
-                
-                // Ensure comments are loaded when the container is opened
-                if (commentsList && commentsList.children.length === 0) {
-                    this.updateCommentsUI();
-                }
-            }
-        }
-    }
 
     // Static methods for generating HTML (unchanged as they are pure HTML strings)
     static generateInteractionsHTML(postId = null) {
@@ -675,6 +419,13 @@ export class BlogInteractions { // Export the class directly
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Disable comment form inputs on page load
+    document.querySelectorAll('.comment-input, .comment-author-input, .comment-submit-btn')
+        .forEach(el => {
+            el.disabled = true;
+            el.placeholder = 'Comments are temporarily disabled';
+        });
+    
     // Create a single instance of BlogInteractions
     const blogInteractions = new BlogInteractions();
     // Character counter for comment input

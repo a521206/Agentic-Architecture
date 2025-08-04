@@ -389,56 +389,14 @@
                     <span class="like-count">0</span>
                     <span>likes</span>
                 </div>
-                <div class="engagement-stat">
-                    <i class="fas fa-comment"></i>
-                    <span class="comment-count">0</span>
-                    <span>comments</span>
-                </div>
             </div>
 
-            <!-- Interaction Buttons -->
+            <!-- Like Button -->
             <div class="interaction-buttons">
                 <button class="like-btn text-gray-500 hover:text-blue-600">
                     <i class="far fa-heart"></i>
                     <span>Like</span>
                 </button>
-                <button class="comment-toggle-btn text-gray-500 hover:text-blue-600" onclick="toggleComments()">
-                    <i class="far fa-comment"></i>
-                    <span>Comment</span>
-                </button>
-            </div>
-
-            <!-- Comments Container -->
-            <div class="comments-container" id="comments-container">
-                <!-- Comment Form -->
-                <div class="comment-form">
-                    <h4 class="text-lg font-semibold text-gray-900 mb-4">Leave a Comment</h4>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="comment-author" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                            <input type="text" id="comment-author" class="comment-author-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name" maxlength="50">
-                        </div>
-                        <div>
-                            <label for="comment-text" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                            <textarea id="comment-text" class="comment-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share your thoughts..." rows="4" maxlength="500"></textarea>
-                            <div class="character-counter">
-                                <span class="current-count">0</span>/500 characters
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-500">Press Ctrl+Enter to submit quickly</p>
-                            <button class="comment-submit-btn bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Post Comment
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Comments List -->
-                <div class="comments-list">
-                    <!-- Comments will be dynamically loaded here -->
-                </div>
             </div>
         </div>
 

@@ -94,7 +94,7 @@ class CommonComponents {
                                 </div>
                                 <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-xl border border-gray-100 p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 z-50">
                                     <p class="text-sm text-gray-600 mb-2">Email me at:</p>
-                                    <a href="mailto:vishal.agrawal@gmail.com" class="text-blue-600 hover:text-blue-800 font-medium break-all">vishal.agrawal@gmail.com</a>
+                                    <a href="mailto:RebootingwithAI@gmail.com" class="text-blue-600 hover:text-blue-800 font-medium break-all">RebootingwithAI@gmail.com</a>
                                 </div>
                             </div>
                             
@@ -112,13 +112,6 @@ class CommonComponents {
                                    class="text-gray-400 hover:text-blue-600 transition-colors duration-200"
                                    aria-label="LinkedIn">
                                     <i class="fab fa-linkedin text-xl"></i>
-                                </a>
-                                <a href="https://www.youtube.com/@RebootingwithAI" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer"
-                                   class="text-gray-400 hover:text-red-600 transition-colors duration-200"
-                                   aria-label="YouTube">
-                                    <i class="fab fa-youtube text-xl"></i>
                                 </a>
                             </div>
                         </div>
@@ -147,7 +140,7 @@ class CommonComponents {
                         <div class="px-6 py-4 border-t border-gray-100">
                             <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3">Connect</p>
                             <div class="flex space-x-6">
-                                <a href="mailto:vishal.agrawal@gmail.com" class="text-gray-500 hover:text-blue-600">
+                                <a href="mailto:RebootingwithAI@gmail.com" class="text-gray-500 hover:text-blue-600">
                                     <i class="fas fa-envelope text-xl"></i>
                                 </a>
                                 <a href="https://github.com/a521206/simple-agent-examples" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-gray-700">
@@ -156,9 +149,7 @@ class CommonComponents {
                                 <a href="https://www.linkedin.com/in/vishalagrawal1999/" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-blue-600">
                                     <i class="fab fa-linkedin text-xl"></i>
                                 </a>
-                                <a href="https://www.youtube.com/@RebootingwithAI" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-red-600">
-                                    <i class="fab fa-youtube text-xl"></i>
-                                </a>
+                                <!-- YouTube link removed -->
                             </div>
                         </div>
                     </div>
