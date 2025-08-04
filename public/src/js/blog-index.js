@@ -38,16 +38,19 @@ class BlogIndex {
      * Ensures common components and blog interactions are ready, then loads post stats.
      */
     async init() {
-        initCommonComponents(); // Initialize common UI components
-
-        // Initialize BlogInteractions instance
-        this.blogInteractionsInstance = new BlogInteractions();
-        // Wait for the BlogInteractions instance to complete its internal initialization
-        // (which includes Firebase auth and Firestore listeners).
-        await this.blogInteractionsInstance.init(); 
-        
-        this.bindEvents(); // Bind DOM events
-        await this.updateAllPostStats(); // Load initial stats for all posts
+        try {
+            // Initialize BlogInteractions instance
+            this.blogInteractionsInstance = new BlogInteractions();
+            // Wait for the BlogInteractions instance to complete its internal initialization
+            // (which includes Firebase auth and Firestore listeners).
+            await this.blogInteractionsInstance.init(); 
+            
+            this.bindEvents(); // Bind DOM events
+            await this.updateAllPostStats(); // Load initial stats for all posts
+        } catch (error) {
+            console.error('Error initializing BlogIndex:', error);
+            throw error; // Re-throw to be caught by the constructor's error handler
+        }
     }
 
     /**
@@ -267,10 +270,33 @@ class BlogIndex {
      * Public method to add a new post ID to the list of tracked posts.
      * @param {string} postId - The ID of the new post.
      */
-    addPostId(postId) {
+    /**
+     * Updates stats for a specific post
+     * @param {string} postId - The ID of the post to update
+     */
+    async updatePostStats(postId) {
+        if (!this.blogInteractionsInstance) {
+            console.warn('Cannot update post stats: BlogInteractions instance is not available.');
+            return;
+        }
+
+        try {
+            const stats = await this.blogInteractionsInstance.getPostStats(postId);
+            this.updatePostUI(postId, stats);
+            await this.updateLikeButtonState(postId);
+        } catch (error) {
+            console.error(`Failed to update stats for post ${postId}:`, error);
+        }
+    }
+
+    /**
+     * Adds a new post ID to track and updates its stats
+     * @param {string} postId - The ID of the post to add
+     */
+    async addPostId(postId) {
         if (!this.postIds.includes(postId)) {
             this.postIds.push(postId);
-            this.updatePostStats(postId);
+            await this.updatePostStats(postId);
         }
     }
 
@@ -288,14 +314,11 @@ class BlogIndex {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Create an instance of BlogIndex without exposing it globally
+    // Create an instance of BlogIndex
     const blogIndex = new BlogIndex();
     
-    // Store the instance in a non-global way if needed for debugging
-    if (process.env.NODE_ENV === 'development') {
-        // Only expose in development for debugging
-        window.__blogIndex = blogIndex;
-    }
+    // Expose for debugging if needed
+    window.__blogIndex = blogIndex;
 });
 
 export { BlogIndex };
