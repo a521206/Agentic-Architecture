@@ -17,8 +17,8 @@ class CommonComponents {
         return [
             { href: '/index.html', text: 'Home', id: 'home' },
             { href: '/src/pages/blog/index.html', text: 'Blog', id: 'blog' },
-            { href: '/learning-hub.html', text: 'Agentic Architecture', id: 'agentic' },
             { href: '/src/pages/news/index.html', text: 'News & Insights', id: 'news' },
+            { href: '/learning-hub.html', text: 'Agentic Architecture', id: 'agentic' },
             { href: '/src/pages/about.html', text: 'About', id: 'about' },
         ];
     }

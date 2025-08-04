@@ -53,7 +53,7 @@ Use the provided template (`src/templates/page-template.html`) for new pages:
     <!-- Common footer will be inserted here -->
     <div data-footer-placeholder></div>
     
-    <script src="../js/common-components.js"></script>
+    <script type="module" src="../js/common-components.js"></script>
 </body>
 </html>
 ```

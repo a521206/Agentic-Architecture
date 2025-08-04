@@ -1,17 +1,17 @@
 {
   "blog": {
-    "count": 3,
-    "lastUpdated": "2024-01-15"
+    "count": 1,
+    "lastUpdated": "2025-08-04"
   },
   "news": {
-    "count": 5,
-    "lastUpdated": "2024-01-15"
+    "count": 1,
+    "lastUpdated": "2025-08-04"
   },
   "journey": {
-    "years": 3,
+    "years": 4,
     "startDate": "2021-01-01"
   },
   "keyOfferings": 1,
-  "totalViews": 10000,
-  "subscribers": 250
+  "totalViews": 10150,
+  "subscribers": 255
 }
