@@ -1,0 +1,106 @@
+/* News Article Styling */
+.news-article {
+  max-width: 65ch; /* similar to max-w-prose */
+  margin-left: auto;
+  margin-right: auto;
+  color: #1f2937; /* text-gray-800 */
+
+
+
+/* Custom styles for the Inter font and subtle background pattern */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc; /* Lighter gray background */
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 20px 20px;
+
+
+/* Prose styling for article content */
+.prose h2 {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  margin-top: 2.5rem; /* mt-10 */
+  margin-bottom: 1rem; /* mb-4 */
+  color: #1a202c; /* text-gray-900 */
+
+
+.prose h3 {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  margin-top: 2rem; /* mt-8 */
+  margin-bottom: 0.75rem; /* mb-3 */
+  color: #1a202c; /* text-gray-900 */
+}
+
+.prose p {
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75; /* leading-relaxed */
+  margin-bottom: 1.25rem; /* mb-5 */
+  color: #4a5568; /* text-gray-700 */
+}
+
+.prose ul {
+  list-style: none; /* Remove default bullet */
+  padding-left: 0;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+.prose ul li {
+  position: relative;
+  padding-left: 1.75rem; /* Space for custom bullet */
+  margin-bottom: 0.75rem; /* mb-3 */
+  color: #4a5568; /* text-gray-700 */
+}
+
+.prose ul li::before {
+  content: "\2022"; /* Unicode for a solid bullet */
+  color: #3b82f6; /* Blue bullet */
+  font-size: 1.25rem; /* Larger bullet */
+  position: absolute;
+  left: 0;
+  top: 0.125rem; /* Adjust vertical alignment */
+}
+
+/* Highlight box */
+/* Highlight box */
+.news-highlight {
+  background-color: #eff6ff; /* bg-blue-50 */
+  border-left: 4px solid #3b82f6; /* border-blue-500 */
+  padding: 1.5rem; /* p-6 */
+  margin-top: 2rem; /* my-8 */
+  margin-bottom: 2rem;
+  border-radius: 0 0.5rem 0.5rem 0; /* rounded-r-lg */
+  box-shadow: inset 0 2px 4px 0 rgba(59, 130, 246, 0.05); /* shadow-inner */
+}
+}
+
+.news-highlight h3 {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: bold;
+  color: #1a202c; /* text-gray-900 */
+  margin-bottom: 1rem; /* mb-4 */
+  display: flex;
+  align-items: center;
+}
+}
+
+.news-highlight i {
+  margin-right: 0.75rem; /* mr-3 */
+  color: #2563eb; /* text-blue-600 */
+}
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .prose h2 {
+    font-size: 1.5rem;
+  }
+  
+  .prose h3 {
+    font-size: 1.25rem;
+  }
+  
+  .prose p, .prose li {
+    font-size: 1rem;
+  }
+}

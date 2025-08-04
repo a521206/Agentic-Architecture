@@ -4,57 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UTCP: The DNS of the Agentic World - Agentic Architecture Blog</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS CDN for JIT mode with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/custom-styles.css">
-    <link rel="stylesheet" href="../../css/blog-interactions.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .header-gradient {
-            background-image: linear-gradient(to right, #e0f2fe, #bfdbfe, #dbeafe);
-        }
-    </style>
+    <!-- Custom Blog Post Styles -->
+    <link rel="stylesheet" href="/src/css/blog-post.css">
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="antialiased">
+
     <div id="header-placeholder"></div>
 
-    <div class="max-w-4xl mx-auto px-4 py-8">
-        <!-- Article Header -->
-        <header class="header-gradient rounded-3xl shadow-2xl p-12 mb-16 text-center border border-blue-300">
+    <!-- Article Header -->
+    <header class="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 md:py-24 shadow-xl rounded-b-3xl text-center">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-center mb-4">
-                <span class="bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full">AI Architecture</span>
-                <span class="mx-3 text-gray-400">•</span>
-                <span class="text-gray-600 text-sm">January 15, 2024</span>
+                <span class="inline-block px-4 py-1.5 text-sm font-bold bg-blue-500 rounded-full mb-5 shadow-md uppercase tracking-wide">AI Architecture</span>
+                <span class="mx-3 text-blue-200">•</span>
+                <span class="text-blue-200 text-sm"><i class="far fa-calendar-alt mr-2"></i> January 15, 2024</span>
             </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-6 tracking-tight leading-tight">UTCP: The DNS of the Agentic World</h1>
-        </header>
-
-        <div id="feature-image">
-            <img src="images/mcpvsupcp.png" alt="UTCP: The DNS of the Agentic World" class="w-full rounded-2xl shadow-lg">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-7 drop-shadow-lg">
+                UTCP: The DNS of the Agentic World
+            </h1>
         </div>
+    </header>
 
-        <!-- Article Content -->
-        <article class="prose prose-lg max-w-none">
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
-                <p class="text-gray-700 leading-relaxed mb-6">
+    <!-- Feature Image -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <img src="images/mcpvsupcp.png" alt="UTCP: The DNS of the Agentic World" class="w-full rounded-2xl shadow-lg">
+    </div>
+
+    <!-- Article Content -->
+    <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+            <div class="max-w-prose mx-auto prose">
+                <p class="text-2xl font-semibold text-gray-800 mb-10 leading-relaxed">
                     The rise of AI agents is reshaping how businesses operate, automating complex workflows and unlocking unprecedented efficiency. But as organizations race to integrate these intelligent agents with their existing systems, a critical question emerges: how do we enable AI agents to seamlessly discover and interact with the vast ecosystem of tools we've spent decades building?
                 </p>
                 
-                <p class="text-gray-700 leading-relaxed mb-6">
+                <p class="text-2xl font-semibold text-gray-800 leading-relaxed">
                     Enter the Universal Tool Calling Protocol (UTCP). It's poised to become the "DNS of the agentic world"—a universal, scalable, and efficient standard for connecting AI agents directly to enterprise systems.
                 </p>
             </div>
+        </div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+            <div class="max-w-prose mx-auto prose">
                 <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <i class="fas fa-exclamation-triangle text-orange-500 mr-3"></i>
                     The Pitfall of the Middleman: Understanding the "Wrapper Tax"
                 </h2>
                 
-                <p class="text-gray-700 leading-relaxed mb-6">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
                     An early approach to AI integration, the Model Context Protocol (MCP), relies on a middleman architecture. This protocol requires developers to build and maintain dedicated "MCP Servers" that act as translators between an agent's request and a tool's native API. This creates a "Wrapper Tax" with four key costs:
                 </p>
 
@@ -100,20 +103,22 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-100 border-l-4 border-gray-500 p-4 mb-6">
+                <div class="bg-gray-100 border-l-4 border-gray-500 p-4 mb-6 rounded-r">
                     <p class="text-gray-700 italic">
                         For an enterprise with hundreds or thousands of services, this tax compounds into a significant drain on resources, undermining the very efficiency that AI promises to deliver.
                     </p>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+            <div class="max-w-prose mx-auto prose">
                 <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <i class="fas fa-network-wired text-green-500 mr-3"></i>
                     UTCP: Direct, Efficient, and Scalable Discovery
                 </h2>
                 
-                <p class="text-gray-700 leading-relaxed mb-6">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
                     The Universal Tool Calling Protocol (UTCP) takes a radically different approach. It functions as a universal discovery layer—a standardized "manual" that tools use to describe themselves. UTCP provides a catalog where agents can look up a tool's essential information.
                 </p>
 
@@ -181,33 +186,35 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+            <div class="max-w-prose mx-auto prose">
                 <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <i class="fas fa-balance-scale text-orange-500 mr-3"></i>
                     When to Use MCP Strategically
                 </h2>
                 
-                <p class="text-gray-700 leading-relaxed mb-6">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
                     The MCP server approach can be beneficial in specific, targeted scenarios:
                 </p>
 
                 <div class="space-y-4 mb-6">
-                    <div class="bg-orange-50 border-l-4 border-orange-400 p-4">
+                    <div class="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r">
                         <h3 class="font-bold text-orange-800 mb-2">Abstracting Complexity</h3>
                         <p class="text-orange-700 text-sm">
                             For a small number of highly complex or inconsistent legacy systems, a dedicated server can abstract the chaos and present a clean, standardized interface to the agent.
                         </p>
                     </div>
                     
-                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r">
                         <h3 class="font-bold text-yellow-800 mb-2">Rapid Third-Party Integration</h3>
                         <p class="text-yellow-700 text-sm">
                             When integrating an external service where you cannot modify the underlying architecture, a middleman can serve as a quick adapter to make it agent-compatible.
                         </p>
                     </div>
                     
-                    <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-r">
                         <h3 class="font-bold text-red-800 mb-2">Centralized Control</h3>
                         <p class="text-red-700 text-sm">
                             A server can be used to enforce centralized logic like rate limiting, specialized logging, or custom business rules that you don't want to build into every agent.
@@ -215,92 +222,82 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-8 mb-8">
+        <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100 mb-8">
+            <div class="max-w-prose mx-auto prose">
                 <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center">
                     <i class="fas fa-road text-blue-500 mr-3"></i>
                     The Path Forward: A Hybrid Approach
                 </h2>
                 
-                <p class="text-gray-700 leading-relaxed mb-6">
+                <p class="text-lg text-gray-700 leading-relaxed mb-6">
                     The future of enterprise AI lies in a smart, frictionless framework that connects agents to tools. The overhead of the "Wrapper Tax" makes MCP unsuitable as a universal solution. Instead, enterprises may adopt UTCP as the primary discovery layer for all tools and strategically using MCP-style servers where they provide clear value.
                 </p>
 
-                <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-6">
-                    <p class="text-gray-800 font-medium text-center">
+                <div class="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-6 text-center">
+                    <p class="text-gray-800 font-medium text-lg">
                         By doing this, organizations can maximize ROI, streamline operations, and build a future-proof architecture where AI agents navigate the enterprise with ease and efficiency.
                     </p>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <!-- Blog Interactions Section -->
-        <div class="blog-interactions bg-white rounded-2xl shadow-lg p-6 mt-8">
+        <!-- Blog Interactions Section (Simplified for standalone HTML) -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mt-8 max-w-prose mx-auto">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Engage with this article:</h3>
             <!-- Engagement Stats -->
-            <div class="engagement-stats">
-                <div class="engagement-stat">
-                    <i class="fas fa-heart"></i>
-                    <span class="like-count">0</span>
+            <div class="flex justify-around items-center mb-6 text-gray-600 text-lg">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heart text-red-500"></i>
+                    <span class="font-semibold">0</span>
                     <span>likes</span>
                 </div>
-                <div class="engagement-stat">
-                    <i class="fas fa-comment"></i>
-                    <span class="comment-count">0</span>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-comment text-blue-500"></i>
+                    <span class="font-semibold">0</span>
                     <span>comments</span>
                 </div>
             </div>
 
             <!-- Interaction Buttons -->
-            <div class="interaction-buttons">
-                <button class="like-btn text-gray-500 hover:text-blue-600">
+            <div class="flex justify-center space-x-4 mb-6">
+                <button class="flex items-center space-x-2 px-5 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200">
                     <i class="far fa-heart"></i>
                     <span>Like</span>
                 </button>
-                <button class="comment-toggle-btn text-gray-500 hover:text-blue-600" onclick="toggleComments()">
+                <button class="flex items-center space-x-2 px-5 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors duration-200">
                     <i class="far fa-comment"></i>
                     <span>Comment</span>
                 </button>
             </div>
 
-            <!-- Comments Container -->
-            <div class="comments-container" id="comments-container">
-                <!-- Comment Form -->
-                <div class="comment-form">
-                    <h4 class="text-lg font-semibold text-gray-900 mb-4">Leave a Comment</h4>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="comment-author" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                            <input type="text" id="comment-author" class="comment-author-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name" maxlength="50">
-                        </div>
-                        <div>
-                            <label for="comment-text" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
-                            <textarea id="comment-text" class="comment-input w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share your thoughts..." rows="4" maxlength="500"></textarea>
-                            <div class="character-counter">
-                                <span class="current-count">0</span>/500 characters
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-500">Press Ctrl+Enter to submit quickly</p>
-                            <button class="comment-submit-btn bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Post Comment
-                            </button>
-                        </div>
+            <!-- Comment Form (Static placeholder) -->
+            <div class="border-t border-gray-200 pt-6">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Leave a Comment</h4>
+                <div class="space-y-4">
+                    <div>
+                        <label for="comment-author" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input type="text" id="comment-author" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Your name">
                     </div>
-                </div>
-
-                <!-- Comments List -->
-                <div class="comments-list">
-                    <!-- Comments will be dynamically loaded here -->
+                    <div>
+                        <label for="comment-text" class="block text-sm font-medium text-gray-700 mb-1">Comment</label>
+                        <textarea id="comment-text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Share your thoughts..." rows="4"></textarea>
+                    </div>
+                    <div class="flex justify-end">
+                        <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-medium shadow-md">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Post Comment
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </article>
 
-    <!-- Footer Placeholder - common-components.js will inject content here -->
     <div id="footer-placeholder"></div>
 
-    <!-- Firebase SDK -->
+    <!-- Firebase SDK (kept as in original, though not actively used in this static HTML) -->
     <script type="importmap">
     {
         "imports": {
@@ -311,36 +308,8 @@
         }
     }
     </script>
-    
-    <!-- Application Scripts -->
     <script type="module" src="../../js/common-components.js"></script>
     <script type="module" src="../../js/blog-interactions.js"></script>
-    <script type="module" src="../../js/app.js"></script>
-    
-    <!-- Initialize Blog Interactions -->
-    <script type="module">
-        import { BlogInteractions } from '../../js/blog-interactions.js';
-        
-        // Initialize blog interactions when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            window.blogInteractions = new BlogInteractions();
-            
-            // Expose toggleComments function to global scope for HTML onclick
-            window.toggleComments = function() {
-                const container = document.getElementById('comments-container');
-                const toggleBtn = document.querySelector('.comment-toggle-btn span');
-                if (container && toggleBtn) {
-                    if (container.classList.contains('open')) {
-                        container.classList.remove('open');
-                        toggleBtn.textContent = 'Comment';
-                    } else {
-                        container.classList.add('open');
-                        toggleBtn.textContent = 'Hide Comments';
-                    }
-                }
-            };
-        });
-    </script>
 
 </body>
 </html>
