@@ -328,7 +328,21 @@ class NavigationManager {
                 const stat = el.getAttribute('data-stat');
                 if (stats[stat]) {
                     // Check if the stat exists in the JSON structure
-                    const value = stats[stat].count || stats[stat];
+                    let value;
+                    if (typeof stats[stat] === 'object') {
+                        // For objects, try to get a meaningful value
+                        if (stats[stat].count !== undefined) {
+                            value = stats[stat].count;
+                        } else if (stats[stat].years !== undefined) {
+                            value = stats[stat].years;
+                        } else {
+                            // Fallback to string representation of the object
+                            value = JSON.stringify(stats[stat]);
+                        }
+                    } else {
+                        // For simple values, use them directly
+                        value = stats[stat];
+                    }
                     el.textContent = value + (el.hasAttribute('data-add-plus') ? '+' : '');
                 }
             });
