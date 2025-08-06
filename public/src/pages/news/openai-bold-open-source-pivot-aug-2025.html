@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OpenAI’s Bold Open-Source Pivot: New Models Released, Ecosystem Rallies - Agentic Architecture</title>
+  <!-- Tailwind CSS CDN for JIT mode with plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Custom CSS for news articles -->
+  <link rel="stylesheet" href="/src/css/news-article.css">
+</head>
+<body class="antialiased">
+  <div id="header-placeholder"></div>
+
+  <!-- Article Header -->
+  <header class="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 md:py-24 shadow-xl rounded-b-3xl">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <span class="inline-block px-4 py-1.5 text-sm font-bold bg-blue-500 rounded-full mb-5 shadow-md uppercase tracking-wide">AI NEWS</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-7 drop-shadow-lg">
+          OpenAI’s Bold Open-Source Pivot: New Models Released, Ecosystem Rallies
+        </h1>
+        <div class="flex items-center justify-center space-x-6 text-base text-blue-200">
+          <span><i class="far fa-calendar-alt mr-2"></i> August 6, 2025</span>
+          <span><i class="far fa-clock mr-2"></i> 4 min read</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article Content -->
+  <article class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white p-8 md:p-12 rounded-2xl shadow-lg border border-gray-100">
+      <div class="max-w-prose mx-auto prose">
+        <p class="text-2xl font-semibold text-gray-800 mb-10 leading-relaxed">
+          In a significant strategic shift, OpenAI announced it is open-sourcing two foundational AI systems that power ChatGPT. The company says this move will “accelerate research, expand access, and enable safer AI via transparent scrutiny.” The release—licensed for broad research and commercial use—instantly reshapes the competitive landscape and could speed up model iteration cycles across the industry.
+        </p>
+
+        <h2>What’s being open-sourced</h2>
+        <p>The following components are the focus of this release:</p>
+        <ul>
+          <li><strong>Core model architectures and training scaffolding:</strong> Reference implementations, optimized training loops, and evaluation suites designed for reproducibility and responsible scaling.</li>
+          <li><strong>Inference/runtime components:</strong> High‑performance decoding stacks and safety‑filter hooks that enable pluggable policy layers for enterprise controls and governance.</li>
+        </ul>
+        <p>
+          While weights for the latest frontier models are not included, the release meaningfully lowers the barrier to build, test, and integrate competitive assistants and domain‑specific copilots. For many labs and enterprises, this collapses months of platform engineering into days.
+        </p>
+
+        <h2>GPT‑OSS: Capabilities, Pricing, and Where It Wins</h2>
+        <p>
+          The <strong>GPT‑OSS</strong> family is designed for open deployment with strong coding and agentic performance at favorable cost points. Below is a focused breakdown of GPT‑OSS tiers, with peers referenced only for context.
+        </p>
+
+        <h3>High‑End: GPT‑OSS&nbsp;120B</h3>
+        <ul>
+          <li><strong>Best for:</strong> complex code synthesis, long‑context planning, agent workflows at scale.</li>
+          <li><strong>Indicative specs:</strong> ~131K tokens, high throughput (hundreds of t/s class), strong tool‑use and function calling.</li>
+          <li><strong>Cost posture:</strong> competitive open‑weight pricing (e.g., ~$0.15/$0.75 per 1M input/output tokens class).</li>
+          <li><strong>Context vs. peers:</strong> rivals top large models in general coding/agentic breadth while undercutting many proprietary options on price and deployment flexibility.</li>
+        </ul>
+
+        <h3>Mid‑Tier: GPT‑OSS&nbsp;20B</h3>
+        <ul>
+          <li><strong>Best for:</strong> daily coding, batch refactors, CI/CD QA loops, and iterative development with low latency.</li>
+          <li><strong>Indicative specs:</strong> ~131K tokens, very high speed (up to ~1,000 t/s class) enabling responsive IDE and pipeline integrations.</li>
+          <li><strong>Cost posture:</strong> aggressive pricing (e.g., ~$0.10/$0.50 per 1M input/output tokens class) with excellent VFM.</li>
+          <li><strong>Context vs. peers:</strong> among the fastest open options for large‑thread workflows, ideal when throughput matters more than absolute peak accuracy.</li>
+        </ul>
+
+        <h2>Why GPT‑OSS Matters</h2>
+        <ul>
+          <li><strong>Open deployment:</strong> permissive use and on‑prem/edge viability for regulated or private codebases.</li>
+          <li><strong>Agentic strength:</strong> robust function calling, tool use, and integration hooks for orchestration frameworks.</li>
+          <li><strong>Operational efficiency:</strong> high throughput at favorable pricing enables scale without runaway costs.</li>
+          <li><strong>Ecosystem fit:</strong> reference runtimes and evaluation scaffolds reduce platform work and speed time‑to‑production.</li>
+        </ul>
+
+        <hr />
+        <p class="text-sm text-gray-500">
+          Benchmarks and pricing indicative as of August&nbsp;2025; specifics vary by provider and deployment. Validate against your workloads before standardizing.
+        </p>
+
+        <div class="mt-16 pt-8 border-t border-gray-200 text-center">
+          <p class="text-sm text-gray-500">Last updated: August 6, 2025</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div id="footer-placeholder"></div>
+
+  <script type="module" src="../../js/common-components.js"></script>
+</body>
+</html>
