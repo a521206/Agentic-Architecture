@@ -16,8 +16,7 @@ class CommonComponents {
     get navLinksConfig() {
         return [
             { href: '/index.html', text: 'Home', id: 'home' },
-            { href: '/src/pages/blog/index.html', text: 'Blog', id: 'blog' },
-            { href: '/src/pages/news/index.html', text: 'News & Insights', id: 'news' },
+            { href: '/src/pages/blog/index.html', text: 'Blog & Insights', id: 'blog' },
             { href: '/learning-hub.html', text: 'Agentic Architecture', id: 'agentic' },
             { href: '/src/pages/about.html', text: 'About', id: 'about' },
         ];
@@ -45,14 +44,12 @@ class CommonComponents {
             '': 'home',
             'learning-hub.html': 'agentic',
             'about.html': 'about',
-            'blog': 'blog', // Simplified id for blog
-            'news': 'news'  // Simplified id for news
+            'blog': 'blog' // Simplified id for blog
         };
         const activeId = activeMap[currentPage] || currentPage.split('.')[0];
-        // Special handling for blog and news pages to match their 'id'
+        // Special handling for blog pages to match their 'id'
         if (currentPage.includes('blog')) return linkId === 'blog' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
-        if (currentPage.includes('news')) return linkId === 'news' ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
-        
+
         return linkId === activeId ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600';
     }
 

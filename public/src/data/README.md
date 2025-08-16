@@ -31,8 +31,7 @@ node src/scripts/update-stats.js
 
 ### 3. **Statistics Tracked**
 
-- **Blog Posts**: Counts HTML files in `src/pages/blog/` (excluding index.html)
-- **News Articles**: Counts HTML files in `src/pages/news/` (excluding index.html)
+- **Blog Posts**: Counts HTML files in `src/pages/blog/` (excluding index.html) - includes both blog posts and news articles
 - **Years Journey**: Calculated from start date (2021-01-01)
 - **Key Offerings**: Fixed at 1 (Agentic Architecture)
 - **Total Views**: Estimated based on content count
@@ -48,15 +47,14 @@ src/
 ├── scripts/
 │   └── update-stats.js     # Update script
 └── pages/
-    ├── blog/               # Blog posts directory
-    └── news/               # News articles directory
+    └── blog/               # Blog posts and news articles directory
 ```
 
 ### 5. **Adding New Content**
 
 When you add new blog posts or news articles:
 
-1. **Add the HTML file** to the appropriate directory
+1. **Add the HTML file** to the blog directory (`src/pages/blog/`)
 2. **Run the update script** to refresh statistics
 3. **The main page will automatically** display updated counts
 
@@ -67,11 +65,7 @@ Edit `stats.json` manually for custom values:
 ```json
 {
   "blog": {
-    "count": 10,
-    "lastUpdated": "2024-01-15"
-  },
-  "news": {
-    "count": 15,
+    "count": 25,
     "lastUpdated": "2024-01-15"
   }
 }

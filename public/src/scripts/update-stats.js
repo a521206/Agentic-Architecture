@@ -11,7 +11,6 @@ const path = require('path');
 
 // Paths relative to the script location
 const BLOG_DIR = path.join(__dirname, '../pages/blog');
-const NEWS_DIR = path.join(__dirname, '../pages/news');
 const STATS_FILE = path.join(__dirname, '../data/stats.json');
 
 function countHtmlFiles(directory) {
@@ -37,24 +36,18 @@ function calculateYearsJourney(startDate = '2021-01-01') {
 
 function updateStats() {
     console.log('🔄 Updating statistics...');
-    
-    // Count files
+
+    // Count files (blog now includes both blog posts and news articles)
     const blogCount = countHtmlFiles(BLOG_DIR);
-    const newsCount = countHtmlFiles(NEWS_DIR);
     const yearsJourney = calculateYearsJourney();
-    
-    console.log(`📝 Found ${blogCount} blog posts`);
-    console.log(`📰 Found ${newsCount} news articles`);
+
+    console.log(`📝 Found ${blogCount} total posts (blog posts + news articles)`);
     console.log(`📅 Journey: ${yearsJourney} years`);
-    
+
     // Create stats object
     const stats = {
         blog: {
             count: blogCount,
-            lastUpdated: new Date().toISOString().split('T')[0]
-        },
-        news: {
-            count: newsCount,
             lastUpdated: new Date().toISOString().split('T')[0]
         },
         journey: {
@@ -62,7 +55,7 @@ function updateStats() {
             startDate: '2021-01-01'
         },
         keyOfferings: 1,
-        totalViews: 10000 + (blogCount * 100) + (newsCount * 50), // Estimated
+        totalViews: 10000 + (blogCount * 100), // Estimated
         subscribers: 250 + (blogCount * 5) // Estimated growth
     };
     
