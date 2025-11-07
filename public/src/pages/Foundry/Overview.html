@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palantir Foundry Technical Evaluation</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root { font-family: 'Inter', sans-serif; }
+        /* Simple utility for subtle shadow */
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Header -->
+        <header class="text-center py-10 bg-white rounded-xl shadow-lg mb-8">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-indigo-700 tracking-tight">
+                Palantir Foundry: Technical Evaluation
+            </h1>
+            <p class="mt-3 text-xl text-gray-500 max-w-3xl mx-auto">
+                Shifting from one-way reporting to bidirectional, closed-loop operational intelligence.
+            </p>
+        </header>
+
+        <!-- Executive Summary & Strategic Shift -->
+        <section class="mb-12">
+            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-lg card-shadow">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-3 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-5.618 2.04M12 6.5V18m0 0l-4-4m4 4l4-4"></path></svg>
+                    Strategic Vision: Closed-Loop Operations
+                </h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Foundry is an enterprise data operations platform that fundamentally reimagines enterprise data architecture. Unlike traditional linear pipelines (Data → Transformation → Reporting), Foundry **closes the loop between operations and analytics**. It captures decisions, actions, and learnings from frontline workers and feeds them back into data systems as **"fuel for the business,"** enabling continuous organizational learning and process improvement.
+                </p>
+                <p class="mt-4 text-sm font-semibold text-indigo-600">
+                    This shift replaces the static producer-consumer paradigm with dynamic, bidirectional information flow.
+                </p>
+            </div>
+        </section>
+
+        <!-- Core Architecture: The Ontology -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-gray-200 pb-2 flex items-center">
+                <svg class="w-6 h-6 mr-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                Core Architecture: The Palantir Ontology
+            </h2>
+            <p class="mb-6 text-gray-700">
+                The Ontology is the proprietary semantic layer that models business reality as a living digital twin, sitting atop integrated data sources and systems.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Semantic Layer -->
+                <div class="bg-white p-6 rounded-xl card-shadow border border-gray-100">
+                    <div class="text-xl font-semibold text-gray-900 mb-3">1. Semantic Layer ("Nouns")</div>
+                    <p class="text-sm text-gray-600">
+                        Integrates disparate data into dynamic **Objects** (e.g., assets, customers) and **Links** defining relationships. Defines the "nouns" of the enterprise in a business-intuitive way.
+                    </p>
+                    <ul class="mt-3 text-xs text-gray-500 list-disc ml-4">
+                        <li>Respects federated data architecture (Snowflake, Databricks).</li>
+                        <li>Uses bidirectional data syncs.</li>
+                    </ul>
+                </div>
+
+                <!-- Kinetic Layer -->
+                <div class="bg-white p-6 rounded-xl card-shadow border border-gray-100">
+                    <div class="text-xl font-semibold text-gray-900 mb-3">2. Kinetic Layer ("Verbs")</div>
+                    <p class="text-sm text-gray-600">
+                        Captures dynamic business behavior as a real-time graph of **Actions** (e.g., maintenance performed, orders placed). Integrates ML models as the "verbs" that drive processes.
+                    </p>
+                    <ul class="mt-3 text-xs text-gray-500 list-disc ml-4">
+                        <li>Captures full process execution.</li>
+                        <li>Enables model deployment and governance.</li>
+                    </ul>
+                </div>
+
+                <!-- Dynamic Layer -->
+                <div class="bg-white p-6 rounded-xl card-shadow border border-gray-100">
+                    <div class="text-xl font-semibold text-gray-900 mb-3">3. Dynamic Layer ("Intelligence")</div>
+                    <p class="text-sm text-gray-600">
+                        Binds **Palantir AIP (AI Platform)** to objects and actions to enable **AI-Guided Decisions**, simulations, and decision context capture for continuous model improvement.
+                    </p>
+                    <ul class="mt-3 text-xs text-gray-500 list-disc ml-4">
+                        <li>Multi-Step Simulations (What-if analysis).</li>
+                        <li>Captures decision rationale and lineage.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Capabilities & Stack -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-gray-200 pb-2 flex items-center">
+                <svg class="w-6 h-6 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                Key Technical Capabilities & Stack
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Stack Details -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">End-to-End Stack Components</h3>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start">
+                            <span class="font-bold w-32 shrink-0 text-indigo-600">Integration:</span>
+                            <span class="flex-1">200+ connectors, handles messy/heterogeneous data.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="font-bold w-32 shrink-0 text-indigo-600">Transformation:</span>
+                            <span class="flex-1">**Contour** (low-code visual), PySpark, engine-agnostic build system.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="font-bold w-32 shrink-0 text-indigo-600">Deployment:</span>
+                            <span class="flex-1">Managed by **Apollo**, supports Cloud, On-Prem, **Edge AI**, and Air-Gapped environments.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="font-bold w-32 shrink-0 text-indigo-600">Applications:</span>
+                            <span class="flex-1">**Workshop/Slate** for rapid development of read-write operational apps.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Differentiators -->
+                <div class="bg-white p-6 rounded-xl card-shadow">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Foundry Differentiators</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2 font-bold text-lg">✓</span> **Operations-First:** Focus on frontline worker deployment and decision capture.
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2 font-bold text-lg">✓</span> **Ontology Architecture:** Business-centric modeling over technical database schemas.
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2 font-bold text-lg">✓</span> **Governed AI (AIP):** Secure LLM integration and AI agent development within regulated frameworks.
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2 font-bold text-lg">✓</span> **Enterprise Security:** Role/Classification/Purpose-based access controls with immutable audit trails.
+                        </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-900 mt-6 mb-4">Limitations</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                         <li class="flex items-center">
+                            <span class="text-red-500 mr-2 font-bold text-lg">!</span> High initial investment and cost of entry.
+                        </li>
+                         <li class="flex items-center">
+                            <span class="text-red-500 mr-2 font-bold text-lg">!</span> Steep learning curve and dependency on proprietary Ontology.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <footer class="mt-12 py-6 border-t border-gray-200">
+            <div class="text-center mb-6">
+                <p class="text-gray-500 text-sm">
+                    **Conclusion:** Foundry is ideal for large enterprises in regulated industries with operational decision urgency and complex integration requirements, seeking to transition from insights-to-dashboard reporting toward integrated decision capture and continuous operational learning.
+                </p>
+            </div>
+            
+            <!-- Related Content -->
+            <div class="text-center">
+                <h3 class="text-lg font-semibold text-gray-800 mb-3">Explore Further</h3>
+                <a href="./AI_Mesh.html" class="inline-flex items-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition duration-200 shadow-md hover:shadow-lg">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    AI Mesh Architecture
+                </a>
+                <p class="text-sm text-gray-500 mt-2">Learn more about the modular, production-grade AI Mesh architecture that powers Palantir's integrated platform.</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
