@@ -28,11 +28,73 @@
                 <h2>Scale vs. Composability</h2>
 
                 <!-- VISUAL POSITIONING MATRIX -->
-                <div class="matrix-image-wrapper">
-                    <img src="PositioningMatrix.png" alt="Enterprise Intelligence Platform Positioning Matrix - Scale vs. Composability" class="matrix-image">
-                </div>
-                <!-- END VISUAL POSITIONING MATRIX -->
+                <div class="matrix-container">
+                    
+                    <!-- Axes Lines (Center) -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <!-- Horizontal Axis (Composability) -->
+                        <div class="h-px w-full bg-gray-900 absolute opacity-70 border-dashed border-gray-400"></div>
+                        <!-- Vertical Axis (Scale) -->
+                        <div class="w-px h-full bg-gray-900 absolute opacity-70 border-dashed border-gray-400"></div>
+                    </div>
 
+                    <!-- Axis Labels -->
+                    <!-- Y-Axis (Scale) -->
+                    <div class="y-axis-label high-scale">SCALE (High Maturity, Deep Enterprise Penetration) $\rightarrow$</div>
+                    <div class="y-axis-label low-scale">SCALE (Data Infrastructure Foundation) $\leftarrow$</div>
+
+                    <!-- X-Axis (Composability) - Top Labels (Hidden by default, used for mobile) -->
+                    <div class="absolute top-0 left-0 w-1/2 text-center pt-2 text-xs text-gray-500 font-medium md:hidden">Low Composability</div>
+                    <div class="absolute top-0 right-0 w-1/2 text-center pt-2 text-xs text-gray-500 font-medium md:hidden">High Composability</div>
+
+                    <!-- Quadrants Grid -->
+                    <div class="grid grid-cols-2 grid-rows-2 h-full w-full pointer-events-none">
+
+                        <!-- Q1: Top-Left (High Scale / Low Composability) -->
+                        <div class="quadrant-cell">
+                            <div class="matrix-quadrant-box bg-red-50 border-red-300 text-red-800">
+                                <h3 class="text-xl font-extrabold mb-1 text-red-900">Enterprise Fortress</h3>
+                                <p class="text-base font-semibold text-gray-700 mb-3">Palantir Foundry</p>
+                                <p class="text-sm text-gray-600">Highly mature and integrated platform with deep enterprise penetration (government, manufacturing, healthcare). However, it's monolithic, proprietary, and cost-intensive. Best suited for top-tier enterprise deployments requiring security, lineage, and full-stack orchestration.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q2: Top-Right (High Scale / High Composability) -->
+                        <div class="quadrant-cell">
+                            <div class="matrix-quadrant-box bg-green-50 border-green-300 text-green-800">
+                                <h3 class="text-xl font-extrabold mb-1 text-green-900">Open Intelligence Fabric</h3>
+                                <p class="text-base font-semibold text-gray-700 mb-3">MVP Foundry-Lite Platform</p>
+                                <p class="text-sm text-gray-600">Combines enterprise-grade scalability with open composable architecture. Reproduces Foundry's semantic, kinetic, and dynamic layers using open-source components (DuckDB, Neo4j, Kafka, MLflow, ArgoCD). Targeted at organizations seeking Foundry-style intelligence with flexibility, extensibility, and 10&times; lower TCO.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q3: Bottom-Left (Low Scale / Low Composability) -->
+                        <div class="quadrant-cell">
+                            <div class="matrix-quadrant-box bg-yellow-50 border-yellow-300 text-yellow-800">
+                                <h3 class="text-xl font-extrabold mb-1 text-yellow-900">Legacy Reporting</h3>
+                                <p class="text-base font-semibold text-gray-700 mb-3">Traditional BI & Legacy Systems</p>
+                                <p class="text-sm text-gray-600">Older, static, siloed systems (SAP BW, Cognos, Tableau Server). Provide reporting and dashboards without feedback or operational integration. Represent the "pre-FEEDBACK" generation of analytics.</p>
+                            </div>
+                        </div>
+
+                        <!-- Q4: Bottom-Right (Low Scale / High Composability) -->
+                        <div class="quadrant-cell">
+                            <div class="matrix-quadrant-box bg-blue-50 border-blue-300 text-blue-800">
+                                <h3 class="text-xl font-extrabold mb-1 text-blue-900">Data Infrastructure</h3>
+                                <p class="text-base font-semibold text-gray-700 mb-3">Databricks, Snowflake, Modern Data Stack</p>
+                                <p class="text-sm text-gray-600">Highly composable and developer-friendly ecosystems for analytics, ML, and warehousing. Strong data handling, but limited operational feedback integration or real-time AI loop capabilities. Serve as strong data foundations but not full intelligence meshes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- X-Axis Labels (Composability) - Bottom Labels -->
+                <div class="flex max-w-[900px] mx-auto mt-4 justify-between">
+                    <div class="w-1/2 text-center font-bold text-lg text-gray-700 pr-2">Low Composability</div>
+                    <div class="w-1/2 text-center font-bold text-lg text-gray-700 pl-2">High Composability</div>
+                </div>
+
+                <!-- END VISUAL POSITIONING MATRIX -->
 
                 <h2><i class="fas fa-puzzle-piece"></i> Strategic Interpretation</h2>
                 <div class="table-wrapper">
