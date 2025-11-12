@@ -1,6 +1,25 @@
 /* Global Styles */
+:root {
+    --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'Courier New', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+    --fs-h1: 2.5rem;   /* 40px */
+    --fs-h2: 1.75rem;  /* 28px */
+    --fs-h3: 1.25rem;  /* 20px */
+    --fs-body: 1rem;   /* 16px */
+    --fs-caption: 0.9rem;
+
+    --fw-regular: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-extrabold: 800;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    font-weight: var(--fw-regular);
 }
 
 /* Smooth scrolling */
@@ -41,6 +60,19 @@ html {
     opacity: 1;
     visibility: visible;
 }
+
+/* Typography utilities (centralized) */
+h1 { font-size: var(--fs-h1); font-weight: var(--fw-bold); line-height: 1.15; }
+h2 { font-size: var(--fs-h2); font-weight: var(--fw-semibold); }
+h3 { font-size: var(--fs-h3); font-weight: var(--fw-semibold); }
+p, li, dd { font-size: var(--fs-body); font-weight: var(--fw-regular); }
+
+/* Code blocks and monospace */
+code, pre { font-family: var(--font-mono); }
+
+/* Small utility classes to replace inline styles */
+.muted-caption { color: #999; font-size: var(--fs-caption); }
+.inline-link { color: #6366f1; text-decoration: none; font-weight: var(--fw-semibold); }
 
 /* Gradient Backgrounds */
 .header-gradient {
