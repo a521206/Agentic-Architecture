@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Positioning matrix for enterprise intelligence platforms">
+    <title>Enterprise Intelligence Platform Landscape (Positioning Matrix) - RebootingwithAI</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Positioning Matrix Styles -->
+    <link rel="stylesheet" href="../../css/positioning-matrix.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Page Header -->
+            <header>
+                <h1>Enterprise Intelligence Platform Landscape (Positioning Matrix)</h1>
+            </header>
+
+            <!-- Page Content -->
+            <section>
+                <h2>Scale vs. Composability</h2>
+
+                <!-- VISUAL POSITIONING MATRIX -->
+                <div class="matrix-image-wrapper">
+                    <img src="PositioningMatrix.png" alt="Enterprise Intelligence Platform Positioning Matrix - Scale vs. Composability" class="matrix-image">
+                </div>
+                <!-- END VISUAL POSITIONING MATRIX -->
+
+
+                <h2><i class="fas fa-puzzle-piece"></i> Strategic Interpretation</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Dimension</th>
+                                <th>Palantir Foundry (Q1)</th>
+                                <th class="highlight">MVP Foundry-Lite (Q2)</th>
+                                <th>Databricks / Snowflake (Q4)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Architecture</td>
+                                <td>Closed ecosystem, end-to-end integrated</td>
+                                <td class="highlight">Modular and open, plug-and-play via APIs</td>
+                                <td>Component-based, focused on analytics and ML workloads</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">AI Feedback Loop</td>
+                                <td>Fully embedded across Ontology and AIP</td>
+                                <td class="highlight">Event-driven feedback via Kafka + MLflow + Dagster</td>
+                                <td>Minimal — requires custom pipelines</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Governance</td>
+                                <td>High-grade, military-level</td>
+                                <td class="highlight">Policy-driven (OPA + Keycloak)</td>
+                                <td>Cloud-native IAM, moderate lineage</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Adoption Model</td>
+                                <td>Centralized enterprise IT</td>
+                                <td class="highlight">Agile teams, mid-market enterprises</td>
+                                <td>Developers, data scientists</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Cost Structure</td>
+                                <td>Multi-million dollar license</td>
+                                <td class="highlight">&lt;$10K/month cloud-native stack</td>
+                                <td>Pay-as-you-go compute</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Positioning Summary</td>
+                                <td>Enterprise fortress</td>
+                                <td class="highlight font-bold">Open intelligence fabric</td>
+                                <td>Data infrastructure foundation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="insight-heading">Summary Positioning Insight</h2>
+                <div class="insight-section">
+                    <p class="insight-text">Palantir Foundry dominates the <strong>high-scale, low-composability quadrant</strong> with unmatched depth but limited flexibility.</p>
+
+                    <p class="insight-text">Databricks and Snowflake lead in open data infrastructure but stop short of operational intelligence.</p>
+
+                    <p class="insight-text">The MVP Foundry-Lite Platform <strong>bridges the gap</strong> — combining Foundry's closed-loop operational intelligence with the openness of modern data stacks.</p>
+
+                    <p class="insight-text">It becomes the <strong>"composable intelligence mesh"</strong> that empowers startups and mid-market enterprises to achieve <strong>Palantir-level capabilities without Palantir-level cost</strong>.</p>
+                </div>
+
+                <h2 class="insight-heading">Elevator Summary</h2>
+                <div class="elevator-summary">
+                    <p class="elevator-text">MVP Foundry-Lite sits in the <strong class="highlight-green">top-right quadrant</strong> — the only space where enterprise scalability meets open composability.</p>
+
+                    <p class="elevator-text">It is positioned as the <strong class="highlight-green">"Foundry for everyone"</strong> — delivering operational intelligence, feedback-driven AI, and governed scalability on a modern open foundation.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <!-- Firebase scripts are retained but dependencies on local JS files are removed -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+</body>
+</html>

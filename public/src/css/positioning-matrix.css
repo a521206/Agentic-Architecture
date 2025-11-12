@@ -1,0 +1,287 @@
+/* ============================================
+   Positioning Matrix Styles
+   ============================================ */
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* Layout */
+main {
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+section {
+    max-width: 100%;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    border-bottom: 2px solid #d1d5db;
+    padding-bottom: 0.75rem;
+    margin: 2.5rem 0 1.5rem 0;
+}
+
+h2 i {
+    margin-right: 0.5rem;
+    color: #6b7280;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: #4b5563;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header p {
+    font-size: 1.125rem;
+    color: #6b7280;
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+/* Matrix Image */
+.matrix-image-wrapper {
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.matrix-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f9fafb;
+}
+
+th {
+    border: 1px solid #e5e7eb;
+    padding: 0.875rem;
+    text-align: left;
+    font-weight: 600;
+    color: #111827;
+    font-size: 0.9375rem;
+}
+
+th.highlight {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+td {
+    border: 1px solid #e5e7eb;
+    padding: 0.875rem;
+    color: #4b5563;
+    font-size: 0.9375rem;
+}
+
+td.highlight {
+    background-color: #ecfdf5;
+}
+
+td.font-semibold {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+td.font-bold {
+    font-weight: 700;
+    color: #111827;
+}
+
+tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+/* Insight Sections */
+.insight-heading {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    border-bottom: 2px solid #d1d5db;
+    padding-bottom: 0.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.insight-section {
+    margin-bottom: 2.5rem;
+}
+
+.insight-text {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #374151;
+}
+
+/* Text Emphasis Styles */
+.highlight-red {
+    color: #991b1b;
+    font-weight: 600;
+}
+
+.highlight-green {
+    color: #166534;
+    font-weight: 600;
+}
+
+.highlight-blue {
+    color: #1e40af;
+    font-weight: 600;
+}
+
+/* Elevator Summary */
+.elevator-summary {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.elevator-text {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #374151;
+}
+
+.elevator-text:last-child {
+    margin-bottom: 0;
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #111827;
+    color: white;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+}
+
+.back-to-top:hover {
+    background-color: #374151;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .insight-heading {
+        font-size: 1.5rem;
+    }
+
+    .insight-text,
+    .elevator-text {
+        font-size: 0.9375rem;
+    }
+
+    .elevator-summary {
+        padding: 1.25rem;
+    }
+
+    .matrix-image-wrapper {
+        margin: 2rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .insight-heading {
+        font-size: 1.375rem;
+    }
+
+    .insight-text,
+    .elevator-text {
+        font-size: 0.875rem;
+    }
+
+    .elevator-summary {
+        padding: 1rem;
+    }
+
+    .matrix-image-wrapper {
+        margin: 1.5rem 0;
+    }
+}
+
