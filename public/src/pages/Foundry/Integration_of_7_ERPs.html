@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi‑ERP Digital Twin: Technical Architecture</title>
+    <link rel="stylesheet" href="../../css/custom-styles.css">
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-10 border-b border-gray-700 pb-4">
+            <h1 class="text-4xl font-extrabold">Rapid Integration of 7+ ERPs for a Production Digital Twin</h1>
+            <p class="mt-2">Foundry Mechanisms for Real-Time Supply, Inventory, and Procurement Optimization</p>
+        </header>
+
+        <!-- Section 1: Architectural Foundation -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">1. Core Architecture and Ontology</h2>
+            <div class="p-6 rounded-lg shadow-xl">
+                <p class="mb-4">A global manufacturer unified seven different ERP systems (SAP, Oracle, AX, legacy systems) using Palantir Foundry. The Ontology served as the canonical business layer, transforming raw ERP signals into a real-time production digital twin capable of driving procurement, scheduling, and allocation decisions at scale.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Integrated Execution Workflow -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">2. Integrated Execution Flow: Data → Ontology → Digital Twin → Apps → Actions</h2>
+            <p class="mb-6">The end-to-end workflow forms a closed-loop operational system that connects ingestion, harmonization, digital twin modeling, decision applications, and writeback actions.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="quarter-width">Phase</th>
+                        <th class="quarter-width">Mechanism (Foundry)</th>
+                        <th>Functionality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data Ingestion</td>
+                        <td>Contours, Pipeline Builder, ERP Connectors</td>
+                        <td>Connects 7+ ERPs and harmonizes BOMs, work orders, demand, lead times, and supplier data into versioned datasets.</td>
+                    </tr>
+                    <tr>
+                        <td>Transformation</td>
+                        <td>Code Workbooks, Visual Pipelines</td>
+                        <td>Normalizes production calendars, computes consumption forecasts, transforms multi-ERP schemas into unified canonical structures.</td>
+                    </tr>
+                    <tr>
+                        <td>Ontology Modeling</td>
+                        <td>Ontology Builder, Lineage Engine</td>
+                        <td>Defines canonical objects (Plant, Material, Supplier, Work Order, Inventory Position) with relationships powering the digital twin.</td>
+                    </tr>
+                    <tr>
+                        <td>Digital Twin</td>
+                        <td>Ontology Runtime, Simulation Kernel</td>
+                        <td>Computes stockout risks, supply coverage, cross-plant reallocation signals, and simulates demand/supplier disruptions.</td>
+                    </tr>
+                    <tr>
+                        <td>Operational Apps</td>
+                        <td>App Builder, Alerts, Tasking</td>
+                        <td>Provides planner surfaces for material risk, reallocation recommendations, purchase order adjustments, and exception handling.</td>
+                    </tr>
+                    <tr>
+                        <td>Action Execution</td>
+                        <td>Writeback APIs</td>
+                        <td>Updates ERP systems with purchase orders, transfer orders, and schedule changes, completing the analytics→action loop.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: High-Level Data → Ontology → App → Action Diagram -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">3. High-Level Data → Ontology → App → Action Flow</h2>
+            <pre class="p-6 bg-gray-900 rounded-lg text-sm leading-6 overflow-x-auto">
+SAP / Oracle / AX / Legacy ERPs / WMS / TMS / Forecasts
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   INGESTION & HARMONIZATION                                      │
+│   Foundry Pipelines, ERP Connectors, CDC Feeds                   │
+└──────────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   TRANSFORMATION LAYER                                            │
+│   BOM Normalization • Lead Times • Consumption Forecasts          │
+└──────────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   ONTOLOGY (CANONICAL OBJECT MODEL)                              │
+│   Plant • Material • Supplier • Work Order • Inventory Position   │
+└──────────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   DIGITAL TWIN                                                    │
+│   Stockout Prediction • Coverage Windows • What-if Simulations    │
+└──────────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   PLANNER APPLICATIONS                                            │
+│   Reallocation Signals • PO Optimization • Alerts & Tasking       │
+└──────────────────────────────────────────────────────────────────┘
+                │
+                ▼
+┌──────────────────────────────────────────────────────────────────┐
+│   ACTION & WRITEBACK                                              │
+│   ERP Updates (POs, Transfers, Schedules)                          │
+└──────────────────────────────────────────────────────────────────┘
+            </pre>
+            <a href="https://www.palantir.com/docs/foundry/use-case-examples/optimizing-production-with-erp-data-across-the-supply-chain/?utm_source=chatgpt.com" target="_blank">
+                <img src="diagram-optimizing-production-with-erp-data-across-the-supply-chain.jpg" alt="Optimizing Production with ERP Data Across the Supply Chain" class="w-full rounded-lg shadow-xl mt-6">
+            </a>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heineken AI Supply Chain: Technical Architecture</title>
+    <link rel="stylesheet" href="../../css/custom-styles.css">
+</head>
+<body class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-10 border-b border-gray-700 pb-4">
+            <h1 class="text-4xl font-extrabold">Heineken Supply Chain Example</h1>
+            <p class="mt-2">Foundry and AIP Mechanisms for Proactive Supply Chain Management</p>
+        </header>
+
+        <!-- Section 1: Architectural Foundation -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">1. Core Architecture and Ontology</h2>
+            <div class="p-6 rounded-lg shadow-xl">
+                <p class="mb-4">The solution is built on Palantir Foundry, using the Ontology as a real-time digital twin. This twin unifies siloed data—overcoming limitations of traditional ERP static snapshots—to enable granular simulation and autonomous action via the AI Platform (AIP).</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Integrated Execution Workflow -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">2. Integrated AI Execution Loop</h2>
+            <p class="mb-6">The entire process is a continuous feedback loop: Data Ingestion → Risk Modeling/Simulation → Agent Activation → Execution → Model Refinement.</p>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="quarter-width">Phase</th>
+                        <th class="quarter-width">Mechanism (Foundry/AIP)</th>
+                        <th>Functionality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data Ingestion</td>
+                        <td>Foundry Pipeline Builder, Streaming Feeds</td>
+                        <td>Pulls real-time data from SAP ERPs, carrier APIs, vessel tracking, and warehouse sensors to populate the Ontology.</td>
+                    </tr>
+                    <tr>
+                        <td>Risk Modeling</td>
+                        <td>AIP Agents, Code Workbooks, Optimization Engines</td>
+                        <td>Executes high-fidelity simulations (RL, Monte Carlo, Genetic) against the Digital Twin to quantify financial/availability risks.</td>
+                    </tr>
+                    <tr>
+                        <td>Action & Oversight</td>
+                        <td>Workshop App, Natural Language Generation</td>
+                        <td>Agents generate optimal action proposals. Planners use the Workshop interface for review, supported by natural-language explanations of the decision logic.</td>
+                    </tr>
+                    <tr>
+                        <td>Automated Execution</td>
+                        <td>Bi-directional APIs, DCS Updates</td>
+                        <td>Approved actions automatically update distribution systems, dispatch trucks, or notify external partners (e.g., port operators).</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section 3: Agent Capabilities Deep Dive -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6">3. Agent Capabilities and Mechanisms</h2>
+
+            <!-- Agent 1: Abu -->
+            <div class="agent-section mb-8">
+                <h3 class="text-xl font-bold mb-3 flex items-center">Abu: Stockout Prevention (Queue Optimization) <span class="ml-4 text-sm font-normal px-2 py-half rounded">RL Agent</span></h3>
+                <p class="mb-4">Objective: Preempt shortages caused by FIFO processing inefficiencies and long import lead times. Forecast inventory trajectories ≤ 3 weeks ahead.</p>
+
+                <h4 class="font-semibold text-lg mb-2">Technical Workflow Steps:</h4>
+                <ul class="list-decimal step-list space-y-2 text-sm">
+                    <li>Data Ingestion: Foundry Pipeline Builder streams ERP orders, sensor data, and vessel ETAs into the Ontology, creating a unified view across 450 distributors.</li>
+                    <li>Risk Modeling: Code Workbooks execute AIP simulations on the Ontology's digital twin, forecasting three-week horizons and identifying imbalances (e.g., 95% stockout probability).</li>
+                    <li>Prioritization: Workshop app surfaces Abu's RL-driven recommendations for queue jumps, with ontology-linked explanations for planner review.</li>
+                    <li>Execution: Bi-directional Foundry connectors update the DCS for automated dispatches, closing the loop with feedback to refine Ontology models.</li>
+                    <li>Outcomes: Estimated 20-30% stockout reduction; planner time savings by $\mathbf{50\%}$.</li>
+                </ul>
+            </div>
+
+            <!-- Agent 2: Dr. Dre -->
+            <div class="agent-section mb-8">
+                <h3 class="text-xl font-bold mb-3 flex items-center">Dr. Dre: Fee Avoidance (Container Retrieval Optimization) <span class="ml-4 text-sm font-normal px-2 py-half rounded">Optimization Solvers</span></h3>
+                <p class="mb-4">Objective: Minimize demurrage and detention fees (which can exceed $500 per container daily) by autonomously optimizing container retrieval sequences.</p>
+
+                <h4 class="font-semibold text-lg mb-2">Technical Workflow Steps:</h4>
+                <ul class="list-decimal step-list space-y-2 text-sm">
+                    <li>Data Ingestion: Foundry streaming feeds integrate vessel manifests, port APIs, and RFID data into the Ontology for real-time container tracking.</li>
+                    <li>Risk Modeling: Ontology computes fee timelines; Code Workbooks run AIP Monte Carlo simulations (1,000+ scenarios) against the digital twin to flag high-risk units.</li>
+                    <li>Prioritization: Workshop visualizes Dr. Dre's solver-optimized retrieval sequences, prioritizing Heineken loads via ontology relationships.</li>
+                    <li>Execution: Foundry APIs enable automated DCS updates and port notifications, with Apollo ensuring consistent deployments across environments.</li>
+                    <li>Outcomes: Fee avoidance reached near-zero for prioritized loads; 15-25% logistics cost savings; 2-3 day reduction in dwell times.</li>
+                </ul>
+            </div>
+
+            <!-- Agent 3: Smart Shipping -->
+            <div class="agent-section">
+                <h3 class="text-xl font-bold mb-3 flex items-center">Smart Shipping: Load Optimization (Demand Balancing) <span class="ml-4 text-sm font-normal px-2 py-half rounded">Genetic Algorithm</span></h3>
+                <p class="mb-4">Objective: Dynamically correct regional forecast-demand mismatches by swapping cargo between containers two days prior to departure.</p>
+
+                <h4 class="font-semibold text-lg mb-2">Technical Workflow Steps:</h4>
+                <ul class="list-decimal step-list space-y-2 text-sm">
+                    <li>Data Ingestion: Pipeline Builder aggregates production, POS, and manifest data into the Ontology, revealing regional gaps via linked objects (e.g., Houston excess vs. Seattle shortage).</li>
+                    <li>Risk Modeling: Code Workbooks apply AIP genetic algorithms to simulate swaps on the digital twin, evaluating constraints like weight and emissions.</li>
+                    <li>Prioritization: Workshop app presents optimized proposals (e.g., 20% cargo exchanges) with interactive ontology visualizations for review.</li>
+                    <li>Execution: Bi-directional connectors auto-update carrier bookings and DCS, with feedback loops refining the Ontology for iterative improvements.</li>
+                    <li>Outcomes: Regional balance improved by 25-40%; transport waste/costs cut by 10-15%.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Reference -->
+        <section class="mt-12">
+            <h2 class="text-2xl font-semibold mb-6">Reference</h2>
+            <p><a href="https://www.youtube.com/watch?v=uo6y_0DG29I" target="_blank">YouTube Video</a></p>
+        </section>
+    </div>
+</body>
+</html>
