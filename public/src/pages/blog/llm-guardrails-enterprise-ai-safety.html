@@ -114,21 +114,8 @@ print("\nValidation passed:", response.validation_passed)</pre>
 
   <div id="footer-placeholder"></div>
 
-  <!-- Script to load header and footer -->
-  <script>
-    // Load header
-    fetch('../../components/header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-      });
-
-    // Load footer
-    fetch('../../components/footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer-placeholder').innerHTML = data;
-      });
-  </script>
+  <!-- Scripts -->
+  <script type="module" src="../../js/common-components.js"></script>
+  <script type="module" src="../../js/blog-interactions.js"></script>
 </body>
 </html>
